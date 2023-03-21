@@ -2,18 +2,16 @@
 \section{Multivariate functional principal components analysis} % (fold)
 \label{sec:functional_principal_components_analysis}
 
-
-Let $\{\lambda_k\}_{k \geq 1}$ such that $\lambda_1 \geq \lambda_2 \geq \dots \geq 0$ be the set of eigenvalues and $\Phi = \{\phi_k\}_{k \geq 1}$ be the set of eigenfunctions of the covariance operator $\Gamma$. The set $\Phi$ contains an infinite number of elements and forms a complete orthonormal basis of $\HH$.
-
+Using the results in \cite{happMultivariateFunctionalPrincipal2015}, and the theory of Hilbert-Schmidt operators, e.g. \cite{reedMethodsModernMathematical1980}, there exists a complete orthonormal basis 
+$\Phi = \{\phi_k\}_{k \geq 1} \subset \HH$ associated to a set of real numbers $\{\lambda_k\}_{k \geq 1}$ such that $\lambda_1 \geq \lambda_2 \geq \dots \geq 0$ that satisfy
 \begin{equation}\label{eq:eigendecomposition}
-    \Gamma \phi_k = \lambda_k \phi_k
+    \Gamma \phi_k = \lambda_k \phi_k, \quad\text{and}\quad \lambda_k \rightarrow 0 \quad\text{as}\quad k \rightarrow \infty.
 \end{equation}
-
-Using the multivariate Karhunen-Loève theorem \cite{happMultivariateFunctionalPrincipal2015}, we get
+The set $\{\lambda_k\}_{k \geq 1}$ contains the eigenvalues of the covariance operator $\Gamma$ and $\Phi$ contains the associated eigenfunctions. Using the multivariate Karhunen-Loève theorem \citep{happMultivariateFunctionalPrincipal2015}, we obtain the decomposition
 \begin{equation}
     X(\pointt) = \mu(\pointt) + \sum_{k = 1}^\infty \mathfrak{c}_k \phi_k(\pointt), \quad \pointt \in \TT{}
 \end{equation}
-where $\mathfrak{c}_{k} = \inH{X - \mu}{\phi_k}$ are the projection of the centered curve onto the eigenfunctions. We have that $\EE(\mathfrak{c}_{k}) = 0$, $\EE(\mathfrak{c}_{k}^2) = \lambda_k$ and $\EE(\mathfrak{c}_{k}\mathfrak{c}_{r}) = 0$ for $k \neq r$.
+where $\mathfrak{c}_{k} = \inH{X - \mu}{\phi_k}$ are the projection of the centered curve onto the eigenfunctions. We have that $\EE(\mathfrak{c}_{k}) = 0$, $\EE(\mathfrak{c}_{k}^2) = \lambda_k$ and $\EE(\mathfrak{c}_{k}\mathfrak{c}_{k^\prime}) = 0$ for $k \neq k^\prime$. Note that the coefficients $\mathfrak{c}_k$ are scalar random variables while $\phi_k$ is a vector of functions. Let us call $\Phi$ the multivariate functional principal component analysis basis.
 
 \textcolor{red}{********}
 

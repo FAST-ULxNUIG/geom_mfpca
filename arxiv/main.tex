@@ -3,6 +3,7 @@
 \usepackage[english]{babel}
 \usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 
+\usepackage{natbib}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -14,6 +15,9 @@
 \usepackage{subcaption}
 
 \usepackage{dsfont}
+
+\usepackage{xr}
+\externaldocument[SM]{main_sup.tex}
 
 % -------------
 % Some commands
@@ -32,6 +36,7 @@
 \newcommand{\EE}{\mathbb{E}} % Expectation
 \newcommand{\RR}{\mathbb{R}} % R
 \newcommand{\NN}{\mathbb{N}} % N
+\newcommand{\XX}{\mathcal{X}} % set X
 \newcommand{\dd}{{\rm d}}
 
 % Spaces
@@ -84,7 +89,7 @@
 % -------------
 
 
-\title{A geometric interpretation of the multivariate functional principal components analysis}
+\title{On the usage of the Gram matrix for the multivariate functional principal components analysis}
 \author{%
 Steven Golovkine\thanks{MACSI, Department of Mathematics and Statistics, University of Limerick, Ireland \href{mailto:steven.golovkine@ul.ie}{steven.golovkine@ul.ie}}
 \and
@@ -125,6 +130,8 @@ Dimension reduction has a major importance in functional data analysis (FDA). Th
 % APPENDIX ------
 \appendix
 
+\input{appendix/geometric_appendix}
+
 \input{appendix/mfpca_appendix}
 
 
@@ -135,7 +142,7 @@ S. Golovkine was partially supported by Science Foundation Ireland under Grant N
 
 
 % REFERENCES ---------
-\bibliographystyle{abbrv}
+\bibliographystyle{apalike}
 \bibliography{./biblio.bib}
 
 \end{document}
