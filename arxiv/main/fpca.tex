@@ -1,0 +1,160 @@
+%!TEX root=../main.tex
+\section{Multivariate functional principal components analysis} % (fold)
+\label{sec:functional_principal_components_analysis}
+
+
+Let $\{\lambda_k\}_{k \geq 1}$ such that $\lambda_1 \geq \lambda_2 \geq \dots \geq 0$ be the set of eigenvalues and $\Phi = \{\phi_k\}_{k \geq 1}$ be the set of eigenfunctions of the covariance operator $\Gamma$. The set $\Phi$ contains an infinite number of elements and forms a complete orthonormal basis of $\HH$.
+
+\begin{equation}\label{eq:eigendecomposition}
+    \Gamma \phi_k = \lambda_k \phi_k
+\end{equation}
+
+Using the multivariate Karhunen-Loève theorem \cite{happMultivariateFunctionalPrincipal2015}, we get
+\begin{equation}
+    X(\pointt) = \mu(\pointt) + \sum_{k = 1}^\infty \mathfrak{c}_k \phi_k(\pointt), \quad \pointt \in \TT{}
+\end{equation}
+where $\mathfrak{c}_{k} = \inH{X - \mu}{\phi_k}$ are the projection of the centered curve onto the eigenfunctions. We have that $\EE(\mathfrak{c}_{k}) = 0$, $\EE(\mathfrak{c}_{k}^2) = \lambda_k$ and $\EE(\mathfrak{c}_{k}\mathfrak{c}_{r}) = 0$ for $k \neq r$.
+
+\textcolor{red}{********}
+
+Assume that for each component $p = 1, \dots, P$, there exists a basis of functions $\{\psi_k^{(p)}\}_{1 \leq k \leq K_p}$ such that each component of the curves can be extended into this basis
+\begin{equation}
+X^{(p)}(t) = \sum_{k = 1}^{K_p} c_{pk}\psi_k^{(p)}(t), \quad t \in \TT{0}.
+\end{equation} 
+The $p$th component of the mean function is given by
+\begin{equation}
+    \mu^{(p)}(t) = \sum_{k = 1}^{K_p} \EE(c_{pk})\psi_k^{(p)}(t), \quad t \in \TT{0}.
+\end{equation}
+The $(p, q)$th entry of the covariance function is given by
+\begin{equation}
+    C_{pq}(s, t) = \sum_{k = 1}^{K_p} \sum_{l = 1}^{K_q} \left(\EE(c_{pk} c_{ql}) - \EE(c_{pk})\EE(c_{ql})\right)\psi_k^{(p)}(s)\psi_l^{(q)}(t), \quad s, t \in \TT{0}.
+\end{equation}
+
+Using $N$ realizations of the process, we have $X(t) = C\Psi(t)$ where
+\begin{equation}
+    X(t) = \begin{pmatrix}
+                X_1^{(1)}(t) & \cdots & X_1^{(P)}(t)\\
+                \vdots & \ddots & \vdots \\
+                X_N^{(1)}(t) & \cdots & X_N^{(P)}(t)
+            \end{pmatrix},
+\end{equation}
+\begin{equation}
+    C = \begin{pmatrix}
+            C^{(1)} & \cdots & C^{(P)} \\
+        \end{pmatrix}, \quad\text{with}\quad
+    C^{(p)} = \begin{pmatrix}
+            c_{1p1} & \cdots & c_{1pK_p} \\
+            \vdots & \ddots & \vdots \\
+            c_{Np1} & \cdots & c_{NpK_p}
+        \end{pmatrix}
+\end{equation}
+\begin{equation}
+    \Psi(t) = \begin{pmatrix}
+            \psi^{(1)}(t) & 0 & \cdots & 0\\
+            0 & \ddots & \ddots & \vdots \\
+            \vdots & \ddots & \ddots & 0 \\
+            0 & \cdots & 0 & \psi^{(P)}(t)
+        \end{pmatrix}, \quad\text{with}\quad
+    \Psi^{(p)}(t) = \begin{pmatrix}
+            \psi_1^{(p)}(t) \\
+            \vdots \\
+            \psi_{K_p}^{(p)}(t)
+        \end{pmatrix}.
+\end{equation}
+The estimation of the mean and covariance functions are given by
+\begin{equation}
+    \widehat{\mu}(t) = \frac{1}{N}\mathds{1}_N^\top C\Psi(t) \quad\text{and}\quad \widehat{C}(s, t) = \frac{1}{N}\Psi(s)^\top C^\top C \Psi(t).
+\end{equation}
+
+We denote by $W$ the matrix of inner products of the basis $\Psi$. The entries of $W$ are given by
+\begin{equation}
+    W_{k, l}^{(p)} = \inLp{\psi_k^{(p)}}{\psi_l^{(p)}}, \quad 1 \leq k, l \leq K_p, \quad 1 \leq p \leq P.
+\end{equation}
+
+\subsection{By diagonalization of the covariance operator} % (fold)
+\label{sub:by_diagonalization_of_the_covariance_operator}
+
+See \cite{happMultivariateFunctionalPrincipal2015}.
+
+% subsection by_diagonalization_of_the_covariance_operator (end)
+
+\subsection{By diagonalization of the inner product matrix} % (fold)
+\label{sub:by_diagonalization_of_the_inner_product_matrix}
+
+We can use the duality relation between row and column spaces of a data matrix to estimate the eigencomponents of the covariance operator. Consider the inner-product matrix $M$ with entries
+\begin{equation}
+    M_{ij} = \inH{X_i - \mu}{X_j - \mu}, \quad i, j = 1, \dots, N.
+\end{equation}
+Let $\{l_k\}_{1 \leq k \leq N}$ such that $l_1 \geq \dots \geq l_N \geq 0$ be the set of eigenvalues and $\{v_k\}_{1 \leq k \leq N}$ be the set of eigenvectors of the matrix $M$. The relationship between all nonzero eigenvalues of the covariance operator and the eigenvalues of $M$ is given by
+\begin{equation}\label{eq:eigenvalues_relation_p}
+    \widehat{\lambda}_k = \frac{l_k}{N}, \quad k = 1, 2, \dots, N,
+\end{equation}
+while the relationship between the multivariate eigenfunctions of the covariance operator and the orthonormal eigenvectors of $M$ is given by
+\begin{equation}\label{eq:eigenfunction_relation_p}
+    \widehat{\phi}_k(\pointt) = \sum_{i = 1}^N v_{ik}\left\{X_i(\pointt) - \mu(\pointt)\right\}, \quad \pointt \in \TT{}, \quad k = 1, 2, \dots, N, 
+\end{equation}
+where $v_{ik}$ is the $i$th entry of the vector $v_k$. The scores are then computed as the inner-product between the curves and the eigenfunctions and are given by
+\begin{equation}\label{eq:scores_relation_p}
+    \mathfrak{c}_{ik} = \sqrt{l_k}v_{ik}, \quad i = 1, 2, \dots, N, \quad k = 1, 2, \dots, N. 
+\end{equation}
+The derivation of these equalities are given in Appendix~\ref{sec:derivation_of_the_eigencomponents}.
+
+\textcolor{red}{add using the coefficient expansion}
+% subsection by_diagonalization_of_the_inner_product_matrix (end)
+
+
+\subsection{On the smoothing} % (fold)
+\label{sub:on_the_smoothing}
+
+Where should we do the smoothing in the case we estimate the eigencomponents using the inner product matrix?
+
+Using the covariance operator, \cite{ramsayFunctionalDataAnalysis2005} propose to smooth the eigenfunctions by penalizing their roughness by its integrated squared second derivative.
+
+Using the inner product matrix, we may think about multiple way to do it. First, we smooth all the curves beforehand using kernel regression or local polynomial (see \cite{golovkineLearningSmoothnessNoisy2022} for estimating the optimal bandwidth). Under the twice differentiable curve assumption, we may use the optimal bandwidth as defined by \cite{tsybakovIntroductionNonparametricEstimation2009}. Second, we could smooth the eigenfunctions directly, maybe using a smoothness penalty as in \cite{ramsayFunctionalDataAnalysis2005} by cross-validation.
+% subsection on_the_smoothing (end)
+
+\subsection{Sparse data} % (fold)
+\label{sub:sparse_data}
+
+I guess we should leave this part for another article.
+\textcolor{red}{What you should we do for sparse and irregularly sampled functional data? This question can be rewritten as how to compute the inner product between two curves while they are not sampled on the same grid and contains only few observations? One idea would be to consider the PACE algorithm \cite{yaoFunctionalDataAnalysis2005}. We might also only need to smooth each curve in ``a good way'' to estimate the curves on a common grid and apply the usual algorithm \cite{golovkineLearningSmoothnessNoisy2022}.}
+
+% subsection sparse_data (end)
+
+\subsection{Computational complexity} % (fold)
+\label{sub:computational_complexity}
+
+We describe the time and space complexity for the computation of the MFPCA algorithm using the covariance operator and the inner product matrix. Considering the observation of $N$ curves with $P$ components, we assume that all observations of the component $p$ are sampled on a common grid of $M_p$ points. For $a \in \NN$, let $M^a = \sum_{p} M_p^a$. Let $K$ be the number of multivariate eigenfunctions to estimate. For the estimation of the eigencomponents using the covariance operator, we need to compute the univariate eigencomponents for each component $p$. Let $K_p$ be the number of estimated eigencomponents for the component $p$. In this case, we note $K = \sum_{p} K_p$. While $K$ has the same interpretation for both the eigendecomposition of the covariance operator and the eigendecomposition of the inner product matrix, in the latter case, it is not computed as the summation over the univariate elements, but rather as the number of components needed to achieve a certain amount of variance explained (see Section \ref{sub:percentage_of_variance_explained}). Here, we also assume that the curves are perfectly observed, and thus no smoothing step is included in the expression of the time complexity. 
+
+To estimate the time complexity of an algorithm, we count the number of elementary operations realized, considering a fixed execution time for each elementary operation. Worst-case time complexity is usually considered; and this is what we do in the following. We first give the time complexity for the estimation of the eigencomponents using the covariance operator by expliciting the time complexity of each individual step (see \cite{happMultivariateFunctionalPrincipal2015} and Section~\ref{sub:by_diagonalization_of_the_covariance_operator}). For each component $p$, the time complexity of the estimation of the covariance matrix is $\bigO(NM_p^2)$, of the eigendecomposition of the matrix is $\bigO(M_p^3)$ and of the univariate score is $\bigO(NM_pK_p)$. Considering all the components, the time complexity is the sum over $p$ the univariate time complexity. The covariance matrix of the stacked univariate scores is then computed with a time complexity of $\bigO(NK^2)$, because the dimension of this matrix is $N \times K$. The eigendecomposition of this matrix has a time complexity of $\bigO(K^3)$. The final step is to compute the multivariate eigenfunctions and scores. For the estimation of the $K$ eigenfunctions, the time complexity is $\bigO(K\sum_{p} M_pK_p)$ and for the estimation of the scores, the time complexity is $\bigO(NK^2)$. Gathering all the results, the final complexity of the estimation of the eigencomponents using the eigendecomposition of the covariance operator is
+\begin{equation}\label{eq:time_compl_cov}
+    \bigO\left(NM^2 + M^3 + N\sum_{p = 1}^P M_pK_p + NK^2 + K^3 + K\sum_{p = 1}^P M_pK_p + NK^2\right).
+\end{equation}
+We now consider the time complexity of the estimation of the eigencomponents using the eigendecomposition of the inner product matrix (see Section~\ref{sub:by_diagonalization_of_the_inner_product_matrix}). The inner product between two curves can be estimated in $\bigO(M^1)$. There are $N^2$ terms in the matrix. The time complexity for the computation of the inner product matrix is then $\bigO(N^2M^1)$. The eigendecomposition of this matrix has a time complexity of $\bigO(N^3)$. For the multivariate eigenfunctions, the time complexity is $\bigO(KNP)$ and is $\bigO(KN)$ for the multivariate scores. Gathering all the results, the final complexity of the estimation of eigencomponents using the eigendecomposition of the inner product matrix is
+\begin{equation}\label{eq:time_compl_in_prod}
+    \bigO\left(N^2M^1 + N^3 + KNP + KN\right).
+\end{equation}
+
+\textcolor{red}{Develop for space complexity}
+
+\textcolor{red}{Comment on the results of the time complexity, explain the trade-off between the two, the leading term, etc.}
+
+\begin{remark}
+We can use the SVD in both case to make the algorithm faster as it allows to compute only the first $k$ eigenfunctions.
+\end{remark}
+
+% subsection computational_complexity (end)
+
+\subsection{Percentage of variance explained} % (fold)
+\label{sub:percentage_of_variance_explained}
+
+We argue that the percentage of variance explained in \cite{happMultivariateFunctionalPrincipal2015} is not the good one as they consider the variance explained by each of the components separately and not as a all. Using the inner product matrix however gives the right number of eigenfunctions for a given amount of variance explained.
+
+\textcolor{red}{See attached, a very brief simulation. It seems to show that choosing a univariate cut-off within each dimension (e.g., $95\%$), tends to overestimate the final amount of variance – the sum of the final eigenvalues is larger than the sum of the true eigenvalues. I did some reading -- Happ and Greven considered the effect of pve only on eigenfunction estimation. I’ve attached the relevant pages from their supplementary material. I’m not sure they considered eigenvalues or the total variation after. Moreover, I think (but not sure) they assume in their simulation that $M$ is known where they say $\min\{M_1 + M_2, M\}$; whereas in practice, it is obviously unknown. But maybe they’re just referring to M as the total number of sample eigenfunctions with non-zero eigenvalues (rather than the true number of multivariate eiegenfunctions).}
+
+Note that in \cite{happMultivariateFunctionalPrincipal2015}, the percentage of variance explained in not specified in the MFPCA algorithm. The number of components is specified and is chosen to be equal to be the minimum between $\sum_{p = 1}^P K_p$ and $K$.
+
+
+% subsection percentage_of_variance_explained (end)
+
+% section functional_principal_components_analysis (end)

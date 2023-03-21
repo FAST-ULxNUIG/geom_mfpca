@@ -1,0 +1,107 @@
+%!TEX root=../main.tex
+\section{Derivation of the eigencomponents} % (fold)
+\label{sec:derivation_of_the_eigencomponents}
+
+Using the Hilbert-Schmidt theorem, there exists a complete orthonormal basis of eigenvectors $\{v_k\}_{1 \leq k \leq N}$ of the inner-product matrix $M$ such that
+\begin{equation}\label{eq:eigen_inner_prod_p}
+    Mv_k = l_kv_k.
+\end{equation}
+Let $X = \left(X_1 - \mu, \dots, X_N - \mu\right)^\top$. Recall that, in the case of $P$-dimensional process, the realisations of the process $X_i,~i = 1, \cdots, N$ and $\mu$ are vectors of functions of length $P$, and thus $X$ is a matrix of functions of size $N \times P$. By left multiplying Equation~\eqref{eq:eigen_inner_prod_p} by $X^\top$, we obtain
+\begin{equation}\label{eq:eigen_inner_prod_left}
+    X^\top M v_k = l_k X^\top v_k.
+\end{equation} 
+Expanding Equation~\eqref{eq:eigen_inner_prod_left}, for each component $p = 1, \dots, P$, we have
+\begin{equation}\label{eq:inner_prod_p}
+    \sum_{i = 1}^N \sum_{j = 1}^N v_{jk}\left\{X_i^{(p)} - \mu^{(p)}\right\}\inH{X_i - \mu}{X_j - \mu} = l_k \sum_{i = 1}^N v_{ik}\left\{X_i^{(p)} - \mu^{(p)}\right\}.
+\end{equation}
+In the following, we note $[a]_p$ the $p$th entry of the vector $a$. Starting from the left side of Equation~\eqref{eq:inner_prod_p}, we get
+\begin{align}\label{eq:inner_prod_p_left}
+[X^\top M v_k]_p &= \sum_{i = 1}^N \sum_{j = 1}^N v_{jk} \left\{X_i^{(p)} - \mu^{(p)}\right\}\inH{X_i - \mu}{X_j - \mu}\\
+&= \sum_{q = 1}^P \int_{\TT{q}} \sum_{i = 1}^N \left\{X_i^{(p)} - \mu^{(p)}\right\} \left\{X_i^{(q)}(s) - \mu^{(q)}(s)\right\} \sum_{j = 1}^N v_{jk} \left\{X_j^{(q)}(s) - \mu^{(q)}(s)\right\} \dd s \\
+&= \sum_{q = 1}^P \int_{\TT{q}} N C_{pq}(\cdot, s)\sum_{j = 1}^N v_{jk} \left\{X_j^{(q)}(s) - \mu^{(q)}(s)\right\} \dd s \\
+&= N \sum_{j = 1}^N \inH{C_{p \cdot}(\cdot, \cdot)}{v_{jk} \left\{X_j - \mu\right\}} \\
+&= N \Gamma\left(\sum_{j = 1}^N v_{jk}\left\{X_j - \mu\right\} \right)^{(p)}\mkern-9mu(\cdot)
+\end{align}
+and, starting from the right side of Equation~\eqref{eq:inner_prod_p},
+\begin{equation}\label{eq:inner_prod_p_right}
+    [l_k X^\top v_k]_p = l_k \sum_{i = 1}^N v_{ik} \left\{X_i^{(p)} - \mu^{(p)}\right\}.
+\end{equation}
+From Equation~\eqref{eq:inner_prod_p_left} and Equation~\eqref{eq:inner_prod_p_right}, we obtain
+\begin{equation}
+    \Gamma\left(\sum_{j = 1}^N v_{jk} \left\{X_j - \mu\right\}\right)^{(p)}\mkern-9mu(\cdot) = \frac{l_k}{N} \sum_{i = 1}^N v_{ik}\left\{X_i^{(p)} - \mu^{(p)}\right\}, \quad\text{for all}~ p = 1, \dots, P.
+\end{equation}
+By identification in Equation~\eqref{eq:eigendecomposition}, we find that, for each components $p$,
+\begin{equation}
+\lambda_k = \frac{l_k}{N} \quad\text{and}\quad \phi_k^{(p)} = \sum_{i = 1}^N v_{ik}\left\{X_i^{(p)} - \mu^{(p)}\right\}, \quad k \geq 1.
+\end{equation}
+For $k \geq 1$, the norm of the eigenfunction is computed as the following:
+\begin{align*}
+\normH{\phi_k}^2 &= \sum_{i = 1}^N \sum_{j = 1}^N v_{ik} v_{jk}\inH{X_i - \mu}{X_j - \mu} = \sum_{i = 1}^N v_{ik} \sum_{j = 1}^N M_{ij} v_{jk} \\
+    &= \sum_{i = 1}^N v_{ik} l_k v_{ik} = l_k \normLp{v_k}^2 = l_k. \\
+\end{align*}
+In order to have an orthonormal basis of eigenfunction, we normalise the previously found $\phi_k$ by $1 / \sqrt{l_k}$.
+Concerning the estimation of the scores, for $i = 1, \dots, N$, for $k \geq 1$, we have
+\begin{align}
+    \widehat{\mathfrak{c}}_{ik} &= \inH{X_i - \mu}{\phi_k} = \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N v_{jk} \inH{X_i - \mu}{X_j - \mu}\\
+    &= \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N v_{jk}M_{ij} = \sqrt{l_k}v_{ik}.\\
+\end{align}
+
+\textcolor{red}{***********}
+
+Concerning the expansion of the data into the basis of function $\Psi$, we write 
+\begin{equation}
+    M = \left(CW^{1/2}\right)\left(CW^{1/2}\right)^\top.
+\end{equation}
+We also assume that $\widehat{\phi}_1, \widehat{\phi}_2, \dots$ the eigenfunctions of $\widehat{\Gamma}_N$ have a decomposition into the basis $\Psi$
+\begin{equation}
+    \widehat{\phi}_k(t) = 
+        \begin{pmatrix} 
+            \widehat{\phi}_k^{(1)}(t) \\
+            \vdots \\
+            \widehat{\phi}_k^{(P)}(t)
+        \end{pmatrix} = 
+        \begin{pmatrix} 
+            \psi^{(1) \top}(t) b_{1k} \\
+            \vdots \\
+            \psi^{(P) \top}(t) b_{Pk}
+        \end{pmatrix}, \quad\text{where}\quad
+        b_{pk} = \left(b_{p k 1}, \dots, b_{p k K_p} \right)^\top.
+\end{equation}
+
+We have, for all $t \in \TT{0}$, $p = 1, \dots, P$,
+\begin{align*}
+    \left(\widehat{\Gamma}_N \phi_k\right)^{(p)}(t) &= \sum_{q = 1}^P \int_{\TT{0}} \widehat{C}_{p q}(t, s)\phi_k^{(q)}(s)ds \\
+    &= \frac{1}{N}\sum_{q = 1}^P \int_{\TT{0}} \Psi(t)^{(p) \top} C^{(p) \top} C^{(q)} \Psi^{(q)}(s) \Psi^{(q)}(s)^\top b_{q k} ds \\
+    &= \frac{1}{N} \Psi(t)^{(p) \top} C^{(p) \top} \sum_{q = 1}^P C^{(q)} \int_{\TT{0}} \Psi^{(q)}(s) \Psi(s)^{(q) \top} ds b_{q k} \\
+    &= \frac{1}{N} \Psi(t)^{(p) \top} C^{(p) \top} \sum_{q = 1}^P C^{(q)} W^{(q)} b_{q k}. \\
+\end{align*}
+This equation is true for all $p = 1, \cdots, P$, this can be rewritten with matrices as
+\begin{equation}
+    \widehat{\Gamma}_N \phi_k(t) = \frac{1}{N}\Psi^\top(t) C^\top C W b_k.
+\end{equation}
+From the eigenequation, we have that
+\begin{equation}
+    \widehat{\Gamma}_N \phi_k(t) = \lambda_k \phi_k(t) \Longleftrightarrow \frac{1}{N} \Psi(t)^\top C^\top C W b_k = \lambda_k \Psi(t)^\top b_k, \quad t \in \TT{0}.
+\end{equation}
+Since this equation must be true for all $t \in \TT{0}$, this imply the equation
+\begin{equation}\label{eq:eigen_decom}
+    C^\top C W b_k = N\lambda_k b_k.
+\end{equation}
+As the eigenfunctions are assumed to be normalized, $\normH{\phi_k}^2 = 1$. And so, $b_k^\top W b_k = 1$. Let $u_k = W^{1/2}b_k$. Then, from Equation \eqref{eq:eigen_decom}, we obtain
+\begin{equation}\label{eq:eigen_cov_op}
+    W^{1/2} C^\top C W^{1/2} u_k = N\lambda_k u_k \Longleftrightarrow \left(C W^{1/2}\right)^\top \left(C W^{1/2}\right) u_k = N\lambda_k u_k.
+\end{equation}
+From the eigendecomposition of the matrix $M$, we get
+\begin{equation}\label{eq:eigen_inner_prod}
+    Mv_k = l_k v_k \Longleftrightarrow \left(C W^{1/2}\right)\left(C W^{1/2}\right)^T v_k = l_k v_k.
+\end{equation}
+The equations \eqref{eq:eigen_cov_op} and \eqref{eq:eigen_inner_prod} are eigenequations in the classical PCA case, with the duality $X^\top X$ and $XX^\top$. Following \cite{pagesMultipleFactorAnalysis2014}, we find that, for $1 \leq k \leq K$,
+\begin{equation}
+    \lambda_k = \frac{l_k}{N}, \quad v_k = \frac{1}{\sqrt{l_k}}C W^{1/2} u_k \quad\text{and}\quad u_k = \frac{1}{\sqrt{l_k}} W^{1/2} C^\top v_k.
+\end{equation}
+And finally, to get the coefficient of the eigenfunctions, for $1 \leq k \leq K$,
+\begin{equation}
+    b_k = W^{-1/2}u_k = \frac{1}{\sqrt{l_k}} C^\top v_k.
+\end{equation}
+
+% section derivation_of_the_eigencomponents (end)

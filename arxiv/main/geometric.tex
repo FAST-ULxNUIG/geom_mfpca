@@ -1,0 +1,89 @@
+%!TEX root=../main.tex
+\section{A geometric point of view of multivariate functional data} % (fold)
+\label{sec:geometric_point_of_view_mfpca}
+
+\subsection{Cloud of individuals} % (fold)
+\label{sub:cloud_of_individuals}
+
+Given $n \in \{1, \dots, N\}$, let $\{\Xnp(t_p),\,t_p \in \TT{p},\,p = 1, \dots, P\}$ be the features set for a particular observation $n$. We identify this set as the point $\pobs{M}_n$ in the space $\HH$. The set $\HH$ is refered as the observations' space. The cloud of points that represented the set of observations is denoted by $\CN$. Let $\GN$ be the centre of gravity of the cloud $\CN$. In the space $\HH$, its coordinates are given by $\{\mup{p}(t_p),\,t_p \in \TT{p},\,p = 1, \dots, P\}$. If the variables are centered, the origin $\OH$ of the axes in $\HH$ coincides with $\GN$.
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics{figures/cloud_obs.pdf}
+        \caption{Cloud of observations.}
+        \label{fig:cloud_obs}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics{figures/cloud_features.pdf}
+        \caption{Cloud of features.}
+        \label{fig:cloud_obs}
+    \end{subfigure}
+    \caption{Cloud.}
+    \label{fig:clouds}
+\end{figure}
+
+Let $f$ and $g$ be two elements in $\HH$ and denote by $\pobs{M}_f$ and $\pobs{M}_g$ their associated points in $\CN$. The distance between these observations is defined as
+\begin{equation}\label{eq:distance_obs}
+    d^2(f, g) = \sum_{p = 1}^P \normLp{\fp - \gp}^2 = \sum_{p = 1}^P \int_{\TT{p}}\left\{\fp(t_p) - g_p(t_p)\right\}^2 \dd t_p.
+\end{equation}
+This distance measures how different the observations are, and thus characterized the shape of the cloud $\CN$. Another description of this shape is to consider the distance between each observation and $\GN$, the center of the cloud. Let $f$ be an element of $\HH$, associated to the point $\pobs{M}_f$ and $\mu$ the element of $\HH$ related to $\GN$, the distance between $f$ and $\mu$ is given by
+\begin{equation}\label{eq:distance_center}
+    d^2(f, \mu) = \sum_{p = 1}^P \normLp{\fp - \mup{p}}^2 = \sum_{p = 1}^P \int_{\TT{p}}\left\{\fp(t_p) - \mup{p}(t_p)\right\}^2 \dd t_p.
+\end{equation}
+The total inertia of $\CN$, with respect to $\GN$, is given by
+\begin{equation}\label{eq:inertia}
+    \sum_{n = 1}^N \pi_n d^2(X_n, \mu) = \frac{1}{2}\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j d^2(X_i, X_j) = \sum_{p = 1}^P \int_{\TT{p}}\Var{\Xp{p}(t_p)} \dd t_p.
+\end{equation}
+The derivation of these equalities are given in Appendix \ref{sec:derivation_of_the_inertia_of_the_clouds}.
+
+\begin{remark}
+    These results have the same interpretation as for multivariate scalar data. This is the multivariate analogue of the relation between variance and sum of squared differences known for univariate functional data. If the variables are reduced beforehand, the total inertia of the cloud $\CN$ is equal to the number of components $P$. We are thus not interested by the total inertia but mostly how this variance is spread among the variables.
+\end{remark}
+
+% subsection cloud_of_individuals (end)
+
+\subsection{Cloud of variables} % (fold)
+\label{sub:cloud_of_variables}
+
+\textcolor{red}{For now, we need that all the variables are defined on the same space $\TT{0}$.}
+
+Let $\{\Xnp(t), n = 1, \dots, N\}$ be the observations set for a particular feature $p$. We identify this set as the point $\mathsf{M}_p$ in the space $\GG \coloneqq \sLp{\TT{0}}^N$. The set $\GG$ is refered as the features' space, or variables' space. The cloud of points that represented the set of variables is denoted by $\CP$. Let $\OG$ be the centre of this space. Its coordinates are given by a vector of functions of length $N$ where each entry is $f(t) = 0$ for all $t \in \TT{0}$.
+
+We assume that the observations are centered. Consider $\mathsf{M}_h$ a point in $\CP$ and $h$ the element of $\GG$ representing by $\mathsf{M}_h$. Let $o$ be the element of $\OG$ representing by $\OG$. The distance between $\mathsf{M}_h$ and $\OG$ is defined as
+\begin{equation*}
+d^2(h, o) = \sum_{n = 1}^N p_n \normLp{h_n - \mu_h}^2 = \int_{\TT{0}} \Var h^{(p)}(t)dt.
+\end{equation*} 
+
+\textcolor{red}{For now, the cloud of variables is not clear!}
+
+% subsection cloud_of_variables (end)
+
+\subsection{On centering and reducing} % (fold)
+\label{sub:on_centering_and_reducing}
+
+\textcolor{red}{Take a look at \cite{protheroNewPerspectivesCentering2021}}
+
+In MFPCA, the components are usually assumed centred \cite{happMultivariateFunctionalPrincipal2015}. If curves are not centered, we replace $\Xnp(t)$ by $\Xnp(t) - \mu^{(p)}(t)$. The geometric interpretation of the centering differs if we refer to $\HH$ or $\GG$. Within the space $\HH$, centering is interpreted as translating the centre of gravity of the curves $\GN$ to the the origin point $\OH$ of $\HH$. This transformation, being a translation, does not change the shape of the cloud $\CN$. Within the space $\GG$, the centering is harder to interpret and has not the same meaning as in the multivariate case (projection on the subspace orthogonal to the constant vector). 
+
+\begin{remark}
+What happened if we project the multivariate curves onto the vector of constant functions?
+In the space $\GG$, the inner product is given by
+\begin{equation}
+\inH{f}{g} = \sum_{i = 1}^N \int_{\TT{k}} f^{(k)}_i(t)g^{(k)}_i(t)dt, \quad f, g \in \GG.
+\end{equation} 
+Let $\mathbf{1}$ be the vector of constant function in $\GG$ and $f$ an element of $\GG$. Then, the projection of $f$ onto $\mathbf{1}$ is given by
+\begin{equation}
+P_{\mathbf{1}}f = \frac{\inH{f}{\mathbf{1}}}{\normH{\mathbf{1}}}\mathbf{1} = \frac{1}{N\lvert \TT{k} \rvert}\sum_{i = 1}^N \int_{\TT{k}} f^{(k)}_i(t)dt\mathbf{1}
+\end{equation}
+In practice, this is equivalent to compute the mean value of the mean curve for each component.
+\end{remark}
+
+Concerning standardisation, there are different proposal in the literature. \cite{happMultivariateFunctionalPrincipal2015} propose to use $w_k = (\int_{\TT{k}} \Var X^{(k)}(t)dt)^{-1/2}$, while \cite{chiouMultivariateFunctionalPrincipal2014} consider the function $w_k(t) = (\Var X^{(k)}(t))^{-1/2}$.
+
+% subsection on_centering_and_reducing (end)
+
+% section sec:geometric_point_of_view_mfpca (end)

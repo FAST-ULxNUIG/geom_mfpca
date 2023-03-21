@@ -1,0 +1,232 @@
+%!TEX root=../main_sup.tex
+\section{Univariate case} % (fold)
+\label{sec:univariate_case}
+
+For now, we will consider the univariate case ($P = 1$), and estimate the principal components. Assume the existence of a continuous covariance function 
+\begin{equation}\label{eq:cov_func}
+    C(s, t) = \EE(\{X(s) - \mu(s)\}\{X(t) - \mu(t)\}), \quad s, t \in \TT{0}.
+\end{equation}
+The covariance operator of the process $X$ is given by
+\begin{equation}\label{eq:cov_op}
+    \Gamma f(\cdot) = \int C(s, \cdot)f(s)ds, \quad f \in \sLp{\TT{0}}.
+\end{equation}
+
+Let $\lambda_1 \geq \lambda_2 \geq \dots$ and $\phi_1, \phi_2, \dots$ be the eigenvalues and eigenfunctions of the covariance operator $\Gamma$. The set $\phi = \{\phi_k\}_{k \geq 1}$ forms a complete orthonormal basis of $\sLp{\TT{0}}$. Note that $\mathbf{\phi}$ contains an infinite number of elements. Using the Karhunen-Loève decomposition, we get
+\begin{equation}\label{eq:kl_expansion}
+    X(t) = \mu(t) + \sum_{k = 1}^{\infty} \mathfrak{c}_{k}\phi_k(t), \quad t \in \TT{0},
+\end{equation}
+where $\mathfrak{c}_{k} = \inLp{X - \mu}{\phi_k}$ are the projection of the centered curve onto the eigenfunctions. We have that $\EE(\mathfrak{c}_{k}) = 0$, $\EE(\mathfrak{c}_{k}^2) = \lambda_k$ and $\EE(\mathfrak{c}_{k}\mathfrak{c}_{r}) = 0$ for $k \neq r$.
+
+Assume we observe $N$ realizations $X_1, \dots, X_N$ of the process $X$. Estimators of the mean and covariance function are given by
+\begin{equation}
+    \widehat{\mu}(t) = \frac{1}{N}\sum_{n = 1}^N X_i(t) \quad\text{and}\quad \widehat{C}(s, t) = \frac{1}{N}\sum_{i = 1}^N \left(X_i(t) - \widehat{\mu}(t)\right)\left(X_i(s) - \widehat{\mu}(s)\right).
+\end{equation}
+And thus, the estimator of the covariance operator follows as
+\begin{equation}
+    \widehat{\Gamma}_N f(\cdot) = \int \widehat{C}(s, \cdot)f(s)ds, \quad f \in \sLp{\TT{0}}.
+\end{equation}
+
+
+\textcolor{red}{********}
+
+Assume that there exists a basis of functions $\{\psi_k\}_{1 \leq k \leq K}$ such that the curves can be extended into this basis
+\begin{equation}
+X(t) = \sum_{k = 1}^{K} c_k\psi_k(t), \quad t \in \TT{0}.
+\end{equation} 
+The mean function is given by
+\begin{equation}
+    \mu(t) = \sum_{k = 1}^{K} \EE(c_k)\psi_k(t), \quad t \in \TT{0}.
+\end{equation}
+The covariance function is given by
+\begin{equation}
+    C(s, t) = \sum_{k = 1}^{K} \sum_{l = 1}^{K} \left(\EE(c_k c_l) - \EE(c_k)\EE(c_l)\right)\psi_k(s)\psi_l(t), \quad s, t \in \TT{0}.
+\end{equation}
+
+Using $N$ realizations of the process, we have $X(t) = C\Psi(t)$ where
+\begin{equation}
+    X(t) = \begin{pmatrix}
+                X_1(t) \\
+                \vdots \\
+                X_N(t)
+            \end{pmatrix}, \quad
+    C = \begin{pmatrix}
+            c_{11} & \cdots & c_{1K} \\
+            \vdots & \ddots & \vdots \\
+            c_{N1} & \cdots & c_{NK}
+        \end{pmatrix} \quad\text{and}\quad
+    \Psi(t) = \begin{pmatrix}
+                \psi_1(t) \\
+                \vdots \\
+                \psi_K(t)
+            \end{pmatrix}.
+\end{equation}
+The estimation of the mean and covariance functions are given by
+\begin{equation}
+    \widehat{\mu}(t) = \frac{1}{N}\mathds{1}_N^\top C\Psi(t) \quad\text{and}\quad \widehat{C}(s, t) = \frac{1}{N}\Psi(s)^\top C^\top C \Psi(t).
+\end{equation}
+We denote by $W$ the matrix of inner products of the functions of the basis $\Psi$. The entries of $W$ are given by
+\begin{equation}
+    W_{kl} = \inLp{\psi_k}{\psi_l}, \quad 1 \leq k, l \leq K.
+\end{equation}
+
+\subsection{By diagonalization of the covariance operator} % (fold)
+\label{sub:by_diagonalization_of_the_covariance_operator}
+
+From \cite{ramsayFunctionalDataAnalysis2005}. The estimation of the eigenvalues and eigenfunctions of the covariance operator is usually performed by estimating the covariance surface on a fine grid and diagonalize it. Let $H = (t_1, \dots, t_m)$ a grid. In that case, the empirical covariance matrix $\widehat{C}$ is of size $m \times m$. It results to sets of eigenvalues $(\rho_1, \dots, \rho_m)$ and eigenvectors $(u_1, \dots, u_m)$ such that
+\begin{equation}\label{eq:diag_cov_matrix}
+ \widehat{C}u = \rho u.
+\end{equation}
+Given $\phi$ an eigenfunction of the covariance operator $\Gamma$, let $\widetilde{\phi}$ be the vector of length $m$ with entries $\phi(t)$ for $t \in H$. Then, for each $t \in H$, 
+\begin{equation}
+    \widehat{\Gamma}\phi(s) = \int \widehat{C}(s, t)\phi(t)dt \approx \frac{\lvert \TT{0} \rvert}{\lvert H \rvert} \sum_{k = 1}^m \widehat{C}(s, t_k)\widetilde{\phi}_k.
+\end{equation}
+The equation $\Gamma \phi = \lambda \phi$ has the approximate discrete form
+\begin{equation}\label{eq:diag_discrete_cov_op}
+    \frac{\lvert \TT{0} \rvert}{\lvert H \rvert} \widehat{C}\widetilde{\phi} = \lambda \widetilde{\phi}.
+\end{equation}
+The solutions of the equations \eqref{eq:diag_cov_matrix} and \eqref{eq:diag_discrete_cov_op} are the same with eigenvalues $\lambda = \frac{\lvert \TT{0} \rvert}{\lvert H \rvert}\rho$. To approximate the eigenfunction $\phi$ from $\widetilde{\phi}$, we use interpolation techniques.
+
+\textcolor{red}{***********}
+
+Using the expansion of the realizations of the process into the basis of functions $\Psi$. The eigenfunctions of the estimation of the covariance operator can also be expanded in $\Psi$
+\begin{equation}
+    \widehat{\phi}_k(t) = \sum_{l = 1}^K b_{kl}\psi_l(t) = \Psi(t)^\top b_k, \quad\text{where}\quad b_k = \left(b_1, \dots, b_K \right)^\top.
+\end{equation}
+Then,
+\begin{align}
+\widehat{\Gamma}_N \widehat{\phi}(t) &= \int \widehat{C}(t, s) \widehat{\phi}(s)ds \\
+ &= \int \frac{1}{N}\Psi(t)^\top C^\top C \Psi(s) \Psi(s)^\top b ds \\
+ &= \frac{1}{N}\Psi(t)^\top C^\top C W b \\
+ &= \lambda \Psi(t)^\top b.
+\end{align}
+As this relationship should be true for all $t$, we get
+\begin{equation}
+    \frac{1}{N} C^\top C W b = \lambda b.
+\end{equation}
+
+
+% subsection by_diagonalization_of_the_covariance_operator (end)
+
+\subsection{By diagonalization of the inner product matrix} % (fold)
+\label{sub:by_diagonalization_of_the_inner_product_matrix}
+
+In this section, we use the duality relation between row and column spaces of a data matrix (from \cite{benkoCommonFunctionalPrincipal2009}). Consider the matrix $M$ with entries
+\begin{equation}\label{eq:m_entries}
+    M_{ij} = \inLp{X_i - \widehat{\mu}}{X_j - \widehat{\mu}}, \quad i, j = 1, \dots, N.
+\end{equation}
+
+The relationship between all nonzero eigenvalues $\widehat{\lambda}_1 \geq \widehat{\lambda}_2 \geq \cdots$ of the empirical covariance operator $\widehat{\Gamma}_N$ and the eigenvalues $l_1 \geq l_2 \geq \cdots$ of the matrix $M$ is given by
+\begin{equation}\label{eq:eigenvalues_relation}
+    \widehat{\lambda}_k = \frac{l_k}{N}, \quad k = 1, 2, \dots.
+\end{equation}
+Let $\widehat{\phi}_1, \widehat{\phi}_2, \dots$ be the eigenfunctions of $\widehat{\Gamma}_N$ and $v_1, v_2, \dots$ be the orthonormal eigenvectors of $M$. These quantities are linked by
+\begin{equation}\label{eq:eigenfunction_relation}
+    \widehat{\phi}_k(\cdot) = \frac{1}{\sqrt{l_k}}\sum_{i = 1}^N v_{ik}(X_i(\cdot) - \widehat{\mu}(\cdot)), \quad k = 1, 2, \dots 
+\end{equation}
+The empirical scores are given by
+\begin{equation}\label{eq:scores_relation}
+    \widehat{\mathfrak{c}}_{ik} = \sqrt{l_k}v_{ik}, \quad k = 1, 2, \dots 
+\end{equation}
+
+\textcolor{red}{**********}
+
+For the eigenvalues and the eigenfunctions. For $k =1, 2, \dots$, we have
+\begin{equation}\label{eq:eigen_inner_prod}
+    Mv_k = l_kv_k.
+\end{equation}
+Let $X = \left(X_1(\cdot) - \widehat{\mu}(\cdot) \cdots X_N(\cdot) - \widehat{\mu}(\cdot)\right)^\top$.
+By left multiplying \eqref{eq:eigen_inner_prod} by $X^\top$, we obtain 
+\begin{equation}\label{eq:eigen_inner_prod_left}
+X^\top M v_k = l_k X^\top v_k.
+\end{equation} 
+Then, we have
+\begin{align}
+X^\top M v_k &= \sum_{i = 1}^N \left(X_i(\cdot) - \widehat{\mu}(\cdot)\right) \sum_{j = 1}^N \inLp{X_i(\cdot) - \widehat{\mu}(\cdot)}{X_j(\cdot) - \widehat{\mu}(\cdot)} v_{jk} \\
+    &= \int_{\TT{0}} \sum_{i = 1}^N \left(X_i(\cdot) - \widehat{\mu}(\cdot)\right) \left(X_i(s) - \widehat{\mu}(s)\right) \sum_{j = 1}^N \left(X_j(s) - \widehat{\mu}(s)\right) v_{jk} ds \\
+    &= \int_{\TT{0}} N\widehat{C}(\cdot, s) \sum_{j = 1}^N \left(X_j(s) - \widehat{\mu}(s)\right) v_{jk} ds \\
+    &= N \widehat{\Gamma}_n\left(\sum_{j = 1}^N \left(X_j(\cdot) - \widehat{\mu}(\cdot)\right) v_{jk}\right)(\cdot)
+\end{align}
+and
+\begin{equation}
+    l_k X^\top v_k = l_k \sum_{i = 1}^N \left(X_i(\cdot) - \widehat{\mu}(\cdot)\right)v_{ik}.
+\end{equation}
+From \eqref{eq:eigen_inner_prod_left}, we get
+\begin{equation}
+    \widehat{\Gamma}_n\left(\sum_{j = 1}^N \left(X_j(\cdot) - \widehat{\mu}(\cdot)\right) v_{jk}\right)(t) = \frac{l_k}{N} \sum_{i = 1}^N \left(X_i(t) - \widehat{\mu}(t)\right)v_{ik}, \quad\text{for all}~ t \in \TT{0}.
+\end{equation}
+By identification, we find that
+\begin{equation}
+\widehat{\lambda}_k = \frac{l_k}{N} \quad\text{and}\quad \widehat{\phi}_k(\cdot) = \sum_{i = 1}^N v_{ik}(X_i(\cdot) - \widehat{\mu}(\cdot)), \quad k = 1, 2, \dots
+\end{equation}
+
+For $k = 1, 2, \dots$, we have
+\begin{align*}
+\normLp{\widehat{\phi}_k}^2 &= \inLp{\sum_{i = 1}^N v_{ik}(X_i(\cdot) - \widehat{\mu}(\cdot))}{\sum_{j = 1}^N v_{jk}(X_j(\cdot) - \widehat{\mu}(\cdot))} \\
+    &= \sum_{i = 1}^N \sum_{j = 1}^N v_{ik} v_{jk}\inLp{(X_i(\cdot) - \widehat{\mu}(\cdot))}{(X_j(\cdot) - \widehat{\mu}(\cdot))} \\
+    &= \sum_{i = 1}^N \sum_{j = 1}^N v_{ik} v_{jk} \int_{\TT{0}} (X_i(s) - \widehat{\mu}(s))(X_j(s) - \widehat{\mu}(s))ds \\
+    &= \sum_{i = 1}^N \sum_{j = 1}^N v_{ik} v_{jk} M_{ij} \\
+    &= \sum_{i = 1}^N v_{ik} \sum_{j = 1}^N M_{ij} v_{jk} \\
+    &= \sum_{i = 1}^N v_{ik} l_k v_{ik} \\
+    &= l_k \normLp{v_k}^2 \\
+    &= l_k
+\end{align*}
+We normalise $\widehat{\phi}_k$ by $1 / \sqrt{l_k}$ to have an orthonormal basis.
+
+
+For the scores. For $k = 1, 2, \dots$, we have
+\begin{align}
+    \widehat{\mathfrak{c}}_{ik} &= \inLp{X_i(\cdot) - \widehat{\mu}(\cdot)}{\widehat{\phi}_k(\cdot)} \\
+    &= \inLp{X_i(\cdot) - \widehat{\mu}(\cdot)}{\frac{1}{\sqrt{l_k}}\sum_{j = 1}^N v_{jk}(X_j(\cdot) - \widehat{\mu}(\cdot))} \\
+    &= \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N v_{jk} \inLp{X_i(\cdot) - \widehat{\mu}(\cdot)}{X_j(\cdot) - \widehat{\mu}(\cdot)} \\
+    &= \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N v_{jk}M_{ij} \\
+    &= \frac{1}{\sqrt{l_k}}(Mv_k)_i \\
+    &= \frac{1}{\sqrt{l_k}}l_kv_{ik} \\
+    &= \sqrt{l_k}v_{ik}
+\end{align}
+
+\textcolor{red}{**********}
+
+Concerning the expansion of the data into the basis of function $\Psi$, we write 
+\begin{equation}
+    M = \left(C W^{1/2}\right)\left(C W^{1/2}\right)^T.
+\end{equation}
+We also assume that $\widehat{\phi}_1, \widehat{\phi}_2, \dots$ the eigenfunctions of $\widehat{\Gamma}_N$ have a decomposition into the basis $\Psi$
+\begin{equation}
+    \widehat{\phi}_k(t) = \sum_{l = 1}^K b_{kl}\psi_l(t) = \Psi(t)^\top b_k, \quad\text{where}\quad b_k = \left(b_{k 1}, \dots, b_{k K}\right)^\top.
+\end{equation}
+We have, for all $t \in \TT{0}$, 
+\begin{align*}
+    \widehat{\Gamma}_N \phi_k(t) &= \int_{\TT{0}} \widehat{C}(t, s)\phi_k(s)ds \\
+    &= \frac{1}{N}\int_{\TT{0}} \Psi(t)^\top C^\top C \Psi(s) \Psi(s)^\top b_k ds \\
+    &= \frac{1}{N} \Psi(t)^\top C^\top C \int_{\TT{0}} \Psi(s) \Psi(s)^\top ds b_k \\
+    &= \frac{1}{N} \Psi(t)^\top C^\top C W b_k.\\
+\end{align*}
+From the eigenequation, we have that
+\begin{equation}
+    \widehat{\Gamma}_N \phi_k(t) = \lambda_k \phi_k(t) \Longleftrightarrow \frac{1}{N} \Psi(t)^\top C^\top C W b_k = \lambda_k \Psi(t)^\top b_k, \quad t \in \TT{0}.
+\end{equation}
+Since this equation must be true for all $t \in \TT{0}$, this imply the equation
+\begin{equation}\label{eq:eigen_decom}
+    C^\top C W b_k = N\lambda_k b_k
+\end{equation}
+As the eigenfunctions are assumed to be normalized, $\normLp{\phi_k}^2 = 1$. And so, $b_k^\top W b_k = 1$. Let $u_k = W^{1/2}b_k$. Then, from Equation \eqref{eq:eigen_decom}, we obtain
+\begin{equation}\label{eq:eigen_cov_op}
+    W^{1/2} C^\top C W^{1/2} u_k = N\lambda_k u_k \Longleftrightarrow \left(C W^{1/2}\right)^\top \left(C W^{1/2}\right) u_k = N\lambda_k u_k.
+\end{equation}
+From the eigendecomposition of the matrix $M$, we get
+\begin{equation}\label{eq:eigen_inner_prod}
+    Mv_k = l_k v_k \Longleftrightarrow \left(C W^{1/2}\right)\left(C W^{1/2}\right)^T v_k = l_k v_k.
+\end{equation}
+The equations \eqref{eq:eigen_cov_op} and \eqref{eq:eigen_inner_prod} are eigenequations in the classical PCA case, with the duality $X^\top X$ and $XX^\top$. Following \cite{pagesMultipleFactorAnalysis2014}, we find that, for $1 \leq k \leq K$,
+\begin{equation}
+    \lambda_k = \frac{l_k}{N}, \quad v_k = \frac{1}{\sqrt{l_k}}C W^{1/2} u_k \quad\text{and}\quad u_k = \frac{1}{\sqrt{l_k}} W^{1/2} C^\top v_k.
+\end{equation}
+And finally, to get the coefficient of the eigenfunctions, for $1 \leq k \leq K$,
+\begin{equation}
+    b_k = W^{-1/2}u_k = \frac{1}{\sqrt{l_k}} C^\top v_k.
+\end{equation}
+
+
+% subsection by_diagonalization_of_the_inner_product_matrix (end)
+
+% section univariate_case (end)

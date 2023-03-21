@@ -1,0 +1,50 @@
+%!TeX root=../main.tex
+\section{Model} % (fold)
+\label{sec:model}
+
+The structure of the data we consider, referred to as \emph{multivariate functional data}, is very similar to that presented in \cite{happMultivariateFunctionalPrincipal2015}. The data consist of independent trajectories of a vector-valued stochastic process $X = (\Xp{1}, \dots, \Xp{P})^\top$, $P\geq 1$. (Here and in the following, for any matrix $A$, $A^\top$ denotes its transpose.) For each $1 \leq p \leq P$, let $\TT{p}$ be a rectangle in some Euclidean space $\RR^{d_p}$ with $d_p \geq 1$, \emph{e.g.}, $\TT{p} = [0,1]^{d_p}$. Each coordinate $X^{(p)} : \TT{p} \rightarrow \RR$ is assumed to belong to  $\sLp{\TT{p}}$, the Hilbert space of squared-integrable real-valued functions defined on $\TT{p}$, having the usual inner product that we denote by $\inLp{\cdot}{\cdot}$, and $\normLp{\cdot}$ the associated norm. Thus $X$ is a stochastic process indexed by $\pointt = (t_1, \ldots, t_P)$ belonging to the $P-$fold Cartesian product $\TT{} : =\TT{1} \times \cdots \times \TT{P}$ and taking values in the $P-$fold Cartesian product space $\HH \coloneqq \sLp{\TT{1}} \times \dots \times \sLp{\TT{P}}$. 
+
+We consider the function $\inH{\cdot}{\cdot} : \HH \times \HH \rightarrow \RR$,
+\begin{equation}\label{eq:innerprodH}
+    \inH{f}{g} \coloneqq \sum_{p=1}^{P} \inLp{\fp}{\gp} = \sum_{p=1}^{P}\int_{\TT{p}} \fp(t_p)\gp(t_p) \dd t_p, \quad f, g \in \HH.
+\end{equation}
+$\HH$ is a Hilbert space with respect to the inner product $\inH{\cdot}{\cdot}$ \cite{happMultivariateFunctionalPrincipal2015}. We denote by $\normH{\cdot}$, the norm induced by $\inH{\cdot}{\cdot}$. Let $\mu : \TT{} \rightarrow \HH$ denote the mean function of the process $X$, $\mu(\pointt) \coloneqq \EE(X(\pointt)), \pointt \in \TT{}$. Let $C$ denotes the $P \times P$ matrix-valued covariance function which, for $\points, \pointt \in \TT{}$, is defined as
+\begin{equation}\label{eq:covariance_function}
+    C(\points, \pointt) \coloneqq \EE\left(\{X(\points) - \mu(\points)\}\{X(\pointt) - \mu(\pointt)\}^{\top}\right), \quad \points, \pointt \in \TT{}.
+\end{equation}
+More precisely, for $1 \leq p, q \leq P$, the $(p, q)$th entry of the matrix $C(\points, \pointt)$ is the covariance function between the $p$th and the $q$th components of the process $X$:
+\begin{equation}\label{eq:covariance_function_components}
+    C_{p, q}(s_p, t_q) \coloneqq \EE\left(\{\Xp{p}(s_p) - \mup{p}(s_p)\}\{\Xp{q}(t_q) - \mup{q}(t_q)\}\right), \quad s_p \in \TT{p}, t_q \in \TT{q}.
+\end{equation}
+Let $\Gamma : \HH \rightarrow \HH$ denotes the covariance operator of $X$, defined as an integral operator with kernel $C$. That is, for $f \in \HH$ and $\pointt \in \TT{}$, the $p$th component of $\Gamma f(\pointt)$ is given by
+\begin{equation}\label{eq:covariance_operator_components}
+    (\Gamma f)^{(p)}(t_p) \coloneqq \inH{C_{p, \cdot}(t_p, \cdot)}{f(\cdot)} = \inH{C_{\cdot, p}(\cdot, t_p)}{f(\cdot)}, \quad t_p \in \TT{p}.
+\end{equation}
+
+\textcolor{red}{
+Following \cite{happMultivariateFunctionalPrincipal2015}, we also consider a generalization to a weighted scalar product on $\HH$:
+\begin{equation}\label{eq:innerprodH_w}
+    \inHw{f}{g} \coloneqq \sum_{p=1}^{P} w_p\inLp{f^{(p)}}{g^{(p)}}, \quad f, g \in \HH,
+\end{equation}  
+for some positive weights $w_1, \dots, w_p$.}
+
+Let us consider $N$ curves $X_1, \ldots, X_n, \ldots, X_N$ generated as a random sample of the $P$-dimensional stochastic process $X$ with continuous trajectories. \textcolor{red}{For now, we assume that the curves are observed without error.} The data can be viewed as a table with $N$ rows and $P$ columns where each entry is a curve, eventually multidimensional (see Fig.~\ref{fig:data_matrix}). Each row of this matrix represents an observation; while each column represents a functional variable. At the intersection of row $n$ and column $p$, we thus have $\Xnp$ which is the curve that concerns the feature $p$ for the individual $n$.
+
+For $n \in \{1, \dots, N\}$, each observation $n$ is attributed the weight $\pi_n$ such that $\sum_n \pi_n = 1$, e.g., $\pi_n = 1/N$.
+For a given $p \in \{1, \dots, P\}$, the mean curve of the $p$th component along the $N$ observations is denoted by $\mup{p}$. This quantity can be computed using 
+\begin{equation*}\label{eq:mu_estimation}
+    \mup{p}(t_p) = \sum_{n = 1}^N \pi_n\Xnp(t_p), \quad t_p \in \TT{p}, \quad p \in \{1, \dots, P\}.
+\end{equation*}
+The covariance function of the $p$th component along the $N$ observations can be computed using
+\begin{equation}\label{eq:cov_estimation}
+    C_{p, p}(s_p, t_p) = \sum_{n = 1}^N \pi_n\Xnp(s_p)\Xnp(t_p) - \mup{p}(s_p)\mup{p}(t_p), \quad s_p, t_p \in \TT{p}, \quad p \in \{1, \dots, P\}.
+\end{equation}
+
+\begin{figure}
+    \centering
+    \includegraphics[]{example-image-golden}
+    \caption{Data matrix (adapted from \cite{berrenderoPrincipalComponentsMultivariate2011}).}
+    \label{fig:data_matrix}
+\end{figure}
+
+% section model (end)

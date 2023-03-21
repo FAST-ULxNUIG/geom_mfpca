@@ -1,0 +1,49 @@
+%!TeX root=../main.tex
+\section{Introduction} % (fold)
+\label{sec:introduction}
+
+% ----------------------------------------------------------------------------
+% General introduction to FDA and FPCA
+% ----------------------------------------------------------------------------
+\textcolor{red}{Functional data analysis (FDA) is a statistical methodology for analyzing data that can be represented as functions. These functions could represent measurements taken over time or space, such as temperature readings over a period of time or spatial patterns of disease occurrence. The goal of FDA is to extract meaningful information from these functions and to model their behavior. In this article, we will provide a general introduction to FDA, including its history, key concepts, and applications.}
+FPCA is usally used as a preprocessing step to feed regression and classification models.
+
+% ----------------------------------------------------------------------------
+% General approaches for FPCA and MFPCA
+% ----------------------------------------------------------------------------
+\textcolor{red}{General approaches for FPCA and MFPCA}
+Most of the existing methods for FPCA are build upon \cite{ramsayFunctionalDataAnalysis2005} paper. 
+
+Stack the multivariate observation into one and perform usual FPCA \cite{ramsayFunctionalDataAnalysis2005}
+
+Expand each curves into a basis of functions \cite{jacquesModelbasedClusteringMultivariate2014a}
+
+Normed FPCA \cite{jacquesModelbasedClusteringMultivariate2014a,chiouMultivariateFunctionalPrincipal2014}, different type of normalization for both of them.
+
+PCA for each time point \cite{berrenderoPrincipalComponentsMultivariate2011}
+
+Develop general methodology for MFPCA \cite{happMultivariateFunctionalPrincipal2015}, allows multidimensional data and basis expansion.
+
+% ----------------------------------------------------------------------------
+% Key motivations of the paper -> Duality between rows and colums of a matrix
+% ----------------------------------------------------------------------------
+\textcolor{red}{Key motivations of the paper -- Duality between rows and colums of a matrix}
+The key motivation of the paper is that in a large number of applications, the number of components of the functional datasets is very large, and estimating the eigencomponents of the covariance operator require the diagonalisation of each univariate component which can be computationaly extensive. Using the duality between rows and colums of the data matrix reduce the number of matrix disgonalisation to only one. Another arguments is that for data defined on multidimensional domains, the estimation of the covariance operator remains unclear (how to compute the covariance of 2-dimensional data?). The use of the inner-product matrix allows the eigencomponents of multidimensional data to be computed.
+
+Duality of usual matrix \cite{escofierTraitementSimultaneVariables1979,saportaSimultaneousAnalysisQualitative1990,pagesAnalyseFactorielleDonnees2004,hardleAppliedMultivariateStatistical2019}
+
+
+% ----------------------------------------------------------------------------
+% Duality for funcitonal data
+% ----------------------------------------------------------------------------
+\textcolor{red}{Duality in the functional data case}
+For functional data, \cite{ramsayWhenDataAre1982a} explains the duality of the space of functions and the space of time points. Used in \cite{benkoCommonFunctionalPrincipal2009} for univariate and unidimensional functional data. \cite{chenQuantifyingInfiniteDimensionalData2017}
+
+
+% ----------------------------------------------------------------------------
+% Rest of the paper
+% ----------------------------------------------------------------------------
+\textcolor{red}{Remainder of the paper.}
+The remainder of the paper is organized as follows. In Section~\ref{sec:model}, we define multivariate functional data with the coordinates possibly having different definition domains. In Section~\ref{sec:geometric_point_of_view_mfpca}, we develop the duality between the observations' space and the functional components space. The relationship between the eigencomponents of the covariance operator of the functional datasets and the eigencomponents of the inner-product matrix between the observations is derived in Section~\ref{sec:functional_principal_components_analysis}. Extensive simulation are given in Section~\ref{sec:simulations}. We also provide guidelines on the method to use in which case. The paper concludes with a discussion and an outlook in Section~\ref{sec:discussion}.
+
+% section introduction (end)
