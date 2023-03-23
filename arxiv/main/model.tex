@@ -21,12 +21,12 @@ Let $\Gamma : \HH \rightarrow \HH$ denotes the covariance operator of $X$, defin
     (\Gamma f)^{(p)}(t_p) \coloneqq \inH{C_{p, \cdot}(t_p, \cdot)}{f(\cdot)} = \inH{C_{\cdot, p}(\cdot, t_p)}{f(\cdot)}, \quad t_p \in \TT{p}.
 \end{equation}
 
-Let us consider the set of $N$ curves $\XX = \{X_1, \ldots, X_n, \ldots, X_N\}$ generated as a random sample of the $P$-dimensional stochastic process $X$ with continuous trajectories. Unless otherwise stated, the data are assumed to be observed without error. The data can be viewed as a table with $N$ rows and $P$ columns where each entry is a curve, eventually multidimensional (see Figure~\ref{fig:data_matrix}). Each row of this matrix represents an observation; while each column represents a functional variable. At the intersection of row $n$ and column $p$, we thus have $\Xnp$ which is the curve that concerns the feature $p$ for the individual $n$.
+Let us consider a set of $N$ curves $\XX = \{X_1, \ldots, X_n, \ldots, X_N\}$ generated as a random sample of the $P$-dimensional stochastic process $X$ with continuous trajectories. Unless otherwise stated, the data are assumed to be observed without error. The data can be viewed as a table with $N$ rows and $P$ columns where each entry is a curve, eventually multidimensional (see Figure~\ref{fig:data_matrix}). Each row of this matrix represents an observation; while each column represents a functional variable. At the intersection of row $n$ and column $p$, we thus have $\Xnp$ which is the curve that concerns the feature $p$ for the individual $n$.
 
 \begin{figure}
     \centering
     \includegraphics[]{figures/data_matrix.pdf}
-    \caption{Data matrix, adapted from \cite{berrenderoPrincipalComponentsMultivariate2011}.}
+    \caption{Functional data matrix, adapted from \cite{berrenderoPrincipalComponentsMultivariate2011}.}
     \label{fig:data_matrix}
 \end{figure}
 
@@ -38,6 +38,59 @@ For a given $p \in \{1, \dots, P\}$, the mean curve of the $p$th component along
 The covariance function of the $p$th component along the $N$ observations can be computed using
 \begin{equation}\label{eq:cov_estimation}
     C_{p, p}(s_p, t_p) = \sum_{n = 1}^N \pi_n\Xnp(s_p)\Xnp(t_p) - \mup{p}(s_p)\mup{p}(t_p), \quad s_p, t_p \in \TT{p}, \quad p \in \{1, \dots, P\}.
+\end{equation}
+
+\subsection{Basis decomposition} % (fold)
+\label{sub:basis_decomposition}
+
+% subsection basis_decomposition (end)
+
+\textcolor{red}{********}
+
+In many practical situations, data are noisy and only observed at specific time points. To extract the underlying functional features of the data, smoothing and interpolation techniques are commonly employed. These techniques involve approximating the true curve of the data by finite-dimensional set of basis functions. Assume that for each component $p = 1, \dots, P$, there exists a set of basis of functions $\Psi^{(p)} = \{\psi_k^{(p)}\}_{1 \leq k \leq K_p}$ such that each component of the multivariate curves can be extended into this basis:
+\begin{equation}
+X^{(p)}(t_p) = \sum_{k = 1}^{K_p} c^{(p)}_{k}\psi_k^{(p)}(t_p), \quad t_p \in \TT{p}.
+\end{equation} 
+The $p$th component of the mean function can be then expanded in the same basis as:
+\begin{equation}
+    \mup{p}(t_p) = \sum_{k = 1}^{K_p} \EE(c^{(p)}_{k})\psi_k^{(p)}(t), \quad t_p \in \TT{p}.
+\end{equation}
+In a similar way, the covariance function of the $p$th component is given by:
+\begin{equation}
+    C_{p,p}(s_p, t_p) = \sum_{k = 1}^{K_p} \sum_{l = 1}^{K_p} \left(\EE(c^{(p)}_{k} c^{(p)}_{l}) - \EE(c^{(p)}_{k})\EE(c^{(p)}_{l})\right)\psi_k^{(p)}(s)\psi_l^{(p)}(t), \quad s_p, t_p \in \TT{p}.
+\end{equation}
+These formula can be written with a matrix formulation considering the $N$ realizations of the process $X$. For $\pointt \in \TT{}$, we have that $X(\pointt) = C\Psi(\pointt)$ where $X(\pointt)$ is a matrix with $N$ rows and $P$ columns with entries $\Xnp(t_p),~t_p \in \TT{p},~1 \leq p \leq P,~1 \leq n \leq N$,
+\begin{equation}
+    C = \begin{pmatrix}
+            C^{(1)} & \cdots & C^{(P)} \\
+        \end{pmatrix}, \quad \text{and}\quad
+    \Psi(\pointt) = \text{diag}\begin{pmatrix}
+        \Psi^{(1)}(t_1) & \cdots & \Psi^{(P)}(t_P)
+    \end{pmatrix},
+\end{equation}
+where
+\begin{equation}
+C^{(p)} = \begin{pmatrix}
+    c^{(p)}_{11} & \cdots & c^{(p)}_{1K_p} \\
+    \vdots & \ddots & \vdots \\
+    c^{(p)}_{N1} & \cdots & c^{(p)}_{NK_p}
+\end{pmatrix} \\
+\quad \text{and}\quad
+\Psi^{(p)}(t_p) = \begin{pmatrix}
+    \psi_1^{(p)}(t_p) \\
+    \vdots \\
+    \psi_{K_p}^{(p)}(t_p)
+\end{pmatrix}.
+\end{equation}
+Using the basis expansion, the mean and covariance functions are given by
+\begin{equation}
+    \mu(\pointt) = \frac{1}{N}\mathds{1}_{\!N}^\top C\Psi(\pointt) \quad\text{and}\quad C(\points, \pointt) = \frac{1}{N}\Psi(\points)^\top C^\top C \Psi(\pointt),
+\end{equation}
+where $\mathds{1}_{\!N}$ is the vector of length $N$ that contains only $1$.
+
+We denote by $W$ the matrix of inner products of the basis $\Psi$. The entries of $W$ are given by
+\begin{equation}
+    W_{k, l}^{(p)} = \inLp{\psi_k^{(p)}}{\psi_l^{(p)}}, \quad 1 \leq k, l \leq K_p, \quad 1 \leq p \leq P.
 \end{equation}
 
 % section model (end)

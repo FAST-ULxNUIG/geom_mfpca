@@ -2,72 +2,25 @@
 \section{Multivariate functional principal components analysis} % (fold)
 \label{sec:functional_principal_components_analysis}
 
-Using the results in \cite{happMultivariateFunctionalPrincipal2015}, and the theory of Hilbert-Schmidt operators, e.g. \cite{reedMethodsModernMathematical1980}, there exists a complete orthonormal basis 
+Assuming that the covariance operator $\Gamma$ is a compact positive operator on $\HH$ and using the results in \cite{happMultivariateFunctionalPrincipal2015}, and the theory of Hilbert-Schmidt operators, e.g., \cite{reedMethodsModernMathematical1980}, there exists a complete orthonormal basis 
 $\Phi = \{\phi_k\}_{k \geq 1} \subset \HH$ associated to a set of real numbers $\{\lambda_k\}_{k \geq 1}$ such that $\lambda_1 \geq \lambda_2 \geq \dots \geq 0$ that satisfy
 \begin{equation}\label{eq:eigendecomposition}
-    \Gamma \phi_k = \lambda_k \phi_k, \quad\text{and}\quad \lambda_k \rightarrow 0 \quad\text{as}\quad k \rightarrow \infty.
+    \Gamma \phi_k = \lambda_k \phi_k, \quad\text{and}\quad \lambda_k \longrightarrow 0 \quad\text{as}\quad k \longrightarrow \infty.
 \end{equation}
 The set $\{\lambda_k\}_{k \geq 1}$ contains the eigenvalues of the covariance operator $\Gamma$ and $\Phi$ contains the associated eigenfunctions. Using the multivariate Karhunen-Loève theorem \citep{happMultivariateFunctionalPrincipal2015}, we obtain the decomposition
-\begin{equation}
+\begin{equation}\label{eq:kl_multi}
     X(\pointt) = \mu(\pointt) + \sum_{k = 1}^\infty \mathfrak{c}_k \phi_k(\pointt), \quad \pointt \in \TT{}
 \end{equation}
-where $\mathfrak{c}_{k} = \inH{X - \mu}{\phi_k}$ are the projection of the centered curve onto the eigenfunctions. We have that $\EE(\mathfrak{c}_{k}) = 0$, $\EE(\mathfrak{c}_{k}^2) = \lambda_k$ and $\EE(\mathfrak{c}_{k}\mathfrak{c}_{k^\prime}) = 0$ for $k \neq k^\prime$. Note that the coefficients $\mathfrak{c}_k$ are scalar random variables while $\phi_k$ is a vector of functions. Let us call $\Phi$ the multivariate functional principal component analysis basis.
+where $\mathfrak{c}_{k} = \inH{X - \mu}{\phi_k}$ are the projection of the centered curve onto the eigenfunctions. We have that $\EE(\mathfrak{c}_{k}) = 0$, $\EE(\mathfrak{c}_{k}^2) = \lambda_k$ and $\EE(\mathfrak{c}_{k}\mathfrak{c}_{k^\prime}) = 0$ for $k \neq k^\prime$. Note that the coefficients $\mathfrak{c}_k$ are scalar random variables while the multivariate functions $\phi_k$ are vectors of functions. Let us call $\Phi$ the multivariate functional principal component analysis basis. In practice, we use a truncated version of the Karhunen-Loève expansion \eqref{eq:kl_multi} as the eigenvalues $\lambda_k$ became negligible as $k$ goes to infinity. Let
+\begin{equation}\label{eq:kl_multi_trunc}
+    X_{\lceil K \rceil}(\pointt) = \mu(\pointt) + \sum_{k = 1}^K \mathfrak{c}_k \phi_k(\pointt), \quad \pointt \in \TT{}, \quad K \geq 1,
+\end{equation}
+be the truncated Karhunen-Loève expansion of the process $X$ and
+\begin{equation}\label{eq:kl_multi_trunc_comp}
+    X_{\lceil K_p \rceil}^{(p)}(t_p) = \mup{p}(t_p) + \sum_{k = 1}^{K_p} \mathfrak{c}_k^{(p)} \phi_k^{(p)}(t_p), \quad t_p \in \TT{p}, \quad K_p \geq 1, \quad 1 \leq p \leq P,
+\end{equation}
+be the truncated Karhunen-Loève expansion of the components of the process $X$.
 
-\textcolor{red}{********}
-
-Assume that for each component $p = 1, \dots, P$, there exists a basis of functions $\{\psi_k^{(p)}\}_{1 \leq k \leq K_p}$ such that each component of the curves can be extended into this basis
-\begin{equation}
-X^{(p)}(t) = \sum_{k = 1}^{K_p} c_{pk}\psi_k^{(p)}(t), \quad t \in \TT{0}.
-\end{equation} 
-The $p$th component of the mean function is given by
-\begin{equation}
-    \mu^{(p)}(t) = \sum_{k = 1}^{K_p} \EE(c_{pk})\psi_k^{(p)}(t), \quad t \in \TT{0}.
-\end{equation}
-The $(p, q)$th entry of the covariance function is given by
-\begin{equation}
-    C_{pq}(s, t) = \sum_{k = 1}^{K_p} \sum_{l = 1}^{K_q} \left(\EE(c_{pk} c_{ql}) - \EE(c_{pk})\EE(c_{ql})\right)\psi_k^{(p)}(s)\psi_l^{(q)}(t), \quad s, t \in \TT{0}.
-\end{equation}
-
-Using $N$ realizations of the process, we have $X(t) = C\Psi(t)$ where
-\begin{equation}
-    X(t) = \begin{pmatrix}
-                X_1^{(1)}(t) & \cdots & X_1^{(P)}(t)\\
-                \vdots & \ddots & \vdots \\
-                X_N^{(1)}(t) & \cdots & X_N^{(P)}(t)
-            \end{pmatrix},
-\end{equation}
-\begin{equation}
-    C = \begin{pmatrix}
-            C^{(1)} & \cdots & C^{(P)} \\
-        \end{pmatrix}, \quad\text{with}\quad
-    C^{(p)} = \begin{pmatrix}
-            c_{1p1} & \cdots & c_{1pK_p} \\
-            \vdots & \ddots & \vdots \\
-            c_{Np1} & \cdots & c_{NpK_p}
-        \end{pmatrix}
-\end{equation}
-\begin{equation}
-    \Psi(t) = \begin{pmatrix}
-            \psi^{(1)}(t) & 0 & \cdots & 0\\
-            0 & \ddots & \ddots & \vdots \\
-            \vdots & \ddots & \ddots & 0 \\
-            0 & \cdots & 0 & \psi^{(P)}(t)
-        \end{pmatrix}, \quad\text{with}\quad
-    \Psi^{(p)}(t) = \begin{pmatrix}
-            \psi_1^{(p)}(t) \\
-            \vdots \\
-            \psi_{K_p}^{(p)}(t)
-        \end{pmatrix}.
-\end{equation}
-The estimation of the mean and covariance functions are given by
-\begin{equation}
-    \widehat{\mu}(t) = \frac{1}{N}\mathds{1}_N^\top C\Psi(t) \quad\text{and}\quad \widehat{C}(s, t) = \frac{1}{N}\Psi(s)^\top C^\top C \Psi(t).
-\end{equation}
-
-We denote by $W$ the matrix of inner products of the basis $\Psi$. The entries of $W$ are given by
-\begin{equation}
-    W_{k, l}^{(p)} = \inLp{\psi_k^{(p)}}{\psi_l^{(p)}}, \quad 1 \leq k, l \leq K_p, \quad 1 \leq p \leq P.
-\end{equation}
 
 \subsection{By diagonalization of the covariance operator} % (fold)
 \label{sub:by_diagonalization_of_the_covariance_operator}
