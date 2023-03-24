@@ -31,7 +31,7 @@ From Equation~\eqref{eq:inner_prod_p_left} and Equation~\eqref{eq:inner_prod_p_r
     \Gamma\left(\sum_{j = 1}^N v_{jk} \left\{X_j - \mu\right\}\right)^{(p)}\mkern-9mu(\cdot) = \frac{l_k}{N} \sum_{i = 1}^N v_{ik}\left\{X_i^{(p)} - \mu^{(p)}\right\}, \quad\text{for all}~ p = 1, \dots, P.
 \end{equation}
 By identification in Equation~\eqref{eq:eigendecomposition}, we find that, for each components $p$,
-\begin{equation}
+\begin{equation}\label{eq:eigen_estimation}
 \lambda_k = \frac{l_k}{N} \quad\text{and}\quad \phi_k^{(p)} = \sum_{i = 1}^N v_{ik}\left\{X_i^{(p)} - \mu^{(p)}\right\}, \quad k \geq 1.
 \end{equation}
 For $k \geq 1$, the norm of the eigenfunction is computed as the following:
@@ -39,7 +39,7 @@ For $k \geq 1$, the norm of the eigenfunction is computed as the following:
 \normH{\phi_k}^2 &= \sum_{i = 1}^N \sum_{j = 1}^N v_{ik} v_{jk}\inH{X_i - \mu}{X_j - \mu} = \sum_{i = 1}^N v_{ik} \sum_{j = 1}^N M_{ij} v_{jk} \\
     &= \sum_{i = 1}^N v_{ik} l_k v_{ik} = l_k \normLp{v_k}^2 = l_k. \\
 \end{align*}
-In order to have an orthonormal basis of eigenfunction, we normalise the previously found $\phi_k$ by $1 / \sqrt{l_k}$.
+Therefore, in order to have an orthonormal basis of eigenfunctions, we normalise the eigenfunctions $\phi_k$ from Equation~\eqref{eq:eigen_estimation} by $1 / \sqrt{l_k}$.
 Concerning the estimation of the scores, for $i = 1, \dots, N$, for $k \geq 1$, we have
 \begin{align}
     \widehat{\mathfrak{c}}_{ik} &= \inH{X_i - \mu}{\phi_k} = \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N v_{jk} \inH{X_i - \mu}{X_j - \mu}\\
