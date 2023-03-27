@@ -1,0 +1,21 @@
+# More ideas, not put in the paper
+
+
+\subsection{On the smoothing} % (fold)
+\label{sub:on_the_smoothing}
+
+Where should we do the smoothing in the case we estimate the eigencomponents using the inner product matrix?
+
+Using the covariance operator, \cite{ramsayFunctionalDataAnalysis2005} propose to smooth the eigenfunctions by penalizing their roughness by its integrated squared second derivative.
+
+Using the inner product matrix, we may think about multiple way to do it. First, we smooth all the curves beforehand using kernel regression or local polynomial (see \cite{golovkineLearningSmoothnessNoisy2022} for estimating the optimal bandwidth). Under the twice differentiable curve assumption, we may use the optimal bandwidth as defined by \cite{tsybakovIntroductionNonparametricEstimation2009}. Second, we could smooth the eigenfunctions directly, maybe using a smoothness penalty as in \cite{ramsayFunctionalDataAnalysis2005} by cross-validation.
+
+% subsection on_the_smoothing (end)
+
+\subsection{Sparse data} % (fold)
+\label{sub:sparse_data}
+
+I guess we should leave this part for another article.
+\textcolor{red}{What you should we do for sparse and irregularly sampled functional data? This question can be rewritten as how to compute the inner product between two curves while they are not sampled on the same grid and contains only few observations? One idea would be to consider the PACE algorithm \cite{yaoFunctionalDataAnalysis2005}. We might also only need to smooth each curve in ``a good way'' to estimate the curves on a common grid and apply the usual algorithm \cite{golovkineLearningSmoothnessNoisy2022}.}
+
+% subsection sparse_data (end)

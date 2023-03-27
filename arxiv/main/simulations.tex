@@ -1,32 +1,12 @@
 %!TEX root=../main.tex
-\section{Simulations} % (fold)
-\label{sec:simulations}
+\section{Empirical analysis} % (fold)
+\label{sec:empirical_analysis}
 
-% Mercer's theorem -------
-\begin{theorem}[Mercer's theorem]\label{th:mercer_th}
-Let $p \in \{1, \dots, P\}$. Then
-\begin{equation}
-    \Cov(X^{(p)}(s), X^{(p)}(t)) = \sum_{k = 1}^\infty \lambda_k \psi_k^{(p)}(s)\psi_k^{(p)}(t), \quad s, t \in \TT{p},
-\end{equation}
-where the convergence is absolute and uniform.
-\end{theorem}
-\begin{proof}
-    See \cite{happMultivariateFunctionalPrincipal2015} for a proof.
-\end{proof}
-% -------
+Using simulated data, in this Section, we compare the behavior of the estimation of the eigencomponents using the diagonalisation of the covariance operator and the Gram matrix. The diagonalisation of the covariance operator is performed using the methodology of \cite{happMultivariateFunctionalPrincipal2015}. As this methodology is based on the expansion of each univariate components, we used univariate FPCA if the curves are unidimensional and the FCP-TPA algorithm for regularized tensor decomposition \citep{allenMultiwayFunctionalPrincipal2013a}, if the curves are two-dimensional. We choose to use the FCP-TPA algortihm as it is the one used by \cite{happMultivariateFunctionalPrincipal2015} in their algorithm and implemented in their software \citep{happ-kurzObjectOrientedSoftwareFunctional2020}. Note that we could also use a two-dimensional basis expansion such as penalized tensor splines or discrete cosine transform, but we do not investigate this expansion here, as we do not want to prespecify a basis of functions.
 
-% Multivariate KL theorem -------
-\begin{theorem}[Multivariate Karhunen-Loève theorem]\label{th:kl_th}
-    Under some assumption,
-\begin{equation}
-    X(t) = \sum_{k = 1}^\infty \inH{X}{\psi_k}\psi_k(t), t \in \TT{}.
-\end{equation}
-\end{theorem}
-\begin{proof}
-    See \cite{happMultivariateFunctionalPrincipal2015} for a proof.
-\end{proof}
-% -------
+We are greatly interested in the ability of the methods to retrieve the right number of components $K$ for a given percentage of variance explained.
 
+\textcolor{red}{**************}
 
 We run simulations to check the goodness of fit of the MFPCA using both methods and compare the time complexity of the two ways. 
 
@@ -124,7 +104,7 @@ The scores are generated as independent realisations of a Gaussian distribution 
 % subsection simulation_settings (end)
 
 \subsection{Percentage of variance explained} % (fold)
-\label{sub:percentage_of_variance_explained}
+\label{sub:percentage_of_variance_explained_simulation}
 
 We show that choosing a univariate cut-off within each univariate dimension (e.g, $95\%$) does not lead to the same percentage of variance explained for the multivariate functions.
 
@@ -155,4 +135,4 @@ We consider noisy dataset. We simulate datasets are the same as before except we
 
 % subsection noisy_data (end)
 
-% section simulations (end)
+% section empirical_analysis (end)
