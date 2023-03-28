@@ -30,6 +30,12 @@
 \newcounter{th}
 \newtheorem{theorem}[th]{Theorem}
 
+\newcounter{scenario}[section]
+\newenvironment{scenario}[1][]{\refstepcounter{scenario}\par\medskip
+   \noindent \textbf{Scenario~\thescenario. #1} \rmfamily}{\medskip}
+
+\newenvironment{results}[1][]{\noindent \textbf{#1} \rmfamily}{\medskip}
+
 \providecommand{\keywords}[1]{\textbf{\textit{Keywords---}} #1}
 
 % Stats
@@ -138,8 +144,7 @@ Dimension reduction has a major importance in functional data analysis (FDA). Th
 % ACKNOWLEDGMENT -------
 \section*{Acknowledgment}
 
-S. Golovkine was partially supported by Science Foundation Ireland under Grant No. 19/FFP/7002 and co-funded under the European Regional Development Fund.
-
+S. Golovkine, A. J. Simpkin and N. Bargary are partially supported by Science Foundation Ireland under Grant No. 19/FFP/7002 and co-funded under the European Regional Development Fund. E. Gunning is supported in part Science Foundation Ireland (Grant No. 18/CRT/6049) and co-funded under the European Regional Development Fund.
 
 % REFERENCES ---------
 \bibliographystyle{apalike}

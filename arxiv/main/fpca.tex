@@ -78,10 +78,10 @@ We now consider the time complexity of the estimation of the eigencomponents usi
     \bigO\left(N^2M^1 + N^3 + KNP + KN\right).
 \end{equation}
 
-The number of components $K$ to estimate is usually small compare to the number of curves $N$ or to the number of sampling points $M^1$. Both time complexity can then be reduced to $\mathcal{O}(NM^2 + M^3)$ for the diagonalization of the covariance operator and to $\mathcal{O}(N^2M^1 + N^3)$ using the Gram matrix. If the number of observations is large compare to the number of sampling points, it thus seems preferable to use the covariance operator to estimate the eigencomponents, while if the number of sampling points is large compare to the number of observations, the use of the Gram matrix seems better. Note that the number of components $P$ does not have much impact on the computational complexity. These results are confirmed in the simulation (see Section~\ref{sub:computation_time}).
+The number of components $K$ to estimate is usually small compare to the number of curves $N$ or to the number of sampling points $M^1$. Both time complexity can then be reduced to $\mathcal{O}(NM^2 + M^3)$ for the diagonalization of the covariance operator and to $\mathcal{O}(N^2M^1 + N^3)$ using the Gram matrix. If the number of observations is large compare to the number of sampling points, it thus seems preferable to use the covariance operator to estimate the eigencomponents, while if the number of sampling points is large compare to the number of observations, the use of the Gram matrix seems better. Note that the number of components $P$ does not have much impact on the computational complexity. These results are confirmed in the simulation (see Section~\ref{sub:simulation_results}).
 
 \begin{remark}
-We can use the SVD in both case to make the algorithm faster as it allows to compute only the first $K$ eigenfunctions and not all of them.
+We can use the SVD in both cases to make the algorithm faster as it allows to compute only the first $K$ eigenfunctions and not all of them.
 \end{remark}
 
 % subsection computational_complexity (end)
