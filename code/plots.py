@@ -71,14 +71,12 @@ def load_results(path):
     # Select data time
     data_time = data.loc[:, ['P', 'N', 'M', 'ratio_time']].\
         sort_values(['P', 'N', 'M']).\
-        query('P != 50').\
-        replace({'P': {2: '$P = 2$', 10: '$P = 10$', 20: '$P = 20$'}})
+        replace({'P': {2: '$P = 2$', 10: '$P = 10$', 20: '$P = 20$', 50: '$P = 50$'}})
 
     # Select data MISE
     data_mise = data.loc[:, ['P', 'N', 'M', 'ratio_mise']].\
         sort_values(['P', 'N', 'M']).\
-        query('P != 50').\
-        replace({'P': {2: '$P = 2$', 10: '$P = 10$', 20: '$P = 20$'}})
+        replace({'P': {2: '$P = 2$', 10: '$P = 10$', 20: '$P = 20$', 50: '$P = 50$'}})
     return data_time, data_mise
 
 
