@@ -12,8 +12,12 @@ import os
 import re
 import time
 
+import matplotlib.pyplot as plt
+
 from joblib import Parallel, delayed
 
+from FDApy.representation.functional_data import MultivariateFunctionalData
+from FDApy.visualization.plot import plot_multivariate
 from functions import *
 
 # Argument parser for the file
@@ -62,7 +66,7 @@ def run_simulation(idx, n_obs, n_points, n_components):
         dimension = '2D'
         n_functions = 5
 
-        data = simulate_data(
+        kl = simulate_data(
             n_obs=n_obs,
             n_points=n_points,
             basis_name=basis_name,
@@ -71,9 +75,9 @@ def run_simulation(idx, n_obs, n_points, n_components):
             seed=idx
         )
     else:  # Simulate multivariate functional data
-        basis_name = 'wiener'
-        n_functions = 10
-        data = simulate_data_multivariate(
+        basis_name = 'fourier'
+        n_functions = 11
+        kl = simulate_data_multivariate(
             n_components=P,
             n_obs=n_obs,
             n_points=n_points,
@@ -81,6 +85,9 @@ def run_simulation(idx, n_obs, n_points, n_components):
             n_functions=n_functions,
             seed=idx
         )
+    data = kl.data
+    eigenfunctions = MultivariateFunctionalData(kl.basis)
+    eigenvalues = kl.eigenvalues
 
     # Perform FPCA covariance
     if P == 1:
@@ -110,19 +117,38 @@ def run_simulation(idx, n_obs, n_points, n_components):
     data_f_cov = compute_reconstruction(fpca_cov, scores_cov)
     data_f_inn = compute_reconstruction(fpca_inn, scores_inn)
 
-    # Compute MISE
+    # Get eigenvalues
+    eigenvalues_cov = fpca_cov.eigenvalues
+    eigenvalues_inn = fpca_inn.eigenvalues
+
+    # Get eigenfunctions
+    eigenfunctions_cov = fpca_cov.eigenfunctions
+    eigenfunctions_inn = fpca_inn.eigenfunctions
+
+    # Compute errors
     if P == 1:
-        mise_cov = MISE_2D(data, data_f_cov)
-        mise_inn = MISE_2D(data, data_f_inn)
+        mise_cov = MISE(data, data_f_cov)
+        mise_inn = MISE(data, data_f_inn)
+        ise_cov = ISE(eigenfunctions, eigenfunctions_cov, n_estim=n_components)
+        ise_inn = ISE(eigenfunctions, eigenfunctions_inn, n_estim=n_components)
     else:
         mise_cov = MISE(data, data_f_cov)
         mise_inn = MISE(data, data_f_inn)
+        ise_cov = ISE(eigenfunctions, eigenfunctions_cov, n_estim=n_components)
+        ise_inn = ISE(eigenfunctions, eigenfunctions_inn, n_estim=n_components)
+    ae_cov = logAE(eigenvalues, eigenvalues_cov, n_components)
+    ae_inn = logAE(eigenvalues, eigenvalues_inn, n_components)
+    
 
     return {
         'time_cov': time_cov,
         'time_inn': time_inn,
         'mise_cov': mise_cov,
         'mise_inn': mise_inn,
+        'logAE_cov': list(ae_cov),
+        'logAE_inn': list(ae_inn),
+        'ise_cov': list(ise_cov),
+        'ise_inn': list(ise_inn),
         'n_comp_cov': fpca_cov.eigenfunctions.n_obs,
         'n_comp_inn': fpca_inn.eigenfunctions.n_obs
     }
@@ -138,7 +164,7 @@ if __name__ == "__main__":
         for idx in range(N_SIMU)
     )
     print(f'{time.time() - start}')
-    
+ 
     if not os.path.exists(f"{args.out_folder}/P{P}"):
         os.makedirs(f"{args.out_folder}/P{P}")
 

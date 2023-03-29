@@ -9,7 +9,10 @@ import numpy as np
 from FDApy.preprocessing.dim_reduction.fpca import UFPCA, MFPCA
 from FDApy.preprocessing.dim_reduction.fcp_tpa import FCPTPA
 from FDApy.representation.basis import Basis
-from FDApy.representation.functional_data import DenseFunctionalData
+from FDApy.representation.functional_data import (
+    DenseFunctionalData,
+    MultivariateFunctionalData
+)
 from FDApy.simulation.karhunen import KarhunenLoeve
 
 # Variables
@@ -44,7 +47,7 @@ def simulate_data(
 
     Returns
     -------
-    DenseFunctionalData
+    KarhunenLoeve
         The simulated dataset.
 
     """
@@ -57,7 +60,7 @@ def simulate_data(
         random_state=seed
     )
     kl.new(n_obs=n_obs, clusters_std='exponential')
-    return kl.data
+    return kl
 
 
 def simulate_data_multivariate(
@@ -87,7 +90,7 @@ def simulate_data_multivariate(
 
     Returns
     -------
-    DenseFunctionalData
+    KarhunenLoeve
         The simulated dataset.
 
     """
@@ -124,7 +127,7 @@ def simulate_data_multivariate(
         basis_name=None, basis=basis_multi, random_state=seed
     )
     kl.new(n_obs=n_obs, clusters_std='exponential')
-    return kl.data
+    return kl
 
 
 def ufpca_covariance(data, n_components):
@@ -303,7 +306,30 @@ def compute_reconstruction(fpca, scores):
     return fpca.inverse_transform(scores)
 
 
-def MISE_1D(data_true, data_recons):
+def flip(
+    data: DenseFunctionalData,
+    data_reference: DenseFunctionalData
+):
+    """Flip data if they have opposite sign."""
+    norm_pos = np.linalg.norm(data.values + data_reference.values)
+    norm_neg = np.linalg.norm(data.values - data_reference.values)
+    
+    sign = -1 if norm_pos < norm_neg else 1
+    return DenseFunctionalData(data.argvals, sign * data.values)
+
+
+def flip_multi(
+    data: MultivariateFunctionalData,
+    data_reference: MultivariateFunctionalData
+):
+    """Flip data if they have opposite sign."""
+    data_list = data.n_functional * [None]
+    for idx in np.arange(data.n_functional):
+        data_list[idx] = flip(data[idx], data_reference[idx])
+    return MultivariateFunctionalData(data_list)
+
+
+def ISE(data_true, data_recons, n_estim=None):
     """Compute MISE between two univariate functional datasets.
 
     The two datasets must have the same number of observations and the same
@@ -315,6 +341,8 @@ def MISE_1D(data_true, data_recons):
         Dataset of functional data.
     data_recons: DenseFunctionalData
         Data of functionalData.
+    n_estim: np.int64
+        Number of functions to estimate
 
     Returns
     -------
@@ -322,41 +350,32 @@ def MISE_1D(data_true, data_recons):
         The mean integrated squared error between the two datasets.
 
     """
-    values_true = data_true.values
-    values_recons = data_recons.values
-    diff_squared = np.power(values_true - values_recons, 2)
-    int_along_x = np.trapz(y=diff_squared, x=data_true.argvals['input_dim_0'])
-    return np.mean(int_along_x)
+    if isinstance(data_true, DenseFunctionalData):
+        data_true = MultivariateFunctionalData([data_true])
+    if isinstance(data_recons, DenseFunctionalData):
+        data_recons = MultivariateFunctionalData([data_recons])
+    if n_estim is None:
+        n_estim = data_true.n_obs
+    
+    res = n_estim * [None]
+    for idx in np.arange(n_estim):
+        data_t = data_true.get_obs(idx)
+        data_f = flip_multi(data_recons.get_obs(idx), data_true.get_obs(idx))
 
+        ise = data_true.n_functional * [None]
+        for p in np.arange(data_t.n_functional):
+            values_true = data_t[p].values.squeeze()
+            values_recons = data_f[p].values.squeeze()
+            diff_squared = np.power(values_true - values_recons, 2)
+            if len(values_true.shape) == 2:
+                int_along_y = np.trapz(y=diff_squared, x=data_t[p].argvals['input_dim_1'])
+                ise[p] = np.trapz(y=int_along_y, x=data_t[p].argvals['input_dim_0'])
+            else:
+                ise[p] = np.trapz(y=diff_squared, x=data_t[p].argvals['input_dim_0'])
+        res[idx] = np.sum(ise)
+    return res
 
-def MISE_2D(data_true, data_recons):
-    """Compute 2D-MISE between two functional datasets.
-
-    The two datasets must have the same number of observations and the same
-    argvals.
-
-    Parameters
-    ----------
-    data_true: DenseFunctionalData
-        Dataset of functional data.
-    data_recons: DenseFunctionalData
-        Data of functionalData.
-
-    Returns
-    -------
-    float
-        The mean integrated squared error between the two datasets.
-
-    """
-    values_true = data_true.values
-    values_recons = data_recons.values
-    diff_squared = np.power(values_true - values_recons, 2)
-    int_along_y = np.trapz(y=diff_squared, x=data_true.argvals['input_dim_1'])
-    int_along_x = np.trapz(y=int_along_y, x=data_true.argvals['input_dim_0'])
-    return np.mean(int_along_x)
-
-
-def MISE(data_true, data_recons):
+def MISE(data_true, data_recons, n_estim=None):
     """Compute MISE between two multivariate functional datasets.
 
     The two datasets must have the same number of observations and the same
@@ -368,6 +387,8 @@ def MISE(data_true, data_recons):
         Dataset of functional data.
     data_recons: MultivariateFunctionalData
         Data of functionalData.
+    n_estim: np.int64
+        Number of functions to estimate
 
     Returns
     -------
@@ -375,4 +396,28 @@ def MISE(data_true, data_recons):
         The mean integrated squared error between the two datasets.
 
     """
-    return np.sum([MISE_1D(d, d_f) for d, d_f in zip(data_true, data_recons)])
+    return np.mean(ISE(data_true, data_recons, n_estim))
+
+
+def logAE(eigenvalues_true, eigenvalues_estim, n_estim):
+    """Compute log-AE between two sets of eigenvalues.
+
+    Parameters
+    ----------
+    eigenvalues_true: npt.NDArray
+        Array of eigenvalues.
+    eigenvalues_estim: npt.NDArray
+        Array of eigenvalues.
+    n_estim: np.int64
+        Number of eigenvalues to estimate
+
+    Returns
+    -------
+    npt.NDArray
+        The log-AE for each eigenvalues estimation.
+
+    """
+    res = n_estim * [None]
+    for idx in np.arange(n_estim):
+        res[idx] = np.abs(eigenvalues_true[idx] - eigenvalues_estim[idx])
+    return np.log(res)
