@@ -6,48 +6,45 @@ Using the Hilbert-Schmidt theorem, there exists a complete orthonormal basis of 
 \begin{equation}\label{eq:eigen_inner_prod_p}
     Mv_k = l_kv_k.
 \end{equation}
-Let $X = \left(X_1 - \mu, \dots, X_N - \mu\right)^\top$. Recall that, in the case of $P$-dimensional process, the realisations of the process $X_i,~i = 1, \cdots, N$ and $\mu$ are vectors of functions of length $P$, and thus $X$ is a matrix of functions of size $N \times P$. By left multiplying Equation~\eqref{eq:eigen_inner_prod_p} by $X^\top$, we obtain
+Let $X = \left(X_1 - \mu, \dots, X_N - \mu\right)^\top$. Recall that, in the case of $P$-dimensional process, the realisations of the process $X_n,~n = 1, \cdots, N$ and $\mu$ are vectors of functions of length $P$, and thus $X$ is a matrix of functions of size $N \times P$. By left multiplying Equation~\eqref{eq:eigen_inner_prod_p} by $X^\top$, we obtain
 \begin{equation}\label{eq:eigen_inner_prod_left}
     X^\top M v_k = l_k X^\top v_k.
 \end{equation} 
 Expanding Equation~\eqref{eq:eigen_inner_prod_left}, for each component $p = 1, \dots, P$, we have
 \begin{equation}\label{eq:inner_prod_p}
-    \sum_{i = 1}^N \sum_{j = 1}^N v_{jk}\left\{X_i^{(p)} - \mu^{(p)}\right\}\inH{X_i - \mu}{X_j - \mu} = l_k \sum_{i = 1}^N v_{ik}\left\{X_i^{(p)} - \mu^{(p)}\right\}.
+    \sum_{i = 1}^N \sum_{j = 1}^N [v_{k}]_j\left\{X_i^{(p)} - \mu^{(p)}\right\}\inH{X_i - \mu}{X_j - \mu} = l_k \sum_{n = 1}^N [v_{k}]_n\left\{\Xnp - \mu^{(p)}\right\}.
 \end{equation}
-In the following, we note $[a]_p$ the $p$th entry of the vector $a$. Starting from the left side of Equation~\eqref{eq:inner_prod_p}, we get
+Here and in the following, we note $[a]_p$ the $p$th entry of the vector $a$. Starting from the left side of Equation~\eqref{eq:inner_prod_p}, we get
 \begin{align}\label{eq:inner_prod_p_left}
-[X^\top M v_k]_p &= \sum_{i = 1}^N \sum_{j = 1}^N v_{jk} \left\{X_i^{(p)} - \mu^{(p)}\right\}\inH{X_i - \mu}{X_j - \mu}\\
-&= \sum_{q = 1}^P \int_{\TT{q}} \sum_{i = 1}^N \left\{X_i^{(p)} - \mu^{(p)}\right\} \left\{X_i^{(q)}(s) - \mu^{(q)}(s)\right\} \sum_{j = 1}^N v_{jk} \left\{X_j^{(q)}(s) - \mu^{(q)}(s)\right\} \dd s \\
-&= \sum_{q = 1}^P \int_{\TT{q}} N C_{pq}(\cdot, s)\sum_{j = 1}^N v_{jk} \left\{X_j^{(q)}(s) - \mu^{(q)}(s)\right\} \dd s \\
-&= N \sum_{j = 1}^N \inH{C_{p \cdot}(\cdot, \cdot)}{v_{jk} \left\{X_j - \mu\right\}} \\
-&= N \Gamma\left(\sum_{j = 1}^N v_{jk}\left\{X_j - \mu\right\} \right)^{(p)}\mkern-9mu(\cdot)
+[X^\top M v_k]_p &= \sum_{i = 1}^N \sum_{j = 1}^N [v_{k}]_j \left\{X_i^{(p)} - \mu^{(p)}\right\}\inH{X_i - \mu}{X_j - \mu}\\
+&= \sum_{q = 1}^P \int_{\TT{q}} \sum_{i = 1}^N \left\{X_i^{(p)} - \mu^{(p)}\right\} \left\{X_i^{(q)}(s_p) - \mu^{(q)}(s_p)\right\} \sum_{j = 1}^N [v_{k}]_j \left\{X_j^{(q)}(s) - \mu^{(q)}(s)\right\} \dd s_p \\
+&= \sum_{q = 1}^P \int_{\TT{q}} N C_{pq}(\cdot, s_p)\sum_{j = 1}^N [v_{k}]_j \left\{X_j^{(q)}(s_p) - \mu^{(q)}(s)\right\} \dd s_p \\
+&= N \sum_{j = 1}^N \inH{C_{p \cdot}(\cdot, \cdot)}{[v_{k}]_j \left\{X_j - \mu\right\}} \\
+&= N \Gamma\left(\sum_{j = 1}^N [v_{k}]_j \left\{X_j - \mu\right\} \right)^{(p)}\mkern-9mu(\cdot)
 \end{align}
 and, starting from the right side of Equation~\eqref{eq:inner_prod_p},
 \begin{equation}\label{eq:inner_prod_p_right}
-    [l_k X^\top v_k]_p = l_k \sum_{i = 1}^N v_{ik} \left\{X_i^{(p)} - \mu^{(p)}\right\}.
+    [l_k X^\top v_k]_p = l_k \sum_{n = 1}^N [v_{k}]_n \left\{\Xnp - \mu^{(p)}\right\}.
 \end{equation}
 From Equation~\eqref{eq:inner_prod_p_left} and Equation~\eqref{eq:inner_prod_p_right}, we obtain
 \begin{equation}
-    \Gamma\left(\sum_{j = 1}^N v_{jk} \left\{X_j - \mu\right\}\right)^{(p)}\mkern-9mu(\cdot) = \frac{l_k}{N} \sum_{i = 1}^N v_{ik}\left\{X_i^{(p)} - \mu^{(p)}\right\}, \quad\text{for all}~ p = 1, \dots, P.
+    \Gamma\left(\sum_{j = 1}^N [v_{k}]_j \left\{X_j - \mu\right\}\right)^{(p)}\mkern-9mu(\cdot) = \frac{l_k}{N} \sum_{n = 1}^N [v_{k}]_n \left\{\Xnp - \mu^{(p)}\right\}, \quad\text{for all}~ p = 1, \dots, P.
 \end{equation}
 By identification in Equation~\eqref{eq:eigendecomposition}, we find that, for each components $p$,
 \begin{equation}\label{eq:eigen_estimation}
-\lambda_k = \frac{l_k}{N} \quad\text{and}\quad \phi_k^{(p)} = \sum_{i = 1}^N v_{ik}\left\{X_i^{(p)} - \mu^{(p)}\right\}, \quad k \geq 1.
+\lambda_k = \frac{l_k}{N} \quad\text{and}\quad \phi_k^{(p)} = \sum_{n = 1}^N [v_{k}]_n \left\{\Xnp - \mu^{(p)}\right\}, \quad k \geq 1.
 \end{equation}
 For $k \geq 1$, the norm of the eigenfunction is computed as the following:
 \begin{align*}
-\normH{\phi_k}^2 &= \sum_{i = 1}^N \sum_{j = 1}^N v_{ik} v_{jk}\inH{X_i - \mu}{X_j - \mu} = \sum_{i = 1}^N v_{ik} \sum_{j = 1}^N M_{ij} v_{jk} \\
-    &= \sum_{i = 1}^N v_{ik} l_k v_{ik} = l_k \normLp{v_k}^2 = l_k. \\
+\normH{\phi_k}^2 &= \sum_{i = 1}^N \sum_{j = 1}^N [v_{k}]_i [v_{k}]_j\inH{X_i - \mu}{X_j - \mu} = \sum_{i = 1}^N [v_{k}]_i \sum_{j = 1}^N M_{ij} [v_{k}]_j \\
+    &= \sum_{i = 1}^N [v_{k}]_i l_k [v_{k}]_i = l_k \normLp{v_k}^2 = l_k. \\
 \end{align*}
 Therefore, in order to have an orthonormal basis of eigenfunctions, we normalise the eigenfunctions $\phi_k$ from Equation~\eqref{eq:eigen_estimation} by $1 / \sqrt{l_k}$.
-Concerning the estimation of the scores, for $i = 1, \dots, N$, for $k \geq 1$, we have
+Concerning the estimation of the scores, for $n = 1, \dots, N$, for $k \geq 1$, we have
 \begin{align}
-    \widehat{\mathfrak{c}}_{ik} &= \inH{X_i - \mu}{\phi_k} = \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N v_{jk} \inH{X_i - \mu}{X_j - \mu}\\
-    &= \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N v_{jk}M_{ij} = \sqrt{l_k}v_{ik}.\\
+    \widehat{\mathfrak{c}}_{nk} &= \inH{X_n - \mu}{\phi_k} = \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N [v_{k}]_j \inH{X_n - \mu}{X_j - \mu}\\
+    &= \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N [v_{k}]_j M_{nj} = \sqrt{l_k}[v_{k}]_n.\\
 \end{align}
-
-\textcolor{red}{***********}
-
 Concerning the expansion of the data into the basis of function $\Psi$, we write 
 \begin{equation}
     M = \left(CW^{1/2}\right)\left(CW^{1/2}\right)^\top.
@@ -93,9 +90,9 @@ As the eigenfunctions are assumed to be normalized, $\normH{\phi_k}^2 = 1$. And 
 \end{equation}
 From the eigendecomposition of the matrix $M$, we get
 \begin{equation}\label{eq:eigen_inner_prod}
-    Mv_k = l_k v_k \Longleftrightarrow \left(C W^{1/2}\right)\left(C W^{1/2}\right)^T v_k = l_k v_k.
+    Mv_k = l_k v_k \Longleftrightarrow \left(C W^{1/2}\right)\left(C W^{1/2}\right)^\top v_k = l_k v_k.
 \end{equation}
-The equations \eqref{eq:eigen_cov_op} and \eqref{eq:eigen_inner_prod} are eigenequations in the classical PCA case, with the duality $X^\top X$ and $XX^\top$. Following \cite{pagesMultipleFactorAnalysis2014}, we find that, for $1 \leq k \leq K$,
+The equations \eqref{eq:eigen_cov_op} and \eqref{eq:eigen_inner_prod} are eigenequations in the classical PCA case, with the duality $X^\top X$ and $XX^\top$. Following \cite{pagesMultipleFactorAnalysis2014,hardleAppliedMultivariateStatistical2019}, we find that, for $1 \leq k \leq K$,
 \begin{equation}
     \lambda_k = \frac{l_k}{N}, \quad v_k = \frac{1}{\sqrt{l_k}}C W^{1/2} u_k \quad\text{and}\quad u_k = \frac{1}{\sqrt{l_k}} W^{1/2} C^\top v_k.
 \end{equation}

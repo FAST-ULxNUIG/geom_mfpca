@@ -2,12 +2,12 @@
 \section{Multivariate functional principal components analysis} % (fold)
 \label{sec:functional_principal_components_analysis}
 
-Assuming that the covariance operator $\Gamma$ is a compact positive operator on $\HH$ and using the results in \cite{happMultivariateFunctionalPrincipal2015}, and the theory of Hilbert-Schmidt operators, e.g., \cite{reedMethodsModernMathematical1980}, there exists a complete orthonormal basis 
+Assuming that the covariance operator $\Gamma$ is a compact positive operator on $\HH$ and using the results in \cite{happMultivariateFunctionalPrincipal2018a}, and the theory of Hilbert-Schmidt operators, e.g., \cite{reedMethodsModernMathematical1980}, there exists a complete orthonormal basis 
 $\Phi = \{\phi_k\}_{k \geq 1} \subset \HH$ associated to a set of real numbers $\{\lambda_k\}_{k \geq 1}$ such that $\lambda_1 \geq \lambda_2 \geq \dots \geq 0$ that satisfy
 \begin{equation}\label{eq:eigendecomposition}
     \Gamma \phi_k = \lambda_k \phi_k, \quad\text{and}\quad \lambda_k \longrightarrow 0 \quad\text{as}\quad k \longrightarrow \infty.
 \end{equation}
-The set $\{\lambda_k\}_{k \geq 1}$ contains the eigenvalues of the covariance operator $\Gamma$ and $\Phi$ contains the associated eigenfunctions. Using the multivariate Karhunen-Loève theorem \citep{happMultivariateFunctionalPrincipal2015}, we obtain the decomposition
+The set $\{\lambda_k\}_{k \geq 1}$ contains the eigenvalues of the covariance operator $\Gamma$ and $\Phi$ contains the associated eigenfunctions. Using the multivariate Karhunen-Loève theorem \citep{happMultivariateFunctionalPrincipal2018a}, we obtain the decomposition
 \begin{equation}\label{eq:kl_multi}
     X(\pointt) = \mu(\pointt) + \sum_{k = 1}^\infty \mathfrak{c}_k \phi_k(\pointt), \quad \pointt \in \TT{}
 \end{equation}
@@ -25,17 +25,16 @@ be the truncated Karhunen-Loève expansion of the components of the process $X$.
 \subsection{By diagonalization of the covariance operator} % (fold)
 \label{sub:by_diagonalization_of_the_covariance_operator}
 
-The estimation of the eigencomponents of the covariance $\Gamma$ by its diagonalization is derived in \cite{happMultivariateFunctionalPrincipal2015} for a general class of multivariate functional data defined on different dimensional domains. They give a direct relationship between the truncated representation \eqref{eq:kl_multi_trunc_comp} of the single elements $X^{(p)}$ and the truncated representation \eqref{eq:kl_multi_trunc} of the multivariate functional data $X$ \cite[see][Prop.~5]{happMultivariateFunctionalPrincipal2015}.
+The estimation of the eigencomponents of the covariance $\Gamma$ by its diagonalization is derived in \cite{happMultivariateFunctionalPrincipal2018a} for a general class of multivariate functional data defined on different dimensional domains. They give a direct relationship between the truncated representation \eqref{eq:kl_multi_trunc_comp} of the single elements $X^{(p)}$ and the truncated representation \eqref{eq:kl_multi_trunc} of the multivariate functional data $X$ \cite[see][Prop.~5]{happMultivariateFunctionalPrincipal2018a}.
 
-We recall here, how to actually estimate the eigencomponents. Following \citet[Prop.~5]{happMultivariateFunctionalPrincipal2015}, the multivariate components for $X$ are estimated by plugging the univariate components computed from each $X^{(p)}$. These estimations are done as  follows. First, we perform an univariate FPCA on each of the components of $X$ separately. For a component $X^{(p)}$, the eigenfunctions and eigenvectors are computed as a matrix analysis of the estimated covariance $C_{p, p}$ from \eqref{eq:cov_estimation}. This results in a set of eigenfunctions $(\varphi_1^{(p)}, \ldots, \varphi_{K_p}^{(p)})$ associated with a set of eigenvalues $(\lambda_1^{(p)}, \ldots, \lambda_{K_p}^{(p)})$ for a given truncation integer $K_p$. Then, the univariate scores for a realization $\Xnp$ of $X^{(p)}$ are given by $\mathbf{c}_{nk}^{(p)} = \inLp{X_n^{(p)}}{\varphi_k^{(p)}}, ~1 \leq k \leq K_p$. These scores might be estimated by numerical integration for example. Considering $K_+ \coloneqq \sum_{p = 1}^P K_p$, we then define the matrix $\mathcal{Z} \in \mathbb{R}^{N \times K_+}$, where on each row we concatenate the scores obtained for the $P$ components of  the $n$th observation: 
+We recall here, how to actually estimate the eigencomponents. Following \citet[Prop.~5]{happMultivariateFunctionalPrincipal2018a}, the multivariate components for $X$ are estimated by plugging the univariate components computed from each $X^{(p)}$. These estimations are done as  follows. First, we perform an univariate FPCA on each of the components of $X$ separately. For a component $X^{(p)}$, the eigenfunctions and eigenvectors are computed as a matrix analysis of the estimated covariance $C_{p, p}$ from \eqref{eq:cov_estimation}. This results in a set of eigenfunctions $(\varphi_1^{(p)}, \ldots, \varphi_{K_p}^{(p)})$ associated with a set of eigenvalues $(\lambda_1^{(p)}, \ldots, \lambda_{K_p}^{(p)})$ for a given truncation integer $K_p$. Then, the univariate scores for a realization $\Xnp$ of $X^{(p)}$ are given by $\mathbf{c}_{nk}^{(p)} = \inLp{X_n^{(p)}}{\varphi_k^{(p)}}, ~1 \leq k \leq K_p$. These scores might be estimated by numerical integration for example. Considering $K_+ \coloneqq \sum_{p = 1}^P K_p$, we then define the matrix $\mathcal{Z} \in \mathbb{R}^{N \times K_+}$, where on each row we concatenate the scores obtained for the $P$ components of  the $n$th observation: 
 $(\mathbf{c}_{n1}^{(1)}, \ldots, \mathbf{c}_{nK_1}^{(1)}, \ldots, \mathbf{c}_{n1}^{(P)}, \ldots, \mathbf{c}_{nK_P}^{(P)})$. An estimation of the covariance of the matrix $\mathcal{Z}$ is given by $\mathbf{Z} = (N - 1)^{-1}\mathcal{Z}^\top\mathcal{Z}$. An eigenanalysis of the matrix $\mathbf{Z}$ is done to estimate the eigenvectors $\boldsymbol{v}_k$ and eigenvalues $\lambda_k$. And finally, the multivariate eigenfunctions are estimated with
 \begin{equation*}
 \phi_k^{(p)}(t_p) = \sum_{l = 1}^{K_p}[\boldsymbol{v}_k]_{l}^{(p)}\varphi_{l}^{(p)}(t_p),\quad t_p \in \TT{p},\quad 1 \leq k \leq K_+,\quad 1 \leq p \leq P,
 \end{equation*}
 where $[\boldsymbol{v}_k]^{(p)}_{l}$ denotes the $l$th entry of the $p$th block of the vector $\boldsymbol{v}_k$. The multivariate scores are estimated with
 $$\mathfrak{c}_{nk} = \mathcal{Z}_{{n,\cdot}}\boldsymbol{v}_k, \quad 1 \leq n \leq N, \quad 1 \leq k \leq K_+.$$
-
-\textcolor{red}{Add computation using basis expansion.}
+We let the reader refer to \cite{happMultivariateFunctionalPrincipal2018a} for the derivation of the eigencomponents of the covariance operator if the curves are expanded in a general basis of functions.
 
 % subsection by_diagonalization_of_the_covariance_operator (end)
 
@@ -58,9 +57,8 @@ where $[v_{k}]_n$ is the $n$th entry of the vector $v_k$. The scores are then co
 \begin{equation}\label{eq:scores_relation_p}
     \mathfrak{c}_{nk} = \sqrt{l_k}[v_{k}]_n, \quad n = 1, 2, \dots, N, \quad k = 1, 2, \dots, N. 
 \end{equation}
-The derivation of these equalities are given in Appendix~\ref{sec:derivation_of_the_eigencomponents}.
-
-\textcolor{red}{Add computation using basis expansion.}
+These results can be extended in a natural way if all the curves are expanded in a general basis of functions, defined in Equation~\eqref{eq:curve_basis_expansion}.
+The derivation of these equalities, as well as the derivation of the eigencomponents using the expansion of the curves in a general basis of funcition and the Gram matrix, are given in Appendix~\ref{sec:derivation_of_the_eigencomponents}.
 % subsection by_diagonalization_of_the_inner_product_matrix (end)
 
 
@@ -69,7 +67,7 @@ The derivation of these equalities are given in Appendix~\ref{sec:derivation_of_
 
 We describe the time complexity for the computation of the MFPCA algorithm using the covariance operator and the inner product matrix. Considering the observation of $N$ curves with $P$ components, we assume that all observations of the component $p$ are sampled on a common grid of $M_p$ points. For $a \in \NN$, let $M^a = \sum_{p} M_p^a$. Let $K$ be the number of multivariate eigenfunctions to estimate. For the estimation of the eigencomponents using the covariance operator, we have $K \leq K_+$. While $K$ has the same interpretation for both the eigendecomposition of the covariance operator and the eigendecomposition of the inner product matrix, in the latter case, it is not computed as the summation over the univariate elements, but rather as the number of components needed to achieve a certain amount of variance explained (see Sections \ref{sub:percentage_of_variance_explained} and \ref{sub:percentage_of_variance_explained_simulation}). Here, we also assume that the curves are perfectly observed, and thus no smoothing step is included in the expression of the time complexity. 
 
-To estimate the time complexity of an algorithm, we count the number of elementary operations realized, considering a fixed execution time for each elementary operation. Worst-case time complexity is usually considered; and this is what we do in the following. We first give the time complexity for the estimation of the eigencomponents using the covariance operator by expliciting the time complexity of each individual step (see \cite{happMultivariateFunctionalPrincipal2015} and Section~\ref{sub:by_diagonalization_of_the_covariance_operator}). For each component $p$, the time complexity of the estimation of the covariance matrix is $\bigO(NM_p^2)$, of the eigendecomposition of the matrix is $\bigO(M_p^3)$ and of the univariate score is $\bigO(NM_pK_p)$. Considering all the components, the time complexity is the sum over $p$ the univariate time complexity. The covariance matrix $\mathbf{Z}$ of the stacked univariate scores $\mathcal{Z}$ is then computed with a time complexity of $\bigO(NK_+^2)$, because the dimension of the matrix $\mathcal{Z}$ is $N \times K_+$. The eigendecomposition of the matrix $\mathbf{Z}$ has a time complexity of $\bigO(K_+^3)$. The final step is to compute the multivariate eigenfunctions and scores. For the estimation of the $K \leq K_+$ multivariate eigenfunctions, the time complexity is $\bigO(K\sum_{p} M_pK_p)$ and for the estimation of the scores, the time complexity is $\bigO(NK^2)$. Gathering all the results, the final complexity of the estimation of the eigencomponents using the eigendecomposition of the covariance operator is
+To estimate the time complexity of an algorithm, we count the number of elementary operations realized, considering a fixed execution time for each elementary operation. Worst-case time complexity is usually considered; and this is what we do in the following. We first give the time complexity for the estimation of the eigencomponents using the covariance operator by expliciting the time complexity of each individual step (see \cite{happMultivariateFunctionalPrincipal2018a} and Section~\ref{sub:by_diagonalization_of_the_covariance_operator}). For each component $p$, the time complexity of the estimation of the covariance matrix is $\bigO(NM_p^2)$, of the eigendecomposition of the matrix is $\bigO(M_p^3)$ and of the univariate score is $\bigO(NM_pK_p)$. Considering all the components, the time complexity is the sum over $p$ the univariate time complexity. The covariance matrix $\mathbf{Z}$ of the stacked univariate scores $\mathcal{Z}$ is then computed with a time complexity of $\bigO(NK_+^2)$, because the dimension of the matrix $\mathcal{Z}$ is $N \times K_+$. The eigendecomposition of the matrix $\mathbf{Z}$ has a time complexity of $\bigO(K_+^3)$. The final step is to compute the multivariate eigenfunctions and scores. For the estimation of the $K \leq K_+$ multivariate eigenfunctions, the time complexity is $\bigO(K\sum_{p} M_pK_p)$ and for the estimation of the scores, the time complexity is $\bigO(NK^2)$. Gathering all the results, the final complexity of the estimation of the eigencomponents using the eigendecomposition of the covariance operator is
 \begin{equation}\label{eq:time_compl_cov}
     \bigO\left(NM^2 + M^3 + N\sum_{p = 1}^P M_pK_p + NK_+^2 + K_+^3 + K\sum_{p = 1}^P M_pK_p + NK^2\right).
 \end{equation}
@@ -85,17 +83,5 @@ We can use the SVD in both cases to make the algorithm faster as it allows to co
 \end{remark}
 
 % subsection computational_complexity (end)
-
-\subsection{Percentage of variance explained} % (fold)
-\label{sub:percentage_of_variance_explained}
-
-We argue that the percentage of variance explained in \cite{happMultivariateFunctionalPrincipal2015} is not the good one as they consider the variance explained by each of the components separately and not as a all. Using the inner product matrix however gives the right number of eigenfunctions for a given amount of variance explained.
-
-\textcolor{red}{See attached, a very brief simulation. It seems to show that choosing a univariate cut-off within each dimension (e.g., $95\%$), tends to overestimate the final amount of variance – the sum of the final eigenvalues is larger than the sum of the true eigenvalues. I did some reading -- Happ and Greven considered the effect of pve only on eigenfunction estimation. I’ve attached the relevant pages from their supplementary material. I’m not sure they considered eigenvalues or the total variation after. Moreover, I think (but not sure) they assume in their simulation that $M$ is known where they say $\min\{M_1 + M_2, M\}$; whereas in practice, it is obviously unknown. But maybe they’re just referring to M as the total number of sample eigenfunctions with non-zero eigenvalues (rather than the true number of multivariate eiegenfunctions).}
-
-Note that in \cite{happMultivariateFunctionalPrincipal2015}, the percentage of variance explained in not specified in the MFPCA algorithm. The number of components is specified and is chosen to be equal to be the minimum between $\sum_{p = 1}^P K_p$ and $K$.
-
-
-% subsection percentage_of_variance_explained (end)
 
 % section functional_principal_components_analysis (end)

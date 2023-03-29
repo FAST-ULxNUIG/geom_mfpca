@@ -59,24 +59,29 @@ d^2(h, o) = \sum_{n = 1}^N p_n \normLp{h_n - \mu_h}^2 = \int_{\TT{0}} \Var h^{(p
 \subsection{On centering and reducing} % (fold)
 \label{sub:on_centering_and_reducing}
 
-\textcolor{red}{Take a look at \cite{protheroNewPerspectivesCentering2021}}
+For conducting an MFPCA, the components are usually assumed centred \citep{happMultivariateFunctionalPrincipal2018a}. \cite{protheroNewPerspectivesCentering2021} give a complete overview of centering in the context of FDA. Here, we comment on the geometric interpretation of centering in this context and compare with the multivariate scalar case. We focus on the usual centering in FDA, namely $\Xnp(t_p) - \mu^{(p)}(t_p),~t_p \in \TT{p}$ (refered as \emph{object centering} in \cite{protheroNewPerspectivesCentering2021}).
+The geometric interpretation of the centering differs if we refer to the observations' space $\HH$ or the variables' space $\GG$. Within the space $\HH$, centering is interpreted as translating the centre of gravity of the curves $\GN$ to the the origin point $\OH$ of $\HH$. This transformation, being a translation, does not change the shape of the cloud $\CN$. The interpretation is the same as for the multivariate scalar data. Within the space $\GG$, the centering is harder to interpret and has not the same meaning as in the multivariate case. Actually, in the multivariate scalar case, the centering of the data can be geometrically interpreted as the projection of the data on the subspace orthogonal to the constant vector. However, what happened if we project the multivariate curves onto the vector (of length $P$) of constant functions?
 
-In MFPCA, the components are usually assumed centred \cite{happMultivariateFunctionalPrincipal2015}. If curves are not centered, we replace $\Xnp(t)$ by $\Xnp(t) - \mu^{(p)}(t)$. The geometric interpretation of the centering differs if we refer to $\HH$ or $\GG$. Within the space $\HH$, centering is interpreted as translating the centre of gravity of the curves $\GN$ to the the origin point $\OH$ of $\HH$. This transformation, being a translation, does not change the shape of the cloud $\CN$. Within the space $\GG$, the centering is harder to interpret and has not the same meaning as in the multivariate case (projection on the subspace orthogonal to the constant vector). 
 
-\begin{remark}
-What happened if we project the multivariate curves onto the vector of constant functions?
-In the space $\GG$, the inner product is given by
+\textcolor{red}{In the space $\GG$, the inner product is given by
 \begin{equation}
 \inH{f}{g} = \sum_{i = 1}^N \int_{\TT{k}} f^{(k)}_i(t)g^{(k)}_i(t)dt, \quad f, g \in \GG.
-\end{equation} 
-Let $\mathbf{1}$ be the vector of constant function in $\GG$ and $f$ an element of $\GG$. Then, the projection of $f$ onto $\mathbf{1}$ is given by
-\begin{equation}
-P_{\mathbf{1}}f = \frac{\inH{f}{\mathbf{1}}}{\normH{\mathbf{1}}}\mathbf{1} = \frac{1}{N\lvert \TT{k} \rvert}\sum_{i = 1}^N \int_{\TT{k}} f^{(k)}_i(t)dt\mathbf{1}
 \end{equation}
-In practice, this is equivalent to compute the mean value of the mean curve for each component.
-\end{remark}
+Let $\mathbf{1}$ be the vector of constant function in $\GG$ and $f$ an element of $\GG$. The projection of $f$ onto $\mathbf{1}$ is then given by
+\begin{equation}
+P_{\mathbf{1}}f = \frac{\inH{f}{\mathbf{1}}}{\normH{\mathbf{1}}}\mathbf{1} = \frac{1}{N\lvert \TT{k} \rvert}\sum_{n = 1}^N \int_{\TT{k}} f^{(k)}_n(t)dt\mathbf{1}
+\end{equation}
+In practice, this is equivalent to compute the mean value of the mean curve for each component, referred as \emph{grand mean centering} in \cite{protheroNewPerspectivesCentering2021}.}
 
-Concerning standardisation, there are different proposal in the literature. \cite{happMultivariateFunctionalPrincipal2015} propose to use $w_k = (\int_{\TT{k}} \Var X^{(k)}(t)dt)^{-1/2}$, while \cite{chiouMultivariateFunctionalPrincipal2014} consider the function $w_k(t) = (\Var X^{(k)}(t))^{-1/2}$.
+Concerning the standardisation of the data, there are mainly two proposal in the literature. \cite{happMultivariateFunctionalPrincipal2018a} propose to weighted each component $p$ by
+\begin{equation}
+w_p = \left(\int_{\TT{p}} \Var X^{(p)}(t_p) \dd t_p\right)^{-1}.
+\end{equation}
+This standardization is coherent with the derivation of the total inertia of the observations' space. Using these weights, the total inertia of $\CN$ is equal to the number of components $P$. \cite{chiouMultivariateFunctionalPrincipal2014} propose to standardized each component $p$ of the data using the function
+\begin{equation}
+w_p(t) = \left(\Var X^{(p)}(t_p)\right)^{-1/2}.
+\end{equation}
+This corresponds to a standardization of the curves by the standard deviation of the component at each sampling points. The standard deviation curve is estimated as the square root of the diagonal of the covariance function estimates, obtained using a local linear smoother of the pooled data. 
 
 % subsection on_centering_and_reducing (end)
 

@@ -10,12 +10,13 @@ In this Section, we derive the inertia of the cloud $\CN$. Recall that
 \begin{align*}
     \sum_{n = 1}^N \pi_n d^2(X_n, \mu) &= \sum_{n = 1}^N \pi_n \sum_{p = 1}^P\normLp{\Xnp - \mu^{(p)}}^2\\
     &= \sum_{p = 1}^P\left(\sum_{n = 1}^N \pi_n \normLp{\Xnp}^2 - \normLp{\mup{p}}^2\right) \\
-    &= \sum_{p = 1}^P \int_{\TT{p}}\Var{\Xp{p}(t_p)} \dd t_p \\
+    &= \sum_{p = 1}^P \int_{\TT{p}}\Var{\Xp{p}(t_p)} \dd t_p, \\
 \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j d^2(X_i, X_j) &= \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \sum_{p = 1}^P \normLp{\Xp{p}_i - \Xp{p}_j}^2\\
     &= \sum_{p = 1}^P \left(2\sum_{i = 1}^N \pi_i\normLp{\Xp{p}_i}^2 - 2\sum_{i = 1}^N \sum_{j = 1}^N \inLp{\Xp{p}_i}{\Xp{p}_j}\right) \\
     &= \sum_{p = 1}^P \left(2\sum_{i = 1}^N \pi_i\normLp{\Xp{p}_i}^2 - 2\normLp{\mup{p}}^2 - 2\sum_{i = 1}^N \sum_{j = 1}^N \inLp{\Xp{p}_i}{\Xp{p}_j} + 2\normLp{\mup{p}}^2\right) \\
-    &= 2\sum_{p = 1}^P \int_{\TT{p}}\Var{\Xp{p}(t_p)} \dd t_p
+    &= 2\sum_{p = 1}^P \int_{\TT{p}}\Var{\Xp{p}(t_p)} \dd t_p.
 \end{align*}
+The equalities in Equation~\eqref{eq:inertia} are shown.
 
 
 % section derivation_of_the_inertia_of_the_clouds (end)
