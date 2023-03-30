@@ -113,7 +113,7 @@ def plot_mise(results):
         aspect=1
     )
     gg.set(xlabel="MISE($\mathcal{X}$, $\widehat{\mathcal{X}}$) / MISE($\mathcal{X}$, $\widetilde{\mathcal{X}}$)", ylabel="")
-    gg.set_yticklabels(["$M = 25$", "$M = 50$", "$M = 75$", "$M = 100$"], size=10)
+    gg.set_yticklabels(["$M = 25$", "$M = 50$", "$M = 75$", "$M = 100$"], size=20)
     for ax in gg.axes.flat:
         ax.axvline(x=1, color='r', lw=1, ls='--')
     gg.fig.tight_layout()
@@ -130,7 +130,7 @@ def plot_computation_time(results):
         aspect=1
     )
     gg.set(xlabel="Ratio of computation time", ylabel="")
-    gg.set_yticklabels(["$M = 25$", "$M = 50$", "$M = 75$", "$M = 100$"], size=10)
+    gg.set_yticklabels(["$M = 25$", "$M = 50$", "$M = 75$", "$M = 100$"], size=20)
     for ax in gg.axes.flat:
         ax.axvline(x=1, color='r', lw=1, ls='--')
         ax.set_xscale("log")
@@ -148,7 +148,7 @@ def plot_ise(results):
         aspect=1
     )
     gg.set(xlabel="ISE($\phi_k$, $\widehat{\phi}_k$) / ISE($\phi_k$, $\widetilde{\phi}_k$)", ylabel="")
-    gg.set_yticklabels(["$M = 25$", "$M = 50$", "$M = 75$", "$M = 100$"], size=10)
+    gg.set_yticklabels(["$M = 25$", "$M = 50$", "$M = 75$", "$M = 100$"], size=20)
     # gg.set(xlim=(0, 2))
     for ax in gg.axes.flat:
         ax.axvline(x=1, color='r', lw=1, ls='--')
@@ -173,7 +173,7 @@ def plot_logAE(results):
         aspect=1
     )
     gg.set(xlabel="$\log-$AE($\lambda_k$, $\widehat{\lambda}_k$) / $\log-$AE($\lambda_k$, $\widetilde{\lambda}_k$)", ylabel="")
-    gg.set_yticklabels(["$M = 25$", "$M = 50$", "$M = 75$", "$M = 100$"], size=10)
+    gg.set_yticklabels(["$M = 25$", "$M = 50$", "$M = 75$", "$M = 100$"], size=20)
     # gg.set(xlim=(0, 2))
     for ax in gg.axes.flat:
         ax.axvline(x=1, color='r', lw=1, ls='--')

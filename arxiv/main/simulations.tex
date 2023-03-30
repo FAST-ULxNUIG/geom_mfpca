@@ -61,17 +61,67 @@ where the scores $\mathfrak{c}_k$ are defined as for the Scenario~1. We simulate
 \begin{results}[Computation time]
 
 \begin{figure}
-    \centering
-    \includegraphics[scale=0.25]{figures/computation_time_pall.eps}
-    \caption{Computation time for multivariate functional data. Each univariate component is defined on a one-dimensional domain. \textcolor{red}{to be modify}}
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_1/computation_time_N50_M25.eps}
+         \caption{$M = 25$}
+         \label{fig:computation_time_mfd_1d_25}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_1/computation_time_N50_M50.eps}
+         \caption{$M = 50$}
+         \label{fig:computation_time_mfd_1d_50}
+     \end{subfigure}
+     \\
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_1/computation_time_N50_M75.eps}
+         \caption{$M = 75$}
+         \label{fig:computation_time_mfd_1d_75}
+     \end{subfigure}
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_1/computation_time_N50_M100.eps}
+         \caption{$M = 100$}
+         \label{fig:computation_time_mfd_1d_100}
+    \end{subfigure}
+    \caption{Computation time for multivariate functional data. Each univariate component is defined on a one-dimensional domain. We simulated $N = 50$ observations for each dataset.}
     \label{fig:computation_time_mfd_1d}
 \end{figure}
 
 \begin{figure}
-    \centering
-    \includegraphics[scale=0.25]{figures/computation_time_p1.eps}
-    \caption{Computation time for univariate functional data of images data \textcolor{red}{to be modify}}
-    \label{fig:computation_time_fd_2d}
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_2/computation_time_N25.eps}
+         \caption{$N = 25$}
+         \label{fig:computation_time_mfd_2d_25}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_2/computation_time_N50.eps}
+         \caption{$N = 50$}
+         \label{fig:computation_time_mfd_2d_50}
+     \end{subfigure}
+     \\
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_2/computation_time_N75.eps}
+         \caption{$N = 75$}
+         \label{fig:computation_time_mfd_2d_75}
+     \end{subfigure}
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_2/computation_time_N100.eps}
+         \caption{$N = 100$}
+         \label{fig:computation_time_mfd_2d_100}
+    \end{subfigure}
+    \caption{Computation time for univariate functional data of images data}
+    \label{fig:computation_time_mfd_2d}
 \end{figure}
 
 \end{results}
@@ -79,28 +129,207 @@ where the scores $\mathfrak{c}_k$ are defined as for the Scenario~1. We simulate
 % Eigenvalues estimation ----------
 \begin{results}[Eigenvalues estimation]
 
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_1/logAE_N50_M25.eps}
+         \caption{$M = 25$}
+         \label{fig:logAE_mfd_1d_25}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_1/logAE_N50_M50.eps}
+         \caption{$M = 50$}
+         \label{fig:logAE_mfd_1d_50}
+     \end{subfigure}
+     \\
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_1/logAE_N50_M75.eps}
+         \caption{$M = 75$}
+         \label{fig:logAE_mfd_1d_75}
+     \end{subfigure}
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_1/logAE_N50_M100.eps}
+         \caption{$M = 100$}
+         \label{fig:logAE_mfd_1d_100}
+    \end{subfigure}
+    \caption{$\log-$AE for multivariate functional data. Each univariate component is defined on a one-dimensional domain. We simulated $N = 50$ observations for each dataset.}
+    \label{fig:logAE_mfd_1d}
+\end{figure}
+
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_2/logAE_N25.eps}
+         \caption{$N = 25$}
+         \label{fig:logAE_mfd_2d_25}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_2/logAE_N50.eps}
+         \caption{$N = 50$}
+         \label{fig:logAE_mfd_2d_50}
+     \end{subfigure}
+     \\
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_2/logAE_N75.eps}
+         \caption{$N = 75$}
+         \label{fig:logAE_mfd_2d_75}
+     \end{subfigure}
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_2/logAE_N100.eps}
+         \caption{$N = 100$}
+         \label{fig:logAE_mfd_2d_100}
+    \end{subfigure}
+    \caption{$\log-$AE for univariate functional data of images data}
+    \label{fig:logAE_mfd_2d}
+\end{figure}
+
 \end{results}
 
 % Eigenfunctions estimation ----------
 \begin{results}[Eigenfunctions estimation]
+
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_1/ise_N50_M25.eps}
+         \caption{$M = 25$}
+         \label{fig:ise_mfd_1d_25}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_1/ise_N50_M50.eps}
+         \caption{$M = 50$}
+         \label{fig:ise_mfd_1d_50}
+     \end{subfigure}
+     \\
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_1/ise_N50_M75.eps}
+         \caption{$M = 75$}
+         \label{fig:ise_mfd_1d_75}
+     \end{subfigure}
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_1/ise_N50_M100.eps}
+         \caption{$M = 100$}
+         \label{fig:ise_mfd_1d_100}
+    \end{subfigure}
+    \caption{ISE for multivariate functional data. Each univariate component is defined on a one-dimensional domain. We simulated $N = 50$ observations for each dataset.}
+    \label{fig:ise_mfd_1d}
+\end{figure}
+
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_2/ise_N25.eps}
+         \caption{$N = 25$}
+         \label{fig:ise_mfd_2d_25}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_2/ise_N50.eps}
+         \caption{$N = 50$}
+         \label{fig:ise_mfd_2d_50}
+     \end{subfigure}
+     \\
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_2/ise_N75.eps}
+         \caption{$N = 75$}
+         \label{fig:ise_mfd_2d_75}
+     \end{subfigure}
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_2/ise_N100.eps}
+         \caption{$N = 100$}
+         \label{fig:ise_mfd_2d_100}
+    \end{subfigure}
+    \caption{ISE for univariate functional data of images data}
+    \label{fig:ise_mfd_2d}
+\end{figure}
 
 \end{results}
 
 % Curves reconstruction ----------
 \begin{results}[Curves reconstruction]
 
+
 \begin{figure}
-    \centering
-    \includegraphics[scale=0.25]{figures/mise_pall.eps}
-    \caption{MISE for multivariate functional data. Each univariate component is defined on a one-dimensional domain. \textcolor{red}{to be modify}}
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_1/mise_N50_M25.eps}
+         \caption{$M = 25$}
+         \label{fig:mise_mfd_1d_25}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_1/mise_N50_M50.eps}
+         \caption{$M = 50$}
+         \label{fig:mise_mfd_1d_50}
+     \end{subfigure}
+     \\
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_1/mise_N50_M75.eps}
+         \caption{$M = 75$}
+         \label{fig:mise_mfd_1d_75}
+     \end{subfigure}
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_1/mise_N50_M100.eps}
+         \caption{$M = 100$}
+         \label{fig:mise_mfd_1d_100}
+    \end{subfigure}
+    \caption{MISE for multivariate functional data. Each univariate component is defined on a one-dimensional domain. We simulated $N = 50$ observations for each dataset.}
     \label{fig:mise_mfd_1d}
 \end{figure}
 
 \begin{figure}
-    \centering
-    \includegraphics[scale=0.25]{figures/mise_p1.eps}
-    \caption{MISE for 2D data \textcolor{red}{to be modify}}
-    \label{fig:mise_fd_2d}
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_2/mise_N25.eps}
+         \caption{$N = 25$}
+         \label{fig:mise_mfd_2d_25}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_2/mise_N50.eps}
+         \caption{$N = 50$}
+         \label{fig:mise_mfd_2d_50}
+     \end{subfigure}
+     \\
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_2/mise_N75.eps}
+         \caption{$N = 75$}
+         \label{fig:mise_mfd_2d_75}
+     \end{subfigure}
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figures/scenario_2/mise_N100.eps}
+         \caption{$N = 100$}
+         \label{fig:mise_mfd_2d_100}
+    \end{subfigure}
+    \caption{MISE for univariate functional data of images data}
+    \label{fig:mise_mfd_2d}
 \end{figure}
 
 \end{results}

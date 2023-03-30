@@ -37,16 +37,13 @@ The derivation of these equalities are given in Appendix \ref{sec:derivation_of_
 \subsection{Cloud of variables} % (fold)
 \label{sub:cloud_of_variables}
 
-\textcolor{red}{For now, we need that all the variables are defined on the same space $\TT{0}$.}
-
+\textcolor{red}{For now, we need that all the variables are defined on the same space $\TT{0}$.
 Let $\{\Xnp(t), n = 1, \dots, N\}$ be the observations set for a particular feature $p$. We identify this set as the point $\mathsf{M}_p$ in the space $\GG \coloneqq \sLp{\TT{0}}^N$. The set $\GG$ is refered as the features' space, or variables' space. The cloud of points that represented the set of variables is denoted by $\CP$. Let $\OG$ be the centre of this space. Its coordinates are given by a vector of functions of length $N$ where each entry is $f(t) = 0$ for all $t \in \TT{0}$.
-
 We assume that the observations are centered. Consider $\mathsf{M}_h$ a point in $\CP$ and $h$ the element of $\GG$ representing by $\mathsf{M}_h$. Let $o$ be the element of $\OG$ representing by $\OG$. The distance between $\mathsf{M}_h$ and $\OG$ is defined as
 \begin{equation*}
 d^2(h, o) = \sum_{n = 1}^N p_n \normLp{h_n - \mu_h}^2 = \int_{\TT{0}} \Var h^{(p)}(t)dt.
-\end{equation*} 
-
-\textcolor{red}{For now, the cloud of variables is not clear!}
+\end{equation*}
+}
 
 \begin{figure}
     \centering

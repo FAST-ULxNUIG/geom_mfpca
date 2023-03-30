@@ -1,7 +1,14 @@
 %!TEX root=../main.tex
-\section{Discussion} % (fold)
+\section{Discussion and conclusion} % (fold)
 \label{sec:discussion}
 
-\textcolor{red}{Discussion about the methods and possible extension. What about the sparse/noisy data?}
+MFPCA is an interesting tool for analyzing functional data that allows to capture the variability of observations defined by several curves as it extracts the most important modes of variables that explain the covariance structure of the data. We have described the duality between rows and columns of a data matrix in the context of multivariate functional data. We have proposed to use this duality to estimate the eigencomponents of the covariance operator of curves datasets. Comparing the results of the two methods, we propose guidelines to the researcher on which methods to use in which situation. As a summary, if the number of sampling points is a lot larger than the number of observations or if the data in hand are multidimensional (e.g. surfaces), it is preferable to estimate the eigencomponents using the Gram matrix, while if the data are unidimensional with a large number of observations, it is preferable to directly decompose the covariance operator.
+
+\textcolor{red}{Paragraph of the percentage of variance explained.}
+
+\textcolor{red}{In practice, functional data are usually observed with noise. Smoothing each curve individually should be enough to estimate the Gram matrix in this case. Estimating the Gram matrix in the case of sparsely sampled functional data is not relevant as we showed that the Gram matrix is useful when the data is very dense.}
+
+The open-source implementation can be accessed at \url{https://github.com/StevenGolovkine/FDApy}, while scripts to reproduce the simulation are at \url{https://github.com/FAST-ULxNUIG/geom_mfpca}.
+
 
 % section discussion (end)
