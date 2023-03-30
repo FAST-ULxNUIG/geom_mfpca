@@ -10,29 +10,30 @@ Let $X = \left(X_1 - \mu, \dots, X_N - \mu\right)^\top$. Recall that, in the cas
 \begin{equation}\label{eq:eigen_inner_prod_left}
     X^\top M v_k = l_k X^\top v_k.
 \end{equation} 
-Expanding Equation~\eqref{eq:eigen_inner_prod_left}, for each component $p = 1, \dots, P$, we have
+Expanding Equation~\eqref{eq:eigen_inner_prod_left}, for each component $p = 1, \dots, P$, we have,
 \begin{equation}\label{eq:inner_prod_p}
-    \sum_{i = 1}^N \sum_{j = 1}^N [v_{k}]_j\left\{X_i^{(p)} - \mu^{(p)}\right\}\inH{X_i - \mu}{X_j - \mu} = l_k \sum_{n = 1}^N [v_{k}]_n\left\{\Xnp - \mu^{(p)}\right\}.
+    \sum_{i = 1}^N \sum_{j = 1}^N [v_{k}]_j\left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\}\inH{X_i - \mu}{X_j - \mu} = l_k \sum_{n = 1}^N [v_{k}]_n\left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}.
 \end{equation}
 Here and in the following, we note $[a]_p$ the $p$th entry of the vector $a$. Starting from the left side of Equation~\eqref{eq:inner_prod_p}, we get
 \begin{align}\label{eq:inner_prod_p_left}
-[X^\top M v_k]_p &= \sum_{i = 1}^N \sum_{j = 1}^N [v_{k}]_j \left\{X_i^{(p)} - \mu^{(p)}\right\}\inH{X_i - \mu}{X_j - \mu}\\
-&= \sum_{q = 1}^P \int_{\TT{q}} \sum_{i = 1}^N \left\{X_i^{(p)} - \mu^{(p)}\right\} \left\{X_i^{(q)}(s_p) - \mu^{(q)}(s_p)\right\} \sum_{j = 1}^N [v_{k}]_j \left\{X_j^{(q)}(s) - \mu^{(q)}(s)\right\} \dd s_p \\
-&= \sum_{q = 1}^P \int_{\TT{q}} N C_{pq}(\cdot, s_p)\sum_{j = 1}^N [v_{k}]_j \left\{X_j^{(q)}(s_p) - \mu^{(q)}(s)\right\} \dd s_p \\
+[X^\top M v_k]_p &= \sum_{i = 1}^N \sum_{j = 1}^N [v_{k}]_j \left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\}\inH{X_i - \mu}{X_j - \mu}\\
+&= \sum_{q = 1}^P \int_{\TT{q}} \sum_{i = 1}^N \left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\} \left\{X_i^{(q)}(s_q) - \mu^{(q)}(s_q)\right\}  \\
+& \sum_{j = 1}^N [v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
+&= \sum_{q = 1}^P \int_{\TT{q}} N C_{pq}(\cdot, s_q)\sum_{j = 1}^N [v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
 &= N \sum_{j = 1}^N \inH{C_{p \cdot}(\cdot, \cdot)}{[v_{k}]_j \left\{X_j - \mu\right\}} \\
-&= N \Gamma\left(\sum_{j = 1}^N [v_{k}]_j \left\{X_j - \mu\right\} \right)^{(p)}\mkern-9mu(\cdot)
+&= N \Gamma\left(\sum_{j = 1}^N [v_{k}]_j \left\{X_j - \mu\right\} \right)^{\mkern-9mu(p)}\mkern-18mu(\cdot)
 \end{align}
 and, starting from the right side of Equation~\eqref{eq:inner_prod_p},
 \begin{equation}\label{eq:inner_prod_p_right}
-    [l_k X^\top v_k]_p = l_k \sum_{n = 1}^N [v_{k}]_n \left\{\Xnp - \mu^{(p)}\right\}.
+    [l_k X^\top v_k]_p = l_k \sum_{n = 1}^N [v_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}.
 \end{equation}
 From Equation~\eqref{eq:inner_prod_p_left} and Equation~\eqref{eq:inner_prod_p_right}, we obtain
 \begin{equation}
-    \Gamma\left(\sum_{j = 1}^N [v_{k}]_j \left\{X_j - \mu\right\}\right)^{(p)}\mkern-9mu(\cdot) = \frac{l_k}{N} \sum_{n = 1}^N [v_{k}]_n \left\{\Xnp - \mu^{(p)}\right\}, \quad\text{for all}~ p = 1, \dots, P.
+    \Gamma\left(\sum_{j = 1}^N [v_{k}]_j \left\{X_j - \mu\right\}\right)^{\mkern-9mu(p)}\mkern-18mu(\cdot) = \frac{l_k}{N} \sum_{n = 1}^N [v_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}, \quad\text{for all}~ p = 1, \dots, P.
 \end{equation}
 By identification in Equation~\eqref{eq:eigendecomposition}, we find that, for each components $p$,
 \begin{equation}\label{eq:eigen_estimation}
-\lambda_k = \frac{l_k}{N} \quad\text{and}\quad \phi_k^{(p)} = \sum_{n = 1}^N [v_{k}]_n \left\{\Xnp - \mu^{(p)}\right\}, \quad k \geq 1.
+\lambda_k = \frac{l_k}{N} \quad\text{and}\quad \phi_k^{(p)}(\cdot) = \sum_{n = 1}^N [v_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}, \quad k \geq 1.
 \end{equation}
 For $k \geq 1$, the norm of the eigenfunction is computed as the following:
 \begin{align*}
@@ -51,36 +52,36 @@ Concerning the expansion of the data into the basis of function $\Psi$, we write
 \end{equation}
 We also assume that $\widehat{\phi}_1, \widehat{\phi}_2, \dots$ the eigenfunctions of $\widehat{\Gamma}_N$ have a decomposition into the basis $\Psi$
 \begin{equation}
-    \widehat{\phi}_k(t) = 
+    \widehat{\phi}_k(\cdot) = 
         \begin{pmatrix} 
-            \widehat{\phi}_k^{(1)}(t) \\
+            \widehat{\phi}_k^{(1)}(\cdot) \\
             \vdots \\
-            \widehat{\phi}_k^{(P)}(t)
+            \widehat{\phi}_k^{(P)}(\cdot)
         \end{pmatrix} = 
         \begin{pmatrix} 
-            \psi^{(1) \top}(t) b_{1k} \\
+            \psi^{(1) \top}(\cdot) b_{1k} \\
             \vdots \\
-            \psi^{(P) \top}(t) b_{Pk}
+            \psi^{(P) \top}(\cdot) b_{Pk}
         \end{pmatrix}, \quad\text{where}\quad
         b_{pk} = \left(b_{p k 1}, \dots, b_{p k K_p} \right)^\top.
 \end{equation}
 
-We have, for all $t \in \TT{0}$, $p = 1, \dots, P$,
+We have, for $p = 1, \dots, P$,
 \begin{align*}
-    \left(\widehat{\Gamma}_N \phi_k\right)^{(p)}(t) &= \sum_{q = 1}^P \int_{\TT{0}} \widehat{C}_{p q}(t, s)\phi_k^{(q)}(s)ds \\
-    &= \frac{1}{N}\sum_{q = 1}^P \int_{\TT{0}} \Psi(t)^{(p) \top} C^{(p) \top} C^{(q)} \Psi^{(q)}(s) \Psi^{(q)}(s)^\top b_{q k} ds \\
-    &= \frac{1}{N} \Psi(t)^{(p) \top} C^{(p) \top} \sum_{q = 1}^P C^{(q)} \int_{\TT{0}} \Psi^{(q)}(s) \Psi(s)^{(q) \top} ds b_{q k} \\
-    &= \frac{1}{N} \Psi(t)^{(p) \top} C^{(p) \top} \sum_{q = 1}^P C^{(q)} W^{(q)} b_{q k}. \\
+    \left(\widehat{\Gamma}_N \phi_k\right)^{(p)}(\cdot) &= \sum_{q = 1}^P \int_{\TT{q}} \widehat{C}_{p q}(\cdot, s_q)\phi_k^{(q)}(s_q) \dd s_q \\
+    &= \frac{1}{N}\sum_{q = 1}^P \int_{\TT{q}} \Psi(\cdot)^{(p) \top} C^{(p) \top} C^{(q)} \Psi^{(q)}(s_q) \Psi^{(q)}(s_q)^\top b_{q k} \dd s_q \\
+    &= \frac{1}{N} \Psi(\cdot)^{(p) \top} C^{(p) \top} \sum_{q = 1}^P C^{(q)} \int_{\TT{q}} \Psi^{(q)}(s_q) \Psi(s_q)^{(q) \top} \dd s_q b_{q k} \\
+    &= \frac{1}{N} \Psi(\cdot)^{(p) \top} C^{(p) \top} \sum_{q = 1}^P C^{(q)} W^{(q)} b_{q k}. \\
 \end{align*}
 This equation is true for all $p = 1, \cdots, P$, this can be rewritten with matrices as
 \begin{equation}
-    \widehat{\Gamma}_N \phi_k(t) = \frac{1}{N}\Psi^\top(t) C^\top C W b_k.
+    \widehat{\Gamma}_N \phi_k(\cdot) = \frac{1}{N}\Psi^\top(\cdot) C^\top C W b_k.
 \end{equation}
 From the eigenequation, we have that
 \begin{equation}
-    \widehat{\Gamma}_N \phi_k(t) = \lambda_k \phi_k(t) \Longleftrightarrow \frac{1}{N} \Psi(t)^\top C^\top C W b_k = \lambda_k \Psi(t)^\top b_k, \quad t \in \TT{0}.
+    \widehat{\Gamma}_N \phi_k(\cdot) = \lambda_k \phi_k(\cdot) \Longleftrightarrow \frac{1}{N} \Psi(\cdot)^\top C^\top C W b_k = \lambda_k \Psi(\cdot)^\top b_k.
 \end{equation}
-Since this equation must be true for all $t \in \TT{0}$, this imply the equation
+Since this equation must be true for all $t_p \in \TT{p}$, this imply the equation
 \begin{equation}\label{eq:eigen_decom}
     C^\top C W b_k = N\lambda_k b_k.
 \end{equation}

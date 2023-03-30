@@ -6,7 +6,7 @@ Using simulated data, we compare, in this Section, the behavior of the estimatio
 
 The results of the simulation are compared using computation times (CT), the integrated squared error (ISE) risk for the multivariate eigenfunctions, the log-absolute error (lAE) risk for the eigenvalues and the mean integreated squared error (MISE) risk for the reconstructed data. Let $\phi_k$ be the true eigenfunction and $\widehat{\phi}_k$ the estimated eigenfunction defined on $\TT{}$. We then defined the ISE as 
 \begin{equation}\label{eq:ise_eigenfunctions}
-    \text{ISE}(\phi_k, \widehat{\phi}_k) = \normH{\phi_k - \widehat{\phi}_k}^2 = \sum_{p = 1}^P \int_{\TT{p}} \{\phi^{(p)}_k(t) - \widehat{\phi}^{(p)}_k(t)\}^2 \dd t, \quad k = 1, \dots, K.
+    \text{ISE}(\phi_k, \widehat{\phi}_k) = \normH{\phi_k - \widehat{\phi}_k}^2 = \sum_{p = 1}^P \int_{\TT{p}} \{\phi^{(p)}_k(t_p) - \widehat{\phi}^{(p)}_k(t_p)\}^2 \dd t_p, \quad k = 1, \dots, K.
 \end{equation}
 Let $\lambda = (\lambda_1, \dots, \lambda_K)$ be the vector of true eigenvalues and $\widehat{\lambda} = (\widehat{\lambda}_1, \dots, \widehat{\lambda}_K)$ be the vector of estimated eigenvalues. We then define the MSE as 
 \begin{equation}\label{eq:mse_eigenvalues}
@@ -14,7 +14,7 @@ Let $\lambda = (\lambda_1, \dots, \lambda_K)$ be the vector of true eigenvalues 
 \end{equation}
 Let $\mathcal{X}$ be the set of true data and $\widehat{\mathcal{X}}$ be the set of reconstructed data. We defined the MISE of the reconstructed data as
 \begin{equation}\label{eq:mise_reconstructed_data}
-    \text{MISE}(\mathcal{X}, \widehat{\mathcal{X}}) = \frac{1}{N}\sum_{n = 1}^N \normH{X_n - \widehat{X}_n}^2 = \frac{1}{N}\sum_{n = 1}^N \sum_{p = 1}^P \int_{\TT{p}} \left\{\Xnp - \hatXnp \right\}^2 \dd t.
+    \text{MISE}(\mathcal{X}, \widehat{\mathcal{X}}) = \frac{1}{N}\sum_{n = 1}^N \normH{X_n - \widehat{X}_n}^2 = \frac{1}{N}\sum_{n = 1}^N \sum_{p = 1}^P \int_{\TT{p}} \left\{\Xnp(t_p) - \hatXnp(t_p) \right\}^2 \dd t_p.
 \end{equation}
 Each integral is approximated by the trapezoidal rule with an equidistant grid. Note $\widehat{\phi}$, $\widehat{\lambda}$ and $\widehat{\mathcal{X}}$ the different estimators using the Gram matrix and $\widetilde{\phi}$, $\widetilde{\lambda}$ and $\widetilde{\mathcal{X}}$ the different estimators using the covariance operator. For each configuration $(N, M, P)$, and each of the $500$ samples, we compute the ratios
 \begin{equation}
