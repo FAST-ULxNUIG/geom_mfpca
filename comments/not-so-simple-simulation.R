@@ -32,14 +32,21 @@ for (i in seq_len(N_sim)) {
         eFunType = "Fourier",
         eValType = "exponential",
         N = 100)
-    pace1 <- MFPCA::PACE(funDataObject = sim$simData[[1]], pve = npc)
-    pace2 <- MFPCA::PACE(funDataObject = sim$simData[[2]], pve = npc)
+    pace1 <- MFPCA::PACE(
+        funDataObject = sim$simData[[1]],
+        pve = npc,
+        nbasis = 20
+    )
+    pace2 <- MFPCA::PACE(
+        funDataObject = sim$simData[[2]],
+        pve = npc, nbasis = 20
+    )
     MFPCA_est <- MFPCA(
         sim$simData,
         M = pace1$npc + pace2$npc, 
         uniExpansions = list(
-            list(type = "uFPCA", pve = npc),
-            list(type = "uFPCA", pve = npc)),
+            list(type = "uFPCA", pve = npc, nbasis = 20),
+            list(type = "uFPCA", pve = npc, nbasis = 20)),
         fit = TRUE)
     evals_list_split[[i]] <- MFPCA_est$values
     
@@ -50,14 +57,21 @@ for (i in seq_len(N_sim)) {
         eFunType = list("Fourier", "Wiener"),
         eValType = "exponential",
         N = N)
-    pace1 <- MFPCA::PACE(funDataObject = sim$simData[[1]], pve = npc)
-    pace2 <- MFPCA::PACE(funDataObject = sim$simData[[2]], pve = npc)
+    pace1 <- MFPCA::PACE(
+        funDataObject = sim$simData[[1]],
+        pve = npc,
+        nbasis = 20
+    )
+    pace2 <- MFPCA::PACE(
+        funDataObject = sim$simData[[2]],
+        pve = npc, nbasis = 20
+    )
     MFPCA_est <- MFPCA(
         sim$simData,
         M = pace1$npc + pace2$npc, 
         uniExpansions = list(
-            list(type = "uFPCA", pve = npc),
-            list(type = "uFPCA", pve = npc)),
+            list(type = "uFPCA", pve = npc, nbasis = 20),
+            list(type = "uFPCA", pve = npc, nbasis = 20)),
         fit = TRUE)
     evals_list_weighted[[i]] <- MFPCA_est$values
 }
@@ -115,14 +129,21 @@ for (i in seq_len(N_sim)) {
         eFunType = "Fourier",
         eValType = "linear",
         N = 100)
-    pace1 <- MFPCA::PACE(funDataObject = sim$simData[[1]], pve = npc)
-    pace2 <- MFPCA::PACE(funDataObject = sim$simData[[2]], pve = npc)
+    pace1 <- MFPCA::PACE(
+        funDataObject = sim$simData[[1]],
+        pve = npc,
+        nbasis = 20
+    )
+    pace2 <- MFPCA::PACE(
+        funDataObject = sim$simData[[2]],
+        pve = npc, nbasis = 20
+    )
     MFPCA_est <- MFPCA(
         sim$simData,
         M = pace1$npc + pace2$npc, 
         uniExpansions = list(
-            list(type = "uFPCA", pve = npc),
-            list(type = "uFPCA", pve = npc)),
+            list(type = "uFPCA", pve = npc, nbasis = 20),
+            list(type = "uFPCA", pve = npc, nbasis = 20)),
         fit = TRUE)
     evals_list_split[[i]] <- MFPCA_est$values
     
@@ -133,14 +154,21 @@ for (i in seq_len(N_sim)) {
         eFunType = list("Fourier", "Wiener"),
         eValType = "linear",
         N = N)
-    pace1 <- MFPCA::PACE(funDataObject = sim$simData[[1]], pve = npc)
-    pace2 <- MFPCA::PACE(funDataObject = sim$simData[[2]], pve = npc)
+    pace1 <- MFPCA::PACE(
+        funDataObject = sim$simData[[1]],
+        pve = npc,
+        nbasis = 20
+    )
+    pace2 <- MFPCA::PACE(
+        funDataObject = sim$simData[[2]],
+        pve = npc, nbasis = 20
+    )
     MFPCA_est <- MFPCA(
         sim$simData,
         M = pace1$npc + pace2$npc, 
         uniExpansions = list(
-            list(type = "uFPCA", pve = npc),
-            list(type = "uFPCA", pve = npc)),
+            list(type = "uFPCA", pve = npc, nbasis = 20),
+            list(type = "uFPCA", pve = npc, nbasis = 20)),
         fit = TRUE)
     evals_list_weighted[[i]] <- MFPCA_est$values
 }
