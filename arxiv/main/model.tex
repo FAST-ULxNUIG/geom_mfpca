@@ -12,16 +12,16 @@ $\HH$ is a Hilbert space with respect to the inner product $\inH{\cdot}{\cdot}$\
 \begin{equation}\label{eq:covariance_function}
     C(\points, \pointt) \coloneqq \EE\left(\{X(\points) - \mu(\points)\}\{X(\pointt) - \mu(\pointt)\}^{\top}\right), \quad \points, \pointt \in \TT{}.
 \end{equation}
-More precisely, for $1 \leq p, q \leq P$, the $(p, q)$th entry of the matrix $C(\points, \pointt)$ is the covariance function between the $p$th and the $q$th components of the process $X$:
+More precisely, for $1 \leq p, q \leq P$, the $(p, q)$th entry of the matrix $C(\points, \pointt)$ is the covariance function between the $p$th and the $q$th features of the process $X$:
 \begin{equation}\label{eq:covariance_function_components}
     C_{p, q}(s_p, t_q) \coloneqq \EE\left(\{\Xp{p}(s_p) - \mup{p}(s_p)\}\{\Xp{q}(t_q) - \mup{q}(t_q)\}\right), \quad s_p \in \TT{p}, t_q \in \TT{q}.
 \end{equation}
-Let $\Gamma : \HH \rightarrow \HH$ denote the covariance operator of $X$, defined as an integral operator with kernel $C$. That is, for $f \in \HH$ and $\pointt \in \TT{}$, the $p$th component of $\Gamma f(\pointt)$ is given by
+Let $\Gamma : \HH \rightarrow \HH$ denote the covariance operator of $X$, defined as an integral operator with kernel $C$. That is, for $f \in \HH$ and $\pointt \in \TT{}$, the $p$th feature of $\Gamma f(\pointt)$ is given by
 \begin{equation}\label{eq:covariance_operator_components}
     (\Gamma f)^{(p)}(t_p) \coloneqq \inH{C_{p, \cdot}(t_p, \cdot)}{f(\cdot)} = \inH{C_{\cdot, p}(\cdot, t_p)}{f(\cdot)}, \quad t_p \in \TT{p}.
 \end{equation}
 
-Let us consider a set of $N$ curves $\XX = \{X_1, \ldots, X_n, \ldots, X_N\}$ generated as a random sample of the $P$-dimensional stochastic process $X$ with continuous trajectories. Unless otherwise stated, the data are assumed to be observed without error. The data can be viewed as a table with $N$ rows and $P$ columns where each entry is a curve, potentially on a multidimensional domain (see Figure~\ref{fig:data_matrix}). Each row of this matrix represents an observation; while each column represents a functional variable. At the intersection of row $n$ and column $p$, we thus have $\Xnp$ which is the curve that concerns the (functional) feature $p$ for the individual $n$.
+Let us consider a set of $N$ curves $\XX = \{X_1, \ldots, X_n, \ldots, X_N\}$ generated as a random sample of the $P$-dimensional stochastic process $X$ with continuous trajectories. Unless otherwise stated, the data are assumed to be observed without error. The data can be viewed as a table with $N$ rows and $P$ columns where each entry is a curve, potentially on a multidimensional domain (see Figure~\ref{fig:data_matrix}). Each row of this matrix represents an observation; while each column represents a functional feature. At the intersection of row $n$ and column $p$, we thus have $\Xnp$ which is the curve that concerns the (functional) feature $p$ for the individual $n$.
 
 \begin{figure}
     \centering
@@ -31,11 +31,11 @@ Let us consider a set of $N$ curves $\XX = \{X_1, \ldots, X_n, \ldots, X_N\}$ ge
 \end{figure}
 
 For $n \in \{1, \dots, N\}$, each observation $n$ is attributed the weight $\pi_n$ such that $\sum_n \pi_n = 1$, e.g., $\pi_n = 1/N$.
-For a given $p \in \{1, \dots, P\}$, the mean curve of the $p$th component along the $N$ observations is denoted by $\mup{p}$. This quantity can be computed using 
+For a given $p \in \{1, \dots, P\}$, the mean curve of the $p$th feature along the $N$ observations is denoted by $\mup{p}$. This quantity can be computed using 
 \begin{equation*}\label{eq:mu_estimation}
     \mup{p}(t_p) = \sum_{n = 1}^N \pi_n\Xnp(t_p), \quad t_p \in \TT{p}, \quad p \in \{1, \dots, P\}.
 \end{equation*}
-The covariance function of the $p$th component along the $N$ observations can be computed using
+The covariance function of the $p$th feature along the $N$ observations can be computed using
 \begin{equation}\label{eq:cov_estimation}
     C_{p, p}(s_p, t_p) = \sum_{n = 1}^N \pi_n\Xnp(s_p)\Xnp(t_p) - \mup{p}(s_p)\mup{p}(t_p), \quad s_p, t_p \in \TT{p}, \quad p \in \{1, \dots, P\}.
 \end{equation}
@@ -45,16 +45,16 @@ The covariance function of the $p$th component along the $N$ observations can be
 
 % subsection basis_decomposition (end)
 
-In many practical situations, data are noisy and only observed at specific time points. To extract the underlying functional features of the data, smoothing and interpolation techniques are commonly employed. These techniques involve approximating the true curve of the data by finite-dimensional set of basis functions. Assume that for each component $p = 1, \dots, P$, there exists a set of basis of functions $\Psi^{(p)} = \{\psi_k^{(p)}\}_{1 \leq k \leq K_p}$ such that each component of each curve $n = 1, \dots, N$ can be expanded into this basis:
+In many practical situations, data are noisy and only observed at specific time points. To extract the underlying functional features of the data, smoothing and interpolation techniques are commonly employed. These techniques involve approximating the true curve of the data by finite-dimensional set of basis functions. Assume that for each feature $p = 1, \dots, P$, there exists a set of basis of functions $\Psi^{(p)} = \{\psi_k^{(p)}\}_{1 \leq k \leq K_p}$ such that each feature of each curve $n = 1, \dots, N$ can be expanded into this basis:
 \begin{equation}\label{eq:curve_basis_expansion}
 \Xnp(t_p) = \sum_{k = 1}^{K_p} c^{(p)}_{nk}\psi_k^{(p)}(t_p), \quad t_p \in \TT{p},
 \end{equation}
-where $\{c^{(p)}_{nk}\}_{1 \leq k \leq K_p}$ is a set of coefficients for the component $p$ of the curve $n$. We denote by $\overline{c}_k^{(p)} = \sum_{n = 1}^N \pi_n c^{(p)}_{nk}$ the mean coefficient of the component $p$ corresponding to the $k$th basis function along the $N$ curves.
-The $p$th component of the mean function can be then expanded in the same basis as:
+where $\{c^{(p)}_{nk}\}_{1 \leq k \leq K_p}$ is a set of coefficients for the feature $p$ of the curve $n$. We denote by $\overline{c}_k^{(p)} = \sum_{n = 1}^N \pi_n c^{(p)}_{nk}$ the mean coefficient of the feature $p$ corresponding to the $k$th basis function along the $N$ curves.
+The $p$th feature of the mean function can be then expanded in the same basis as:
 \begin{equation}
     \mup{p}(t_p) = \sum_{k = 1}^{K_p} \overline{c}_k^{(p)}\psi_k^{(p)}(t_p), \quad t_p \in \TT{p}.
 \end{equation}
-In a similar way, the covariance function of the $p$th component is given by:
+In a similar way, the covariance function of the $p$th feature is given by:
 \begin{equation}
     C_{p,p}(s_p, t_p) = \sum_{k = 1}^{K_p} \sum_{l = 1}^{K_p} \left(\sum_{n = 1}^N \pi_n c^{(p)}_{nk}c^{(p)}_{nl} - \overline{c}_k^{(p)}\overline{c}_l^{(p)}\right)\psi_k^{(p)}(s_p)\psi_l^{(p)}(t_p), \quad s_p, t_p \in \TT{p}.
 \end{equation}
