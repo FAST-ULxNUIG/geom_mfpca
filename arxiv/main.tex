@@ -19,6 +19,20 @@
 \usepackage{xr}
 \externaldocument[SM]{main_sup.tex}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% JDT:  Annotation Code %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{color}
+\usepackage[normalem]{ulem}
+
+ % Uncomment to display with annotation; comment out otherwise
+\newcommand{\add}[1]{\textcolor{blue}{#1}}
+\newcommand{\delete}[1]{\textcolor{red}{\sout{#1}}}
+\newcommand{\edit}[2]{\textcolor{red}{\sout{#1}} \textcolor{blue}{#2}}
+\newcommand{\mnote}[1]{\marginpar{\textcolor{green}{\textbf{#1}}}}
+
+
 % -------------
 % Some commands
 % -------------
@@ -111,7 +125,7 @@ Norma Bargary\thanks{MACSI, Department of Mathematics and Statistics, University
 \maketitle
 
 \begin{abstract}
-Dimension reduction is crucial in functional data analysis (FDA). The key tool to reduce the dimension of the data is functional principal component analysis. Existing approaches for functional principal component analysis usually involve the diagonalisation of the covariance operator. Using the duality of the space of observations and the space of functional components, we propose to use the inner-product between the curves to estimate the eigenelements of multivariate and multidimensional functional datasets. The relationship between the eigenelements of the covariance operator and those of the inner-product matrix is established. We explore the application of these methodologies in several FDA settings and provide general guidance on their usability.
+Dimension reduction is crucial in functional data analysis (FDA). The key tool to reduce the dimension of the data is functional principal component analysis. Existing approaches for functional principal component analysis usually involve the diagonalisation of the covariance operator. \add{With the increasing size and complexity of functional datasets, estimating the covariance operator becomes more challenging. Therefore, there is a growing need for efficient methodologies to estimate the eigencomponents.} Using the duality of the space of observations and the space of functional components, we propose to use the inner-product between the curves to estimate the eigenelements of multivariate and multidimensional functional datasets. The relationship between the eigenelements of the covariance operator and those of the inner-product matrix is established. We explore the application of these methodologies in several FDA settings and provide general guidance on their usability.
 \end{abstract}
 
 \keywords{Dimension Reduction; Functional Data Analysis; Functional Principal Components; Multivariate Functional Data}

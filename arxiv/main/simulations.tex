@@ -44,7 +44,7 @@ The data generating process is again based on a truncated version of the Karhune
 \begin{equation}
     \phi_k(s, t) = \psi_l(s) \otimes \psi_m(t), \quad s, t \in [0, 1],\quad k = 1, \dots, K,
 \end{equation}
-where $\psi_l$ and $\psi_m$ are elements of the Fourier basis functions.
+where $\psi_l$ and $\psi_m$ are elements of the Fourier basis.
 Each curve is then simulated using the truncated multivariate Karhunen-Loève expansion \eqref{eq:kl_multi_trunc}:
 \begin{equation}
     X(s, t) = \sum_{k = 1}^K \mathfrak{c}_k \phi_k(s, t), \quad s, t \in [0, 1],
@@ -347,14 +347,14 @@ Figure~\ref{fig:mise_mfd_1d} and Figure~\ref{fig:mise_mfd_2d}.
 \subsection{Percentage of variance explained} % (fold)
 \label{sub:percentage_of_variance_explained_simulation}
 
-\textcolor{red}{We argue that the percentage of variance explained in \cite{happMultivariateFunctionalPrincipal2018a} is not the good one as they consider the variance explained by each of the components separately and not as a all. Using the inner product matrix however gives the right number of eigenfunctions for a given amount of variance explained.
+\textcolor{red}{We argue that the percentage of variance explained in \cite{happMultivariateFunctionalPrincipal2018a} is sub-optimal as they consider the variance explained by each of the components separately and not the percentage explained overall. Using the inner product matrix however gives the correct number of eigenfunctions for a given amount of variance explained.
 We also consider the estimation of the number of components to retain to reach a pre-specified percentage of variance explained by the data based on Scenario~1 with $P = 2$, $K = 20$ and we use linear and exponential decreasing of the eigenvalues. The true percentage of variance explained by the $k$th component is given by $\lambda_k / \sum_{k^\prime = 1}^{20} \lambda_{k^\prime}$ and the true percentage of variance explained by the first $K (\leq 20)$ components is given by $\sum_{k = 1}^K \lambda_k / \sum_{k^\prime = 1}^{20} \lambda_{k^\prime}$.
-Let fix a certain percentage of variance explained $\alpha \in [0, 1]$. We define $\widetilde{K}$ as the minimum number of components to estimate to reach $100\alpha\%$ of the variance explained,
+Let's fix a certain percentage of variance explained $\alpha \in [0, 1]$. We define $\widetilde{K}$ as the minimum number of components required to reach $100\alpha\%$ of the variance explained,
 \begin{equation}
     \widetilde{K} = \arg\min_K \frac{\sum_{k = 1}^K \lambda_k}{\sum_{k^\prime = 1}^{20} \lambda_{k^\prime}} \geq \alpha.
 \end{equation}
-Using the covariance operator, the implementation of \cite{happMultivariateFunctionalPrincipal2018a} does not allow to directly estimated $\widetilde{K}$ from the multivariate functional data. They propose however to estimate the number of univariate eigenfunctions $K_1$ and $K_2$ based on the percentage of variance explained $\alpha$ for both elements. The number of multivariate eigenfunctions is then set to be $\min\{K_1 + K_2, K\}$ where $K$ is a given scalar. In the simulation, we first run FPCA on each univariate components to estimate the number of components needed to explain $\alpha\%$ of the variance for each components. Then, we run an MFPCA with $K = K_1 + K_2$. Using the Gram matrix, we directly estimated the number of components needed to explain a certain percentage of the variance from the multivariate functional data.
-It seems to show that choosing a univariate cut-off within each dimension (e.g., $95\%$), tends to overestimate the final amount of variance – the sum of the final eigenvalues is larger than the sum of the true eigenvalues.}
+Using the covariance operator, the implementation of \cite{happMultivariateFunctionalPrincipal2018a} does not allow for the direct estimation of $\widetilde{K}$ from multivariate functional data. They propose however to estimate the number of univariate eigenfunctions $K_1$ and $K_2$ based on the percentage of variance explained for both elements. The number of multivariate eigenfunctions is then set to be $\min\{K_1 + K_2, K\}$ where $K$ is a given scalar. To investigate the robustness of their approach, in our simulation, we first run FPCA on each univariate components to estimate the number of components needed to explain $\alpha\%$ of the variance for each component. Then, we run an MFPCA with $K = K_1 + K_2$. Using the Gram matrix, we directly estimated the number of components needed to explain a certain percentage of the variance from the multivariate functional data.
+The results shown in Figure~\textcolor{...} that choosing a univariate cut-off within each dimension (e.g., $95\%$), tends to overestimate the final amount of variance – the sum of the final eigenvalues is larger than the sum of the true eigenvalues.}
 
 
 % subsection percentage_of_variance_explained (end)

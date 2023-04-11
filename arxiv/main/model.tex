@@ -2,7 +2,7 @@
 \section{Model} % (fold)
 \label{sec:model}
 
-The structure of the data we consider, referred to as \emph{multivariate functional data}, is very similar to that presented in \cite{happMultivariateFunctionalPrincipal2018a}. The data consist of independent trajectories of a vector-valued stochastic process $X = (\Xp{1}, \dots, \Xp{P})^\top$, $P\geq 1$. (Here and in the following, for any matrix $A$, $A^\top$ denotes its transpose.) For each $1 \leq p \leq P$, let $\TT{p}$ be a rectangle in some Euclidean space $\RR^{d_p}$ with $d_p \geq 1$, \emph{e.g.}, $\TT{p} = [0,1]^{d_p}$. Each coordinate $X^{(p)} : \TT{p} \rightarrow \RR$ is assumed to belong to  $\sLp{\TT{p}}$, the Hilbert space of squared-integrable real-valued functions defined on $\TT{p}$, having the usual inner product that we denote by $\inLp{\cdot}{\cdot}$, and $\normLp{\cdot}$ the associated norm. Thus $X$ is a stochastic process indexed by $\pointt = (t_1, \ldots, t_P)$ belonging to the $P-$fold Cartesian product $\TT{} : =\TT{1} \times \cdots \times \TT{P}$ and taking values in the $P-$fold Cartesian product space $\HH \coloneqq \sLp{\TT{1}} \times \dots \times \sLp{\TT{P}}$. 
+The structure of the data we consider, referred to as \emph{multivariate functional data}, is similar to that presented in \cite{happMultivariateFunctionalPrincipal2018a}. The data consist of independent trajectories of a vector-valued stochastic process $X = (\Xp{1}, \dots, \Xp{P})^\top$, $P\geq 1$. (Here and in the following, for any matrix $A$, $A^\top$ denotes its transpose.) For each $1 \leq p \leq P$, let $\TT{p}$ be a rectangle in some Euclidean space $\RR^{d_p}$ with $d_p \geq 1$, \emph{e.g.}, $\TT{p} = [0,1]^{d_p}$. Each coordinate $X^{(p)} : \TT{p} \rightarrow \RR$ is assumed to belong to  $\sLp{\TT{p}}$, the Hilbert space of square-integrable real-valued functions defined on $\TT{p}$, having the usual inner product that we denote by $\inLp{\cdot}{\cdot}$, and $\normLp{\cdot}$ the associated norm. Thus $X$ is a stochastic process indexed by $\pointt = (t_1, \ldots, t_P)$ belonging to the $P-$fold Cartesian product $\TT{} : =\TT{1} \times \cdots \times \TT{P}$ and taking values in the $P-$fold Cartesian product space $\HH \coloneqq \sLp{\TT{1}} \times \dots \times \sLp{\TT{P}}$. 
 
 We consider the function $\inH{\cdot}{\cdot} : \HH \times \HH \rightarrow \RR$,
 \begin{equation}\label{eq:innerprodH}
@@ -45,11 +45,11 @@ The covariance function of the $p$th feature along the $N$ observations can be c
 
 % subsection basis_decomposition (end)
 
-In many practical situations, data are noisy and only observed at specific time points. To extract the underlying functional features of the data, smoothing and interpolation techniques are commonly employed. These techniques involve approximating the true curve of the data by finite-dimensional set of basis functions. Assume that for each feature $p = 1, \dots, P$, there exists a set of basis of functions $\Psi^{(p)} = \{\psi_k^{(p)}\}_{1 \leq k \leq K_p}$ such that each feature of each curve $n = 1, \dots, N$ can be expanded into this basis:
+In many practical situations, data are noisy and only observed at specific time points. To extract the underlying functional features of the data, smoothing and interpolation techniques are commonly employed. These techniques involve approximating the true underlying function generating the data by a finite-dimensional set of basis functions. Assume that for each feature $p = 1, \dots, P$, there exists a set of basis of functions $\Psi^{(p)} = \{\psi_k^{(p)}\}_{1 \leq k \leq K_p}$ such that each feature of each curve $n = 1, \dots, N$ can be expanded into using basis:
 \begin{equation}\label{eq:curve_basis_expansion}
 \Xnp(t_p) = \sum_{k = 1}^{K_p} c^{(p)}_{nk}\psi_k^{(p)}(t_p), \quad t_p \in \TT{p},
 \end{equation}
-where $\{c^{(p)}_{nk}\}_{1 \leq k \leq K_p}$ is a set of coefficients for the feature $p$ of the curve $n$. We denote by $\overline{c}_k^{(p)} = \sum_{n = 1}^N \pi_n c^{(p)}_{nk}$ the mean coefficient of the feature $p$ corresponding to the $k$th basis function along the $N$ curves.
+where $\{c^{(p)}_{nk}\}_{1 \leq k \leq K_p}$ is a set of coefficients the feature $p$ of curve $n$. We denote by $\overline{c}_k^{(p)} = \sum_{n = 1}^N \pi_n c^{(p)}_{nk}$ the mean coefficient of feature $p$ corresponding to the $k$th basis function.
 The $p$th feature of the mean function can be then expanded in the same basis as:
 \begin{equation}
     \mup{p}(t_p) = \sum_{k = 1}^{K_p} \overline{c}_k^{(p)}\psi_k^{(p)}(t_p), \quad t_p \in \TT{p}.
@@ -58,7 +58,7 @@ In a similar way, the covariance function of the $p$th feature is given by:
 \begin{equation}
     C_{p,p}(s_p, t_p) = \sum_{k = 1}^{K_p} \sum_{l = 1}^{K_p} \left(\sum_{n = 1}^N \pi_n c^{(p)}_{nk}c^{(p)}_{nl} - \overline{c}_k^{(p)}\overline{c}_l^{(p)}\right)\psi_k^{(p)}(s_p)\psi_l^{(p)}(t_p), \quad s_p, t_p \in \TT{p}.
 \end{equation}
-These formula can be written with a matrix formulation. For $\pointt \in \TT{}$, we have that $X(\pointt) = C\Psi(\pointt)$ where $X(\pointt)$ is a matrix with $N$ rows and $P$ columns with entries $\Xnp(t_p),~t_p \in \TT{p},~1 \leq p \leq P,~1 \leq n \leq N$,
+These formula can be written in matrix form as follows. For $\pointt \in \TT{}$, we have that $X(\pointt) = C\Psi(\pointt)$ where $X(\pointt)$ is a matrix with $N$ rows and $P$ columns with entries $\Xnp(t_p),~t_p \in \TT{p},~1 \leq p \leq P,~1 \leq n \leq N$,
 \begin{equation}
     C = \begin{pmatrix}
             C^{(1)} & \cdots & C^{(P)} \\
