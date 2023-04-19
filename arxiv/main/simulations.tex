@@ -354,7 +354,7 @@ Let's fix a certain percentage of variance explained $\alpha \in [0, 1]$. We def
     \widetilde{K} = \arg\min_K \frac{\sum_{k = 1}^K \lambda_k}{\sum_{k^\prime = 1}^{20} \lambda_{k^\prime}} \geq \alpha.
 \end{equation}
 Using the covariance operator, the implementation of \cite{happMultivariateFunctionalPrincipal2018a} does not allow for the direct estimation of $\widetilde{K}$ from multivariate functional data. They propose however to estimate the number of univariate eigenfunctions $K_1$ and $K_2$ based on the percentage of variance explained for both elements. The number of multivariate eigenfunctions is then set to be $\min\{K_1 + K_2, K\}$ where $K$ is a given scalar. To investigate the robustness of their approach, in our simulation, we first run FPCA on each univariate components to estimate the number of components needed to explain $\alpha\%$ of the variance for each component. Then, we run an MFPCA with $K = K_1 + K_2$. Using the Gram matrix, we directly estimated the number of components needed to explain a certain percentage of the variance from the multivariate functional data.
-The results shown in Figure~\textcolor{...} that choosing a univariate cut-off within each dimension (e.g., $95\%$), tends to overestimate the final amount of variance – the sum of the final eigenvalues is larger than the sum of the true eigenvalues.}
+The results shown in Figure~\textcolor{red}{...} that choosing a univariate cut-off within each dimension (e.g., $95\%$), tends to overestimate the final amount of variance – the sum of the final eigenvalues is larger than the sum of the true eigenvalues.}
 
 
 % subsection percentage_of_variance_explained (end)
