@@ -5,10 +5,31 @@
 \subsection{Duality diagram} % (fold)
 \label{sub:duality_diagram}
 
+\textcolor{red}{Check if it's OK with the centering.}
+
+\add{The distinction between the space of rows of a matrix as a sample from a population and the space of columns as the fixed variables on which the observations were measured has been explained in \cite{holmesMultivariateDataAnalysis2008,delacruzDualityDiagramData2011} for multivariate data analysis. We propose to define a duality diagram in the context of multivariate functional data. Consider the data matrix defined by the set $\mathcal{X}$. We define an operator $L_X : \HH \rightarrow \RR^N$ by
+\begin{equation}
+    L_X: u \mapsto \begin{pmatrix}
+        \inH{X_1}{u} \\
+        \vdots \\
+        \inH{X_N}{u}
+    \end{pmatrix}.
+\end{equation}
+Using the linearity of the inner-product $\inH{\cdot}{\cdot}$ and vectors, the operator $L_X$ is linear. The adjoint operator of $L_X$ is given by
+\begin{equation}
+    L^\star_X: v \mapsto \begin{pmatrix}
+       \sum_{i = 1}^N v_i X_i^{(1)}(t_1) \\ 
+       \vdots \\ 
+       \sum_{i = 1}^N v_i X_i^{(P)}(t_P)
+    \end{pmatrix}.
+\end{equation}
+As $L^\star_X$ is the adjoint of the linear operator $L_X$, it is a linear operator. 
+We consider the function $\inHG{f}{g} = \inH{f}{\Gamma g}, f, g \in \HH$ and $\inRM{u}{v} = u^\top M v, u, v \in \RR^N$.
+These relationship can be expressed as a duality diagram, see Figure~\ref{fig:duality_diagram}. The triplet $(X, \Gamma, M)$ defines a (multivariate) functional data analysis setup. The estimation of the eigencomponents can be performed using $\Gamma$ or $M$ and the relationship between the two are derived in Section~\ref{sec:functional_principal_components_analysis}.}
 \begin{figure}
     \centering
     \includegraphics[scale=1.2]{figures/duality_diagram.pdf}
-    \caption{Duality diagram}
+    \caption{Duality diagram between the spaces $\mathcal{H}$ and $\mathbb{R}^n$. The operator $L_X$ and its adjoint $L^\star_X$ are linear operators. The covariance operator $\Gamma$ and the matrix $M$ define geometries in $\mathcal{H}$ and $\mathbb{R}^N$ respectively.}
     \label{fig:duality_diagram}
 \end{figure}
 

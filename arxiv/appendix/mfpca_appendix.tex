@@ -2,6 +2,8 @@
 \section{Derivation of the eigencomponents} % (fold)
 \label{sec:derivation_of_the_eigencomponents}
 
+\textcolor{red}{Check it's OK with centering.}
+
 Using the Hilbert-Schmidt theorem, there exists a complete orthonormal basis of eigenvectors $\{v_k\}_{1 \leq k \leq N}$ of the inner-product matrix $M$ such that
 \begin{equation}\label{eq:eigen_inner_prod_p}
     Mv_k = l_kv_k.
@@ -18,7 +20,7 @@ Here and in the following, we note $[a]_p$ the $p$th entry of the vector $a$. St
 \begin{align}\label{eq:inner_prod_p_left}
 [X^\top M v_k]_p &= \sum_{i = 1}^N \sum_{j = 1}^N [v_{k}]_j \left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\}\inH{X_i - \mu}{X_j - \mu}\\
 &= \sum_{q = 1}^P \int_{\TT{q}} \sum_{i = 1}^N \left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\} \left\{X_i^{(q)}(s_q) - \mu^{(q)}(s_q)\right\}  \\
-& \sum_{j = 1}^N [v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
+&\quad\quad \sum_{j = 1}^N [v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
 &= \sum_{q = 1}^P \int_{\TT{q}} N C_{pq}(\cdot, s_q)\sum_{j = 1}^N [v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
 &= N \sum_{j = 1}^N \inH{C_{p \cdot}(\cdot, \cdot)}{[v_{k}]_j \left\{X_j - \mu\right\}} \\
 &= N \Gamma\left(\sum_{j = 1}^N [v_{k}]_j \left\{X_j - \mu\right\} \right)^{\mkern-9mu(p)}\mkern-18mu(\cdot)
