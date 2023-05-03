@@ -95,9 +95,11 @@ Finally, we denote by $W$ the matrix of inner products of the functions in the b
 \end{equation}
 We remark that, if the basis $\Psi$ is an orthonormal basis, the matrix $W$ is equal to the identity matrix of size $\sum_{p = 1}^P K_p$.
 \add{Using the expansion of the data into the basis of function $\Psi$, the inner-product matrix $M$ is written 
-\begin{equation}
-    M = \left(CW^{1/2}\right)\left(CW^{1/2}\right)^\top.
-\end{equation}
+\begin{align}
+    M &= \left(\mathrm{I}_{\!N} - \mathbf{1}_{\!N}\Pi^\top\right) C W C^\top \left(\mathrm{I}_{\!N} - \Pi\mathbf{1}_{\!N}^\top\right) \\
+      &= \left[\left(\mathrm{I}_{\!N} - \mathbf{1}_{\!N}\Pi^\top\right)CW^{1/2}\right]\left[\left(\mathrm{I}_{\!N} - \mathbf{1}_{\!N}\Pi^\top\right)CW^{1/2}\right]^\top,
+\end{align}
+where $\mathrm{I}_{\!N}$ is the identity matrix of size $N$ and $\mathbf{1}_{\!N}$ is the vector of $1$ of length $N$.
 }
-\textcolor{red}{Check if it's ok with the centering.}
+
 % section model (end)
