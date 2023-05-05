@@ -8,7 +8,7 @@ import numpy as np
 
 from FDApy.preprocessing.dim_reduction.fpca import UFPCA, MFPCA
 from FDApy.preprocessing.dim_reduction.fcp_tpa import FCPTPA
-from FDApy.representation.basis import Basis
+from FDApy.representation.basis import Basis, MultivariateBasis
 from FDApy.representation.functional_data import (
     DenseFunctionalData,
     MultivariateFunctionalData
@@ -18,6 +18,13 @@ from FDApy.simulation.karhunen import KarhunenLoeve
 # Variables
 
 # Functions
+def make_diff_op(degree, dim):
+    if degree == 0:
+        return np.eye(dim)
+    else:
+        return np.diff(make_diff_op(degree - 1, dim), axis=0)
+
+
 def simulate_data(
     n_obs,
     n_points,
@@ -38,8 +45,7 @@ def simulate_data(
     basis_name: str
         Name of the basis to used.
     n_functions: int
-        Number of basis functions to used. For 2D-data, the number of functions
-        used is n_functions * n_functions.
+        Number of basis functions to used.
     dimension: str
         Dimension of the data (1D or 2D).
     seed: int
@@ -51,14 +57,18 @@ def simulate_data(
         The simulated dataset.
 
     """
-    argvals = {'input_dim_0': np.linspace(0, 1, n_points)}
-    kl = KarhunenLoeve(
-        basis_name=basis_name,
+    # Define the basis
+    argvals = np.linspace(0, 1, n_points)
+    basis = Basis(
+        name=basis_name,
         n_functions=n_functions,
-        dimension=dimension,
         argvals=argvals,
-        random_state=seed
+        dimension=dimension,
+        add_intercept=True
     )
+
+    # Generate data
+    kl = KarhunenLoeve(basis_name=None, basis=basis, random_state=seed)
     kl.new(n_obs=n_obs, clusters_std='exponential')
     return kl
 
@@ -94,38 +104,27 @@ def simulate_data_multivariate(
         The simulated dataset.
 
     """
-    argvals = np.linspace(0, 10, num=n_components * (n_points + 1))
+    # Define the argvals
+    rng = np.random.RandomState(seed)
+    start_points = rng.uniform(-1, 1, n_components)
+    end_points = rng.uniform(-1, 1, n_components)
+    argvals = [
+        np.sort(np.linspace(begin, end, n_points))
+        for begin, end in zip(start_points, end_points)
+    ]
 
-    basis = Basis(
+    # Define the basis
+    basis = MultivariateBasis(
+        simulation_type='split',
+        n_components=n_components,
         name=basis_name,
         n_functions=n_functions,
-        dimension='1D',
-        argvals={'input_dim_0': argvals}
+        argvals=argvals,
+        dimension=n_components * ['1D']
     )
-    basis = basis[1:]
 
-    # Select the splitting points
-    cut_points_idx = np.arange(0, len(argvals), n_points)
-
-    # Create Multivariate Basis
-    basis_multi = n_components * [None]
-    for i in np.arange(n_components):
-        start_idx = cut_points_idx[i]
-        end_idx = cut_points_idx[i + 1]
-
-        new_argvals = argvals[start_idx:end_idx]
-        deno = (np.max(new_argvals) - np.min(new_argvals))
-        new_argvals = (new_argvals - np.min(new_argvals)) / deno
-
-        sign = np.random.choice([-1, 1])
-        new_values = sign * basis.values[:, start_idx:end_idx]
-        data = DenseFunctionalData({'input_dim_0': new_argvals}, new_values)
-        data.dimension = '1D'
-        basis_multi[i] = data
-
-    kl = KarhunenLoeve(
-        basis_name=None, basis=basis_multi, random_state=seed
-    )
+    # Generate data
+    kl = KarhunenLoeve(basis_name=None, basis=basis, random_state=seed)
     kl.new(n_obs=n_obs, clusters_std='exponential')
     return kl
 
@@ -159,14 +158,15 @@ def ufpca_covariance(data, n_components):
         ufpca.fit(data)
     elif data.n_dim == 2:
         n_points = data.n_points
-        mat_v = np.diff(np.identity(n_points['input_dim_0']))
-        mat_w = np.diff(np.identity(n_points['input_dim_1']))
-        ufpca = FCPTPA(n_components=n_components)
+        mat_v = make_diff_op(2, n_points['input_dim_0'])
+        mat_w = make_diff_op(2, n_points['input_dim_1'])
+
+        ufpca = FCPTPA(n_components=n_components, normalize=True)
         ufpca.fit(
             data,
             penalty_matrices={
-                'v': np.dot(mat_v, mat_v.T),
-                'w': np.dot(mat_w, mat_w.T)
+                'v': np.dot(mat_v.T, mat_v),
+                'w': np.dot(mat_w.T, mat_w)
             },
             alpha_range={
                 'v': (1e-4, 1e4),
@@ -201,7 +201,7 @@ def mfpca_covariance(data, n_components):
     """
     n_components = data.n_functional * [n_components]
     mfpca = MFPCA(
-        n_components=n_components, method='covariance', normalize=False
+        n_components=n_components, method='covariance', normalize=True
     )
     mfpca.fit(data)
     return mfpca

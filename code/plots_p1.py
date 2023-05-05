@@ -93,12 +93,16 @@ def load_results(path):
     # Select data logAE
     data_logAE = data_logAE.loc[:, ['P', 'N', 'M', 'K', 'ratiologAE']].\
         sort_values(['P', 'N', 'M', 'K']).\
-        replace({'M': {25: '25', 50: '50', 75: '75', 100: '100'}})
+        replace({'M': {25: '25', 50: '50', 75: '75', 100: '100'}}).\
+        replace({'N': {25: '25', 50: '50', 75: '75', 100: '100'}}).\
+        replace({'K': {1: '1', 2: '2', 3: '3', 4: '4', 5: '5'}})
 
     # Select data logAE
     data_ise = data_ise.loc[:, ['P', 'N', 'M', 'K', 'ratioise']].\
         sort_values(['P', 'N', 'M', 'K']).\
-        replace({'M': {25: '25', 50: '50', 75: '75', 100: '100'}})
+        replace({'M': {25: '25', 50: '50', 75: '75', 100: '100'}}).\
+        replace({'N': {25: '25', 50: '50', 75: '75', 100: '100'}}).\
+        replace({'K': {1: '1', 2: '2', 3: '3', 4: '4', 5: '5'}})
 
     return data_time, data_mise, data_logAE, data_ise
 
@@ -107,15 +111,22 @@ def plot_mise(results):
     """Plot the results of the simulation in term of MISE."""
     gg = sns.catplot(
         data=results,
-        x="ratiomise", y="M",
+        x="ratiomise", y="M", col="N",
         kind="box",
-        height=7,
-        aspect=1
+        flierprops=dict(marker="+", markerfacecolor="gray", markersize=1),
+        height=3,
+        aspect=2,
+        col_wrap=2
     )
-    gg.set(xlabel="MISE($\mathcal{X}$, $\widehat{\mathcal{X}}$) / MISE($\mathcal{X}$, $\widetilde{\mathcal{X}}$)", ylabel="")
-    gg.set_yticklabels(["$M = 25$", "$M = 50$", "$M = 75$", "$M = 100$"], size=20)
+    gg.set_titles(col_template="$N = {col_name}$", size=12)
+    gg.set(xlim=(0, 1.1))
+    gg.set_xlabels("MISE($\mathcal{X}$, $\widehat{\mathcal{X}}$) / MISE($\mathcal{X}$, $\widetilde{\mathcal{X}}$)", fontsize=10)
+    gg.set_ylabels("")
+    gg.set_yticklabels(["$M = 25$", "$M = 50$", "$M = 75$", "$M = 100$"], size=10)
     for ax in gg.axes.flat:
         ax.axvline(x=1, color='r', lw=1, ls='--')
+        ax.set_xscale("linear")
+        ax.set_xticklabels(ax.get_xticklabels(), size=10)
     gg.fig.tight_layout()
     return gg
 
@@ -124,16 +135,21 @@ def plot_computation_time(results):
     """Plot the results of the simulation in term of computation time."""
     gg = sns.catplot(
         data=results,
-        x="ratiotime", y="M",
+        x="ratiotime", y="M", col="N",
         kind="violin",
-        height=7,
-        aspect=1
+        height=3,
+        aspect=2,
+        col_wrap=2
     )
-    gg.set(xlabel="Ratio of computation time", ylabel="")
-    gg.set_yticklabels(["$M = 25$", "$M = 50$", "$M = 75$", "$M = 100$"], size=20)
+    gg.set_titles(col_template="$N = {col_name}$", size=12)
+    gg.set(xlim=(10e-3, 10e0))
+    gg.set_xlabels("Ratio of computation time", fontsize=10)
+    gg.set_ylabels("")
+    gg.set_yticklabels(["$M = 25$", "$M = 50$", "$M = 75$", "$M = 100$"], size=10)
     for ax in gg.axes.flat:
         ax.axvline(x=1, color='r', lw=1, ls='--')
         ax.set_xscale("log")
+        ax.set_xticklabels(ax.get_xticklabels(), size=10)
     gg.fig.tight_layout()
     return gg
 
@@ -142,23 +158,29 @@ def plot_ise(results):
     """Plot the results of the simulation in term of ISE."""
     gg = sns.catplot(
         data=results,
-        x="ratioise", y="M", hue='K',
+        x="ratioise", y="N", hue='M', col='K',
         kind="box",
-        height=7,
-        aspect=1
+        flierprops=dict(marker="+", markerfacecolor="gray", markersize=1),
+        height=3,
+        aspect=1,
+        col_wrap=3
     )
-    gg.set(xlabel="ISE($\phi_k$, $\widehat{\phi}_k$) / ISE($\phi_k$, $\widetilde{\phi}_k$)", ylabel="")
-    gg.set_yticklabels(["$M = 25$", "$M = 50$", "$M = 75$", "$M = 100$"], size=20)
-    # gg.set(xlim=(0, 2))
+    gg.set_titles(col_template="$\phi_{col_name}$", size=12)
+    gg.set_xlabels("ISE($\phi_k$, $\widehat{\phi}_k$) / ISE($\phi_k$, $\widetilde{\phi}_k$)", fontsize=10)
+    gg.set_ylabels("")
+    gg.set_yticklabels(["$N = 25$", "$N = 50$", "$N = 75$", "$N = 100$"], size=10)
+    gg.set(xlim=(0, 5))
     for ax in gg.axes.flat:
         ax.axvline(x=1, color='r', lw=1, ls='--')
+        ax.set_xscale("linear")
+        ax.set_xticklabels(ax.get_xticklabels(), size=10)
     gg.fig.tight_layout()
     sns.move_legend(
-        gg, "center",
-        bbox_to_anchor=(.5, -0.1),
-        title='Eigenfunctions',
+        gg, 'lower center',
+        bbox_to_anchor=(.85, .2),
+        title='$M$',
         frameon=True,
-        ncol=5, columnspacing=0.6
+        ncol=1, columnspacing=0.5, fontsize=12
     )
     return gg
 
@@ -167,23 +189,29 @@ def plot_logAE(results):
     """Plot the results of the simulation in term of logAE."""
     gg = sns.catplot(
         data=results,
-        x="ratiologAE", y="M", hue='K',
+        x="ratiologAE", y="N", hue='M', col='K',
         kind="box",
-        height=7,
-        aspect=1
+        flierprops=dict(marker="+", markerfacecolor="gray", markersize=1),
+        height=3,
+        aspect=1,
+        col_wrap=3
     )
-    gg.set(xlabel="$\log-$AE($\lambda_k$, $\widehat{\lambda}_k$) / $\log-$AE($\lambda_k$, $\widetilde{\lambda}_k$)", ylabel="")
-    gg.set_yticklabels(["$M = 25$", "$M = 50$", "$M = 75$", "$M = 100$"], size=20)
-    # gg.set(xlim=(0, 2))
+    gg.set_xlabels("$\log-$AE($\lambda_k$, $\widehat{\lambda}_k$) / $\log-$AE($\lambda_k$, $\widetilde{\lambda}_k$)", fontsize=10)
+    gg.set_ylabels("")
+    gg.set_titles(col_template="$\lambda_{col_name}$", size=12)
+    gg.set_yticklabels(["$N = 25$", "$N = 50$", "$N = 75$", "$N = 100$"], size=10)
+    gg.set(xlim=(0, 5))
     for ax in gg.axes.flat:
         ax.axvline(x=1, color='r', lw=1, ls='--')
+        ax.set_xscale("linear")
+        ax.set_xticklabels(ax.get_xticklabels(), size=10)
     gg.fig.tight_layout()
     sns.move_legend(
-        gg, "lower center",
-        bbox_to_anchor=(.5, -0.1),
-        title='Eigenvalues',
+        gg, 'lower center',
+        bbox_to_anchor=(.85, .2),
+        title='$M$',
         frameon=True,
-        ncol=5, columnspacing=0.6
+        ncol=1, columnspacing=0.5, fontsize=12
     )
     return gg
 
@@ -205,46 +233,41 @@ if __name__ == "__main__":
         os.makedirs(f"{args.out_folder}/{path_split[1]}/ise")
 
     # Plot computation time
-    for N in ['25', '50', '75', '100']:
-        temp = results_time.query(f'N == {N}')
-        plot_computation_time(temp)
-        plt.savefig(
-            f'{args.out_folder}/{path_split[1]}/computation_time/'
-            f'computation_time_N{N}.{args.format}',
-            format=args.format,
-            bbox_inches='tight'
-        )
-        plt.close()
+    plot_computation_time(results_time)
+    plt.savefig(
+        f'{args.out_folder}/{path_split[1]}/computation_time/'
+        f'computation_time.{args.format}',
+        format=args.format,
+        bbox_inches='tight'
+    )
+    plt.close()
 
-        # Plot MISE
-        temp = results_mise.query(f'N == {N}')
-        plot_mise(temp)
-        plt.savefig(
-            f'{args.out_folder}/{path_split[1]}/mise/'
-            f'mise_N{N}.{args.format}',
-            format=args.format,
-            bbox_inches='tight'
-        )
-        plt.close()
+    # Plot MISE
+    plot_mise(results_mise)
+    plt.savefig(
+        f'{args.out_folder}/{path_split[1]}/mise/'
+        f'mise.{args.format}',
+        format=args.format,
+        bbox_inches='tight'
+    )
+    plt.close()
 
-        # Plot log-AE
-        temp = results_logAE.query(f'N == {N}')
-        plot_logAE(temp)
-        plt.savefig(
-            f'{args.out_folder}/{path_split[1]}/logAE/'
-            f'logAE_N{N}.{args.format}',
-            format=args.format,
-            bbox_inches='tight'
-        )
-        plt.close()
+    # Plot log-AE
+    plot_logAE(results_logAE)
+    plt.savefig(
+        f'{args.out_folder}/{path_split[1]}/logAE/'
+        f'logAE.{args.format}',
+        format=args.format,
+        bbox_inches='tight'
+    )
+    plt.close()
 
-        # Plot ISE
-        temp = results_ise.query(f'N == {N}')
-        plot_ise(temp)
-        plt.savefig(
-            f'{args.out_folder}/{path_split[1]}/ise/'
-            f'ise_N{N}.{args.format}',
-            format=args.format,
-            bbox_inches='tight'
-        )
-        plt.close()
+    # Plot ISE
+    plot_ise(results_ise)
+    plt.savefig(
+        f'{args.out_folder}/{path_split[1]}/ise/'
+        f'ise.{args.format}',
+        format=args.format,
+        bbox_inches='tight'
+    )
+    plt.close()

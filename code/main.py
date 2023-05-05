@@ -64,7 +64,7 @@ def run_simulation(idx, n_obs, n_points, n_components):
     if P == 1:  # Simulate univariate functional data
         basis_name = 'fourier'
         dimension = '2D'
-        n_functions = 5
+        n_functions = 10
 
         kl = simulate_data(
             n_obs=n_obs,
@@ -76,7 +76,7 @@ def run_simulation(idx, n_obs, n_points, n_components):
         )
     else:  # Simulate multivariate functional data
         basis_name = 'fourier'
-        n_functions = 11
+        n_functions = 10
         kl = simulate_data_multivariate(
             n_components=P,
             n_obs=n_obs,
@@ -86,7 +86,7 @@ def run_simulation(idx, n_obs, n_points, n_components):
             seed=idx
         )
     data = kl.data
-    eigenfunctions = MultivariateFunctionalData(kl.basis)
+    eigenfunctions = kl.basis  # MultivariateFunctionalData(kl.basis)
     eigenvalues = kl.eigenvalues
 
     # Perform FPCA covariance
@@ -126,16 +126,12 @@ def run_simulation(idx, n_obs, n_points, n_components):
     eigenfunctions_inn = fpca_inn.eigenfunctions
 
     # Compute errors
-    if P == 1:
-        mise_cov = MISE(data, data_f_cov)
-        mise_inn = MISE(data, data_f_inn)
-        ise_cov = ISE(eigenfunctions, eigenfunctions_cov, n_estim=n_components)
-        ise_inn = ISE(eigenfunctions, eigenfunctions_inn, n_estim=n_components)
-    else:
-        mise_cov = MISE(data, data_f_cov)
-        mise_inn = MISE(data, data_f_inn)
-        ise_cov = ISE(eigenfunctions, eigenfunctions_cov, n_estim=n_components)
-        ise_inn = ISE(eigenfunctions, eigenfunctions_inn, n_estim=n_components)
+    mise_cov = MISE(data, data_f_cov)
+    mise_inn = MISE(data, data_f_inn)
+
+    ise_cov = ISE(eigenfunctions, eigenfunctions_cov, n_estim=n_components)
+    ise_inn = ISE(eigenfunctions, eigenfunctions_inn, n_estim=n_components)
+    
     ae_cov = logAE(eigenvalues, eigenvalues_cov, n_components)
     ae_inn = logAE(eigenvalues, eigenvalues_inn, n_components)
     
