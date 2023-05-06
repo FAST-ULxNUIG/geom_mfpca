@@ -6,6 +6,7 @@
 # Load packages
 import argparse
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import numpy as np
 import os
 import pandas as pd
@@ -14,6 +15,7 @@ import seaborn as sns
 
 # Config
 plt.style.use('./code/stylefiles/plot.mplstyle')
+mpl.rcParams['xtick.labelsize'] = 10
 
 # Argument parser for the file
 parser = argparse.ArgumentParser(
@@ -73,6 +75,7 @@ def load_results(path):
         explode(['logAE_cov', 'logAE_inn'])
     data_logAE['K'] = np.tile(np.arange(5) + 1, len(data))
     data_logAE['ratiologAE'] = data_logAE['logAE_inn'] / data_logAE['logAE_cov']
+    data_logAE['ratiologAE'] = data_logAE['ratiologAE'].astype('float')
 
     # Compute ratio inner-product / covariance ISE
     data_ise = data[['N', 'M', 'P', 'ise_cov', 'ise_inn']].\
@@ -97,7 +100,6 @@ def load_results(path):
         sort_values(['P', 'N', 'M', 'K']).\
         replace({'P': {2: '2', 10: '10', 20: '20', 50: '50'}}).\
         replace({'M': {25: '25', 50: '50', 75: '75', 100: '100'}}).\
-        replace({'N': {25: '25', 50: '50', 75: '75', 100: '100'}}).\
         replace({'K': {1: '1', 2: '2', 3: '3', 4: '4', 5: '5'}})
 
     # Select data logAE
@@ -105,7 +107,6 @@ def load_results(path):
         sort_values(['P', 'N', 'M', 'K']).\
         replace({'P': {2: '2', 10: '10', 20: '20', 50: '50'}}).\
         replace({'M': {25: '25', 50: '50', 75: '75', 100: '100'}}).\
-        replace({'N': {25: '25', 50: '50', 75: '75', 100: '100'}}).\
         replace({'K': {1: '1', 2: '2', 3: '3', 4: '4', 5: '5'}})
 
     return data_time, data_mise, data_logAE, data_ise
@@ -129,7 +130,6 @@ def plot_mise(results):
     for ax in gg.axes.flat:
         ax.axvline(x=1, color='r', lw=1, ls='--')
         ax.set_xscale("linear")
-        ax.set_xticklabels(ax.get_xticklabels(), size=10)
     gg.fig.tight_layout()
     return gg
 
@@ -151,7 +151,6 @@ def plot_computation_time(results):
     for ax in gg.axes.flat:
         ax.axvline(x=1, color='r', lw=1, ls='--')
         ax.set_xscale("log")
-        ax.set_xticklabels(ax.get_xticklabels(), size=10)
     gg.fig.tight_layout()
     return gg
 
@@ -173,7 +172,6 @@ def plot_ise(results):
     for ax in gg.axes.flat:
         ax.axvline(x=1, color='r', lw=1, ls='--')
         ax.set_xscale("linear")
-        ax.set_xticklabels(ax.get_xticklabels(), size=10)
     gg.fig.tight_layout()
     sns.move_legend(
         gg, 'lower center',
@@ -202,7 +200,6 @@ def plot_logAE(results):
     for ax in gg.axes.flat:
         ax.axvline(x=1, color='r', lw=1, ls='--')
         ax.set_xscale("linear")
-        ax.set_xticklabels(ax.get_xticklabels(), size=10)
     gg.fig.tight_layout()
     sns.move_legend(
         gg, 'lower center',
@@ -251,7 +248,8 @@ if __name__ == "__main__":
     plt.close()
 
     # Plot log-AE
-    plot_logAE(results_logAE)
+    gg = plot_logAE(results_logAE)
+    print(gg)
     plt.savefig(
         f'{args.out_folder}/{path_split[1]}/logAE/'
         f'logAE.{args.format}',
