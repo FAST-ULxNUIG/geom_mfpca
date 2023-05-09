@@ -86,14 +86,20 @@ def load_results(path):
     # Select data time
     data_time = data.loc[:, ['P', 'N', 'M', 'ratiotime']].\
         sort_values(['P', 'N', 'M']).\
-            replace({'P': {2: '2', 10: '10', 20: '20', 50: '50'}}).\
-            replace({'M': {25: '25', 50: '50', 75: '75', 100: '100'}})
+        query('(N == 25) | (N == 100)').\
+        query('(M == 25) | (M == 100)').\
+        replace({'P': {2: '2', 10: '10', 20: '20', 50: '50'}}).\
+        replace({'M': {25: '25', 100: '100'}})
+        #replace({'M': {25: '25', 50: '50', 75: '75', 100: '100'}})
 
     # Select data MISE
     data_mise = data.loc[:, ['P', 'N', 'M', 'ratiomise']].\
         sort_values(['P', 'N', 'M']).\
+        query('(N == 25) | (N == 100)').\
+        query('(M == 25) | (M == 100)').\
         replace({'P': {2: '2', 10: '10', 20: '20', 50: '50'}}).\
-        replace({'M': {25: '25', 50: '50', 75: '75', 100: '100'}})
+        replace({'M': {25: '25', 100: '100'}})
+        #replace({'M': {25: '25', 50: '50', 75: '75', 100: '100'}})
 
     # Select data logAE
     data_logAE = data_logAE.loc[:, ['P', 'N', 'M', 'K', 'ratiologAE']].\
@@ -120,7 +126,7 @@ def plot_mise(results):
         kind="box",
         flierprops=dict(marker="+", markerfacecolor="gray", markersize=1),
         height=3,
-        aspect=1
+        aspect=2
     )
     gg.set_titles(template="$N = {col_name} \:|\: M = {row_name}$", size=12)
     gg.set(xlim=(0, 1.5))
@@ -141,7 +147,7 @@ def plot_computation_time(results):
         x="ratiotime", y="P", col="N", row="M",
         kind="violin",
         height=3,
-        aspect=1
+        aspect=2
     )
     gg.set_titles(template="$N = {col_name} \:|\: M = {row_name}$", size=12)
     gg.set(xlim=(10e-3, 30))

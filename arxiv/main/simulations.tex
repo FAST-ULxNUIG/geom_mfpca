@@ -49,7 +49,7 @@ Each curve is then simulated using the truncated multivariate Karhunen-Loève ex
 \begin{equation}
     X(s, t) = \sum_{k = 1}^K \mathfrak{c}_k \phi_k(s, t), \quad s, t \in [0, 1],
 \end{equation}
-where the scores $\mathfrak{c}_k$ are defined as for the Scenario~1. We simulate, for each replication of the simulations, $N = 25, 50, 75$ and $100$ observations. Similarly, each component is sampled on a regular grid of $M = 25 \times 25, 50 \times 50, 75 \times 75$ and $100 \times 100$ sampling points. We set $K = 25$.
+where the scores $\mathfrak{c}_k$ are defined as for the Scenario~1. We simulate, for each replication of the simulations, $N = 25, 50, 75$ and $100$ observations. Similarly, each component is sampled on a regular grid of $M = 25 \times 25, 50 \times 50, 75 \times 75$ and $100 \times 100$ sampling points. We set $K = 10$.
 \end{scenario}
 
 % subsection simulation_experiments (end)
@@ -57,106 +57,118 @@ where the scores $\mathfrak{c}_k$ are defined as for the Scenario~1. We simulate
 \subsection{Simulation results} % (fold)
 \label{sub:simulation_results}
 
+\add{
+We compared the MFPCA using the diagonalisation of the covariance operator and the diagonalisation of the Gram matrix on their computational time, estimation of eigenvalues, estimation of eigenfunctions, and reconstruction of curves. The results are presented below.
+}
+
 % Computation time ----------
 \begin{results}[Computation time]
 
-Figure~\ref{fig:computation_time_mfd_1d} and Figure~\ref{fig:computation_time_mfd_2d}.
-
+\add{
+To compare the computational time of the diagonalisation of the covariance operator and the diagaonlisation of the Gram matrix, we measured the time it took for each method to complete the MFPCA for each simulated dataset.
+For the Scenario 1, we found that the diagonalisation of the covariance has a shorter CT compared to the diagonalisation of the Gram matrix across all sample sizes and number of functions. Figure~\ref{fig:computation_time_mfd_1d} shows the kernel density estimation of the ratio of CT for each method across all sample sizes, number of sampling points and number of features. Note that the number of features $P$ does not change the ratio of CT between the methods.
 \begin{figure}
      \centering
     \includegraphics[width=\textwidth]{figures/scenario_1/computation_time.eps}
     \caption{Computation time for multivariate functional data. Each univariate component is defined on a one-dimensional domain.}
     \label{fig:computation_time_mfd_1d}
 \end{figure}
-
+For the Scenario 2, we found that the diagonalisation of the Gram matrix has a shorter CT compared to the diagonalisation of the Gram matrix across all sample sizes and number of sampling points. Figure~\ref{fig:computation_time_mfd_2d} shows the kernel density estimation of the ratio of CT for each method across all sample sizes and number of sampling points.
 \begin{figure}
      \centering
     \includegraphics[width=\textwidth]{figures/scenario_2/computation_time.eps}
     \caption{Computation time for univariate functional data of images data}
     \label{fig:computation_time_mfd_2d}
 \end{figure}
-
+The shorter computational time of the diagonalisation of the Gram matrix for the Scenario 2 makes it a more efficient option for analyzing two and higher-dimensional functional datasets. It is however worth noting that the computational time can still vary depending on the specific implementation of each method, the computational resources available, and the complexity of the dataset (number of observations, number of sampling points, etc.).
+}
 \end{results}
 
 % Eigenvalues estimation ----------
 \begin{results}[Eigenvalues estimation]
 
-Figure~\ref{fig:logAE_mfd_1d} and Figure~\ref{fig:logAE_mfd_2d}.
-
+\add{
+To compare the estimation of the eigenvalues between the diagonalisation of the covariance operator and the diagaonlisation of the Gram matrix, we calculated the ratio of the $\log-\text{AE}$ \eqref{eq:mse_eigenvalues} between the estimated eigenvalues and the true eigenvalues for each simulated dataset and for the first five eigenvalues.
+For the Scenario 1, we found that the two methods behave similarly for all considered settings. Figure~\ref{fig:logAE_mfd_1d} shows the boxplots of the $\log-\text{AE}$ for each method across all sample sizes, number of sampling points and number of features.
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/scenario_1/logAE.eps}
     \caption{$\log-$AE for multivariate functional data. Each univariate component is defined on a one-dimensional domain.}
     \label{fig:logAE_mfd_1d}
 \end{figure}
-
+For the Scenario 2, we found that the FCP-TPA gives slighty better estimation of the eigenvalues. Figure~\ref{fig:logAE_mfd_2d} shows the boxplots of the $\log-\text{AE}$ for each method across all sample sizes and number of sampling points.
 \begin{figure}
      \centering
     \includegraphics[width=\textwidth]{figures/scenario_2/logAE.eps}
     \caption{$\log-$AE for univariate functional data of images data}
     \label{fig:logAE_mfd_2d}
 \end{figure}
-
+}
 \end{results}
 
 % Eigenfunctions estimation ----------
 \begin{results}[Eigenfunctions estimation]
 
-Figure~\ref{fig:ise_mfd_1d} and Figure~\ref{fig:ise_mfd_2d}.
-
+\add{
+To compare the estimation of the eigenfunctions between the diagonalisation of the covariance operator and the diagaonlisation of the Gram matrix, we calculated the ratio of the ISE \eqref{eq:ise_eigenfunctions} between the estimated eigenfunctions and the true eigenfunctions for each simulated dataset and for the first five eigenfunctions.
+For the Scenario 1, we found that the two methods behave similarly for all considered settings. For $P = 10, 20$ and $50$, the results are identical. Figure~\ref{fig:ise_mfd_1d} shows the boxplots of the ISE for each method across all sample sizes, number of sampling points and number of features.
 \begin{figure}
      \centering
     \includegraphics[width=\textwidth]{figures/scenario_1/ise.eps}
     \caption{ISE for multivariate functional data. Each univariate component is defined on a one-dimensional domain.}
     \label{fig:ise_mfd_1d}
 \end{figure}
-
+For the Scenario 2, we found that the decomposition of the Gram matrix gives better estimation of the eigenfunctions compared to the FCP-TPA, especially the quality of the estimation increase when the number of observations increases. Figure~\ref{fig:ise_mfd_2d} shows the boxplots of the ISE for each method across all sample sizes and number of sampling points.
 \begin{figure}
      \centering
     \includegraphics[width=\textwidth]{figures/scenario_2/ise.eps}
     \caption{ISE for univariate functional data of images data}
     \label{fig:ise_mfd_2d}
 \end{figure}
-
+}
 \end{results}
 
 % Curves reconstruction ----------
 \begin{results}[Curves reconstruction]
 
-Figure~\ref{fig:mise_mfd_1d} and Figure~\ref{fig:mise_mfd_2d}.
-
+\add{
+To compare the quality of the reconstruction of the curves between the diagonalisation of the covariance operator and the diagaonlisation of the Gram matrix, we calculated the ratio of the MISE \eqref{eq:mise_reconstructed_data} between the reconstruction of the curves and the true curves for each simulated dataset.
+For the Scenario 1, we found that the diagonalization of the Gram matrix gives slighlty better results for all considered settings. Figure~\ref{fig:mise_mfd_1d} shows the boxplots of the ISE for each method across all sample sizes, number of sampling points and number of features.
 \begin{figure}
      \centering
      \includegraphics[width=\textwidth]{figures/scenario_1/mise.eps}
     \caption{MISE for multivariate functional data. Each univariate component is defined on a one-dimensional domain. We simulated $N = 50$ observations for each dataset.}
     \label{fig:mise_mfd_1d}
 \end{figure}
-
+Similarly, for the Scenario 2, we found that the decomposition of the Gram matrix gives better estimation of the eigenfunctions compared to the FCP-TPA, especially the quality of the estimation increase when the number of observations increases. Figure~\ref{fig:mise_mfd_2d} shows the boxplots of the ISE for each method across all sample sizes and number of sampling points.
 \begin{figure}
      \centering
      \includegraphics[width=\textwidth]{figures/scenario_2/mise.eps}
     \caption{MISE for univariate functional data of images data}
     \label{fig:mise_mfd_2d}
 \end{figure}
-
+}
 \end{results}
 
-
+\add{
+Overall, our simulations showed that the diagonalisation of the covariance operator or of the Gram matrix gave similar results in terms of the estimation of the eigenvalues, the eigenfunctions and reconstruction of the curves for one-dimensional multivariate functional data, while the performance of the diagonalisation of the Gram matrix outperformed the FCP-TPA for higher-dimensional functional datasets. Regarding the computation time, the use of the covariance operator is faster in most of the case for multivariate functional data defined on unidimensional domains. The only situation where the use of the Gram matrix is quicker is for $M \gg N$. For data defined on higher-dimensional domains, diagonalisation of the Gram matrix is faster.
+In conclusion, we recommend to use the covariance operator for multivariate functional data with all features defined on a one-dimensional domeins (curves) and for a number of observations larger or comparable to the number of sampling points regardless of the number of features. If the data are defined on multi-dimensional domains (images) or the number of sampling points is much higher than the number of observations, we can advise to use the Gram matrix.
+}
 % subsection simulation_results (end)
 
-\subsection{Percentage of variance explained} % (fold)
-\label{sub:percentage_of_variance_explained_simulation}
+% \subsection{Percentage of variance explained} % (fold)
+% \label{sub:percentage_of_variance_explained_simulation}
 
-\textcolor{red}{We argue that the percentage of variance explained in \cite{happMultivariateFunctionalPrincipal2018a} is sub-optimal as they consider the variance explained by each of the components separately and not the percentage explained overall. Using the inner product matrix however gives the correct number of eigenfunctions for a given amount of variance explained.
-We also consider the estimation of the number of components to retain to reach a pre-specified percentage of variance explained by the data based on Scenario~1 with $P = 2$, $K = 20$ and we use linear and exponential decreasing of the eigenvalues. The true percentage of variance explained by the $k$th component is given by $\lambda_k / \sum_{k^\prime = 1}^{20} \lambda_{k^\prime}$ and the true percentage of variance explained by the first $K (\leq 20)$ components is given by $\sum_{k = 1}^K \lambda_k / \sum_{k^\prime = 1}^{20} \lambda_{k^\prime}$.
-Let's fix a certain percentage of variance explained $\alpha \in [0, 1]$. We define $\widetilde{K}$ as the minimum number of components required to reach $100\alpha\%$ of the variance explained,
-\begin{equation}
-    \widetilde{K} = \arg\min_K \frac{\sum_{k = 1}^K \lambda_k}{\sum_{k^\prime = 1}^{20} \lambda_{k^\prime}} \geq \alpha.
-\end{equation}
-Using the covariance operator, the implementation of \cite{happMultivariateFunctionalPrincipal2018a} does not allow for the direct estimation of $\widetilde{K}$ from multivariate functional data. They propose however to estimate the number of univariate eigenfunctions $K_1$ and $K_2$ based on the percentage of variance explained for both elements. The number of multivariate eigenfunctions is then set to be $\min\{K_1 + K_2, K\}$ where $K$ is a given scalar. To investigate the robustness of their approach, in our simulation, we first run FPCA on each univariate components to estimate the number of components needed to explain $\alpha\%$ of the variance for each component. Then, we run an MFPCA with $K = K_1 + K_2$. Using the Gram matrix, we directly estimated the number of components needed to explain a certain percentage of the variance from the multivariate functional data.
-The results shown in Figure~\textcolor{red}{...} that choosing a univariate cut-off within each dimension (e.g., $95\%$), tends to overestimate the final amount of variance – the sum of the final eigenvalues is larger than the sum of the true eigenvalues.}
+% \textcolor{red}{We argue that the percentage of variance explained in \cite{happMultivariateFunctionalPrincipal2018a} is sub-optimal as they consider the variance explained by each of the components separately and not the percentage explained overall. Using the inner product matrix however gives the correct number of eigenfunctions for a given amount of variance explained.
+% We also consider the estimation of the number of components to retain to reach a pre-specified percentage of variance explained by the data based on Scenario~1 with $P = 2$, $K = 20$ and we use linear and exponential decreasing of the eigenvalues. The true percentage of variance explained by the $k$th component is given by $\lambda_k / \sum_{k^\prime = 1}^{20} \lambda_{k^\prime}$ and the true percentage of variance explained by the first $K (\leq 20)$ components is given by $\sum_{k = 1}^K \lambda_k / \sum_{k^\prime = 1}^{20} \lambda_{k^\prime}$.
+% Let's fix a certain percentage of variance explained $\alpha \in [0, 1]$. We define $\widetilde{K}$ as the minimum number of components required to reach $100\alpha\%$ of the variance explained,
+% \begin{equation}
+%     \widetilde{K} = \arg\min_K \frac{\sum_{k = 1}^K \lambda_k}{\sum_{k^\prime = 1}^{20} \lambda_{k^\prime}} \geq \alpha.
+% \end{equation}
+% Using the covariance operator, the implementation of \cite{happMultivariateFunctionalPrincipal2018a} does not allow for the direct estimation of $\widetilde{K}$ from multivariate functional data. They propose however to estimate the number of univariate eigenfunctions $K_1$ and $K_2$ based on the percentage of variance explained for both elements. The number of multivariate eigenfunctions is then set to be $\min\{K_1 + K_2, K\}$ where $K$ is a given scalar. To investigate the robustness of their approach, in our simulation, we first run FPCA on each univariate components to estimate the number of components needed to explain $\alpha\%$ of the variance for each component. Then, we run an MFPCA with $K = K_1 + K_2$. Using the Gram matrix, we directly estimated the number of components needed to explain a certain percentage of the variance from the multivariate functional data.
+% The results shown in Figure~\textcolor{red}{...} that choosing a univariate cut-off within each dimension (e.g., $95\%$), tends to overestimate the final amount of variance – the sum of the final eigenvalues is larger than the sum of the true eigenvalues.}
 
 
-% subsection percentage_of_variance_explained (end)
+% % subsection percentage_of_variance_explained (end)
 
 % section empirical_analysis (end)
