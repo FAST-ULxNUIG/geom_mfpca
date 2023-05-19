@@ -62,22 +62,21 @@ We compared the MFPCA using the diagonalisation of the covariance operator and t
 }
 
 % Computation time ----------
-\begin{results}[Computation time]
-
+\begin{results}[Computation time.]
 \add{
 To compare the computational time of the diagonalisation of the covariance operator and the diagaonlisation of the Gram matrix, we measured the time it took for each method to complete the MFPCA for each simulated dataset.
 For the Scenario 1, we found that the diagonalisation of the covariance has a shorter CT compared to the diagonalisation of the Gram matrix across all sample sizes and number of functions. Figure~\ref{fig:computation_time_mfd_1d} shows the kernel density estimation of the ratio of CT for each method across all sample sizes, number of sampling points and number of features. Note that the number of features $P$ does not change the ratio of CT between the methods.
 \begin{figure}
      \centering
-    \includegraphics[width=\textwidth]{figures/scenario_1/computation_time.eps}
-    \caption{Computation time for multivariate functional data. Each univariate component is defined on a one-dimensional domain.}
+    \includegraphics[width=0.95\textwidth]{figures/scenario_1/computation_time.eps}
+    \caption{Ratio of computation time for Scenario 1 between the Gram matrix method and the covariance operator method. Each univariate component is defined on a one-dimensional domain. $N$ is the number of observation, $M$ is the number of sampling points per curve and $P$ is the number of features.}
     \label{fig:computation_time_mfd_1d}
 \end{figure}
 For the Scenario 2, we found that the diagonalisation of the Gram matrix has a shorter CT compared to the diagonalisation of the Gram matrix across all sample sizes and number of sampling points. Figure~\ref{fig:computation_time_mfd_2d} shows the kernel density estimation of the ratio of CT for each method across all sample sizes and number of sampling points.
 \begin{figure}
      \centering
-    \includegraphics[width=\textwidth]{figures/scenario_2/computation_time.eps}
-    \caption{Computation time for univariate functional data of images data}
+    \includegraphics[width=0.95\textwidth]{figures/scenario_2/computation_time.eps}
+    \caption{Ratio of computation time for Scenario 2 between the Gram matrix method and the covariance operator method. $N$ is the number of observation and $M \times M$ is the number of sampling points per images.}
     \label{fig:computation_time_mfd_2d}
 \end{figure}
 The shorter computational time of the diagonalisation of the Gram matrix for the Scenario 2 makes it a more efficient option for analyzing two and higher-dimensional functional datasets. It is however worth noting that the computational time can still vary depending on the specific implementation of each method, the computational resources available, and the complexity of the dataset (number of observations, number of sampling points, etc.).
@@ -85,66 +84,63 @@ The shorter computational time of the diagonalisation of the Gram matrix for the
 \end{results}
 
 % Eigenvalues estimation ----------
-\begin{results}[Eigenvalues estimation]
-
+\begin{results}[Eigenvalues estimation.]
 \add{
 To compare the estimation of the eigenvalues between the diagonalisation of the covariance operator and the diagaonlisation of the Gram matrix, we calculated the ratio of the $\log-\text{AE}$ \eqref{eq:mse_eigenvalues} between the estimated eigenvalues and the true eigenvalues for each simulated dataset and for the first five eigenvalues.
 For the Scenario 1, we found that the two methods behave similarly for all considered settings. Figure~\ref{fig:logAE_mfd_1d} shows the boxplots of the $\log-\text{AE}$ for each method across all sample sizes, number of sampling points and number of features.
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{figures/scenario_1/logAE.eps}
-    \caption{$\log-$AE for multivariate functional data. Each univariate component is defined on a one-dimensional domain.}
+    \includegraphics[width=0.95\textwidth]{figures/scenario_1/logAE.eps}
+    \caption{Ratio of $\log-$AE for Scenario 1 between the Gram matrix method and the covariance operator method. Each univariate component is defined on a one-dimensional domain. $N$ is the number of observation, $M$ is the number of sampling points per curve and $P$ is the number of features.}
     \label{fig:logAE_mfd_1d}
 \end{figure}
 For the Scenario 2, we found that the FCP-TPA gives slighty better estimation of the eigenvalues. Figure~\ref{fig:logAE_mfd_2d} shows the boxplots of the $\log-\text{AE}$ for each method across all sample sizes and number of sampling points.
 \begin{figure}
      \centering
-    \includegraphics[width=\textwidth]{figures/scenario_2/logAE.eps}
-    \caption{$\log-$AE for univariate functional data of images data}
+    \includegraphics[width=0.95\textwidth]{figures/scenario_2/logAE.eps}
+    \caption{Ratio of $\log-$AE for Scenario 2 between the Gram matrix method and the covariance operator method. $N$ is the number of observation and $M \times M$ is the number of sampling points per images.}
     \label{fig:logAE_mfd_2d}
 \end{figure}
 }
 \end{results}
 
 % Eigenfunctions estimation ----------
-\begin{results}[Eigenfunctions estimation]
-
+\begin{results}[Eigenfunctions estimation.]
 \add{
 To compare the estimation of the eigenfunctions between the diagonalisation of the covariance operator and the diagaonlisation of the Gram matrix, we calculated the ratio of the ISE \eqref{eq:ise_eigenfunctions} between the estimated eigenfunctions and the true eigenfunctions for each simulated dataset and for the first five eigenfunctions.
 For the Scenario 1, we found that the two methods behave similarly for all considered settings. For $P = 10, 20$ and $50$, the results are identical. Figure~\ref{fig:ise_mfd_1d} shows the boxplots of the ISE for each method across all sample sizes, number of sampling points and number of features.
 \begin{figure}
      \centering
-    \includegraphics[width=\textwidth]{figures/scenario_1/ise.eps}
-    \caption{ISE for multivariate functional data. Each univariate component is defined on a one-dimensional domain.}
+    \includegraphics[width=0.95\textwidth]{figures/scenario_1/ise.eps}
+    \caption{Ratio of ISE for Scenario 1 between the Gram matrix method and the covariance operator method. Each univariate component is defined on a one-dimensional domain. $N$ is the number of observation, $M$ is the number of sampling points per curve and $P$ is the number of features.}
     \label{fig:ise_mfd_1d}
 \end{figure}
 For the Scenario 2, we found that the decomposition of the Gram matrix gives better estimation of the eigenfunctions compared to the FCP-TPA, especially the quality of the estimation increase when the number of observations increases. Figure~\ref{fig:ise_mfd_2d} shows the boxplots of the ISE for each method across all sample sizes and number of sampling points.
 \begin{figure}
      \centering
-    \includegraphics[width=\textwidth]{figures/scenario_2/ise.eps}
-    \caption{ISE for univariate functional data of images data}
+    \includegraphics[width=0.95\textwidth]{figures/scenario_2/ise.eps}
+    \caption{Ratio of ISE for Scenario 2 between the Gram matrix method and the covariance operator method. $N$ is the number of observation and $M \times M$ is the number of sampling points per images.}
     \label{fig:ise_mfd_2d}
 \end{figure}
 }
 \end{results}
 
 % Curves reconstruction ----------
-\begin{results}[Curves reconstruction]
-
+\begin{results}[Curves reconstruction.]
 \add{
 To compare the quality of the reconstruction of the curves between the diagonalisation of the covariance operator and the diagaonlisation of the Gram matrix, we calculated the ratio of the MISE \eqref{eq:mise_reconstructed_data} between the reconstruction of the curves and the true curves for each simulated dataset.
 For the Scenario 1, we found that the diagonalization of the Gram matrix gives slighlty better results for all considered settings. Figure~\ref{fig:mise_mfd_1d} shows the boxplots of the ISE for each method across all sample sizes, number of sampling points and number of features.
 \begin{figure}
      \centering
-     \includegraphics[width=\textwidth]{figures/scenario_1/mise.eps}
-    \caption{MISE for multivariate functional data. Each univariate component is defined on a one-dimensional domain. We simulated $N = 50$ observations for each dataset.}
+     \includegraphics[width=0.95\textwidth]{figures/scenario_1/mise.eps}
+    \caption{Ratio of MISE for Scenario 1 between the Gram matrix method and the covariance operator method. Each univariate component is defined on a one-dimensional domain. $N$ is the number of observation, $M$ is the number of sampling points per curve and $P$ is the number of features.}
     \label{fig:mise_mfd_1d}
 \end{figure}
 Similarly, for the Scenario 2, we found that the decomposition of the Gram matrix gives better estimation of the eigenfunctions compared to the FCP-TPA, especially the quality of the estimation increase when the number of observations increases. Figure~\ref{fig:mise_mfd_2d} shows the boxplots of the ISE for each method across all sample sizes and number of sampling points.
 \begin{figure}
      \centering
-     \includegraphics[width=\textwidth]{figures/scenario_2/mise.eps}
-    \caption{MISE for univariate functional data of images data}
+     \includegraphics[width=0.95\textwidth]{figures/scenario_2/mise.eps}
+    \caption{Ratio of MISE for Scenario 2 between the Gram matrix method and the covariance operator method. $N$ is the number of observation and $M \times M$ is the number of sampling points per images.}
     \label{fig:mise_mfd_2d}
 \end{figure}
 }

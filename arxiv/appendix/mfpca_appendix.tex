@@ -2,15 +2,13 @@
 \section{Derivation of the eigencomponents} % (fold)
 \label{sec:derivation_of_the_eigencomponents}
 
-\textcolor{red}{Check it's OK with centering.}
-
-Using the Hilbert-Schmidt theorem, there exists a complete orthonormal basis of eigenvectors $\{v_k\}_{1 \leq k \leq N}$ of the inner-product matrix $M$ such that
+Using the Hilbert-Schmidt theorem, there exists a complete orthonormal basis of eigenvectors $\{v_k\}_{1 \leq k \leq N}$ of the inner-product matrix $\mathbf{M}$ such that
 \begin{equation}\label{eq:eigen_inner_prod_p}
-    Mv_k = l_kv_k.
+    \mathbf{M}v_k = l_kv_k.
 \end{equation}
 Let $X = \left(X_1 - \mu, \dots, X_N - \mu\right)^\top$. Recall that, in the case of $P$-dimensional process, the realisations of the process $X_n,~n = 1, \cdots, N$ and $\mu$ are vectors of functions of length $P$, and thus $X$ is a matrix of functions of size $N \times P$. By left multiplying Equation~\eqref{eq:eigen_inner_prod_p} by $X^\top$, we obtain
 \begin{equation}\label{eq:eigen_inner_prod_left}
-    X^\top M v_k = l_k X^\top v_k.
+    X^\top \mathbf{M} v_k = l_k X^\top v_k.
 \end{equation} 
 Expanding Equation~\eqref{eq:eigen_inner_prod_left}, for each component $p = 1, \dots, P$, we have,
 \begin{equation}\label{eq:inner_prod_p}
@@ -18,7 +16,7 @@ Expanding Equation~\eqref{eq:eigen_inner_prod_left}, for each component $p = 1, 
 \end{equation}
 Here and in the following, we note $[a]_p$ the $p$th entry of the vector $a$. Starting from the left side of Equation~\eqref{eq:inner_prod_p}, we get
 \begin{align}\label{eq:inner_prod_p_left}
-[X^\top M v_k]_p &= \sum_{i = 1}^N \sum_{j = 1}^N [v_{k}]_j \left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\}\inH{X_i - \mu}{X_j - \mu}\\
+[X^\top \mathbf{M} v_k]_p &= \sum_{i = 1}^N \sum_{j = 1}^N [v_{k}]_j \left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\}\inH{X_i - \mu}{X_j - \mu}\\
 &= \sum_{q = 1}^P \int_{\TT{q}} \sum_{i = 1}^N \left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\} \left\{X_i^{(q)}(s_q) - \mu^{(q)}(s_q)\right\}  \\
 &\quad\quad \sum_{j = 1}^N [v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
 &= \sum_{q = 1}^P \int_{\TT{q}} N C_{pq}(\cdot, s_q)\sum_{j = 1}^N [v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
@@ -39,15 +37,16 @@ By identification in Equation~\eqref{eq:eigendecomposition}, we find that, for e
 \end{equation}
 For $k \geq 1$, the norm of the eigenfunction is computed as the following:
 \begin{align*}
-\normH{\phi_k}^2 &= \sum_{i = 1}^N \sum_{j = 1}^N [v_{k}]_i [v_{k}]_j\inH{X_i - \mu}{X_j - \mu} = \sum_{i = 1}^N [v_{k}]_i \sum_{j = 1}^N M_{ij} [v_{k}]_j \\
+\normH{\phi_k}^2 &= \sum_{i = 1}^N \sum_{j = 1}^N [v_{k}]_i [v_{k}]_j\inH{X_i - \mu}{X_j - \mu} = \sum_{i = 1}^N [v_{k}]_i \sum_{j = 1}^N \mathbf{M}_{ij} [v_{k}]_j \\
     &= \sum_{i = 1}^N [v_{k}]_i l_k [v_{k}]_i = l_k \normLp{v_k}^2 = l_k. \\
 \end{align*}
 Therefore, in order to have an orthonormal basis of eigenfunctions, we normalise the eigenfunctions $\phi_k$ from Equation~\eqref{eq:eigen_estimation} by $1 / \sqrt{l_k}$.
 Concerning the estimation of the scores, for $n = 1, \dots, N$, for $k \geq 1$, we have
 \begin{align}
     \widehat{\mathfrak{c}}_{nk} &= \inH{X_n - \mu}{\phi_k} = \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N [v_{k}]_j \inH{X_n - \mu}{X_j - \mu}\\
-    &= \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N [v_{k}]_j M_{nj} = \sqrt{l_k}[v_{k}]_n.\\
+    &= \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N [v_{k}]_j \mathbf{M}_{nj} = \sqrt{l_k}[v_{k}]_n.\\
 \end{align}
+\textcolor{red}{Rewrite this with centering.}
 Concerning the expansion of the data into the basis of function $\Psi$, we write 
 \begin{equation}
     M = \left(CW^{1/2}\right)\left(CW^{1/2}\right)^\top.

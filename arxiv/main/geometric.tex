@@ -5,8 +5,6 @@
 \subsection{Duality diagram} % (fold)
 \label{sub:duality_diagram}
 
-\textcolor{red}{Check if it's OK with the centering.}
-
 \add{The distinction between the space of rows of a matrix as a sample from a population and the space of columns as the fixed variables on which the observations were measured has been explained in \cite{holmesMultivariateDataAnalysis2008,delacruzDualityDiagramData2011} for multivariate data analysis. We propose to define a duality diagram in the context of multivariate functional data. Consider the data matrix defined by the set $\mathcal{X}$. We define an operator $L_X : \HH \rightarrow \RR^N$ by
 \begin{equation}
     L_X: u \mapsto \begin{pmatrix}
@@ -24,8 +22,8 @@ Using the linearity of the inner-product $\inH{\cdot}{\cdot}$ and vectors, the o
     \end{pmatrix}.
 \end{equation}
 As $L^\star_X$ is the adjoint of the linear operator $L_X$, it is a linear operator. 
-We consider the function $\inHG{f}{g} = \inH{f}{\Gamma g}, f, g \in \HH$ and $\inRM{u}{v} = u^\top M v, u, v \in \RR^N$.
-These relationship can be expressed as a duality diagram, see Figure~\ref{fig:duality_diagram}. The triplet $(X, \Gamma, M)$ defines a (multivariate) functional data analysis setup. The estimation of the eigencomponents can be performed using $\Gamma$ or $M$ and the relationship between the two are derived in Section~\ref{sec:functional_principal_components_analysis}.}
+We consider the function $\inHG{f}{g} = \inH{f}{\Gamma g},~f, g \in \HH$ and $\inRM{u}{v} = u^\top \mathbf{M} v,~u, v \in \RR^N$.
+These relationship can be expressed as a duality diagram, see Figure~\ref{fig:duality_diagram}. The triplet $(X, \Gamma, \mathbf{M})$ defines a (multivariate) functional data analysis setup. The estimation of the eigencomponents can be performed using $\Gamma$ or $\mathbf{M}$ and the relationship between the two are derived in Section~\ref{sec:functional_principal_components_analysis}.}
 \begin{figure}
     \centering
     \includegraphics[scale=1.2]{figures/duality_diagram.pdf}
