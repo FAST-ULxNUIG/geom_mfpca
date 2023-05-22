@@ -5,7 +5,7 @@
 \subsection{Duality diagram} % (fold)
 \label{sub:duality_diagram}
 
-\add{The distinction between the space of rows of a matrix as a sample from a population and the space of columns as the fixed variables on which the observations were measured has been explained in \cite{holmesMultivariateDataAnalysis2008,delacruzDualityDiagramData2011} for multivariate data analysis. We propose to define a duality diagram in the context of multivariate functional data. Consider the data matrix defined by the set $\mathcal{X}$. We define an operator $L_X : \HH \rightarrow \RR^N$ by
+The distinction between the space of rows of a matrix as a sample from a population and the space of columns as the fixed variables on which the observations were measured has been explained in \cite{holmesMultivariateDataAnalysis2008} and \cite{delacruzDualityDiagramData2011} for multivariate data analysis. We propose to define a duality diagram in the context of multivariate functional data. Consider the data matrix defined by the set $\mathcal{X}$. We define an operator $L_X : \HH \rightarrow \RR^N$ by
 \begin{equation}
     L_X: u \mapsto \begin{pmatrix}
         \inH{X_1 - \mu}{u} \\
@@ -23,7 +23,7 @@ Using the linearity of the inner-product $\inH{\cdot}{\cdot}$ and vectors, the o
 \end{equation}
 As $L^\star_X$ is the adjoint of the linear operator $L_X$, it is a linear operator. 
 We consider the function $\inHG{f}{g} = \inH{f}{\Gamma g},~f, g \in \HH$ and $\inRM{u}{v} = u^\top \mathbf{M} v,~u, v \in \RR^N$.
-These relationship can be expressed as a duality diagram, see Figure~\ref{fig:duality_diagram}. The triplet $(X, \Gamma, \mathbf{M})$ defines a (multivariate) functional data analysis setup. The estimation of the eigencomponents can be performed using $\Gamma$ or $\mathbf{M}$ and the relationship between the two are derived in Section~\ref{sec:functional_principal_components_analysis}.}
+These relationships can be expressed as a duality diagram, see Figure~\ref{fig:duality_diagram}. The triplet $(X, \Gamma, \mathbf{M})$ defines a (multivariate) functional data analysis framework. The estimation of the eigencomponents can be performed using $\Gamma$ or $\mathbf{M}$ and the relationship between the two are derived in Section~\ref{sec:functional_principal_components_analysis}.
 \begin{figure}
     \centering
     \includegraphics[scale=1.2]{figures/duality_diagram.pdf}
@@ -43,7 +43,7 @@ Given $n \in \{1, \dots, N\}$, let $\{\Xnp(t_p),\,t_p \in \TT{p},\,p = 1, \dots,
     \centering
     \includegraphics[scale=1.2]{figures/cloud_obs.pdf}
     \includegraphics[scale=1.2]{figures/cloud_obs_proj.pdf}
-    \caption{\add{Left: Cloud of observations. Right: Projection of the points onto the elements of $\HH$. The observation $f$ (resp. $g$) is identified by the point $\pobs{M}_f$ (resp. $\pobs{M}_g$) in the cloud $\CN$. The point $\GN$ is the center of gravity of $\CN$ and the point $\OH$ is the origin of the space $\HH$.}}
+    \caption{Left: Cloud of observations. Right: Projection of the points onto the elements of $\HH$. The observation $f$ (resp. $g$) is identified by the point $\pobs{M}_f$ (resp. $\pobs{M}_g$) in the cloud $\CN$. The point $\GN$ is the center of gravity of $\CN$ and the point $\OH$ is the origin of the space $\HH$.}
     \label{fig:cloud_obs}
 \end{figure}
 
@@ -62,7 +62,7 @@ Given the set $\XX$, the total inertia of $\CN$, with respect to $\GN$, is given
 The derivation of these equalities are given in Appendix \ref{sec:derivation_of_the_inertia_of_the_clouds}.
 
 \begin{remark}
-    These results have the same interpretation as for multivariate scalar data. This is also the multivariate analogue of the relation between variance and sum of squared differences known for univariate functional data. If the features are reduced beforehand, the total inertia of the cloud $\CN$ is equal to the number of components $P$. We are, in general, not interested by the total inertia but mostly how this variance is spread among the features.
+    These results have the same interpretation as for multivariate scalar data. This is also the multivariate analogue of the relation between variance and sum of squared differences known for univariate functional data. If the features are reduced beforehand such that $\int_{\TT{p}} \Var\Xp{p} (t_p) \dd t_p = 1$, the total inertia of the cloud $\CN$ is equal to the number of components $P$. We are, in general, not interested by the total inertia but mostly how this variance is spread among the features.
 \end{remark}
 
 % subsection cloud_of_individuals (end)
@@ -70,7 +70,7 @@ The derivation of these equalities are given in Appendix \ref{sec:derivation_of_
 \subsection{Cloud of features} % (fold)
 \label{sub:cloud_of_features}
 
-\add{Given an element $f \in \HH$, let $\{\inH{X_n - \mu}{f}, n = 1, \dots, N\}$ be the set of projections of $f$ on the observations. We identify this set as the point $\pfea{M}_f$ in the space $\RR^N$. The space $\RR^N$ is referred to as the features' space. The cloud of points that represents the set of observations in $\RR^N$ is denoted by $\CP$. The origin $\OG$ of the axes in $\RR^N$ coincides with the centre of gravity of the cloud $\CP$. We consider the usual inner-product in $\RR^N$. Let $f$ and $g$ be two elements in $\HH$ and denote by $\pfea{M}_f$ and $\pfea{M}_g$ their associated points in $\CP$ (see Figure~\ref{fig:cloud_features}). The distance between $\pfea{M}_f$ and $\pfea{M}_g$ is thus defined as
+Given an element $f \in \HH$, let $\{\inH{X_n - \mu}{f}, n = 1, \dots, N\}$ be the set of projections of $f$ onto the centered observations. We identify this set as the point $\pfea{M}_f$ in the space $\RR^N$. The space $\RR^N$ is referred to as the features' space. The cloud of points that represents the set of observations in $\RR^N$ is denoted by $\CP$. The origin $\OG$ of the axes in $\RR^N$ coincides with the centre of gravity of the cloud $\CP$. We consider the usual inner-product in $\RR^N$. Let $f$ and $g$ be two elements in $\HH$ and denote by $\pfea{M}_f$ and $\pfea{M}_g$ their associated points in $\CP$ (see Figure~\ref{fig:cloud_features}). The distance between $\pfea{M}_f$ and $\pfea{M}_g$ is thus defined as
 \begin{equation*}
 d^2(\pfea{M}_f, \pfea{M}_g) = \sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f - g}.
 \end{equation*}
@@ -83,18 +83,17 @@ d^2(\pfea{M}_f, \OG) = \sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f}.
     &= \frac{\inH{f}{\Gamma g}}{\inH{f}{\Gamma f}^{1/2}\inH{g}{\Gamma g}^{1/2}} \\
     &= \frac{\inH{\Gamma f}{g}}{\inH{f}{\Gamma f}^{1/2}\inH{g}{\Gamma g}^{1/2}}.
 \end{align}
-}
 
 \begin{figure}
     \centering
     \includegraphics[scale=1.2]{figures/cloud_features.pdf}
     \includegraphics[scale=1.2]{figures/cloud_features_proj.pdf}
-    \caption{\add{Left: Cloud of features. Right: Projection of the points on the elements of $\RR^N$. The observation $f$ (resp. $g$) is identified by the point $\pfea{M}_f$ (resp. $\pfea{M}_g$) in the cloud $\CP$. The point $\OG$ is the origin of the space $\RR^N$ (and coincide with the center of gravity of $\CP$).}}
+    \caption{Left: Cloud of features. Right: Projection of the points on the elements of $\RR^N$. The observation $f$ (resp. $g$) is identified by the point $\pfea{M}_f$ (resp. $\pfea{M}_g$) in the cloud $\CP$. The point $\OG$ is the origin of the space $\RR^N$ (and coincide with the center of gravity of $\CP$).}
     \label{fig:cloud_features}
 \end{figure}
 
 \begin{remark}
-   \add{Although each axis of the space does not directly represent the features, but rather the projection of an element of $\HH$ onto the elements of the set $\XX$, we refer to this space as the features' space. We use this terminology to highlight the similarity between multivariate functional data analysis and traditional multivariate data analysis, as well as to emphasize the dimensionality of this space.}
+   Although each axis of the space does not directly represent the features, but rather the projection of an element of $\HH$ onto the elements of the set $\XX$, we refer to this space as the features' space. We use this terminology to highlight the similarity between multivariate functional data analysis and traditional multivariate data analysis, as well as to emphasize the dimensionality of this space.
 \end{remark}
 % subsection cloud_of_features (end)
 
@@ -102,7 +101,7 @@ d^2(\pfea{M}_f, \OG) = \sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f}.
 \label{sub:on_centering_and_reducing}
 
 For conducting an MFPCA, the features are usually assumed centred \citep{happMultivariateFunctionalPrincipal2018a}. \cite{protheroNewPerspectivesCentering2021} give a complete overview of centering in the context of FDA. Here, we comment on the geometric interpretation of centering in this context and compare with the multivariate scalar case. We focus on the usual centering in FDA, namely $\Xnp(t_p) - \mu^{(p)}(t_p),~t_p \in \TT{p}$ (refered as \emph{object centering} in \cite{protheroNewPerspectivesCentering2021}).
-The geometric interpretation of the centering differs if we refer to the observations' space $\HH$ or the features' space $\RR^N$. Within the space $\HH$, centering is interpreted as translating the centre of gravity of the curves $\GN$ to the origin point $\OH$ of $\HH$. This transformation, being a translation, does not change the shape of the cloud $\CN$. The interpretation is the same as for the multivariate scalar data. Within the space $\RR^N$, the centering is harder to interpret and does not have the same meaning as in the multivariate case. Actually, in the multivariate scalar case, the centering of the data can be geometrically interpreted as the projection of the data on the subspace orthogonal to the constant vector. However, what happens if we project the multivariate curves onto the vector (of length $P$) of constant functions?
+The geometric interpretation of the centering differs if we refer to the observations' space $\HH$ or the features' space $\RR^N$. Within the space $\HH$, centering is interpreted as translating the centre of gravity of the curves $\GN$ to the origin point $\OH$ of $\HH$. This transformation, being a translation, does not change the shape of the cloud $\CN$. The interpretation is the same as for the multivariate scalar data. Within the space $\RR^N$, the centering is harder to interpret and does not have the same meaning as in the multivariate case. Actually, in the multivariate scalar case, the centering of the data can be geometrically interpreted as the projection of the data on the subspace orthogonal to the constant vector \citep{pagesMultipleFactorAnalysis2014}. However, what happens if we project the multivariate curves onto the vector (of length $P$) of constant functions?
 
 \add{In the features' space, the inner product is the usual Euclidean inner-product.}
 \textcolor{red}{
@@ -115,7 +114,7 @@ P_{\mathbf{1}}f = \frac{\inH{f}{\mathbf{1}}}{\normH{\mathbf{1}}}\mathbf{1} = \fr
 \end{equation}
 In practice, this is equivalent to computing the mean value of the mean curve for each component, referred as \emph{grand mean centering} in \cite{protheroNewPerspectivesCentering2021}.}
 
-Concerning the standardization of the data, there are mainly two proposal in the literature. \cite{happMultivariateFunctionalPrincipal2018a} propose to weight each component $p$ by
+Concerning the standardization of the data, there are two main proposals in the literature. \cite{happMultivariateFunctionalPrincipal2018a} propose to weight each component $p$ by
 \begin{equation}
 w_p = \left(\int_{\TT{p}} \Var X^{(p)}(t_p) \dd t_p\right)^{-1}.
 \end{equation}

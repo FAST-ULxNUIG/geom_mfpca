@@ -78,6 +78,7 @@
 
 % Data/Process related
 \newcommand{\Xnp}{X_n^{(p)}} % Observation n, feature p
+\newcommand{\Xnq}{X_n^{(q)}} % Observation n, feature q
 \newcommand{\hatXnp}{\widehat{X}_n^{(p)}} % Reconstruction
 \newcommand{\Xp}[1]{X^{(#1)}} % Feature p
 \newcommand{\mup}[1]{\mu^{(#1)}} % Feature p
@@ -111,7 +112,7 @@
 % -------------
 
 
-\title{On the usage of the Gram matrix for multivariate functional principal components analysis}
+\title{On the use of the Gram matrix for multivariate functional principal components analysis}
 \author{%
 Steven Golovkine\thanks{MACSI, Department of Mathematics and Statistics, University of Limerick, Ireland \href{mailto:steven.golovkine@ul.ie}{steven.golovkine@ul.ie}}
 \and
@@ -127,7 +128,7 @@ Norma Bargary\thanks{MACSI, Department of Mathematics and Statistics, University
 \maketitle
 
 \begin{abstract}
-Dimension reduction is crucial in functional data analysis (FDA). The key tool to reduce the dimension of the data is functional principal component analysis. Existing approaches for functional principal component analysis usually involve the diagonalisation of the covariance operator. \add{With the increasing size and complexity of functional datasets, estimating the covariance operator becomes more challenging. Therefore, there is a growing need for efficient methodologies to estimate the eigencomponents.} Using the duality of the space of observations and the space of functional components, we propose to use the inner-product between the curves to estimate the eigenelements of multivariate and multidimensional functional datasets. The relationship between the eigenelements of the covariance operator and those of the inner-product matrix is established. We explore the application of these methodologies in several FDA settings and provide general guidance on their usability.
+Dimension reduction is crucial in functional data analysis (FDA). The key tool to reduce the dimension of the data is functional principal component analysis. Existing approaches for functional principal component analysis usually involve the diagonalisation of the covariance operator. With the increasing size and complexity of functional datasets, estimating the covariance operator has become more challenging. Therefore, there is a growing need for efficient methodologies to estimate the eigencomponents. Using the duality of the space of observations and the space of functional features, we propose to use the inner-product between the curves to estimate the eigenelements of multivariate and multidimensional functional datasets. The relationship between the eigenelements of the covariance operator and those of the inner-product matrix is established. We explore the application of these methodologies in several FDA settings and provide general guidance on their usability.
 \end{abstract}
 
 \keywords{Dimension Reduction; Functional Data Analysis; Functional Principal Components; Multivariate Functional Data}
