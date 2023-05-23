@@ -17,7 +17,7 @@ where $\mathfrak{c}_{k} = \inH{X - \mu}{\phi_k}$ are the projections of the cent
 \end{equation}
 be the truncated Karhunen-Loève expansion of the process $X$ and
 \begin{equation}\label{eq:kl_multi_trunc_comp}
-    X_{\lceil K_p \rceil}^{(p)}(t_p) = \mup{p}(t_p) + \sum_{k = 1}^{K_p} \mathfrak{c}_k^{(p)} \phi_k^{(p)}(t_p), \quad t_p \in \TT{p}, \quad K_p \geq 1, \quad 1 \leq p \leq P,
+    X_{\lceil K_p \rceil}^{(p)}(t_p) = \mup{p}(t_p) + \sum_{k = 1}^{K_p} \mathfrak{c}_k \phi_k^{(p)}(t_p), \quad t_p \in \TT{p}, \quad K_p \geq 1, \quad 1 \leq p \leq P,
 \end{equation}
 be the truncated Karhunen-Loève expansion of the features of the process $X$.
 
@@ -41,7 +41,7 @@ We refer the reader to \cite{happMultivariateFunctionalPrincipal2018a} for the d
 \subsection{Diagonalization of the inner product matrix} % (fold)
 \label{sub:by_diagonalization_of_the_inner_product_matrix}
 
-We can use the duality relation between row and column spaces of a data matrix to estimate the eigencomponents of the covariance operator. Consider the inner-product matrix $M$, with entries defined in ~\eqref{eq:gram_mat}.
+We can use the duality relation between row and column spaces of a data matrix to estimate the eigencomponents of the covariance operator. Consider the inner-product matrix $M$, with entries defined in ~\eqref{eq:gram_mat} \add{and assuming that all observations are equally weighted, i.e., for all $n = 1, \dots, N$, $\pi_n = 1/N$.}
 Let $\{l_k\}_{1 \leq k \leq N}$ such that $l_1 \geq \dots \geq l_N \geq 0$ be the set of eigenvalues and $\{v_k\}_{1 \leq k \leq N}$ be the set of eigenvectors of the matrix $M$. The relationship between all nonzero eigenvalues of the covariance operator $\Gamma$ and the eigenvalues of $M$ is given by
 \begin{equation}\label{eq:eigenvalues_relation_p}
     \lambda_k = \frac{l_k}{N}, \quad k = 1, 2, \dots, N,
@@ -56,6 +56,13 @@ where $[v_{k}]_n$ is the $n$th entry of the vector $v_k$. The scores are then co
 \end{equation}
 These results can be extended in a natural way if all the curves are expanded in a general basis of functions, defined in Equation~\eqref{eq:curve_basis_expansion}.
 The derivation of these equalities, as well as the derivation of the eigencomponents using the expansion of the curves in a general basis of function and the Gram matrix, are given in Appendix~\ref{sec:derivation_of_the_eigencomponents}.
+
+\begin{remark}
+\add{This can be extended to general weighting schemes by defining a slightly different version of the Gram matrix where each entries is given by
+\begin{equation}
+   M_{nn^\prime} = \pi_n\pi_{n^\prime} \inH{X_n - \mu}{X_{n^\prime} - \mu}, \quad n, n^\prime = 1, \dots, N. 
+\end{equation}}
+\end{remark}
 % subsection by_diagonalization_of_the_inner_product_matrix (end)
 
 
