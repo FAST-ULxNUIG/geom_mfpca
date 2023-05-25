@@ -6,58 +6,65 @@ Using the Hilbert-Schmidt theorem, there exists a complete orthonormal basis of 
 \begin{equation}\label{eq:eigen_inner_prod_p}
     \mathbf{M}v_k = l_kv_k.
 \end{equation}
-Let $X = \left(X_1 - \mu, \dots, X_N - \mu\right)^\top$. Recall that, in the case of $P$-dimensional process, the realisations of the process $X_n,~n = 1, \cdots, N$ and $\mu$ are vectors of functions of length $P$, and thus $X$ is a matrix of functions of size $N \times P$. We assume that all observations are equally weighted, i.e., for all $n = 1, \dots, N$, $\pi_n = 1/N$. By left multiplying Equation~\eqref{eq:eigen_inner_prod_p} by $X^\top$, we obtain
+Let $X = \left(X_1 - \mu, \dots, X_N - \mu\right)^\top$ and denote $\widetilde{X} = \text{diag}\{\sqrt{\pi_1}, \dots, \sqrt{\pi_N}\}X$, the matrix of weigthed observations. Recall that, in the case of $P$-dimensional process, the realisations of the process $X_n,~n = 1, \cdots, N$ and $\mu$ are vectors of functions of length $P$, and thus $X$ (and $\widetilde{X}$) is a matrix of functions of size $N \times P$. By left multiplying Equation~\eqref{eq:eigen_inner_prod_p} by $\widetilde{X}^\top$, we obtain
 \begin{equation}\label{eq:eigen_inner_prod_left}
-    X^\top \mathbf{M} v_k = l_k X^\top v_k.
+    \widetilde{X}^\top \mathbf{M} v_k = l_k \widetilde{X}^\top v_k.
 \end{equation} 
 Expanding Equation~\eqref{eq:eigen_inner_prod_left}, for each component $p = 1, \dots, P$, we have,
 \begin{equation}\label{eq:inner_prod_p}
-    \sum_{i = 1}^N \sum_{j = 1}^N [v_{k}]_j\left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\}\inH{X_i - \mu}{X_j - \mu} = l_k \sum_{n = 1}^N [v_{k}]_n\left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}.
+    \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \sqrt{\pi_j}[v_{k}]_j\left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\}\inH{X_i - \mu}{X_j - \mu} = l_k \mkern-5mu\sum_{n = 1}^N \mkern-4mu\sqrt{\pi_n}[v_{k}]_n\left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}.
 \end{equation}
 Here and in the following, we note $[a]_p$ the $p$th entry of the vector $a$. Starting from the left side of Equation~\eqref{eq:inner_prod_p}, we get
 \begin{align}\label{eq:inner_prod_p_left}
-[X^\top \mathbf{M} v_k]_p &= \sum_{i = 1}^N \sum_{j = 1}^N [v_{k}]_j \left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\}\inH{X_i - \mu}{X_j - \mu}\\
-&= \sum_{q = 1}^P \int_{\TT{q}} \sum_{i = 1}^N \left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\} \left\{X_i^{(q)}(s_q) - \mu^{(q)}(s_q)\right\}  \\
-&\quad\quad \sum_{j = 1}^N [v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
-&= \sum_{q = 1}^P \int_{\TT{q}} N C_{pq}(\cdot, s_q)\sum_{j = 1}^N [v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
-&= N \sum_{j = 1}^N \inH{C_{p \cdot}(\cdot, \cdot)}{[v_{k}]_j \left\{X_j - \mu\right\}} \\
-&= N \Gamma\left(\sum_{j = 1}^N [v_{k}]_j \left\{X_j - \mu\right\} \right)^{\mkern-9mu(p)}\mkern-18mu(\cdot)
+[\widetilde{X}^\top \mathbf{M} v_k]_p &= \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \sqrt{\pi_j} [v_{k}]_j \left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\}\inH{X_i - \mu}{X_j - \mu}\\
+&= \sum_{q = 1}^P \int_{\TT{q}} \sum_{i = 1}^N \pi_i\left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\} \left\{X_i^{(q)}(s_q) - \mu^{(q)}(s_q)\right\}  \\
+&\quad\quad \sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
+&= \sum_{q = 1}^P \int_{\TT{q}} C_{pq}(\cdot, s_q)\sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
+&= \sum_{j = 1}^N \inH{C_{p \cdot}(\cdot, \cdot)}{\sqrt{\pi_j}[v_{k}]_j \left\{X_j - \mu\right\}} \\
+&= \Gamma\left(\sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \left\{X_j - \mu\right\} \right)^{\mkern-9mu(p)}\mkern-18mu(\cdot)
 \end{align}
 and, starting from the right side of Equation~\eqref{eq:inner_prod_p},
 \begin{equation}\label{eq:inner_prod_p_right}
-    [l_k X^\top v_k]_p = l_k \sum_{n = 1}^N [v_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}.
+    [l_k \widetilde{X}^\top v_k]_p = l_k \sum_{n = 1}^N \sqrt{\pi_n}[v_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}.
 \end{equation}
 From Equation~\eqref{eq:inner_prod_p_left} and Equation~\eqref{eq:inner_prod_p_right}, we obtain
 \begin{equation}
-    \Gamma\left(\sum_{j = 1}^N [v_{k}]_j \left\{X_j - \mu\right\}\right)^{\mkern-9mu(p)}\mkern-18mu(\cdot) = \frac{l_k}{N} \sum_{n = 1}^N [v_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}, \quad\text{for all}~ p = 1, \dots, P.
+    \Gamma\left(\sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \left\{X_j - \mu\right\}\right)^{\mkern-9mu(p)}\mkern-18mu(\cdot) = l_k \sum_{n = 1}^N \sqrt{\pi_n}[v_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}, \quad\text{for all}~ p = 1, \dots, P.
 \end{equation}
 By identification in Equation~\eqref{eq:eigendecomposition}, we find that, for each components $p$,
 \begin{equation}\label{eq:eigen_estimation}
-\lambda_k = \frac{l_k}{N} \quad\text{and}\quad \phi_k^{(p)}(\cdot) = \sum_{n = 1}^N [v_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}, \quad k \geq 1.
+\lambda_k = l_k \quad\text{and}\quad \phi_k^{(p)}(\cdot) = \sum_{n = 1}^N \sqrt{\pi_n}[v_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}, \quad k \geq 1.
 \end{equation}
 For $k \geq 1$, the norm of the eigenfunction is computed as the following:
 \begin{align*}
-\normH{\phi_k}^2 &= \sum_{i = 1}^N \sum_{j = 1}^N [v_{k}]_i [v_{k}]_j\inH{X_i - \mu}{X_j - \mu} = \sum_{i = 1}^N [v_{k}]_i \sum_{j = 1}^N \mathbf{M}_{ij} [v_{k}]_j \\
+\normH{\phi_k}^2 &= \sum_{i = 1}^N \sum_{j = 1}^N \sqrt{\pi_i\pi_j}[v_{k}]_i [v_{k}]_j\inH{X_i - \mu}{X_j - \mu} = \sum_{i = 1}^N [v_{k}]_i \sum_{j = 1}^N \mathbf{M}_{ij} [v_{k}]_j \\
     &= \sum_{i = 1}^N [v_{k}]_i l_k [v_{k}]_i = l_k \normLp{v_k}^2 = l_k. \\
 \end{align*}
 Therefore, in order to have an orthonormal basis of eigenfunctions, we normalise the eigenfunctions $\phi_k$ from Equation~\eqref{eq:eigen_estimation} by $1 / \sqrt{l_k}$.
 Concerning the estimation of the scores, for $n = 1, \dots, N$, for $k \geq 1$, we have
 \begin{align}
-    \mathfrak{c}_{nk} &= \inH{X_n - \mu}{\phi_k} = \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N [v_{k}]_j \inH{X_n - \mu}{X_j - \mu}\\
-    &= \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N [v_{k}]_j \mathbf{M}_{nj} = \sqrt{l_k}[v_{k}]_n.\\
+    \mathfrak{c}_{nk} &= \inH{X_n - \mu}{\phi_k} = \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \inH{X_n - \mu}{X_j - \mu}\\
+    &= \frac{1}{\sqrt{l_k\pi_n}}\sum_{j = 1}^N [v_{k}]_j \mathbf{M}_{nj} = \sqrt{\frac{l_k}{\pi_n}}[v_{k}]_n.\\
 \end{align}
-\textcolor{red}{Rewrite this with centering.}
+
 Concerning the expansion of the data into the basis of function $\Psi$, we write 
 \begin{equation}
-    M = \left(CW^{1/2}\right)\left(CW^{1/2}\right)^\top.
+    M = \left(\text{diag}\{
+        \sqrt{\pi_1}, \dots, \sqrt{\pi_N}\}\left(\mathrm{I}_{\!N} - \mathbf{1}_{\!N}\Pi^\top\right) \mathbf{C}W^{1/2}\right)\left(\text{diag}\{
+        \sqrt{\pi_1}, \dots, \sqrt{\pi_N}\}\left(\mathrm{I}_{\!N} - \mathbf{1}_{\!N}\Pi^\top\right) \mathbf{C}W^{1/2}\right)^\top.
 \end{equation}
-We also assume that $\widehat{\phi}_1, \widehat{\phi}_2, \dots$ the eigenfunctions of $\widehat{\Gamma}_N$ have a decomposition into the basis $\Psi$
+We note
 \begin{equation}
-    \widehat{\phi}_k(\cdot) = 
+    \mathbf{A} = \text{diag}\{\sqrt{\pi_1}, \dots, \sqrt{\pi_N}\}\left(\mathrm{I}_{\!N} - \mathbf{1}_{\!N}\Pi^\top\right) \mathbf{C}W^{1/2},
+\end{equation}
+such that $\mathbf{M} = \mathbf{A}\mathbf{A}^\top$.
+We also assume that $\phi_1, \phi_2, \dots$ the eigenfunctions of the covariance operator $\Gamma$ have a decomposition into the basis $\Psi$
+\begin{equation}
+    \phi_k(\cdot) = 
         \begin{pmatrix} 
-            \widehat{\phi}_k^{(1)}(\cdot) \\
+            \phi_k^{(1)}(\cdot) \\
             \vdots \\
-            \widehat{\phi}_k^{(P)}(\cdot)
+            \phi_k^{(P)}(\cdot)
         \end{pmatrix} = 
         \begin{pmatrix} 
             \psi^{(1) \top}(\cdot) b_{1k} \\
@@ -69,38 +76,38 @@ We also assume that $\widehat{\phi}_1, \widehat{\phi}_2, \dots$ the eigenfunctio
 
 We have, for $p = 1, \dots, P$,
 \begin{align*}
-    \left(\widehat{\Gamma}_N \phi_k\right)^{(p)}(\cdot) &= \sum_{q = 1}^P \int_{\TT{q}} \widehat{C}_{p q}(\cdot, s_q)\phi_k^{(q)}(s_q) \dd s_q \\
-    &= \frac{1}{N}\sum_{q = 1}^P \int_{\TT{q}} \Psi(\cdot)^{(p) \top} C^{(p) \top} C^{(q)} \Psi^{(q)}(s_q) \Psi^{(q)}(s_q)^\top b_{q k} \dd s_q \\
-    &= \frac{1}{N} \Psi(\cdot)^{(p) \top} C^{(p) \top} \sum_{q = 1}^P C^{(q)} \int_{\TT{q}} \Psi^{(q)}(s_q) \Psi(s_q)^{(q) \top} \dd s_q b_{q k} \\
-    &= \frac{1}{N} \Psi(\cdot)^{(p) \top} C^{(p) \top} \sum_{q = 1}^P C^{(q)} W^{(q)} b_{q k}. \\
+    \left(\Gamma \phi_k\right)^{(p)}(\cdot) &= \sum_{q = 1}^P \int_{\TT{q}} C_{p q}(\cdot, s_q)\phi_k^{(q)}(s_q) \dd s_q \\
+    &= \sum_{q = 1}^P \int_{\TT{q}} \Psi(\cdot)^{(p) \top} \mathbf{C}^{(p) \top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right)\mathbf{C}^{(q)} \Psi^{(q)}(s_q) \Psi^{(q)}(s_q)^\top b_{q k} \dd s_q \\
+    &= \Psi(\cdot)^{(p) \top} \mathbf{C}^{(p) \top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right)\sum_{q = 1}^P \mathbf{C}^{(q)} \int_{\TT{q}} \Psi^{(q)}(s_q) \Psi(s_q)^{(q) \top} \dd s_q b_{q k} \\
+    &= \Psi(\cdot)^{(p) \top} \mathbf{C}^{(p) \top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right) \sum_{q = 1}^P \mathbf{C}^{(q)} \mathbf{W}^{(q)} b_{q k}. \\
 \end{align*}
 This equation is true for all $p = 1, \cdots, P$, this can be rewritten with matrices as
 \begin{equation}
-    \widehat{\Gamma}_N \phi_k(\cdot) = \frac{1}{N}\Psi^\top(\cdot) C^\top C W b_k.
+    \Gamma \phi_k(\cdot) = \Psi(\cdot)^{\top} \mathbf{C}^{\top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right) \mathbf{C} \mathbf{W} b_{k}.
 \end{equation}
 From the eigenequation, we have that
 \begin{equation}
-    \widehat{\Gamma}_N \phi_k(\cdot) = \lambda_k \phi_k(\cdot) \Longleftrightarrow \frac{1}{N} \Psi(\cdot)^\top C^\top C W b_k = \lambda_k \Psi(\cdot)^\top b_k.
+    \Gamma \phi_k(\cdot) = \lambda_k \phi_k(\cdot) \Longleftrightarrow \Psi(\cdot)^{\top} \mathbf{C}^{\top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right) \mathbf{C} \mathbf{W} b_{k} = \lambda_k \Psi(\cdot)^\top b_k.
 \end{equation}
 Since this equation must be true for all $t_p \in \TT{p}$, this imply the equation
 \begin{equation}\label{eq:eigen_decom}
-    C^\top C W b_k = N\lambda_k b_k.
+    \mathbf{C}^{\top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right) \mathbf{C} \mathbf{W} b_{k} = \lambda_k b_k.
 \end{equation}
 As the eigenfunctions are assumed to be normalized, $\normH{\phi_k}^2 = 1$. And so, $b_k^\top W b_k = 1$. Let $u_k = W^{1/2}b_k$. Then, from Equation \eqref{eq:eigen_decom}, we obtain
 \begin{equation}\label{eq:eigen_cov_op}
-    W^{1/2} C^\top C W^{1/2} u_k = N\lambda_k u_k \Longleftrightarrow \left(C W^{1/2}\right)^\top \left(C W^{1/2}\right) u_k = N\lambda_k u_k.
+    \mathbf{W}^{1/2} \mathbf{C}^{\top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right) \mathbf{C} \mathbf{W}^{1/2} u_k = \lambda_k u_k \Longleftrightarrow \mathbf{A}^\top\mathbf{A} u_k = N\lambda_k u_k.
 \end{equation}
 From the eigendecomposition of the matrix $M$, we get
 \begin{equation}\label{eq:eigen_inner_prod}
-    Mv_k = l_k v_k \Longleftrightarrow \left(C W^{1/2}\right)\left(C W^{1/2}\right)^\top v_k = l_k v_k.
+    \mathbf{M}v_k = l_k v_k \Longleftrightarrow \mathbf{A}\mathbf{A}^\top v_k = l_k v_k.
 \end{equation}
 The equations \eqref{eq:eigen_cov_op} and \eqref{eq:eigen_inner_prod} are eigenequations in the classical PCA case, with the duality $X^\top X$ and $XX^\top$. Following \cite{pagesMultipleFactorAnalysis2014,hardleAppliedMultivariateStatistical2019}, we find that, for $1 \leq k \leq K$,
 \begin{equation}
-    \lambda_k = \frac{l_k}{N}, \quad v_k = \frac{1}{\sqrt{l_k}}C W^{1/2} u_k \quad\text{and}\quad u_k = \frac{1}{\sqrt{l_k}} W^{1/2} C^\top v_k.
+    \lambda_k = l_k, \quad v_k = \frac{1}{\sqrt{l_k}}\mathbf{A} u_k \quad\text{and}\quad u_k = \frac{1}{\sqrt{l_k}} \mathbf{A}^\top v_k.
 \end{equation}
 And finally, to get the coefficient of the eigenfunctions, for $1 \leq k \leq K$,
 \begin{equation}
-    b_k = W^{-1/2}u_k = \frac{1}{\sqrt{l_k}} C^\top v_k.
+    b_k = \mathbf{W}^{-1/2}u_k = \frac{1}{\sqrt{l_k}} \mathbf{C}^\top \left(\mathrm{I}_{\!N} - \Pi\mathbf{1}_{\!N}^\top\right) \text{diag}\{\sqrt{\pi_1}, \dots, \sqrt{\pi_N}\}v_k.
 \end{equation}
 
 % section derivation_of_the_eigencomponents (end)
