@@ -13,7 +13,7 @@ The distinction between the space of rows of a matrix as a sample from a populat
         \inH{X_N - \mu}{u}
     \end{pmatrix}.
 \end{equation}
-Using the linearity of the inner-product $\inH{\cdot}{\cdot}$ and vectors, the operator $L_X$ is linear. The adjoint operator of $L_X$ is given by
+Using the linearity of the inner-product $\inH{\cdot}{\cdot}$ and vectors, the operator $L_X$ is linear. The adjoint operator, $L^\star_X : \RR^N \rightarrow \HH$, of $L_X$ is given by
 \begin{equation}
     L^\star_X: v \mapsto \begin{pmatrix}
        \sum_{n = 1}^N v_n \{X_n^{(1)}(t_1) - \mup{1}(t_1)\} \\ 
@@ -21,48 +21,52 @@ Using the linearity of the inner-product $\inH{\cdot}{\cdot}$ and vectors, the o
        \sum_{n = 1}^N v_n \{X_n^{(P)}(t_P) - \mup{P}(t_P)\}
     \end{pmatrix}.
 \end{equation}
-As $L^\star_X$ is the adjoint of the linear operator $L_X$, it is a linear operator. 
-We consider the function $\inHG{f}{g} = \inH{f}{\Gamma g},~f, g \in \HH$ and $\inRM{u}{v} = u^\top \mathbf{M} v,~u, v \in \RR^N$.
-These relationships can be expressed as a duality diagram, see Figure~\ref{fig:duality_diagram}. The triplet $(X, \Gamma, \mathbf{M})$ defines a (multivariate) functional data analysis framework. The estimation of the eigencomponents can be performed using $\Gamma$ or $\mathbf{M}$ and the relationship between the two are derived in Section~\ref{sec:functional_principal_components_analysis}.
+As $L^\star_X$ is the adjoint of the linear operator $L_X$, this is also a linear operator. \add{The operator $\Gamma$ and the matrix $\mathbf{M}$ define geometries in $\HH$ and $\RR^N$, respectively, through
+\begin{equation}
+\inHG{f}{g} = \inH{f}{\Gamma g},\quad f, g \in \HH, \quad\text{and}\quad \inRM{u}{v} = u^\top \mathbf{M} v,\quad u, v \in \RR^N.
+\end{equation}
+These relationships can be expressed as a duality diagram, see Figure~\ref{fig:duality_diagram}. The triplet $(X, \Gamma, \mathbf{M})$ defines a (multivariate) functional data analysis framework. One consequence of this transition between these spaces is that the eigencomponents of $\mathcal{X}$ can indifferently be estimated using the covariance operator $\Gamma$ or the Gram matrix $\mathbf{M}$.} The relationship between the eigecomponents of $\Gamma$ and the eigencomponents of $\mathbf{M}$ are derived in Section~\ref{sec:functional_principal_components_analysis}.
 \begin{figure}
     \centering
     \includegraphics[scale=1.2]{figures/duality_diagram.pdf}
-    \caption{Duality diagram between the spaces $\mathcal{H}$ and $\mathbb{R}^N$. The operator $L_X$ and its adjoint $L^\star_X$ are linear operators. The covariance operator $\Gamma$ and the matrix $M$ define geometries in $\mathcal{H}$ and $\mathbb{R}^N$ respectively. The space $\HH^\star$ (resp. $\RR^{N \star}$) is the dual space of $\HH$ (resp. $\RR^N$).}
+    \caption{Duality diagram between the spaces $\mathcal{H}$ and $\mathbb{R}^N$. The operator $L_X$ and its adjoint $L^\star_X$ are linear operators. The covariance operator $\Gamma$ and the matrix $\mathbf{M}$ define geometries in $\mathcal{H}$ and $\mathbb{R}^N$ respectively. The space $\HH^\star$ (resp. $\RR^{N \star}$) is the dual space of $\HH$ (resp. $\RR^N$).}
     \label{fig:duality_diagram}
 \end{figure}
 
-
+\begin{remark}\label{rem:rhks}
+\add{We present here the duality diagram for the linear integral operator $\Gamma$ with kernel $C$. It is however possible to define duality diagrams for more general linear integral operators defined with continuous symmetric positive definite function as kernel (see \cite{gonzalezRepresentingFunctionalData2010} and \cite{wongNonparametricOperatorregularizedCovariance2019a} for discussions on possible integral operators to represent univariate functional data).}
+\end{remark}
 % subsection duality_diagram (end)
 
 \subsection{Cloud of individuals} % (fold)
 \label{sub:cloud_of_individuals}
 
-Given $n \in \{1, \dots, N\}$, let $\{\Xnp(t_p),\,t_p \in \TT{p},\,p = 1, \dots, P\}$ be the features set for a particular observation $n$. We identify this set as the point $\pobs{M}_n$ in the space $\HH$. The space $\HH$ is referred to as the observations' space. The cloud of points that represents the set of observations in $\HH$ is denoted by $\CN$. Let $\GN$ be the centre of gravity of the cloud $\CN$. In the space $\HH$, its coordinates are given by $\{\mup{p}(t_p),\,t_p \in \TT{p},\,p = 1, \dots, P\}$. If the features are centered, the origin $\OH$ of the axes in $\HH$ coincides with $\GN$.
+\add{Given an element $f \in \HH$, let $\{f^{(p)}(t_p),\,t_p \in \TT{p},\,p = 1, \dots, P\}$ be the features set of the element. We identify this set as the point $\pobs{M}_f$ in the space $\HH$. The space $\HH$ is referred to as the observations' space. The cloud of points that represents the set of observations $\mathcal{X}$ in $\HH$ is denoted by $\CP$. Let $\Gmu$ be the centre of gravity of the cloud $\CP$. In the space $\HH$, its coordinates are given by $\{\mup{p}(t_p),\,t_p \in \TT{p},\,p = 1, \dots, P\}$. If the features are centered, the origin $\OH$ of the axes in $\HH$ coincides with $\Gmu$.}
 
 \begin{figure}
     \centering
     \includegraphics[scale=1.2]{figures/cloud_obs.pdf}
     \includegraphics[scale=1.2]{figures/cloud_obs_proj.pdf}
-    \caption{Left: Cloud of observations. Right: Projection of the points onto the elements of $\HH$. The observation $f$ (resp. $g$) is identified by the point $\pobs{M}_f$ (resp. $\pobs{M}_g$) in the cloud $\CN$. The point $\GN$ is the center of gravity of $\CN$ and the point $\OH$ is the origin of the space $\HH$.}
+    \caption{Left: Cloud of observations. Right: Projection of the points onto the elements of $\HH$. The observation $f$ (resp. $g$) is identified by the point $\pobs{M}_f$ (resp. $\pobs{M}_g$) in the cloud $\CP$. The point $\Gmu$ is the center of gravity of $\CP$ and the point $\OH$ is the origin of the space $\HH$.}
     \label{fig:cloud_obs}
 \end{figure}
 
-Let $f$ and $g$ be two elements in $\HH$ and denote by $\pobs{M}_f$ and $\pobs{M}_g$ their associated points in $\CN$ (see Figure~\ref{fig:cloud_obs}). The distance between these observations is defined as
+Let $f$ and $g$ be two elements in $\HH$ and denote by $\pobs{M}_f$ and $\pobs{M}_g$ their associated points in $\CP$ (see Figure~\ref{fig:cloud_obs}). The distance between these observations is defined as
 \begin{equation}\label{eq:distance_obs}
     d^2(\pobs{M}_f, \pobs{M}_g) = \normH{f - g}^2 = \sum_{p = 1}^P \int_{\TT{p}}\left\{\fp(t_p) - \gp(t_p)\right\}^2 \dd t_p.
 \end{equation}
-This distance measures how different the observations are, and thus characterizes the shape of the cloud $\CN$. Another description of this shape is to consider the distance between each observation and $\GN$, the center of the cloud. Let $f$ be an element of $\HH$, associated to the point $\pobs{M}_f$, and $\mu$ the element of $\HH$ related to $\GN$, the distance between $f$ and $\mu$ is given by
+This distance measures how different the observations are, and thus characterizes the shape of the cloud $\CP$. Another description of this shape is to consider the distance between each observation and $\Gmu$, the center of the cloud. Let $f$ be an element of $\HH$, associated to the point $\pobs{M}_f$, and $\mu$ the element of $\HH$ related to $\Gmu$, the distance between $f$ and $\mu$ is given by
 \begin{equation}\label{eq:distance_center}
-    d^2(\pobs{M}_f, \GN) = \normH{f - \mu}^2 = \sum_{p = 1}^P \int_{\TT{p}}\left\{\fp(t_p) - \mup{p}(t_p)\right\}^2 \dd t_p.
+    d^2(\pobs{M}_f, \Gmu) = \normH{f - \mu}^2 = \sum_{p = 1}^P \int_{\TT{p}}\left\{\fp(t_p) - \mup{p}(t_p)\right\}^2 \dd t_p.
 \end{equation}
-Given the set $\XX$, the total inertia of $\CN$, with respect to $\GN$, is given by
+Given the set $\XX$, the total inertia of $\CP$, with respect to $\Gmu$, is given by
 \begin{equation}\label{eq:inertia}
-    \sum_{n = 1}^N \pi_n d^2(\pobs{M}_n, \GN) = \frac{1}{2}\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j d^2(\pobs{M}_i, \pobs{M}_j) = \sum_{p = 1}^P \int_{\TT{p}}\Var{\Xp{p}(t_p)} \dd t_p.
+    \sum_{n = 1}^N \pi_n d^2(\pobs{M}_n, \Gmu) = \frac{1}{2}\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j d^2(\pobs{M}_i, \pobs{M}_j) = \sum_{p = 1}^P \int_{\TT{p}}\Var{\Xp{p}(t_p)} \dd t_p.
 \end{equation}
 The derivation of these equalities are given in Appendix \ref{sec:derivation_of_the_inertia_of_the_clouds}.
 
 \begin{remark}
-    These results have the same interpretation as for multivariate scalar data. This is also the multivariate analogue of the relation between variance and sum of squared differences known for univariate functional data. If the features are reduced beforehand such that $\int_{\TT{p}} \Var\Xp{p} (t_p) \dd t_p = 1$, the total inertia of the cloud $\CN$ is equal to the number of components $P$. We are, in general, not interested by the total inertia but mostly how this variance is spread among the features.
+    These results have the same interpretation as for multivariate scalar data. This is also the multivariate analogue of the relation between variance and sum of squared differences known for univariate functional data. If the features are reduced beforehand such that $\int_{\TT{p}} \Var\Xp{p} (t_p) \dd t_p = 1$, the total inertia of the cloud $\CP$ is equal to the number of components $P$. We are, in general, not interested by the total inertia but mostly how this variance is spread among the features.
 \end{remark}
 
 % subsection cloud_of_individuals (end)
@@ -70,13 +74,13 @@ The derivation of these equalities are given in Appendix \ref{sec:derivation_of_
 \subsection{Cloud of features} % (fold)
 \label{sub:cloud_of_features}
 
-Given an element $f \in \HH$, let $\{\inH{X_n - \mu}{f}, n = 1, \dots, N\}$ be the set of projections of $f$ onto the centered observations. We identify this set as the point $\pfea{M}_f$ in the space $\RR^N$. The space $\RR^N$ is referred to as the features' space. The cloud of points that represents the set of observations in $\RR^N$ is denoted by $\CP$. The origin $\OG$ of the axes in $\RR^N$ coincides with the centre of gravity of the cloud $\CP$. We consider the usual inner-product in $\RR^N$. Let $f$ and $g$ be two elements in $\HH$ and denote by $\pfea{M}_f$ and $\pfea{M}_g$ their associated points in $\CP$ (see Figure~\ref{fig:cloud_features}). The distance between $\pfea{M}_f$ and $\pfea{M}_g$ is thus defined as
+Given an element $f \in \HH$, let $\{\inH{X_n - \mu}{f},\,n = 1, \dots, N\}$ be the set of projections of $f$ onto the centered observations. We identify this set as the point $\pfea{M}_f$ in the space $\RR^N$. The space $\RR^N$ is referred to as the features' space. The cloud of points that represents the set of observations in $\RR^N$ is denoted by $\CN$. \add{Let $\Gfea$ be the centre of gravity of the cloud $\CP$. In the space $\RR^N$, its coordinates are given by $\{\inH{X_n - \mu}{\mu},\,n = 1, \dots, N\}$. If the data are centered, the origin $\OG$ of the axes in $\RR^N$ coincides with $\Gfea$.} We consider the usual inner-product in $\RR^N$. Let $f$ and $g$ be two elements in $\HH$ and denote by $\pfea{M}_f$ and $\pfea{M}_g$ their associated points in $\CN$ (see Figure~\ref{fig:cloud_features}). The distance between $\pfea{M}_f$ and $\pfea{M}_g$ is thus defined as
 \begin{equation*}
 d^2(\pfea{M}_f, \pfea{M}_g) = \sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f - g}.
 \end{equation*}
-Let $f$ be an element of $\HH$, associated to the point $\pfea{M}_f$, the distance between $\pfea{M}_f$ and $\OG$ is given by
+Let $f$ be an element of $\HH$, associated to the point $\pfea{M}_f$, and $\mu$ the element of $\HH$ related to $\Gfea$, the distance between $\pfea{M}_f$ and $\mu$ is given by
 \begin{equation*}
-d^2(\pfea{M}_f, \OG) = \sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f}.
+d^2(\pfea{M}_f, \Gfea) = \sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f - \mu}.
 \end{equation*}
 \begin{align}
     \cos(\theta_{fg}) &= \frac{\sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f}\inH{X_n - \mu}{g}}{\left(\sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f}^2\right)^{1/2}\left(\sum_{n = 1}^N \pi_n \inH{X_n - \mu}{g}^2\right)^{1/2}} \\
@@ -88,7 +92,7 @@ d^2(\pfea{M}_f, \OG) = \sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f}.
     \centering
     \includegraphics[scale=1.2]{figures/cloud_features.pdf}
     \includegraphics[scale=1.2]{figures/cloud_features_proj.pdf}
-    \caption{Left: Cloud of features. Right: Projection of the points on the elements of $\RR^N$. The observation $f$ (resp. $g$) is identified by the point $\pfea{M}_f$ (resp. $\pfea{M}_g$) in the cloud $\CP$. The point $\OG$ is the origin of the space $\RR^N$ (and coincide with the center of gravity of $\CP$).}
+    \caption{Left: Cloud of features. Right: Projection of the points on the elements of $\RR^N$. The observation $f$ (resp. $g$) is identified by the point $\pfea{M}_f$ (resp. $\pfea{M}_g$) in the cloud $\CN$. The point $\Gfea$ is the center of gravity of $\CN$ and the point $\OG$ is the origin of the space $\RR^N$.}
     \label{fig:cloud_features}
 \end{figure}
 
@@ -101,7 +105,7 @@ d^2(\pfea{M}_f, \OG) = \sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f}.
 \label{sub:on_centering_and_reducing}
 
 For conducting an MFPCA, the features are usually assumed centred \citep{happMultivariateFunctionalPrincipal2018a}. \cite{protheroNewPerspectivesCentering2021} give a complete overview of centering in the context of FDA. Here, we comment on the geometric interpretation of centering in this context and compare with the multivariate scalar case. We focus on the usual centering in FDA, namely $\Xnp(t_p) - \mu^{(p)}(t_p),~t_p \in \TT{p}$ (refered as \emph{object centering} in \cite{protheroNewPerspectivesCentering2021}).
-The geometric interpretation of the centering differs if we refer to the observations' space $\HH$ or the features' space $\RR^N$. Within the space $\HH$, centering is interpreted as translating the centre of gravity of the curves $\GN$ to the origin point $\OH$ of $\HH$. This transformation, being a translation, does not change the shape of the cloud $\CN$. The interpretation is the same as for the multivariate scalar data. Within the space $\RR^N$, the centering is harder to interpret and does not have the same meaning as in the multivariate case. Actually, in the multivariate scalar case, the centering of the data can be geometrically interpreted as the projection of the data on the subspace orthogonal to the constant vector \citep{pagesMultipleFactorAnalysis2014}. However, what happens if we project the multivariate curves onto the vector (of length $P$) of constant functions?
+The geometric interpretation of the centering differs if we refer to the observations' space $\HH$ or the features' space $\RR^N$. Within the space $\HH$, centering is interpreted as translating the centre of gravity of the curves $\Gmu$ to the origin point $\OH$ of $\HH$. This transformation, being a translation, does not change the shape of the cloud $\CN$. The interpretation is the same as for the multivariate scalar data. Within the space $\RR^N$, the centering is harder to interpret and does not have the same meaning as in the multivariate case. Actually, in the multivariate scalar case, the centering of the data can be geometrically interpreted as the projection of the data on the subspace orthogonal to the constant vector \citep{pagesMultipleFactorAnalysis2014}. However, what happens if we project the multivariate curves onto the vector (of length $P$) of constant functions?
 
 \add{In the features' space, the inner product is the usual Euclidean inner-product.}
 \textcolor{red}{
@@ -118,11 +122,11 @@ Concerning the standardization of the data, there are two main proposals in the 
 \begin{equation}
 w_p = \left(\int_{\TT{p}} \Var X^{(p)}(t_p) \dd t_p\right)^{-1}.
 \end{equation}
-This standardization is coherent with the derivation of the total inertia of the observations' space. Using these weights, the total inertia of $\CN$ is equal to the number of components $P$. \cite{chiouMultivariateFunctionalPrincipal2014} propose to standardize each component $p$ of the data using the function
+This standardization is coherent with the derivation of the total inertia of the observations' space. Using these weights, the total inertia of $\CP$ (and $\CP$) is equal to the number of components $P$. \cite{chiouMultivariateFunctionalPrincipal2014} propose to standardize each component $p$ of the data using the function
 \begin{equation}
 w_p(t_p) = \left(\Var X^{(p)}(t_p)\right)^{-1/2}, \quad t_p \in \TT{p}.
 \end{equation}
-This corresponds to a standardization of the curves by the standard deviation of the component at each sampling point. The standard deviation curve is estimated as the square root of the diagonal of the covariance function estimates, obtained using a local linear smoother of the pooled data. 
+This corresponds to a standardization of the curves by the standard deviation of the component at each sampling point. The standard deviation curve is estimated as the square root of the diagonal of the covariance function estimates, obtained using a local linear smoother of the pooled data. \add{For each functional feature $p$, this standardization mimics the standardization used for principal components analysis if the number of (scalar) features is infinite.}
 
 % subsection on_centering_and_reducing (end)
 

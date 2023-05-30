@@ -2,17 +2,17 @@
 \section{Derivation of the inertia of the clouds} % (fold)
 \label{sec:derivation_of_the_inertia_of_the_clouds}
 
-In this Section, we derive the inertia of the cloud $\CN$. Recall that 
+In this Section, we derive the inertia of the cloud $\CP$. Recall that 
 \begin{equation}\label{eq:var_appendix}
     \Var\{\Xp{p}(t_p)\} = \sum_{n = 1}^N \pi_n \{\Xnp(t_p)\}^2 - \{\mup{p}(t_p)\}^2 \quad\text{where}\quad \mup{p}(t_p) = \sum_{n = 1}^N \pi_n\Xnp(t_p), \quad t_p \in \TT{p}.
 \end{equation}
 
 \begin{align*}
-    \sum_{n = 1}^N \pi_n d^2(X_n, \mu) 
+    \sum_{n = 1}^N \pi_n d^2(\pobs{M}_n, \Gmu) 
     &= \sum_{n = 1}^N \pi_n \sum_{p = 1}^P\normLp{\Xnp - \mu^{(p)}}^2\\
     &= \sum_{p = 1}^P\left(\sum_{n = 1}^N \pi_n \normLp{\Xnp}^2 - \normLp{\mup{p}}^2\right) \\
     &= \sum_{p = 1}^P \int_{\TT{p}}\Var{\Xp{p}(t_p)} \dd t_p, \\
-\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j d^2(X_i, X_j) &= \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \sum_{p = 1}^P \normLp{\Xp{p}_i - \Xp{p}_j}^2\\
+\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j d^2(\pobs{M}_i, \pobs{M}_j) &= \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \sum_{p = 1}^P \normLp{\Xp{p}_i - \Xp{p}_j}^2\\
     &= \sum_{p = 1}^P \left(2\sum_{i = 1}^N \pi_i\normLp{\Xp{p}_i}^2 - 2\sum_{i = 1}^N \sum_{j = 1}^N \pi_i\pi_j\inLp{\Xp{p}_i}{\Xp{p}_j}\right) \\
     &= 2\sum_{p = 1}^P \int_{\TT{p}}\Var{\Xp{p}(t_p)} \dd t_p.
 \end{align*}
