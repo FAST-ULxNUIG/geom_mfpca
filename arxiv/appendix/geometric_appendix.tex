@@ -2,7 +2,25 @@
 \section{Derivation of the inertia of the clouds} % (fold)
 \label{sec:derivation_of_the_inertia_of_the_clouds}
 
-In this Section, we derive the inertia of the cloud $\CP$. Recall that 
+Using the definition of adjoint operators, we should prove that
+\begin{equation}\label{eq:adjoint_op}
+    \inRM{L_X(f)}{u} = \inHG{f}{L^\star_X(u)}, \quad\text{for all}\quad f \in \HH,\quad u \in \RR^N.
+\end{equation}
+For all $f \in \HH, u \in \RR^N$, we have that
+\begin{align*}
+    \inRM{L_X(f)}{u} &= L_X(f)^\top \mathbf{M} u \\
+    &= \sum_{i = 1}^N\sum_{j = 1}^N \pi_i \sqrt{\pi_j} u_j \inH{X_i - \mu}{X_j - \mu}\inH{X_i - \mu}{f}, \\
+    \inHG{f}{L^\star_X(u)} &= \inH{\Gamma f}{L^\star_X(u)} \\
+    &= \sum_{p = 1}^P \int_{\TT{p}} (\Gamma f)^{(p)}(t_p) \left\{ \sum_{n = 1}^N \sqrt{\pi_n} u_n \left(\Xnp(t_p) - \mup{p}(t_p)\right) \right\} \dd t_p \\
+    &= \sum_{p = 1}^P \int_{\TT{p}} \left\{\sum_{q = 1}^P \int_{\TT{q}} C_{pq}(t_p, s_q)f^{(q)}(s_q) \dd s_q\right\} \left\{ \sum_{j = 1}^N \sqrt{\pi_j} u_j \left(X_j^{(p)}(t_p) - \mup{p}(t_p)\right) \right\} \dd t_p \\
+    &= \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \sqrt{\pi_j} u_j \left\{\sum_{p = 1}^P \int_{\TT{p}} \left(X_i^{(p)}(t_p) - \mup{p}(t_p)\right)\left(X_j^{(p)}(t_p) - \mup{p}(t_p)\right)\dd t_p\right\} \times \\
+    &\qquad\qquad \left\{\sum_{q = 1}^P \int_{\TT{q}} \left(X_i^{(q)}(s_q) - \mup{q}(s_q)\right)f^{(q)}(s_q)\dd s_q\right\} \\
+    &= \sum_{i = 1}^N\sum_{j = 1}^N \pi_i \sqrt{\pi_j} u_j \inH{X_i - \mu}{X_j - \mu}\inH{X_i - \mu}{f}.
+\end{align*}
+
+So, the equality \eqref{eq:adjoint_op} is proved and we conclude that $L^\star_X$ is the adjoint operator of $L_X$.
+
+Next, we derive the inertia of the cloud $\CP$. Recall that 
 \begin{equation}\label{eq:var_appendix}
     \Var\{\Xp{p}(t_p)\} = \sum_{n = 1}^N \pi_n \{\Xnp(t_p)\}^2 - \{\mup{p}(t_p)\}^2 \quad\text{where}\quad \mup{p}(t_p) = \sum_{n = 1}^N \pi_n\Xnp(t_p), \quad t_p \in \TT{p}.
 \end{equation}

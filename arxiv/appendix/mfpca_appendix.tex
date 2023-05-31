@@ -18,7 +18,7 @@ Here and in the following, we note $[a]_p$ the $p$th entry of the vector $a$. St
 \begin{align}\label{eq:inner_prod_p_left}
 [\widetilde{X}^\top \mathbf{M} v_k]_p &= \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \sqrt{\pi_j} [v_{k}]_j \left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\}\inH{X_i - \mu}{X_j - \mu}\\
 &= \sum_{q = 1}^P \int_{\TT{q}} \sum_{i = 1}^N \pi_i\left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\} \left\{X_i^{(q)}(s_q) - \mu^{(q)}(s_q)\right\}  \\
-&\quad\quad \sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
+&\qquad\qquad \sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
 &= \sum_{q = 1}^P \int_{\TT{q}} C_{pq}(\cdot, s_q)\sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
 &= \sum_{j = 1}^N \inH{C_{p \cdot}(\cdot, \cdot)}{\sqrt{\pi_j}[v_{k}]_j \left\{X_j - \mu\right\}} \\
 &= \Gamma\left(\sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \left\{X_j - \mu\right\} \right)^{\mkern-9mu(p)}\mkern-18mu(\cdot)
