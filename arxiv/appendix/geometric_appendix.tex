@@ -51,8 +51,12 @@ We now derive the total inertia of the cloud $\CP$ using the distance $d_\Gamma$
 
 Finally, we derive the inertia of the cloud $\CN$ using the distance $\mathsf{d}$.
 \begin{align}
-\sum_{n = 1}^N \pi_n \mathsf{d}^2(\pfea{M}_n, \Gfea) &= \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p\\
-\frac{1}{2}\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \mathsf{d}^2(\pfea{M}_i, \pfea{M}_j) &= \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p.
+\sum_{n = 1}^N \pi_n \mathsf{d}^2(\pfea{M}_n, \Gfea) &= \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \inH{X_i - \mu}{X_j - \mu}\inH{X_i - \mu}{X_j - \mu} \\
+&= \sum_{p = 1}^P \sum_{q = 1}^P \int_{\TT{p}} \int_{\TT{q}} C_{pq}(t_p, s_q)C_{pq}(t_p, s_q) \dd s_q \dd t_p \\
+&= \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p\\
+\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \mathsf{d}^2(\pfea{M}_i, \pfea{M}_j) &= \sum_{i = 1}^N \sum_{j = 1}^N \sum_{n = 1}^N \pi_i \pi_j \pi_n \inH{X_n - \mu}{X_i - X_j}\inH{X_n - \mu}{X_i - X_j} \\
+&= 2\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \inH{X_i - \mu}{X_j - \mu}\inH{X_i - \mu}{X_j - \mu} \\
+&= 2\sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p.
 \end{align}
 
 % section derivation_of_the_inertia_of_the_clouds (end)
