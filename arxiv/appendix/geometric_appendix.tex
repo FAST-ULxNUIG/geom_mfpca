@@ -1,5 +1,5 @@
 %!TEX root=../main.tex
-\section{Derivation of the inertia of the clouds} % (fold)
+\section{Derivation of diverse equalities} % (fold)
 \label{sec:derivation_of_the_inertia_of_the_clouds}
 
 Using the definition of adjoint operators, we should prove that
@@ -48,6 +48,7 @@ We now derive the total inertia of the cloud $\CP$ using the distance $d_\Gamma$
     &= \sum_{i = 1}^N \pi_i \normHG{X_i}^2 - \normHG{\mu}^2 \\
     &= \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p 
 \end{align}
+The equalities in Equation~\eqref{eq:inertia_CP} are shown.
 
 Finally, we derive the inertia of the cloud $\CN$ using the distance $\mathsf{d}$.
 \begin{align}
@@ -58,5 +59,6 @@ Finally, we derive the inertia of the cloud $\CN$ using the distance $\mathsf{d}
 &= 2\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \inH{X_i - \mu}{X_j - \mu}\inH{X_i - \mu}{X_j - \mu} \\
 &= 2\sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p.
 \end{align}
+The equalities in Equation~\eqref{eq:inertia_CN} are shown.
 
 % section derivation_of_the_inertia_of_the_clouds (end)

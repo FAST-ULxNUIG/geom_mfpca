@@ -76,6 +76,7 @@ Given the set $\XX$, the total inertia of $\CP$, with respect to $\Gmu$ and the 
 \begin{equation}
     d^2_\Gamma(\pobs{M}_f, \pobs{M}_g) = \normHG{f - g}^2.
 \end{equation}
+The utilization of the distance measure $d_\Gamma$, which accounts for the variability among all the features within the functional data, corresponds to a Mahalanobis-type distance framework for multivariate functional data (see \cite{berrenderoMahalanobisDistanceFunctional2020} and \cite{martinoKmeansProcedureBased2019}).
 Given the set $\XX$, the total inertia of $\CP$, with respect to $\Gmu$ and the distance $d_\Gamma$, is given by
 \begin{equation}\label{eq:inertia_CP}
     \sum_{n = 1}^N \pi_n d_\Gamma^2(\pobs{M}_n, \Gmu) = \frac{1}{2}\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j d_\Gamma^2(\pobs{M}_i, \pobs{M}_j) = \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p.
