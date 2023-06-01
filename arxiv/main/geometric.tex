@@ -38,6 +38,10 @@ These relationships can be expressed as a duality diagram, see Figure~\ref{fig:d
     \label{fig:duality_diagram}
 \end{figure}
 
+\begin{remark}
+   \add{In a general manner, in order to a avoid confusion, inner-products and norms in function space ($\HH$ or $\sLp{\TT{}}$) will be refered with angle brackets, $\inLp{\cdot}{\cdot}$, while inner-products and norms in coordinate space ($\RR^N$) will be refered with round brackets, $\inR{\cdot}{\cdot}$}.
+\end{remark}
+
 \begin{remark}\label{rem:rhks}
 \add{We present here the duality diagram for the linear integral operator $\Gamma$ with kernel $C$. It is however possible to define duality diagrams for more general linear integral operators defined with continuous symmetric positive definite function as kernel (see \cite{gonzalezRepresentingFunctionalData2010} and \cite{wongNonparametricOperatorregularizedCovariance2019a} for discussions on possible integral operators to represent univariate functional data).}
 \end{remark}
@@ -73,13 +77,13 @@ Given the set $\XX$, the total inertia of $\CP$, with respect to $\Gmu$ and the 
     d^2_\Gamma(\pobs{M}_f, \pobs{M}_g) = \normHG{f - g}^2.
 \end{equation}
 Given the set $\XX$, the total inertia of $\CP$, with respect to $\Gmu$ and the distance $d_\Gamma$, is given by
-\begin{equation}\label{eq:inertia_gamma}
+\begin{equation}\label{eq:inertia_CP}
     \sum_{n = 1}^N \pi_n d_\Gamma^2(\pobs{M}_n, \Gmu) = \frac{1}{2}\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j d_\Gamma^2(\pobs{M}_i, \pobs{M}_j) = \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p.
 \end{equation}
 The derivation of these equalities are given in Appendix \ref{sec:derivation_of_the_inertia_of_the_clouds}.}
 
 \begin{remark}
-    These results have the same interpretation as for multivariate scalar data. This is also the multivariate analogue of the relation between variance and sum of squared differences known for univariate functional data. If the features are reduced beforehand such that $\int_{\TT{p}} \Var\Xp{p} (t_p) \dd t_p = 1$, the total inertia of the cloud $\CP$ is equal to the number of components $P$. We are, in general, not interested by the total inertia but mostly how this variance is spread among the features.
+    These results have the same interpretation as for multivariate scalar data. This is also the multivariate analogue of the relation between variance and sum of squared differences known for univariate functional data. \add{If the features are reduced beforehand, such that $\int_{\TT{p}} \Var\Xp{p} (t_p) \dd t_p = 1$ for the distance $d$ or $\int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p = 1$ for the distance $d_\Gamma$, the total inertia of the cloud $\CP$ is equal to the number of components $P$. We are, in general, not interested by the total inertia but mostly how this variance is spread among the features.}
 \end{remark}
 
 % subsection cloud_of_individuals (end)
@@ -87,19 +91,7 @@ The derivation of these equalities are given in Appendix \ref{sec:derivation_of_
 \subsection{Cloud of features} % (fold)
 \label{sub:cloud_of_features}
 
-Given an element $f \in \HH$, let $\{\inH{X_n - \mu}{f},\,n = 1, \dots, N\}$ be the set of projections of $f$ onto the centered observations. We identify this set as the point $\pfea{M}_f$ in the space $\RR^N$. The space $\RR^N$ is referred to as the features' space. The cloud of points that represents the set of observations in $\RR^N$ is denoted by $\CN$. \add{Let $\Gfea$ be the centre of gravity of the cloud $\CP$. In the space $\RR^N$, its coordinates are given by $\{\inH{X_n - \mu}{\mu},\,n = 1, \dots, N\}$. If the data are centered, the origin $\OG$ of the axes in $\RR^N$ coincides with $\Gfea$.} We consider the usual inner-product in $\RR^N$. Let $f$ and $g$ be two elements in $\HH$ and denote by $\pfea{M}_f$ and $\pfea{M}_g$ their associated points in $\CN$ (see Figure~\ref{fig:cloud_features}). The distance between $\pfea{M}_f$ and $\pfea{M}_g$ is thus defined as
-\begin{equation*}
-d^2(\pfea{M}_f, \pfea{M}_g) = \sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f - g}.
-\end{equation*}
-Let $f$ be an element of $\HH$, associated to the point $\pfea{M}_f$, and $\mu$ the element of $\HH$ related to $\Gfea$, the distance between $\pfea{M}_f$ and $\mu$ is given by
-\begin{equation*}
-d^2(\pfea{M}_f, \Gfea) = \sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f - \mu}.
-\end{equation*}
-\begin{align}
-    \cos(\theta_{fg}) &= \frac{\sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f}\inH{X_n - \mu}{g}}{\left(\sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f}^2\right)^{1/2}\left(\sum_{n = 1}^N \pi_n \inH{X_n - \mu}{g}^2\right)^{1/2}} \\
-    &= \frac{\inH{f}{\Gamma g}}{\inH{f}{\Gamma f}^{1/2}\inH{g}{\Gamma g}^{1/2}} \\
-    &= \frac{\inH{\Gamma f}{g}}{\inH{f}{\Gamma f}^{1/2}\inH{g}{\Gamma g}^{1/2}}.
-\end{align}
+\add{Given an element $f \in \HH$, let $L_X(f) = \{\sqrt{\pi_n}\inH{X_n - \mu}{f},\,n = 1, \dots, N\}$ be the set of projections of $f$ onto the centered observations. We identify this set as the point $\pfea{M}_f$ in the space $\RR^N$. The space $\RR^N$ is referred to as the features' space. The cloud of points that represents the set of observations in $\RR^N$ is denoted by $\CN$. Let $\Gfea$ be the centre of gravity of the cloud $\CN$. In the space $\RR^N$, its coordinates are given by $L_X(\mu) = \{\sqrt{\mu}\inH{X_n - \mu}{\mu},\,n = 1, \dots, N\}$. If the data are centered, the origin $\OG$ of the axes in $\RR^N$ coincides with $\Gfea$.}
 
 \begin{figure}
     \centering
@@ -109,6 +101,25 @@ d^2(\pfea{M}_f, \Gfea) = \sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f - \mu}.
     \label{fig:cloud_features}
 \end{figure}
 
+\add{We consider the usual inner-product in $\RR^N$, such that for all $u, v \in \RR^N, \inR{u}{v} = u^\top v$, associated with the norm $\normR{\cdot}$. Let $f$ and $g$ be two elements in $\HH$ and denote by $\pfea{M}_f$ and $\pfea{M}_g$ their associated points in $\CN$ (see Figure~\ref{fig:cloud_features}). The distance between $\pfea{M}_f$ and $\pfea{M}_g$ is thus defined as
+\begin{equation*}
+\mathsf{d}^2(\pfea{M}_f, \pfea{M}_g) = \normR{L_X(f) - L_X(g)}^2 = \sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f - g}^2.
+\end{equation*}}
+\add{Similarly to the cloud of individuals, this distance characterize the shape of the cloud $\CN$ and we also have access to this characterization through the distance with the center of gravity $\Gfea$. Let $f$ be an element of $\HH$, associated to the point $\pfea{M}_f$, and $\mu$ the element of $\HH$ related to $\Gfea$, the distance between $\pfea{M}_f$ and $\mu$ is given by
+\begin{equation*}
+\mathsf{d}^2(\pfea{M}_f, \Gfea) = \normR{L_X(f) - L_X(\mu)}^2 = \sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f - \mu}^2.
+\end{equation*}
+Given the set $\XX$, the total inertia of $\CN$, with respect to $\Gfea$ and the distance $\mathsf{d}$, is given by
+\begin{equation}\label{eq:inertia_CN}
+    \sum_{n = 1}^N \pi_n \mathsf{d}^2(\pfea{M}_n, \Gfea) = \frac{1}{2}\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \mathsf{d}^2(\pfea{M}_i, \pfea{M}_j) = \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p.
+\end{equation}
+Using the distances induced by the duality diagram, the total inertia of the cloud $\CN$ is thus equal to the total inertia of the cloud $\CP$. This property highlights the duality between the spaces $\HH$ and $\RR^N$. To further emphasize this duality, the cosine of the angle $\theta_{fg}$ formed by the two points $\pfea{M}_f$ and $\pfea{M}_g$ is equal to their correlation coefficient and can be written
+\begin{equation}
+    \cos(\theta_{fg}) = \frac{\inR{L_X(f)}{L_X(g)}}{\normR{L_X(f)}\normR{L_X(g)}}
+    = \frac{\inHG{f}{g}}{\normHG{f}\normHG{g}}.
+\end{equation}}
+The derivation of these equalities are given in Appendix \ref{sec:derivation_of_the_inertia_of_the_clouds}.
+
 \begin{remark}
    Although each axis of the space does not directly represent the features, but rather the projection of an element of $\HH$ onto the elements of the set $\XX$, we refer to this space as the features' space. We use this terminology to highlight the similarity between multivariate functional data analysis and traditional multivariate data analysis, as well as to emphasize the dimensionality of this space.
 \end{remark}
@@ -117,29 +128,23 @@ d^2(\pfea{M}_f, \Gfea) = \sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f - \mu}.
 \subsection{On centering and reducing} % (fold)
 \label{sub:on_centering_and_reducing}
 
-For conducting an MFPCA, the features are usually assumed centred \citep{happMultivariateFunctionalPrincipal2018a}. \cite{protheroNewPerspectivesCentering2021} give a complete overview of centering in the context of FDA. Here, we comment on the geometric interpretation of centering in this context and compare with the multivariate scalar case. We focus on the usual centering in FDA, namely $\Xnp(t_p) - \mu^{(p)}(t_p),~t_p \in \TT{p}$ (refered as \emph{object centering} in \cite{protheroNewPerspectivesCentering2021}).
-The geometric interpretation of the centering differs if we refer to the observations' space $\HH$ or the features' space $\RR^N$. Within the space $\HH$, centering is interpreted as translating the centre of gravity of the curves $\Gmu$ to the origin point $\OH$ of $\HH$. This transformation, being a translation, does not change the shape of the cloud $\CN$. The interpretation is the same as for the multivariate scalar data. Within the space $\RR^N$, the centering is harder to interpret and does not have the same meaning as in the multivariate case. Actually, in the multivariate scalar case, the centering of the data can be geometrically interpreted as the projection of the data on the subspace orthogonal to the constant vector \citep{pagesMultipleFactorAnalysis2014}. However, what happens if we project the multivariate curves onto the vector (of length $P$) of constant functions?
-
-\add{In the features' space, the inner product is the usual Euclidean inner-product.}
-\textcolor{red}{
-\begin{equation}
-\inH{f}{g} = \sum_{i = 1}^N \int_{\TT{k}} f^{(k)}_i(t)g^{(k)}_i(t)dt, \quad f, g \in \GG.
-\end{equation}
-Let $\mathbf{1}$ be the vector of constant function in $\GG$ and $f$ an element of $\GG$. The projection of $f$ onto $\mathbf{1}$ is then given by
-\begin{equation}
-P_{\mathbf{1}}f = \frac{\inH{f}{\mathbf{1}}}{\normH{\mathbf{1}}}\mathbf{1} = \frac{1}{N\lvert \TT{k} \rvert}\sum_{n = 1}^N \int_{\TT{k}} f^{(k)}_n(t)dt\mathbf{1}
-\end{equation}
-In practice, this is equivalent to computing the mean value of the mean curve for each component, referred as \emph{grand mean centering} in \cite{protheroNewPerspectivesCentering2021}.}
+For conducting an MFPCA, the features are usually assumed centred \citep{happMultivariateFunctionalPrincipal2018a}. \cite{protheroNewPerspectivesCentering2023} give a complete overview of centering in the context of FDA. Here, we comment on the geometric interpretation of centering in this context and compare with the multivariate scalar case. We focus on the usual centering in FDA, namely $\Xnp(t_p) - \mu^{(p)}(t_p),~t_p \in \TT{p}$ (refered as \emph{object centering} in \cite{protheroNewPerspectivesCentering2023}).
+\add{The geometric interpretation of the object centering is the same if we refer to the observations' space $\HH$ or the features' space $\RR^N$. Within the space $\HH$ (resp. $\RR^N$), centering is interpreted as translating the centre of gravity of the clouds, $\Gmu$ (resp. $\Gfea$), to the origin point $\OH$ (resp. $\OG$) of the space $\HH$ (resp. $\RR^N$). This transformation, being a translation, does not change the shape of the cloud $\CP$ (resp. $\CN$). The interpretation is the same as for the centering in the multivariate scalar data context within their observation space.}
 
 Concerning the standardization of the data, there are two main proposals in the literature. \cite{happMultivariateFunctionalPrincipal2018a} propose to weight each component $p$ by
 \begin{equation}
 w_p = \left(\int_{\TT{p}} \Var X^{(p)}(t_p) \dd t_p\right)^{-1}.
 \end{equation}
-This standardization is coherent with the derivation of the total inertia of the observations' space. Using these weights, the total inertia of $\CP$ (and $\CP$) is equal to the number of components $P$. \cite{chiouMultivariateFunctionalPrincipal2014} propose to standardize each component $p$ of the data using the function
+This standardization is coherent with the derivation of the total inertia of the observations' space using the usual distance in $\HH$. \cite{chiouMultivariateFunctionalPrincipal2014} propose to standardize each component $p$ of the data using the function
 \begin{equation}
 w_p(t_p) = \left(\Var X^{(p)}(t_p)\right)^{-1/2}, \quad t_p \in \TT{p}.
 \end{equation}
 This corresponds to a standardization of the curves by the standard deviation of the component at each sampling point. The standard deviation curve is estimated as the square root of the diagonal of the covariance function estimates, obtained using a local linear smoother of the pooled data. \add{For each functional feature $p$, this standardization mimics the standardization used for principal components analysis if the number of (scalar) features is infinite.}
+\add{Considering the duality diagram and the total inertia of the clouds with respect to the distance $d_\Gamma$, we propose to weight each component $p$ by
+\begin{equation}
+    w_p = \left(\int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p\right)^{-1/2}.
+\end{equation}
+The total inertia of $\CP$ (and $\CN$) will thus be equal to the number of components.}
 
 % subsection on_centering_and_reducing (end)
 
