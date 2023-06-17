@@ -30,7 +30,7 @@ Using the definition of adjoint operators $L_X$ and $L^\star_X$, we have that
 \begin{equation}
     \inRM{L_X(f)}{u} = \inHG{f}{L^\star_X(u)}, \quad\text{for all}\quad f \in \HH, u \in \RR^N.
 \end{equation}
-These relationships can be expressed as a duality diagram, see Figure~\ref{fig:duality_diagram}. The triplet $(X, \Gamma, \mathbf{M})$ defines a (multivariate) functional data analysis framework. One consequence of this transition between these spaces is that the eigencomponents of $\mathcal{X}$ can indifferently be estimated using the covariance operator $\Gamma$ or the Gram matrix $\mathbf{M}$.} The relationship between the eigecomponents of $\Gamma$ and the eigencomponents of $\mathbf{M}$ are derived in Section~\ref{sec:functional_principal_components_analysis}.
+These relationships can be expressed as a duality diagram, see Figure~\ref{fig:duality_diagram}. The triplet $(X, \Gamma, \mathbf{M})$ defines a (multivariate) functional data analysis framework. One consequence of this transition between spaces is that the eigencomponents of $\mathcal{X}$ can be estimated equally using either the covariance operator $\Gamma$ or the Gram matrix $\mathbf{M}$.} The relationship between the eigencomponents of $\Gamma$ and the eigencomponents of $\mathbf{M}$ are derived in Section~\ref{sec:functional_principal_components_analysis}.
 \begin{figure}
     \centering
     \includegraphics[scale=1.2]{figures/duality_diagram.pdf}
@@ -39,11 +39,11 @@ These relationships can be expressed as a duality diagram, see Figure~\ref{fig:d
 \end{figure}
 
 \begin{remark}
-   \add{In a general manner, in order to a avoid confusion, inner-products and norms in function space ($\HH$ or $\sLp{\TT{}}$) will be refered with angle brackets, $\inLp{\cdot}{\cdot}$, while inner-products and norms in coordinate space ($\RR^N$) will be refered with round brackets, $\inR{\cdot}{\cdot}$}.
+   \add{In a general manner, in order to avoid confusion, inner-products and norms in function space, $\HH$ or $\sLp{\TT{}}$, will be refered with angle brackets, $\inLp{\cdot}{\cdot}$, while inner-products and norms in coordinate space, $\RR^N$,  will be refered with round brackets, $\inR{\cdot}{\cdot}$}.
 \end{remark}
 
 \begin{remark}\label{rem:rhks}
-\add{We present here the duality diagram for the linear integral operator $\Gamma$ with kernel $C$. It is however possible to define duality diagrams for more general linear integral operators defined with continuous symmetric positive definite function as kernel (see \cite{gonzalezRepresentingFunctionalData2010} and \cite{wongNonparametricOperatorregularizedCovariance2019a} for discussions on possible integral operators to represent univariate functional data).}
+\add{We present here the duality diagram for the linear integral operator $\Gamma$ with kernel $C$. It is however possible to define duality diagrams for more general linear integral operators defined with a continuous symmetric positive definite function as kernel (see \cite{gonzalezRepresentingFunctionalData2010} and \cite{wongNonparametricOperatorregularizedCovariance2019a} for discussions on possible integral operators to represent univariate functional data).}
 \end{remark}
 % subsection duality_diagram (end)
 
@@ -72,7 +72,7 @@ Given the set $\XX$, the total inertia of $\CP$, with respect to $\Gmu$ and the 
 \begin{equation}\label{eq:inertia}
     \sum_{n = 1}^N \pi_n d^2(\pobs{M}_n, \Gmu) = \frac{1}{2}\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j d^2(\pobs{M}_i, \pobs{M}_j) = \sum_{p = 1}^P \int_{\TT{p}}\Var{\Xp{p}(t_p)} \dd t_p.
 \end{equation}}
-\add{The duality diagram, however, allows us to defined another suitable distance to characterize the shape of the cloud $\CP$. We thus define
+\add{The duality diagram, however, allows us to define another suitable distance to characterize the shape of the cloud $\CP$. We thus define
 \begin{equation}
     d^2_\Gamma(\pobs{M}_f, \pobs{M}_g) = \normHG{f - g}^2.
 \end{equation}
@@ -106,7 +106,7 @@ The derivation of these equalities are given in Appendix \ref{sec:derivation_of_
 \begin{equation*}
 \mathsf{d}^2(\pfea{M}_f, \pfea{M}_g) = \normR{L_X(f) - L_X(g)}^2 = \sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f - g}^2.
 \end{equation*}}
-\add{Similarly to the cloud of individuals, this distance characterize the shape of the cloud $\CN$ and we also have access to this characterization through the distance with the center of gravity $\Gfea$. Let $f$ be an element of $\HH$, associated to the point $\pfea{M}_f$, and $\mu$ the element of $\HH$ related to $\Gfea$, the distance between $\pfea{M}_f$ and $\mu$ is given by
+\add{Similarly to the cloud of individuals, this distance characterizes the shape of the cloud $\CN$ and we also have access to this characterization through the distance with the center of gravity $\Gfea$. Let $f$ be an element of $\HH$, associated to the point $\pfea{M}_f$, and $\mu$ the element of $\HH$ related to $\Gfea$, the distance between $\pfea{M}_f$ and $\mu$ is given by
 \begin{equation*}
 \mathsf{d}^2(\pfea{M}_f, \Gfea) = \normR{L_X(f) - L_X(\mu)}^2 = \sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f - \mu}^2.
 \end{equation*}

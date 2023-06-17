@@ -57,7 +57,7 @@ where the scores $\mathfrak{c}_k$ are defined as for the Scenario~1. We simulate
 \subsection{Simulation results} % (fold)
 \label{sub:simulation_results}
 
-We compared MFPCA using the diagonalization of the covariance operator and using the diagonalization of the Gram matrix in terms of their computational time, estimation of eigenvalues, estimation of eigenfunctions, and reconstruction of curves. \add{We fix the number of retained components to be $5$ for each simulation of both Scenario.} Each experiment is repeated $500$ times. The results are presented below.
+We compared MFPCA using the diagonalization of the covariance operator and using the diagonalization of the Gram matrix in terms of their computational time, estimation of eigenvalues, estimation of eigenfunctions, and reconstruction of curves. \add{We fix the number of retained components to be $5$ for each simulation of both Scenarios.} Each experiment is repeated $500$ times. The results are presented below.
 
 % Computation time ----------
 \begin{results}[Computational time.]
@@ -136,8 +136,6 @@ Figure~\ref{fig:mise_mfd_2d} shows the boxplots of the ISE for each method acros
 \end{figure}
 \end{results}
 
-Overall, our simulations showed that the diagonalization of the covariance operator or of the Gram matrix gave similar results in terms of the estimation of the eigenvalues, the eigenfunctions and reconstruction of the curves for one-dimensional multivariate functional data, while the performance of the diagonalization of the Gram matrix outperformed the FCP-TPA for higher-dimensional functional datasets. Regarding the computation time, the use of the covariance operator is faster in most cases for multivariate functional data defined on unidimensional domains. The only situation where the use of the Gram matrix is quicker is when $M \gg N$. For data defined on higher-dimensional domains, diagonalization of the Gram matrix is faster.
-In conclusion, we recommend to use the covariance operator for multivariate functional data with all features defined on a one-dimensional domeins (curves) and for a number of observations larger or comparable to the number of sampling points regardless of the number of features. If the data are defined on multi-dimensional domains (images) or the number of sampling points is much higher than the number of observations, we advise using the Gram matrix.
 
 % subsection simulation_results (end)
 

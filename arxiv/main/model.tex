@@ -60,11 +60,11 @@ The $p$th feature of the mean function can be then expanded in the same basis as
 \begin{equation}
     \mup{p}(t_p) = \sum_{k = 1}^{K_p} \overline{c}_k^{(p)}\psi_k^{(p)}(t_p), \quad t_p \in \TT{p}.
 \end{equation}
-\add{In a similar way, the covariance function of the $p$th and $q$th features is given by:
+\add{Similarly, the covariance function of the $p$th and $q$th features is given by:
 \begin{equation}
     C_{p,q}(s_p, t_q) = \sum_{k = 1}^{K_p} \sum_{l = 1}^{K_q} \left(\sum_{n = 1}^N \pi_n c^{(p)}_{nk}c^{(q)}_{nl} - \overline{c}_k^{(p)}\overline{c}_l^{(q)}\right)\psi_k^{(p)}(s_p)\psi_l^{(q)}(t_q), \quad s_p \in \TT{p},\quad t_q \in \TT{q}.
 \end{equation}}
-These formula can be written in matrix form as follows. For $\pointt \in \TT{}$, we have that $X(\pointt) = \mathbf{C}\Psi(\pointt)$ where $X(\pointt)$ is a $N \times P$ matrix with entries $\Xnp(t_p),~t_p \in \TT{p},~1 \leq p \leq P,~1 \leq n \leq N$,
+These formulas can be written in matrix form as follows. For $\pointt \in \TT{}$, we have that $X(\pointt) = \mathbf{C}\Psi(\pointt)$ where $X(\pointt)$ is a $N \times P$ matrix with entries $\Xnp(t_p),~t_p \in \TT{p},~1 \leq p \leq P,~1 \leq n \leq N$,
 \begin{equation}
     \mathbf{C} = \begin{pmatrix}
             \mathbf{C}^{(1)} & \cdots & \mathbf{C}^{(P)} \\
