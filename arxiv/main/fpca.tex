@@ -41,8 +41,8 @@ We refer the reader to \cite{happMultivariateFunctionalPrincipal2018a} for the d
 \subsection{Diagonalization of the inner product matrix} % (fold)
 \label{sub:by_diagonalization_of_the_inner_product_matrix}
 
-We can use the duality relation between row and column spaces of a data matrix to estimate the eigencomponents of the covariance operator. Consider the inner-product matrix $M$, with entries defined in~\eqref{eq:gram_mat} \add{and assuming that all observations are equally weighted, i.e., for all $n = 1, \dots, N$, $\pi_n = 1/N$.}
-Let $\{l_k\}_{1 \leq k \leq N}$ such that $l_1 \geq \dots \geq l_N \geq 0$ be the set of eigenvalues and $\{v_k\}_{1 \leq k \leq N}$ be the set of eigenvectors of the matrix $M$. The relationship between all nonzero eigenvalues of the covariance operator $\Gamma$ and the eigenvalues of $M$ is given by
+We can use the duality relation between row and column spaces of a data matrix to estimate the eigencomponents of the covariance operator. Consider the inner-product matrix $\mathbf{M}$, with entries defined in~\eqref{eq:gram_mat} \add{and assuming that all observations are equally weighted, i.e., for all $n = 1, \dots, N$, $\pi_n = 1/N$.}
+Let $\{l_k\}_{1 \leq k \leq N}$ such that $l_1 \geq \dots \geq l_N \geq 0$ be the set of eigenvalues and $\{v_k\}_{1 \leq k \leq N}$ be the set of eigenvectors of the matrix $\mathbf{M}$. The relationship between all nonzero eigenvalues of the covariance operator $\Gamma$ and the eigenvalues of $\mathbf{M}$ is given by
 \add{
 \begin{equation}\label{eq:eigenvalues_relation_p}
     \lambda_k = l_k, \quad k = 1, 2, \dots, N,
@@ -51,7 +51,7 @@ Let $\{l_k\}_{1 \leq k \leq N}$ such that $l_1 \geq \dots \geq l_N \geq 0$ be th
 while the relationship between the multivariate eigenfunctions of the covariance operator $\Gamma$ and the orthonormal eigenvectors of $M$ is given by
 \add{
 \begin{equation}\label{eq:eigenfunction_relation_p}
-    \phi_k(\pointt) = \frac{1}{\sqrt{N}}\sum_{n = 1}^N [v_{k}]_n\left\{X_n(\pointt) - \mu(\pointt)\right\}, \quad \pointt \in \TT{}, \quad k = 1, 2, \dots, N, 
+    \phi_k(\pointt) = \frac{1}{\sqrt{N l_k}}\sum_{n = 1}^N [v_{k}]_n\left\{X_n(\pointt) - \mu(\pointt)\right\}, \quad \pointt \in \TT{}, \quad k = 1, 2, \dots, N, 
 \end{equation}
 }
 where $[v_{k}]_n$ is the $n$th entry of the vector $v_k$. The scores are then computed as the inner-product between the multivariate curves and the multivariate eigenfunctions and are given by
