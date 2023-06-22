@@ -22,5 +22,5 @@
 notebooks/*
 
 # Private folder
-comments/*
-sts/*
+./comments/*
+./sts/*
