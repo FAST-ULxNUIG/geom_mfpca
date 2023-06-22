@@ -20,3 +20,7 @@
 # Jupyter
 ./ipynb_checkpoints/*
 notebooks/*
+
+# Private folder
+comments/*
+sts/*
