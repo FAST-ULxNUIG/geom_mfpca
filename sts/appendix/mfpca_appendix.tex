@@ -1,0 +1,141 @@
+%!TEX root=../sts-template.tex
+\section{Derivation of the eigencomponents} % (fold)
+\label{sec:derivation_of_the_eigencomponents}
+
+Using the Hilbert-Schmidt theorem, there exists a complete orthonormal basis of eigenvectors $\{v_k\}_{1 \leq k \leq N}$ of the inner-product matrix $\mathbf{M}$ such that
+\begin{equation}\label{eq:eigen_inner_prod_p}
+    \mathbf{M}v_k = l_kv_k.
+\end{equation}
+Let $X = \left(X_1 - \mu, \dots, X_N - \mu\right)^\top$ and denote
+\begin{equation}
+    \widetilde{X} = \text{diag}\{\sqrt{\pi_1}, \dots, \sqrt{\pi_N}\}X,
+\end{equation}
+the matrix of weighted observations. Recall that, in the case of $P$-dimensional process, the realisations of the process $X_n,~n = 1, \cdots, N$ and $\mu$ are vectors of functions of length $P$, and thus $X$ (and $\widetilde{X}$) is a matrix of functions of size $N \times P$. By left multiplying Equation~\eqref{eq:eigen_inner_prod_p} by $\widetilde{X}^\top$, we obtain
+\begin{equation}\label{eq:eigen_inner_prod_left}
+    \widetilde{X}^\top \mathbf{M} v_k = l_k \widetilde{X}^\top v_k.
+\end{equation} 
+Expanding Equation~\eqref{eq:eigen_inner_prod_left}, we have, for each component $p = 1, \dots, P$,
+\begin{align}\label{eq:inner_prod_p}
+    \sum_{i = 1}^N \sum_{j = 1}^N \pi_i & \sqrt{\pi_j}[v_{k}]_j \left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\} \times \\ 
+    &\mkern-36mu \inH{X_i - \mu}{X_j - \mu} \\
+    &\mkern-72mu = l_k \mkern-5mu\sum_{n = 1}^N \mkern-4mu\sqrt{\pi_n}[v_{k}]_n\left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}.
+\end{align}
+Here and in the following, we note $[a]_p$ the $p$th entry of the vector $a$. Starting from the left side of Equation~\eqref{eq:inner_prod_p}, we get
+\begin{align}\label{eq:inner_prod_p_left}
+[\widetilde{X}^\top \mathbf{M} v_k]_p & \\
+    &\mkern-72mu = \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \sqrt{\pi_j} [v_{k}]_j \left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\} \times \\
+    &\mkern-36mu \inH{X_i - \mu}{X_j - \mu}\\
+    &\mkern-72mu = \sum_{q = 1}^P \int_{\TT{q}} \sum_{i = 1}^N \pi_i\left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\} \times \\
+    &\mkern-36mu \left\{X_i^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \times \\
+    &\mkern-36mu \sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
+    &\mkern-72mu = \sum_{q = 1}^P \int_{\TT{q}} C_{p,q}(\cdot, s_q)\sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \times \\
+    &\mkern-36mu \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
+    &\mkern-72mu = \sum_{j = 1}^N \inH{C_{p \cdot}(\cdot, \cdot)}{\sqrt{\pi_j}[v_{k}]_j \left\{X_j - \mu\right\}} \\
+    &\mkern-72mu = \Gamma\left(\sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \left\{X_j - \mu\right\} \right)^{\mkern-9mu(p)}\mkern-18mu(\cdot),
+\end{align}
+and, starting from the right side of Equation~\eqref{eq:inner_prod_p},
+\begin{align}\label{eq:inner_prod_p_right}
+    [l_k \widetilde{X}^\top v_k]_p & \\
+    &\mkern-36mu = l_k \sum_{n = 1}^N \sqrt{\pi_n}[v_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}.
+\end{align}
+From Equation~\eqref{eq:inner_prod_p_left} and Equation~\eqref{eq:inner_prod_p_right}, we obtain, for each $p = 1, \dots, P$,
+\begin{align*}
+    \Gamma\left(\sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \left\{X_j - \mu\right\}\right)^{\mkern-9mu(p)}\mkern-18mu(\cdot) \\
+    &\mkern-144mu = l_k \sum_{n = 1}^N \sqrt{\pi_n}[v_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}
+\end{align*}
+By identification in Equation~\eqref{eq:eigendecomposition}, we find that, for each components $p$, for $k \geq 1$,
+\begin{equation}
+\lambda_k = l_k  
+\end{equation}
+and
+\begin{equation}\label{eq:eigen_estimation}
+\phi_k^{(p)}(\cdot) = \sum_{n = 1}^N \sqrt{\pi_n}[v_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}.
+\end{equation}
+For $k \geq 1$, the norm of the eigenfunction is computed as the following:
+\begin{align*}
+\normH{\phi_k}^2 &= \sum_{i = 1}^N \sum_{j = 1}^N \sqrt{\pi_i\pi_j}[v_{k}]_i [v_{k}]_j\inH{X_i - \mu}{X_j - \mu} \\
+    &= \sum_{i = 1}^N [v_{k}]_i \sum_{j = 1}^N \mathbf{M}_{ij} [v_{k}]_j \\
+    &= \sum_{i = 1}^N [v_{k}]_i l_k [v_{k}]_i = l_k \normLp{v_k}^2 \\
+    &= l_k. \\
+\end{align*}
+Therefore, in order to have an orthonormal basis of eigenfunctions, we normalise the eigenfunctions $\phi_k$ from Equation~\eqref{eq:eigen_estimation} by $1 / \sqrt{l_k}$.
+Concerning the estimation of the scores, for $n = 1, \dots, N$, for $k \geq 1$, we have
+\begin{align}
+    \mathfrak{c}_{nk} &= \inH{X_n - \mu}{\phi_k} \\
+    &= \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \inH{X_n - \mu}{X_j - \mu}\\
+    &= \frac{1}{\sqrt{l_k\pi_n}}\sum_{j = 1}^N [v_{k}]_j \mathbf{M}_{nj} \\
+    &= \sqrt{\frac{l_k}{\pi_n}}[v_{k}]_n.\\
+\end{align}
+
+Concerning the expansion of the data into the basis of function $\Psi$, we write 
+\begin{equation}
+    \mathbf{M} = \mathbf{A}\mathbf{A}^\top,
+\end{equation}
+where
+\begin{equation}
+    \mathbf{A} = \text{diag}\{\sqrt{\pi_1}, \dots, \sqrt{\pi_N}\}\left(\mathrm{I}_{\!N} - \mathbf{1}_{\!N}\Pi^\top\right) \mathbf{C}W^{1/2},
+\end{equation}
+We also assume that $\phi_1, \phi_2, \dots$ the eigenfunctions of the covariance operator $\Gamma$ have a decomposition into the basis $\Psi$
+\begin{equation}
+    \phi_k(\cdot) = 
+        \begin{pmatrix} 
+            \phi_k^{(1)}(\cdot) \\
+            \vdots \\
+            \phi_k^{(P)}(\cdot)
+        \end{pmatrix} = 
+        \begin{pmatrix} 
+            \psi^{(1) \top}(\cdot) b_{1k} \\
+            \vdots \\
+            \psi^{(P) \top}(\cdot) b_{Pk}
+        \end{pmatrix},
+\end{equation}
+where
+\begin{equation}
+    b_{pk} = \left(b_{p k 1}, \dots, b_{p k K_p} \right)^\top.
+\end{equation}
+We have, for $p = 1, \dots, P$,
+\begin{align*}
+    \left(\Gamma \phi_k\right)^{(p)}(\cdot) & \\
+    &\mkern-72mu = \sum_{q = 1}^P \int_{\TT{q}} C_{p, q}(\cdot, s_q)\phi_k^{(q)}(s_q) \dd s_q \\
+    &\mkern-72mu = \sum_{q = 1}^P \int_{\TT{q}} \Psi(\cdot)^{(p) \top} \mathbf{C}^{(p) \top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right) \\
+    &\mkern-36mu \mathbf{C}^{(q)} \Psi^{(q)}(s_q) \Psi^{(q)}(s_q)^\top b_{q k} \dd s_q \\
+    &\mkern-72mu = \Psi(\cdot)^{(p) \top} \mathbf{C}^{(p) \top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right) \\
+    &\mkern-36mu \sum_{q = 1}^P \mathbf{C}^{(q)} \int_{\TT{q}} \Psi^{(q)}(s_q) \Psi(s_q)^{(q) \top} \dd s_q b_{q k} \\
+    &\mkern-72mu = \Psi(\cdot)^{(p) \top} \mathbf{C}^{(p) \top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right) \\ 
+    &\mkern-36mu \sum_{q = 1}^P \mathbf{C}^{(q)} \mathbf{W}^{(q)} b_{q k}. \\
+\end{align*}
+This equation is true for all $p = 1, \cdots, P$, this can be rewritten with matrices as
+\begin{equation}
+    \Gamma \phi_k(\cdot) = \Psi(\cdot)^{\top} \mathbf{C}^{\top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right) \mathbf{C} \mathbf{W} b_{k}.
+\end{equation}
+From the eigenequation, we have that
+\begin{align*}
+    \Gamma \phi_k(\cdot) = \lambda_k \phi_k(\cdot) &\Longleftrightarrow \\
+    &\mkern-72mu \Psi(\cdot)^{\top} \mathbf{C}^{\top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right) \mathbf{C} \mathbf{W} b_{k} \\
+    &\mkern-36mu = \lambda_k \Psi(\cdot)^\top b_k.
+\end{align*}
+Since this equation must be true for all $t_p \in \TT{p}$, this imply the equation
+\begin{equation}\label{eq:eigen_decom}
+    \mathbf{C}^{\top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right) \mathbf{C} \mathbf{W} b_{k} = \lambda_k b_k.
+\end{equation}
+As the eigenfunctions are assumed to be normalized, $\normH{\phi_k}^2 = 1$. And so, $b_k^\top W b_k = 1$. Let $u_k = W^{1/2}b_k$. Then, from Equation \eqref{eq:eigen_decom}, we obtain
+\begin{align}\label{eq:eigen_cov_op}
+    \mathbf{A}^\top\mathbf{A} u_k &= N\lambda_k u_k \Longleftrightarrow \\
+    &\mkern-108mu \mathbf{W}^{1/2} \mathbf{C}^{\top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right) \mathbf{C} \mathbf{W}^{1/2} u_k \\ 
+    &= \lambda_k u_k.
+\end{align}
+From the eigendecomposition of the matrix $M$, we get
+\begin{equation}\label{eq:eigen_inner_prod}
+    \mathbf{M}v_k = l_k v_k \Longleftrightarrow \mathbf{A}\mathbf{A}^\top v_k = l_k v_k.
+\end{equation}
+The equations \eqref{eq:eigen_cov_op} and \eqref{eq:eigen_inner_prod} are eigenequations in the classical PCA case, with the duality $X^\top X$ and $XX^\top$. Following \cite{pagesMultipleFactorAnalysis2014,hardleAppliedMultivariateStatistical2019}, we find that, for $1 \leq k \leq K$,
+\begin{equation}
+    \lambda_k = l_k, \quad v_k = \frac{1}{\sqrt{l_k}}\mathbf{A} u_k \quad\text{and}\quad u_k = \frac{1}{\sqrt{l_k}} \mathbf{A}^\top v_k.
+\end{equation}
+And finally, to get the coefficient of the eigenfunctions, for $1 \leq k \leq K$,
+\begin{align}
+    b_k &= \mathbf{W}^{-1/2}u_k \\
+    &= \frac{1}{\sqrt{l_k}} \mathbf{C}^\top \left(\mathrm{I}_{\!N} - \Pi\mathbf{1}_{\!N}^\top\right) \text{diag}\{\sqrt{\pi_1}, \dots, \sqrt{\pi_N}\}v_k.
+\end{align}
+
+% section derivation_of_the_eigencomponents (end)

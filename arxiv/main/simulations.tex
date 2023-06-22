@@ -2,13 +2,13 @@
 \section{Empirical analysis} % (fold)
 \label{sec:empirical_analysis}
 
-Using simulated data, we compare the behavior of the estimation of the eigencomponents using the diagonalization of the covariance operator and the Gram matrix. The diagonalization of the covariance operator is performed using the methodology of \cite{happMultivariateFunctionalPrincipal2018a}. As this methodology is based on the expansion of each univariate feature into univariate principal components, we used univariate FPCA, if the curves are unidimensional, and the Functional Canonical Polyadic-Tensor Power Algorithm (FCP-TPA) for regularized tensor decomposition \citep{allenMultiwayFunctionalPrincipal2013a}, if the curves are two-dimensional. We choose the FCP-TPA as it is the one used by \cite{happMultivariateFunctionalPrincipal2018a} in their algorithm and implemented in their software \citep{happ-kurzObjectOrientedSoftwareFunctional2020}. Note that we could also use a two-dimensional basis expansion such as penalized tensor splines or discrete cosine transform, but we do not investigate this expansion here, as we do not want to prespecify a basis of functions.
+Using simulated data, we compare the estimation of the eigencomponents using the diagonalization of the covariance operator and the Gram matrix. The diagonalization of the covariance operator is performed using the methodology of \cite{happMultivariateFunctionalPrincipal2018a}. As this methodology is based on the expansion of each univariate feature into univariate principal components, we used univariate FPCA, if the curves are unidimensional, and the Functional Canonical Polyadic-Tensor Power Algorithm (FCP-TPA) for regularized tensor decomposition \citep{allenMultiwayFunctionalPrincipal2013a}, if the curves are two-dimensional. We choose the FCP-TPA as it is used by \cite{happMultivariateFunctionalPrincipal2018a} in their algorithm and implemented in their software \citep{happ-kurzObjectOrientedSoftwareFunctional2020}. Note that we could also use a two-dimensional basis expansion such as penalized tensor splines or discrete cosine transform, but we do not investigate these expansions here, as we do not want to prespecify a basis of functions.
 
 The results of the simulation are compared using computation times (CT), the integrated squared error (ISE) risk function for the multivariate eigenfunctions, the log-absolute error ($\log-$AE) risk function for the eigenvalues and the mean integreated squared error (MISE) risk function for the reconstructed data. Let $\phi_k$ be the true eigenfunction and $\widehat{\phi}_k$ the estimated eigenfunction defined on $\TT{}$. We then define the ISE as 
 \begin{equation}\label{eq:ise_eigenfunctions}
     \text{ISE}(\phi_k, \widehat{\phi}_k) = \normH{\phi_k - \widehat{\phi}_k}^2 = \sum_{p = 1}^P \int_{\TT{p}} \{\phi^{(p)}_k(t_p) - \widehat{\phi}^{(p)}_k(t_p)\}^2 \dd t_p, \quad k = 1, \dots, K.
 \end{equation}
-Let $\lambda = (\lambda_1, \dots, \lambda_K)$ be the vector of true eigenvalues and $\widehat{\lambda} = (\widehat{\lambda}_1, \dots, \widehat{\lambda}_K)$ be the vector of estimated eigenvalues. We then define the $\log-$AE as 
+Let $\lambda = \{\lambda_1, \dots, \lambda_K\}$ be the set of true eigenvalues and $\widehat{\lambda} = \{\widehat{\lambda}_1, \dots, \widehat{\lambda}_K\}$ be the set of estimated eigenvalues. We then define the $\log-$AE as 
 \begin{equation}\label{eq:mse_eigenvalues}
     \log-\text{AE}(\lambda_k, \widehat{\lambda}_k) = \log(\lvert \lambda_k - \widehat{\lambda}_k\rvert), \quad k = 1, \dots, K.
 \end{equation}
@@ -57,12 +57,13 @@ where the scores $\mathfrak{c}_k$ are defined as for the Scenario~1. We simulate
 \subsection{Simulation results} % (fold)
 \label{sub:simulation_results}
 
-We compared MFPCA using the diagonalization of the covariance operator and using the diagonalization of the Gram matrix in terms of their computational time, estimation of eigenvalues, estimation of eigenfunctions, and reconstruction of curves. \add{We fix the number of retained components to be $5$ for each simulation of both Scenarios.} Each experiment is repeated $500$ times. The results are presented below.
+We compared MFPCA using the diagonalization of the covariance operator and using the diagonalization of the Gram matrix in terms of their CT, estimation of eigenvalues, estimation of eigenfunctions, and reconstruction of curves. We fix the number of retained components to be $5$ for each simulation of both scenarios. Each experiment is repeated $500$ times. The results are presented below.
 
 % Computation time ----------
 \begin{results}[Computational time.]
-To compare the computational time of the diagonalization of the covariance operator and the diagaonlisation of the Gram matrix, we measured the time it took for each method to complete the MFPCA for each simulated dataset.
-\add{Figure~\ref{fig:computation_time_mfd_1d} shows the kernel density estimation of the ratio of CT for each method across all sample sizes, number of sampling points and number of features. For Scenario 1, we found that the diagonalization of the covariance has a shorter CT compared to the diagonalization of the Gram matrix for most combination of sample sizes, number of functions and number of sampling points. It is faster to use the Gram matrix if the number of observations is low compared to the number of sampling points. Note that the number of features $P$ does not change the ratio of CT between the methods.}
+To compare the computational time of the diagonalization of the covariance operator and the diagonalization of the Gram matrix, we measured the time it took for each method to complete the MFPCA for each simulated dataset.
+Figure~\ref{fig:computation_time_mfd_1d} shows the kernel density estimates of the ratio of CT for each method across all sample sizes, number of sampling points and number of features. For Scenario 1, we found that the diagonalization of the covariance has a shorter CT compared to the diagonalization of the Gram matrix for most combinations of sample sizes, number of functions and number of sampling points. It is faster to use the Gram matrix if the number of observations is low compared to the number of sampling points.
+%Note that the number of features $P$ does not change the ratio of CT between the methods.
 \begin{figure}
      \centering
     \includegraphics[width=0.95\textwidth]{figures/scenario_1/computation_time.eps}

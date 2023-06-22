@@ -17,8 +17,9 @@
 \RequirePackage{amsthm,amsmath,amsfonts,amssymb}
 \RequirePackage[numbers]{natbib}
 %\RequirePackage[authoryear]{natbib}%% uncomment this for author-year citations
-%\RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}%% uncomment this for coloring bibliography citations and linked URLs
-%\RequirePackage{graphicx}%% uncomment this for including figures
+\RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}%% uncomment this for coloring bibliography citations and linked URLs
+\RequirePackage{graphicx}%% uncomment this for including figures
+\RequirePackage{mathtools}\mathtoolsset{showonlyrefs=true}
 
 \startlocaldefs
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -36,10 +37,9 @@
 %%                                          %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\theoremstyle{plain}
-%\newtheorem{???}{???}
-%\newtheorem*{???}{???}
-%\newtheorem{???}{???}[???]
-%\newtheorem{???}[???]{???}
+\newcounter{th}
+\newtheorem{theorem}[th]{Theorem}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                          %%
 %% For Assumption, Definition, Example,     %%
@@ -47,14 +47,82 @@
 %% use \theoremstyle{remark}                %%
 %%                                          %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\theoremstyle{remark}
-%\newtheorem{???}{???}
-%\newtheorem*{???}{???}
-%\newtheorem{???}{???}[???]
-%\newtheorem{???}[???]{???}
+\theoremstyle{remark}
+\newcounter{rem}
+\newtheorem{remark}[rem]{Remark}
+
+\newcounter{scenario}[section]
+\newenvironment{scenario}[1][]{\refstepcounter{scenario}\par\medskip
+   \noindent \textbf{Scenario~\thescenario. #1} \rmfamily}{\medskip}
+
+
+\newenvironment{results}[1][]{\noindent \textbf{#1} \rmfamily}{\medskip}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Please put your definitions here:        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Stats
+\newcommand{\EE}{\mathbb{E}} % Expectation
+\newcommand{\RR}{\mathbb{R}} % R
+\newcommand{\NN}{\mathbb{N}} % N
+\newcommand{\XX}{\mathcal{X}} % set X
+\newcommand{\dd}{{\rm d}}
+
+% Spaces
+\newcommand{\TT}[1]{\mathcal{T}_{#1}} % Domain definition space
+\newcommand{\sLp}[1]{\mathcal{L}^{2}\left(#1\right)} % L^p space
+\newcommand{\HH}{\mathcal{H}} % Product of L^p space
+\newcommand{\GG}{\mathcal{G}} % (L^p)^N space
+
+% Inner product and norm
+\newcommand{\pointt}{\mathbf{t}} % Indexed of multivariate curves
+\newcommand{\points}{\mathbf{s}} % Indexed of multivariate curves
+\newcommand{\inLp}[2]{\left\langle#1, #2\right\rangle} % Inner product in Lp
+\newcommand{\inR}[2]{\left(#1, #2\right)}
+\newcommand{\inRM}[2]{\left(#1, #2\right)_{\mathbf{M}}}
+\newcommand{\normLp}[1]{\left|\!\left|#1\right|\!\right|} % Norm in Lp
+\newcommand{\normR}[1]{\left(\!\left(#1\right)\!\right)} %
+\newcommand{\normRM}[1]{\left(\!\left(#1\right)\!\right)_{\mathbf{M}}} %
+\newcommand{\inH}[2]{\langle\!\langle#1, #2\rangle\!\rangle}
+\newcommand{\inHw}[2]{\langle\!\langle#1, #2\rangle\!\rangle_w}
+\newcommand{\inHG}[2]{\langle\!\langle#1, #2\rangle\!\rangle_\Gamma}
+\newcommand{\normH}[1]{\left|\!\left|\!\left|#1\right|\!\right|\!\right|}
+\newcommand{\normHG}[1]{\left|\!\left|\!\left|#1\right|\!\right|\!\right|_\Gamma}
+
+% Data/Process related
+\newcommand{\Xnp}{X_n^{(p)}} % Observation n, feature p
+\newcommand{\Xnq}{X_n^{(q)}} % Observation n, feature q
+\newcommand{\hatXnp}{\widehat{X}_n^{(p)}} % Reconstruction
+\newcommand{\Xp}[1]{X^{(#1)}} % Feature p
+\newcommand{\mup}[1]{\mu^{(#1)}} % Feature p
+\newcommand{\fp}{f^{(p)}} 
+\newcommand{\gp}{g^{(p)}}
+
+% Geometric related
+\newcommand{\pobs}[1]{\mathrm{#1}} % Point related to observations
+\newcommand{\CN}{\mathcal{C}_{\!N}} % Cloud of features
+\newcommand{\Gmu}{\pobs{G}_{\!\mu}} % Centre of gravity of C_N
+\newcommand{\OH}{\pobs{O}_{\!\mathcal{H}}} % Centre of H
+
+\newcommand{\pfea}[1]{\mathsf{#1}} % Point related to features
+\newcommand{\CP}{\mathcal{C}_{\!P}} % Cloud of observations
+\newcommand{\Gfea}{\pfea{G}_{\!\mu}} % Centre of gravity of C_P
+\newcommand{\OG}{\pfea{O}_{\!\RR}} % Centre of H
+
+% Declaration of math operator
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator{\bigO}{\mathcal{O}}
+
+% Function subset restriction  
+\newcommand\restr[2]{{ %
+  \left.\kern-\nulldelimiterspace  %
+  #1  %
+  \vphantom{\big|}  %
+  \right|_{#2}  %
+}}
 
 \endlocaldefs
 
@@ -66,9 +134,9 @@
 %% Enter the title of your article here     %%
 %%                                          %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{???}
+\title{On the use of the Gram matrix for multivariate functional principal components analysis}
 %\title{A sample article title with some additional note\thanksref{T1}}
-\runtitle{???}
+\runtitle{Gram matrix for MFPCA}
 %\thankstext{T1}{A sample of additional note to the title.}
 
 \begin{aug}
@@ -76,38 +144,58 @@
 %% ORCID can be inserted by command:         %%
 %% \orcid{0000-0000-0000-0000}               %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\author[A]{\fnms{???}~\snm{???}\ead[label=e1]{???@???}},
-\author[B]{\fnms{???}~\snm{???}\ead[label=e2]{???@???}}
+
+\author[A]{\fnms{Steven}~\snm{Golovkine}\ead[label=e1]{steven.golovkine@ul.ie}\orcid{0000-0002-5994-2671}},
+\author[B]{\fnms{Edward}~\snm{Gunning}\ead[label=e2]{edward.gunning@ul.ie}},
+\author[C]{\fnms{Andrew J.}~\snm{Simpkin}\ead[label=e3]{andrew.simpkin@nuigalway.ie}}
 \and
-\author[C]{\fnms{???}~\snm{???}\ead[label=e3]{???@???}}
+\author[D]{\fnms{Norma}~\snm{Bargary}\ead[label=e4]{norma.bargary@ul.ie}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Addresses                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\address[A]{???\printead[presep={\ }]{e1}.}
-\address[B]{???\printead[presep={\ }]{e2}.}
-\address[C]{???\printead[presep={\ }]{e3}.}
+\address[A]{MACSI, Department of Mathematics and Statistics, University of Limerick, Ireland\printead[presep={\ }]{e1}.}
+\address[B]{MACSI, Department of Mathematics and Statistics, University of Limerick, Ireland\printead[presep={\ }]{e2}.}
+\address[C]{School of Mathematical and Statistical Sciences, University of Galway, Ireland\printead[presep={\ }]{e3}.}
+\address[D]{MACSI, Department of Mathematics and Statistics, University of Limerick, Ireland\printead[presep={\ }]{e3}.}
 \end{aug}
 
 \begin{abstract}
-???.
+Dimension reduction is crucial in functional data analysis (FDA). The key tool to reduce the dimension of the data is functional principal component analysis. Existing approaches for functional principal component analysis usually involve the diagonalization of the covariance operator. With the increasing size and complexity of functional datasets, estimating the covariance operator has become more challenging. Therefore, there is a growing need for efficient methodologies to estimate the eigencomponents. Using the duality of the space of observations and the space of functional features, we propose to use the inner-product between the curves to estimate the eigenelements of multivariate and multidimensional functional datasets. The relationship between the eigenelements of the covariance operator and those of the inner-product matrix is established. We explore the application of these methodologies in several FDA settings and provide general guidance on their usability.
 \end{abstract}
 
 \begin{keyword}
-\kwd{???}
-\kwd{???}
+\kwd{Dimension Reduction}
+\kwd{Functional Data Analysis}
+\kwd{Functional Principal Components}
+\kwd{Multivariate Functional Data}
 \end{keyword}
 
 \end{frontmatter}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Main text entry area:
 
+\input{main/introduction}
+
+\input{main/model}
+
+\input{main/geometric}
+
+\input{main/fpca}
+
+\input{main/simulations}
+
+\input{main/discussion}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Single Appendix:                         %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{appendix}
-%\section*{???}%% if no title is needed, leave empty \section*{}.
-%\end{appendix}
+\begin{appendix}
+
+\input{appendix/geometric_appendix}
+
+\input{appendix/mfpca_appendix}
+
+\end{appendix}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Multiple Appendixes:                     %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -131,11 +219,9 @@
 %% should be provided in the                %%
 %% funding section.                         %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{funding}
-% The first author was supported by ...
-%
-% The second author was supported in part by ...
-%\end{funding}
+\begin{funding}
+S. Golovkine, A. J. Simpkin and N. Bargary are partially supported by Science Foundation Ireland under Grant No. 19/FFP/7002 and co-funded under the European Regional Development Fund. E. Gunning is supported in part Science Foundation Ireland (Grant No. 18/CRT/6049) and co-funded under the European Regional Development Fund.
+\end{funding}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Supplementary Material, including data   %%
@@ -169,8 +255,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% if your bibliography is in bibtex format, uncomment commands:
-%\bibliographystyle{imsart-number} % Style BST file (imsart-number.bst or imsart-nameyear.bst)
-%\bibliography{bibliography}       % Bibliography file (usually '*.bib')
+\bibliographystyle{imsart-number} % Style BST file (imsart-number.bst or imsart-nameyear.bst)
+\bibliography{biblio}       % Bibliography file (usually '*.bib')
 
 %% or include bibliography directly:
 % \begin{thebibliography}{}

@@ -35,15 +35,15 @@ For a given $p \in \{1, \dots, P\}$, the mean curve of the $p$th feature along t
 \begin{equation*}\label{eq:mu_estimation}
     \mup{p}(t_p) = \sum_{n = 1}^N \pi_n\Xnp(t_p), \quad t_p \in \TT{p}, \quad p \in \{1, \dots, P\}.
 \end{equation*}
-\add{The cross-covariance function of the $p$th and $q$th features along the $N$ observations can be computed as, for $p = 1, \dots, P$ and $q = 1, \dots, P$,
+The cross-covariance function of the $p$th and $q$th features along the $N$ observations can be computed as, for $p = 1, \dots, P$ and $q = 1, \dots, P$,
 \begin{equation}\label{eq:cov_estimation}
     C_{p, q}(s_p, t_q) = \sum_{n = 1}^N \pi_n\Xnp(s_p)\Xnq(t_q) - \mup{p}(s_p)\mup{q}(t_q), \quad s_p \in \TT{p}, \quad t_q \in \TT{q}.
-\end{equation}}
-\add{For the set $\mathcal{X}$, the inner-product matrix, also called the Gram matrix, $M$ is defined as a matrix of size $N \times N$ with entries
-\begin{equation}\label{eq:gram_mat}
-    M_{nn^\prime} = \sqrt{\pi_n \pi_{n^{\prime}}}\inH{X_n - \mu}{X_{n^\prime} - \mu}, \quad n, n^\prime = 1, \dots, N.
 \end{equation}
-This matrix is symmetric, positive definite, and interpretable as a proximity matrix, each entry being the distance between the weighted observations.}
+For the set $\mathcal{X}$, the inner-product matrix, also called the Gram matrix, $\mathbf{M}$ is defined as a matrix of size $N \times N$ with entries
+\begin{equation}\label{eq:gram_mat}
+    \mathbf{M}_{nn^\prime} = \sqrt{\pi_n \pi_{n^{\prime}}}\inH{X_n - \mu}{X_{n^\prime} - \mu}, \quad n, n^\prime = 1, \dots, N.
+\end{equation}
+This matrix is symmetric, positive definite, and interpretable as a proximity matrix, each entry being the distance between the weighted observations.
 
 
 \subsection{Basis decomposition} % (fold)
@@ -60,10 +60,10 @@ The $p$th feature of the mean function can be then expanded in the same basis as
 \begin{equation}
     \mup{p}(t_p) = \sum_{k = 1}^{K_p} \overline{c}_k^{(p)}\psi_k^{(p)}(t_p), \quad t_p \in \TT{p}.
 \end{equation}
-\add{Similarly, the covariance function of the $p$th and $q$th features is given by:
+Similarly, the covariance function of the $p$th and $q$th features is given by:
 \begin{equation}
     C_{p,q}(s_p, t_q) = \sum_{k = 1}^{K_p} \sum_{l = 1}^{K_q} \left(\sum_{n = 1}^N \pi_n c^{(p)}_{nk}c^{(q)}_{nl} - \overline{c}_k^{(p)}\overline{c}_l^{(q)}\right)\psi_k^{(p)}(s_p)\psi_l^{(q)}(t_q), \quad s_p \in \TT{p},\quad t_q \in \TT{q}.
-\end{equation}}
+\end{equation}
 These formulas can be written in matrix form as follows. For $\pointt \in \TT{}$, we have that $X(\pointt) = \mathbf{C}\Psi(\pointt)$ where $X(\pointt)$ is a $N \times P$ matrix with entries $\Xnp(t_p),~t_p \in \TT{p},~1 \leq p \leq P,~1 \leq n \leq N$,
 \begin{equation}
     \mathbf{C} = \begin{pmatrix}
@@ -95,13 +95,13 @@ Finally, we denote by $\mathbf{W}$ the matrix of inner products of the functions
     \mathbf{W}_{k, l}^{(p)} = \inLp{\psi_k^{(p)}}{\psi_l^{(p)}}, \quad 1 \leq k, l \leq K_p, \quad 1 \leq p \leq P.
 \end{equation}
 We remark that, if the basis $\Psi$ is an orthonormal basis, the matrix $\mathbf{W}$ is equal to the identity matrix of size $\sum_{p = 1}^P K_p$.
-\add{Using the expansion of the data into the basis of functions $\Psi$, the inner-product matrix $\mathbf{M}$ is written 
+Using the expansion of the data into the basis of functions $\Psi$, the inner-product matrix $\mathbf{M}$ is written 
 \begin{equation}
     \mathbf{M} = \text{diag}\{
         \sqrt{\pi_1}, \dots, \sqrt{\pi_N}\}\left(\mathrm{I}_{\!N} - \mathbf{1}_{\!N}\Pi^\top\right) \mathbf{C} \mathbf{W} \mathbf{C}^\top \left(\mathrm{I}_{\!N} - \Pi\mathbf{1}_{\!N}^\top\right)\text{diag}\{
         \sqrt{\pi_1}, \dots, \sqrt{\pi_N}\}
 \end{equation}
-where $\mathrm{I}_{\!N}$ is the identity matrix of size $N$ and $\mathbf{1}_{\!N}$ is a vector of $1$ of length $N$.}
+where $\mathrm{I}_{\!N}$ is the identity matrix of size $N$ and $\mathbf{1}_{\!N}$ is a vector of $1$ of length $N$.
 
 
 % section model (end)

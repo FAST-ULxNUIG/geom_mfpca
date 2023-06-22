@@ -1,0 +1,81 @@
+%!TEX root=../sts-template.tex
+\section{Derivation of the equalities} % (fold)
+\label{sec:derivation_of_the_inertia_of_the_clouds}
+
+Using the definition of adjoint operators, we must prove that, for all $f \in \HH$, $u \in \RR^N$,
+\begin{equation}\label{eq:adjoint_op}
+    \inRM{L_X(f)}{u} = \inHG{f}{L^\star_X(u)}.
+\end{equation}
+For all $f \in \HH, u \in \RR^N$, we have that
+\begin{align*}
+    \inRM{L_X(f)}{u} & \\
+    &\mkern-72mu = L_X(f)^\top \mathbf{M} u \\
+    &\mkern-72mu = \sum_{i = 1}^N\sum_{j = 1}^N \pi_i \sqrt{\pi_j} u_j \inH{X_i - \mu}{X_j - \mu} \inH{X_i - \mu}{f},
+\end{align*}
+\begin{align*}
+    \inHG{f}{L^\star_X(u)} & \\
+    &\mkern-72mu = \inH{\Gamma f}{L^\star_X(u)} \\
+    &\mkern-72mu = \sum_{p = 1}^P \int_{\TT{p}} (\Gamma f)^{(p)}(t_p) \times \\
+    &\mkern-36mu \left\{ \sum_{n = 1}^N \sqrt{\pi_n} u_n \left(\Xnp(t_p) - \mup{p}(t_p)\right) \right\} \dd t_p \\
+    &\mkern-72mu = \sum_{p = 1}^P \int_{\TT{p}} \left\{\sum_{q = 1}^P \int_{\TT{q}} C_{p,q}(t_p, s_q)f^{(q)}(s_q) \dd s_q\right\} \times \\
+    &\mkern-36mu \left\{ \sum_{j = 1}^N \sqrt{\pi_j} u_j \left(X_j^{(p)}(t_p) - \mup{p}(t_p)\right) \right\} \dd t_p \\
+    &\mkern-72mu = \sum_{i = 1}^N\sum_{j = 1}^N \pi_i \sqrt{\pi_j} u_j \inH{X_i - \mu}{X_j - \mu}\inH{X_i - \mu}{f}.
+\end{align*}
+
+So, the equality \eqref{eq:adjoint_op} is proved and we conclude that $L^\star_X$ is the adjoint operator of $L_X$.
+
+Next, we derive the total inertia of the cloud $\CP$ using the distance $d$. Recall that 
+\begin{equation}\label{eq:var_appendix}
+    \Var\{\Xp{p}(t_p)\} = \sum_{n = 1}^N \pi_n \{\Xnp(t_p)\}^2 - \{\mup{p}(t_p)\}^2
+\end{equation}
+where
+\begin{equation}
+     \mup{p}(t_p) = \sum_{n = 1}^N \pi_n\Xnp(t_p), \quad t_p \in \TT{p}.
+\end{equation}
+
+\begin{align*}
+    \sum_{n = 1}^N \pi_n d^2(\pobs{M}_n, \Gmu) & \\
+    &\mkern-72mu = \sum_{n = 1}^N \pi_n \sum_{p = 1}^P\normLp{\Xnp - \mu^{(p)}}^2\\
+    &\mkern-72mu = \sum_{p = 1}^P\left(\sum_{n = 1}^N \pi_n \normLp{\Xnp}^2 - \normLp{\mup{p}}^2\right) \\
+    &\mkern-72mu = \sum_{p = 1}^P \int_{\TT{p}}\Var{\Xp{p}(t_p)} \dd t_p, \\
+\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j d^2(\pobs{M}_i, \pobs{M}_j) \\
+    &\mkern-72mu = \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \sum_{p = 1}^P \normLp{\Xp{p}_i - \Xp{p}_j}^2\\
+    &\mkern-72mu = \sum_{p = 1}^P \left(2\sum_{i = 1}^N \pi_i\normLp{\Xp{p}_i}^2 - \right. \\
+    &\mkern-36mu \left.2\sum_{i = 1}^N \sum_{j = 1}^N \pi_i\pi_j\inLp{\Xp{p}_i}{\Xp{p}_j}\right) \\
+    &\mkern-72mu = 2\sum_{p = 1}^P \int_{\TT{p}}\Var{\Xp{p}(t_p)} \dd t_p.
+\end{align*}
+The equalities in Equation~\eqref{eq:inertia} are shown.
+
+
+We now derive the total inertia of the cloud $\CP$ using the distance $d_\Gamma$. We have that
+\begin{align*}
+   \sum_{n = 1}^N \pi_n d_\Gamma^2(\pobs{M}_n, \Gmu) & \\
+   &\mkern-72mu = \sum_{n = 1}^N \pi_n \inHG{X_n - \mu}{X_n - \mu} \\
+   &\mkern-72mu = \sum_{n = 1}^N \pi_n \normHG{X_n}^2 - \normHG{\mu}^2 \\
+   &\mkern-72mu = \sum_{p = 1}^P \left(\sum_{n = 1}^N \pi_n \normLp{\Xnp}_{\Gamma}^2 - \normLp{\mup{p}}_{\Gamma}^2\right) \\
+   &\mkern-72mu = \sum_{p = 1}^P \sum_{q = 1}^P \int_{\TT{p}} \int_{\TT{q}} C_{p,q}(t_p, s_q)^2 \dd s_q \dd t_p \\
+   &\mkern-72mu = \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p, \\
+   \frac{1}{2}\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j d_\Gamma^2(\pobs{M}_i, \pobs{M}_j) & \\
+   &\mkern-72mu = \sum_{i = 1}^N \pi_i \normHG{X_i}^2 - \sum_{i = 1}^N \sum_{j = 1}^N \pi_i\pi_j \inHG{X_i}{X_j} \\
+   &\mkern-72mu = \sum_{i = 1}^N \pi_i \normHG{X_i}^2 - \normHG{\mu}^2 \\
+   &\mkern-72mu = \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p. 
+\end{align*}
+The equalities in Equation~\eqref{eq:inertia_CP} are shown.
+
+Finally, we derive the inertia of the cloud $\CN$ using the distance $\mathsf{d}$. We have that
+\begin{align}
+\sum_{n = 1}^N \pi_n \mathsf{d}^2(\pfea{M}_n, \Gfea) & \\
+    &\mkern-72mu = \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \inH{X_i - \mu}{X_j - \mu} \times \\
+    &\mkern-36mu \inH{X_i - \mu}{X_j - \mu} \\
+    &\mkern-72mu = \sum_{p = 1}^P \sum_{q = 1}^P \int_{\TT{p}} \int_{\TT{q}} C_{p,q}(t_p, s_q)^2 \dd s_q \dd t_p \\
+    &\mkern-72mu = \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p,\\
+\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \mathsf{d}^2(\pfea{M}_i, \pfea{M}_j) & \\
+    &\mkern-72mu = \sum_{i = 1}^N \sum_{j = 1}^N \sum_{n = 1}^N \pi_i \pi_j \pi_n \inH{X_n - \mu}{X_i - X_j}\\
+    &\mkern-36mu \inH{X_n - \mu}{X_i - X_j} \\
+    &\mkern-72mu = 2\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \inH{X_i - \mu}{X_j - \mu} \\
+    &\mkern-36mu \inH{X_i - \mu}{X_j - \mu} \\
+    &\mkern-72mu = 2\sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p.
+\end{align}
+The equalities in Equation~\eqref{eq:inertia_CN} are shown.
+
+% section derivation_of_the_inertia_of_the_clouds (end)

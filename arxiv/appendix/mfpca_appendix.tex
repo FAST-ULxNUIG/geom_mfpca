@@ -19,9 +19,9 @@ Here and in the following, we note $[a]_p$ the $p$th entry of the vector $a$. St
 [\widetilde{X}^\top \mathbf{M} v_k]_p &= \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \sqrt{\pi_j} [v_{k}]_j \left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\}\inH{X_i - \mu}{X_j - \mu}\\
 &= \sum_{q = 1}^P \int_{\TT{q}} \sum_{i = 1}^N \pi_i\left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\} \left\{X_i^{(q)}(s_q) - \mu^{(q)}(s_q)\right\}  \\
 &\qquad\qquad \sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
-&= \sum_{q = 1}^P \int_{\TT{q}} C_{pq}(\cdot, s_q)\sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
+&= \sum_{q = 1}^P \int_{\TT{q}} C_{p,q}(\cdot, s_q)\sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
 &= \sum_{j = 1}^N \inH{C_{p \cdot}(\cdot, \cdot)}{\sqrt{\pi_j}[v_{k}]_j \left\{X_j - \mu\right\}} \\
-&= \Gamma\left(\sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \left\{X_j - \mu\right\} \right)^{\mkern-9mu(p)}\mkern-18mu(\cdot)
+&= \Gamma\left(\sum_{j = 1}^N \sqrt{\pi_j}[v_{k}]_j \left\{X_j - \mu\right\} \right)^{\mkern-9mu(p)}\mkern-18mu(\cdot),
 \end{align}
 and, starting from the right side of Equation~\eqref{eq:inner_prod_p},
 \begin{equation}\label{eq:inner_prod_p_right}
@@ -49,7 +49,7 @@ Concerning the estimation of the scores, for $n = 1, \dots, N$, for $k \geq 1$, 
 
 Concerning the expansion of the data into the basis of function $\Psi$, we write 
 \begin{equation}
-    M = \left(\text{diag}\{
+    \mathbf{M} = \left(\text{diag}\{
         \sqrt{\pi_1}, \dots, \sqrt{\pi_N}\}\left(\mathrm{I}_{\!N} - \mathbf{1}_{\!N}\Pi^\top\right) \mathbf{C}W^{1/2}\right)\left(\text{diag}\{
         \sqrt{\pi_1}, \dots, \sqrt{\pi_N}\}\left(\mathrm{I}_{\!N} - \mathbf{1}_{\!N}\Pi^\top\right) \mathbf{C}W^{1/2}\right)^\top.
 \end{equation}
@@ -76,7 +76,7 @@ We also assume that $\phi_1, \phi_2, \dots$ the eigenfunctions of the covariance
 
 We have, for $p = 1, \dots, P$,
 \begin{align*}
-    \left(\Gamma \phi_k\right)^{(p)}(\cdot) &= \sum_{q = 1}^P \int_{\TT{q}} C_{p q}(\cdot, s_q)\phi_k^{(q)}(s_q) \dd s_q \\
+    \left(\Gamma \phi_k\right)^{(p)}(\cdot) &= \sum_{q = 1}^P \int_{\TT{q}} C_{p, q}(\cdot, s_q)\phi_k^{(q)}(s_q) \dd s_q \\
     &= \sum_{q = 1}^P \int_{\TT{q}} \Psi(\cdot)^{(p) \top} \mathbf{C}^{(p) \top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right)\mathbf{C}^{(q)} \Psi^{(q)}(s_q) \Psi^{(q)}(s_q)^\top b_{q k} \dd s_q \\
     &= \Psi(\cdot)^{(p) \top} \mathbf{C}^{(p) \top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right)\sum_{q = 1}^P \mathbf{C}^{(q)} \int_{\TT{q}} \Psi^{(q)}(s_q) \Psi(s_q)^{(q) \top} \dd s_q b_{q k} \\
     &= \Psi(\cdot)^{(p) \top} \mathbf{C}^{(p) \top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right) \sum_{q = 1}^P \mathbf{C}^{(q)} \mathbf{W}^{(q)} b_{q k}. \\
