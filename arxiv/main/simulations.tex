@@ -70,7 +70,7 @@ Figure~\ref{fig:computation_time_mfd_1d} shows the kernel density estimates of t
     \caption{Ratio of computation time for Scenario 1 between the Gram matrix method and the covariance operator method. Each univariate component is defined on a one-dimensional domain. $N$ is the number of observations, $M$ is the number of sampling points per curve and $P$ is the number of features.}
     \label{fig:computation_time_mfd_1d}
 \end{figure}
-Figure~\ref{fig:computation_time_mfd_2d} shows the kernel density estimates of the ratio of CT for each method across all sample sizes and number of sampling points. For Scenario 2, we found that the diagonalization of the Gram matrix has a shorter CT compared to the diagonalization of the covariance operator across all sample sizes and number of sampling points.
+Figure~\ref{fig:computation_time_mfd_2d} shows the kernel density estimates of the ratio of CT for each method across all sample sizes and number of sampling points. For Scenario 2, we found that the diagonalization of the Gram matrix has a shorter CT compared to the diagonalization of the covariance operator across all sample sizes and number of sampling points. \textcolor{red}{This results is found because $M^2 \gg N$.}
 \begin{figure}
      \centering
     \includegraphics[width=0.95\textwidth]{figures/scenario_2/computation_time.eps}

@@ -23,6 +23,10 @@
 {\large Comments received for \emph{On the use of the Gram matrix for multivariate functional principal components analysis}}\\
 \end{center} 
 
+\textcolor{blue}{Note: Ed’s comments in blue.}
+
+\textcolor{red}{Note: Andrew’s comments in blue.}
+
 \vspace*{1cm}
 
 
@@ -44,6 +48,10 @@ The paper is lacking any application besides the simulation study. I would find 
 
 \textbf{Reply:} Ed proposed to use the same application as in \cite{shiTwoDimensionalFunctionalPrincipal2022}, the MNIST dataset. We may have some problems with the smoothness of the surfaces.
 
+\textcolor{blue}{That was an initial thought, since I know first-hand that their iterative approach was the only way they could compute FPCs for image-valued data but it is still slow. It would have been nice to show you can get the same FPCs, but faster! But if you go down to comment 4 from this reviewer (comment 4 and bullet point 4), MNIST is only really univariate functional data (observed on a 2-d domain). Are there examples of open-source datasets with curves and images?}
+
+\textcolor{red}{It would be good if possible to use an example with very smooth data to show a good response to Comment 2 below!}
+
 \bigskip
 
 \itshape
@@ -59,8 +67,12 @@ Your assumption of no error hardly seems realistic in practice. What are your re
 \textbf{Reply:}
 
 We can propose the 'smoothing-first-then-estimation' settings to handle the  case of densely sampled curves with errors. The sparse or irreguarlarly sampled case could be handled using the methodology of \cite{benkoCommonFunctionalPrincipal2009} for univariate curve. They fit a step function to each curve and consider some adjustments for the noise. This can be adapted for higher dimensional data.
-\bigskip
 
+\textcolor{blue}{In my opinion, showing that the method is applicable to different situations is sufficient. We cannot expect the method to be faster or more accurate in all situations, and we have been clear in where we think it is. Does a brief simulation for noisy/ sparse data go in supplementary material somewhere maybe, or just note that the implementation is available?}
+
+\textcolor{red}{I think this should suffice, and adding an example such as RISC where smoothing isn't required would be good to show the reviewer this is possible.}
+
+\bigskip
 
 \itshape
 
@@ -68,6 +80,19 @@ We can propose the 'smoothing-first-then-estimation' settings to handle the  cas
 \textbf{Comment \#3 :}
 
 As the scalar product was introduced without weights, the difference and correspondence between weights in the scalar product and rescaling of the data does not become very clear in Section 3.4. I would suggest to briefly introduce the weighted version of the scalar product and the correspondence of rescaling with the square-root of the weight (if not rescaling point-wise). E.g. your $w_p(t_p)$ in the second formula really corresponds to the point-wise version of the square root of the proposal in the first formula, as the first formula uses weighting and the second formula rescaling. Not sure how your own proposal fits in there – with the square-root it should be a rescaling rather than a weighting as stated, surely? Why do you propose the integrated squared norm of $C_p$ rather than the variance and how do they relate? You could also mention the option of weights already on p. 3, as it seems relevant in many applications.
+
+\textcolor{blue}{
+Yes, observation weights are denoted by $\pi_n$ and these weight observations, similar to using weights in e.g., weigthed averages or weighted least squares. However, I think what the reviewer is asking is in the formula
+$$\langle\langle f,g \rangle\rangle := \sum_{p=1}^P \langle f^{(p)},g^{(p)}\rangle = \sum_{p=1}^P \int_{\mathcal{T}_p}  f^{(p)}(t_p)g^{(p)}(t_p)dt_p, f,g \in \mathcal{H}$$
+could be generalised to show how the variable weights introduced in later sections factor into the scalar product. I think they just require something like the way Happ and Greven introduce their Equation (4) (s a generalisation of Equation (3), i.e.,
+$$\langle\langle f,g \rangle\rangle_w := \sum_{p=1}^P w_p \langle f^{(p)},g^{(p)}\rangle = \sum_{p=1}^P w_p \int_{\mathcal{T}_p}  f^{(p)}(t_p)g^{(p)}(t_p)dt_p, f,g \in \mathcal{H}$$
+Therefore, when we use the phrase "Happ and Greven (2018) propose to weight each component $p$...", it's clear how these weights are incoporated, that’s my understanding... Now, the comment regarding weights vs. rescaling is valid:
+\begin{enumerate}
+  \item Happ and Greven propose weights that enter their scalar product as above (hence they are exponentiated to $-1$ rather than $-1/2$).
+  \item My understanding is that in practice the weights in Chiou et al. (and Jacques and Preda, which maybe we should reference), are applied to normalise the data, pointwise before running mFPCA (hence they are exponentiated to $-1/2$ rather than $-1$).
+  \item This reviewer is assuming since our proposed weights are exponentiated to $-1/2$ rather than $-1$, that we propose to reweight observations by that constant rather than use those weights in the scalar product (i.e., similar to 1. rather than 2.).
+\end{enumerate}
+I'll need pen and paper to double check all this, but it really shouldnt be hard to verify and provide definite clarification in the paper, I'm happy to deal with this part of revision if you wish?}
 
 
 \medskip
@@ -106,7 +131,7 @@ In the simulation study, I have several questions regarding the choices made.
 
 \begin{itemize}
   \item The FCP-TPA is used because I did not want to use a pre-specify basis, and it is the only method Happ and Greven propose in that case. The other ones expands the surfaces in a basis first (probably tensor product B-splines). Of course, it will result to better results if we expand the data first in this basis, as it is how the data have been generated. The idea was to do as-if we did not know the data generating process.
-  The smoothing parameters for the FCP-TPA are the default ones. Otherwise, no smoothing parameters is involved. See the other paper for the comment on the early truncating resulting in a loss of information. 
+  The smoothing parameters for the FCP-TPA are the default ones. Otherwise, no smoothing parameters is involved. See the other paper for the comment on the early truncating resulting in a loss of information. \textcolor{blue}{Data are generated by Foruier but not measured with error. . . should it make that much of a difference to expand on a B-spline tensor product? I think I had made a note of the separability assumption being made in the initial comments, can revisit and look closer if needs be.}
   \item I propose to just remove the log part. I do not remember why I used the log here.
   \item The Fourier basis. To be add in the text.
   \item To show the benefit of using the Gram matrix in the case of multidimensional data, even if the data are univariate. We can add another settings with multivariate data with surfaces and curves.
@@ -145,11 +170,11 @@ In the simulation study, I have several questions regarding the choices made.
 \begin{itemize}
   \item I'll add something for 'feature'. $\mathcal{Z}_{n,.}$ is the $n$th row of the matrix $\mathcal{Z}$.
   \item I do agree with that. I'll talk about it with Valentin at CASI, I choose to do it like that to not overloaded the paper. I'll change that, and eventually add a discussion about the convergence of the estimator.
+  \item OK \textcolor{blue}{(oops – one of us should have spotted that similarity vs. distance one!)}
+  \item The question that two points in the space could be equal if the function are not equal is actually a good one. And I don't know how to answer to it. Some calculations may be necessary. \textcolor{blue}{I’ll levae these calculations to you first!}
   \item OK
-  \item The question that two points in the space could be equal if the function are not equal is actually a good one. And I don't know how to answer to it. Some calculations may be necessary. 
   \item OK
-  \item OK
-  \item Notation are already different $\boldsymbol{v}$ and $v$.
+  \item Notation are already different $\boldsymbol{v}$ and $v$. \textcolor{blue}{It is very subtle, though. Are there alternatives?}
   \item I'll probably remove the equally weighted part in the diagonalization of the covariance operator / inner product matrix sections.
   \item OK, I'll add in the appendix.
   \item We can add a comment on that, pointing to the other paper. In practice, it is not a great idea to retain $100\%$ of the variance for the univariate components as it will result to a large (even infinite) number of components. 
@@ -197,6 +222,9 @@ The simulation results are somewhat confusing. For the computational time, the a
 
 I don't think that the variance of the ratio is really larger when P is small. It might be because of some "strange" simulations or some artifacts in the ICHEC clusters.
 
+\textcolor{red}{seems to be a misunderstanding by the reviewer then}
+
+
 \bigskip
 
 \itshape
@@ -213,6 +241,8 @@ The covariance decomposition method is faster for most of the cases in Figure 5.
 \textbf{Reply:} 
 
 I'll do the calculation to check that. But it may also mean that, in practice, some part of the algorithm is better implemented than others. For example, diagonalisation of a matrix is highly optimized in Python, while I implemented my own version of the inner-product matrix...
+
+\textcolor{red}{could add to the discussion to give several reasons for efficiency}
 
 \bigskip
 
@@ -248,6 +278,9 @@ In Figure 7 and Figure 9, the performance of the two methods are pretty much the
 
 The conclusion that the Gram matrix is better suited for surfaces is mostly due to Figure 12, not Figure 8 and 10. The reconstruction is better in that case. 
 But I agree that other results, eigenfunctions and eigenvalues, may need more explanation. 
+
+\textcolor{red}{seems fair Steven - clearly pointing to Fig12 and adding more context to comparisons of eigenvalues and functions. }
+
 
 \bibliographystyle{apalike}
 \bibliography{ref_short} 
