@@ -6,7 +6,7 @@
 \usepackage{mathtools}
 \mathtoolsset{showonlyrefs}
 
-
+\usepackage[normalem]{ulem}
 
 \setlength{\textwidth}{16cm}
 \setlength{\textheight}{24cm}
@@ -148,13 +148,13 @@ In the simulation study, I have several questions regarding the choices made.
 \textbf{Smaller comment:}
 
 \begin{itemize}
-  \item  Please introduce any notation and names you use, even if also used by one of the papers you cite. For example, ‘feature’ middle of p. 3. What is $\mathcal{Z}_{n,.}$ in 4.1?
-  \item Your notation should distinguish between theoretical and empirical quantities, i.e. their estimators. For example $\mu^{(p)}$ or $C_{p,q}$ on p. 3 are used for both.
-  \item distance should be similarity, last line of p. 3. diag would be clearer as blockdiag, p. 4 ff.
+  \item  \sout{Please introduce any notation and names you use, even if also used by one of the papers you cite. For example, ‘feature’ middle of p. 3. What is $\mathcal{Z}_{n,.}$ in 4.1?}
+  \item \sout{Your notation should distinguish between theoretical and empirical quantities, i.e. their estimators. For example $\mu^{(p)}$ or $C_{p,q}$ on p. 3 are used for both.}
+  \item \sout{distance should be similarity, last line of p. 3. diag would be clearer as blockdiag, p. 4 ff.}
   \item The distinction between $f$ and $M_f$ could be clearer (p. 6 ff). Can it be that $M_f = M_g$ for $f \neq g$?
-  \item The discussion of (9) and (10) could more clearly point out where quantities in (10) are the p-th element of the corresponding quantities in (9) ($\mu$ and $c_k$) and where they aren't ($\phi_k$ vs. $\varphi_k$) as the relationship can otherwise be confusing.
-  \item In 4.1, I believe it should be “For a feature $X(p)$, the eigenfunctions and eigenvectors are computed using [not as] a matrix decomposition of the estimated covariance ...” as you will need to do a rescaling of eigenvectors to ensure orthonormality with respect to the functional not vector inner product, correct?
-  \item On p. 9, $v_k$ is used for the eigenvectors of both $Z$ and $M$, please change one notation.
+  \item \sout{The discussion of (9) and (10) could more clearly point out where quantities in (10) are the p-th element of the corresponding quantities in (9) ($\mu$ and $c_k$) and where they aren't ($\phi_k$ vs. $\varphi_k$) as the relationship can otherwise be confusing.}
+  \item \sout{In 4.1, I believe it should be “For a feature $X(p)$, the eigenfunctions and eigenvectors are computed using [not as] a matrix decomposition of the estimated covariance ...” as you will need to do a rescaling of eigenvectors to ensure orthonormality with respect to the functional not vector inner product, correct?}
+  \item \sout{On p. 9, $v_k$ is used for the eigenvectors of both $Z$ and $M$, please change one notation.}
   \item You seem to go a bit back and forth between the weighted and equally weighted observation case, could you make this a bit more consistent?
   \item For the statements of computation complexity in Section 4.3, I could easily see some, while others seemed less obvious. It would be good to have brief derivations in an appendix. Could you also state the resulting complexities when using SVD in Remark 5?
   \item In the discussion, you say “... whereas the decomposition of the covariance operator necessitates the specification of the percentage of variance accounted for by each individual univariate feature. Specifying the percentage of variance explained for each feature does not guarantee that we recover the nominal percentage of variance explained for the multivariate data.” An option that should be mentioned here as it is usually advisable is to retain $100\%$ of the possible univariate components and to only truncate the multivariate expansion, which does not cause this particular problem.
@@ -168,13 +168,13 @@ In the simulation study, I have several questions regarding the choices made.
 \textbf{Reply:}
 
 \begin{itemize}
-  \item I'll add something for 'feature'. $\mathcal{Z}_{n,.}$ is the $n$th row of the matrix $\mathcal{Z}$.
-  \item I do agree with that. I'll talk about it with Valentin at CASI, I choose to do it like that to not overloaded the paper. I'll change that, and eventually add a discussion about the convergence of the estimator.
-  \item OK \textcolor{blue}{(oops – one of us should have spotted that similarity vs. distance one!)}
+  \item \sout{I'll add something for 'feature'. $\mathcal{Z}_{n,.}$ is the $n$th row of the matrix $\mathcal{Z}$.}
+  \item \sout{I do agree with that. I talked about it with Valentin at CASI, I choose to do it like that to not overloaded the paper. I'll change that, and} eventually add a discussion about the convergence of the estimator.
+  \item \sout{OK \textcolor{blue}{(oops – one of us should have spotted that similarity vs. distance one!)}}
   \item The question that two points in the space could be equal if the function are not equal is actually a good one. And I don't know how to answer to it. Some calculations may be necessary. \textcolor{blue}{I’ll levae these calculations to you first!}
-  \item OK
-  \item OK
-  \item Notation are already different $\boldsymbol{v}$ and $v$. \textcolor{blue}{It is very subtle, though. Are there alternatives?}
+  \item \sout{OK}
+  \item \sout{OK}
+  \item \sout{Notation are already different $\boldsymbol{v}$ and $v$. \textcolor{blue}{It is very subtle, though. Are there alternatives?}}
   \item I'll probably remove the equally weighted part in the diagonalization of the covariance operator / inner product matrix sections.
   \item OK, I'll add in the appendix.
   \item We can add a comment on that, pointing to the other paper. In practice, it is not a great idea to retain $100\%$ of the variance for the univariate components as it will result to a large (even infinite) number of components. 
