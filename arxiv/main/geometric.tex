@@ -21,7 +21,11 @@ Using the linearity of the inner-product $\inH{\cdot}{\cdot}$ and vectors, the o
        \sum_{n = 1}^N \sqrt{\pi_n} u_n \{X_n^{(P)}(t_P) - \mup{P}(t_P)\}
     \end{pmatrix}.
 \end{equation}
-Then $L^\star_X$ is the adjoint operator of the linear operator $L_X$ (see Appendix~\ref{sec:derivation_of_the_inertia_of_the_clouds} for a proof). As an adjoint operator, $L^\star_X$ is a linear operator. The operator $\Gamma$ and the matrix $\mathbf{M}$ define geometries in $\HH$ and $\RR^N$, respectively, through
+
+\textcolor{red}{\begin{lemma}\label{lm:adjoint}
+    $L^\star_X$ is the adjoint operator of the linear operator $L_X$.
+\end{lemma}}
+\textcolor{red}{The proof of Lemma \ref{lm:adjoint} is given in Appendix~\ref{sec:derivation_of_the_inertia_of_the_clouds}}. As an adjoint operator, $L^\star_X$ is a linear operator. The operator $\Gamma$ and the matrix $\mathbf{M}$ define geometries in $\HH$ and $\RR^N$, respectively, through
 \begin{equation}
 \inHG{f}{g} = \inH{f}{\Gamma g},\quad f, g \in \HH, \quad\text{and}\quad \inRM{u}{v} = u^\top \mathbf{M} v,\quad u, v \in \RR^N.
 \end{equation}
