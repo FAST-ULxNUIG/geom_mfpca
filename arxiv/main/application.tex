@@ -24,7 +24,7 @@
 \end{figure}
 
 
-\textcolor{red}{A MFPCA is run on the data. Figure \ref{fig:curry_shoots_decomposition} shows examples of the shooting densities of Stephen Curry and their first five functional principal components.}
+\textcolor{red}{We estimate the principal components using the decomposition of the Gram matrix and the eigenanalysis of the covariance operator using the FCP-TPA for the univariate components. Figure \ref{fig:curry_shoots_decomposition} shows examples of the shooting densities of Stephen Curry and their first five functional principal components using both methods (Figure \ref{fig:curry_decomposition} for the Gram matrix decomposition and Figure \ref{fig:curry_decomposition_fcptpa} for the MFPCA with FCP-TPA. Remark that the functional principal components, as a representation of the deviation from the mean surface function, may take negative values, while density can only take positive values. For presentation purpose, the functional principal components have been normalized between $-1$ and $1$. Blue corresponds to negative values of the functional components, and thus contribute negatively to the density, whil Red corresponds to positive values of the functional components, and thus contribute positively to the density. The bluer the area in the image of the functional components, the smaller/negative the scores, whereas the redder areas correspond to positive values of the scores. The white areas correspond to scores that are closed to $0$, and basically have not impact on the density. The obtained functional components can be explained as different shooting styles.}
 \begin{figure}
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
@@ -43,5 +43,5 @@
     \caption{Decomposition for Stephen Curry.}
     \label{fig:curry_shoots_decomposition}
 \end{figure}
-
+\textcolor{red}{For the Gram matrix, the first two principal components and the fourth are related to the shoots under the basket, excluding the other areas. This account for around $95\%$ of the variance. The third and fifth components are related to the three-pointers. These results exhibits the shooting patterns of Stephen Curry. He mostly scores under the basket or behind the three-points line, but almost never in-between. The decomposition of the density of made shots is similar to the ones of attempted shots. We may advance an explanation for that: Stephen Curry does not have a ``weak'' spot, that is somewhere on the court where he shots a lot but does not score.}
 % section application (end)
