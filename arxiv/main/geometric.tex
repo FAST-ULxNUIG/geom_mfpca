@@ -96,7 +96,7 @@ The derivation of these equalities are given in Appendix \ref{sec:derivation_of_
 \subsection{Cloud of features} % (fold)
 \label{sub:cloud_of_features}
 
-Given an element $f \in \HH$, let $L_X(f) = \{\sqrt{\pi_n}\inH{X_n - \mu}{f},\,n = 1, \dots, N\}$ be the set of projections of $f$ onto the centered observations. We identify this set as the point $\pfea{M}_f$ in the space $\RR^N$. The space $\RR^N$ is referred to as the features' space. The cloud of points that represents the set of observations in $\RR^N$ is denoted by $\CN$. Let $\Gfea$ be the centre of gravity of the cloud $\CN$. In the space $\RR^N$, its coordinates are given by $L_X(\mu) = \{\sqrt{\mu}\inH{X_n - \mu}{\mu},\,n = 1, \dots, N\}$. If the data are centered, the origin $\OG$ of the axes in $\RR^N$ coincides with $\Gfea$.
+Given an element $f \in \HH$, let $L_X(f) = \{\sqrt{\pi_n}\inH{X_n - \mu}{f},\,n = 1, \dots, N\}$ be the set of projections of $f$ onto the centered observations. We identify this set as the point $\pfea{M}_f$ in the space $\RR^N$. The space $\RR^N$ is referred to as the features' space. The cloud of points that represents the set of observations in $\RR^N$ is denoted by $\CN$. Let $\Gfea$ be the centre of gravity of the cloud $\CN$. In the space $\RR^N$, its coordinates are given by $L_X(\mu) = \{\sqrt{\pi_n}\inH{X_n - \mu}{\mu},\,n = 1, \dots, N\}$. If the data are centered, the origin $\OG$ of the axes in $\RR^N$ coincides with $\Gfea$.
 
 \begin{figure}
     \centering
@@ -136,20 +136,21 @@ The derivation of these equalities are given in Appendix \ref{sec:derivation_of_
 For conducting an MFPCA, the features are usually assumed centred \citep{happMultivariateFunctionalPrincipal2018a}. \cite{protheroNewPerspectivesCentering2023} give a complete overview of centering in the context of FDA. Here, we comment on the geometric interpretation of centering in this context and compare with the multivariate scalar case. We focus on the usual centering in FDA, namely $\Xnp(t_p) - \mu^{(p)}(t_p),~t_p \in \TT{p}$ (refered as \emph{object centering} in \cite{protheroNewPerspectivesCentering2023}).
 The geometric interpretation of object centering is the same if we refer to the observation space $\HH$ or the feature space $\RR^N$. Within the space $\HH$ (resp. $\RR^N$), centering is interpreted as translating the centre of gravity of the clouds, $\Gmu$ (resp. $\Gfea$), to the origin point $\OH$ (resp. $\OG$) of the space $\HH$ (resp. $\RR^N$). This transformation, being a translation, does not change the shape of the cloud $\CP$ (resp. $\CN$). The interpretation is the same as for the centering in the multivariate scalar data context within their observation space.
 
-Concerning the standardization of the data, there are two main proposals in the literature. \cite{happMultivariateFunctionalPrincipal2018a} propose to weight each component $p$ by
+Concerning the standardization of the data, there are two main proposals in the literature. \cite{happMultivariateFunctionalPrincipal2018a} propose \textcolor{red}{to consider the weights}
 \begin{equation}
 w_p = \left(\int_{\TT{p}} \Var X^{(p)}(t_p) \dd t_p\right)^{-1}.
 \end{equation}
-This standardization is coherent with the derivation of the total inertia of the observation space using the usual distance in $\HH$. \cite{chiouMultivariateFunctionalPrincipal2014} propose to standardize each component $p$ of the data using the function
+This standardization is coherent with the derivation of the total inertia of the observation space using the usual distance in $\HH$. \cite{chiouMultivariateFunctionalPrincipal2014} and \textcolor{red}{\cite{jacquesModelbasedClusteringMultivariate2014a} propose the weighting function}
 \begin{equation}
-w_p(t_p) = \left(\Var X^{(p)}(t_p)\right)^{-1/2}, \quad t_p \in \TT{p}.
+w_p(t_p) = \left(\Var X^{(p)}(t_p)\right)^{\textcolor{red}{-1}}, \quad t_p \in \TT{p}.
 \end{equation}
 This corresponds to a standardization of the curves by the standard deviation of the component at each sampling point. The standard deviation curve is estimated as the square root of the diagonal of the covariance function estimates, obtained using a local linear smoother of the pooled data. For each functional feature $p$, this standardization mimics the standardization used for principal components analysis if the number of (scalar) features is infinite.
-Considering the duality diagram and the total inertia of the clouds with respect to the distance $d_\Gamma$, we propose to weight each component $p$ by
+Considering the duality diagram and the total inertia of the clouds with respect to the distance $d_\Gamma$, \textcolor{red}{we propose to use the weights}
 \begin{equation}
-    w_p = \left(\int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p\right)^{-1/2}.
+    w_p = \left(\int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p\right)^{\textcolor{red}{-1}}.
 \end{equation}
 The total inertia of $\CP$ (and $\CN$) will thus be equal to the number of components.
+\textcolor{red}{In every case, we may consider the rescaled elements $\widetilde{X}^{(p)} = w_p^{1/2}\{X^{(p)} - \mup{p}\}$ in place of the elements $X^{(p)}$.}
 
 % subsection on_centering_and_reducing (end)
 

@@ -79,21 +79,7 @@ We can propose the 'smoothing-first-then-estimation' settings to handle the  cas
 
 \textbf{Comment \#3 :}
 
-As the scalar product was introduced without weights, the difference and correspondence between weights in the scalar product and rescaling of the data does not become very clear in Section 3.4. I would suggest to briefly introduce the weighted version of the scalar product and the correspondence of rescaling with the square-root of the weight (if not rescaling point-wise). E.g. your $w_p(t_p)$ in the second formula really corresponds to the point-wise version of the square root of the proposal in the first formula, as the first formula uses weighting and the second formula rescaling. Not sure how your own proposal fits in there – with the square-root it should be a rescaling rather than a weighting as stated, surely? Why do you propose the integrated squared norm of $C_p$ rather than the variance and how do they relate? You could also mention the option of weights already on p. 3, as it seems relevant in many applications.
-
-\textcolor{blue}{
-Yes, observation weights are denoted by $\pi_n$ and these weight observations, similar to using weights in e.g., weigthed averages or weighted least squares. However, I think what the reviewer is asking is in the formula
-$$\langle\langle f,g \rangle\rangle := \sum_{p=1}^P \langle f^{(p)},g^{(p)}\rangle = \sum_{p=1}^P \int_{\mathcal{T}_p}  f^{(p)}(t_p)g^{(p)}(t_p)dt_p, f,g \in \mathcal{H}$$
-could be generalised to show how the variable weights introduced in later sections factor into the scalar product. I think they just require something like the way Happ and Greven introduce their Equation (4) (s a generalisation of Equation (3), i.e.,
-$$\langle\langle f,g \rangle\rangle_w := \sum_{p=1}^P w_p \langle f^{(p)},g^{(p)}\rangle = \sum_{p=1}^P w_p \int_{\mathcal{T}_p}  f^{(p)}(t_p)g^{(p)}(t_p)dt_p, f,g \in \mathcal{H}$$
-Therefore, when we use the phrase "Happ and Greven (2018) propose to weight each component $p$...", it's clear how these weights are incoporated, that’s my understanding... Now, the comment regarding weights vs. rescaling is valid:
-\begin{enumerate}
-  \item Happ and Greven propose weights that enter their scalar product as above (hence they are exponentiated to $-1$ rather than $-1/2$).
-  \item My understanding is that in practice the weights in Chiou et al. (and Jacques and Preda, which maybe we should reference), are applied to normalise the data, pointwise before running mFPCA (hence they are exponentiated to $-1/2$ rather than $-1$).
-  \item This reviewer is assuming since our proposed weights are exponentiated to $-1/2$ rather than $-1$, that we propose to reweight observations by that constant rather than use those weights in the scalar product (i.e., similar to 1. rather than 2.).
-\end{enumerate}
-I'll need pen and paper to double check all this, but it really shouldnt be hard to verify and provide definite clarification in the paper, I'm happy to deal with this part of revision if you wish?}
-
+\sout{As the scalar product was introduced without weights, the difference and correspondence between weights in the scalar product and rescaling of the data does not become very clear in Section 3.4. I would suggest to briefly introduce the weighted version of the scalar product and the correspondence of rescaling with the square-root of the weight (if not rescaling point-wise). E.g. your $w_p(t_p)$ in the second formula really corresponds to the point-wise version of the square root of the proposal in the first formula, as the first formula uses weighting and the second formula rescaling. Not sure how your own proposal fits in there – with the square-root it should be a rescaling rather than a weighting as stated, surely? Why do you propose the integrated squared norm of $C_p$ rather than the variance and how do they relate? You could also mention the option of weights already on p. 3, as it seems relevant in many applications.}
 
 \medskip
 
@@ -101,9 +87,23 @@ I'll need pen and paper to double check all this, but it really shouldnt be hard
 
 \textbf{Reply:}
 
-I am actually not sure to understand this comment. The weights introduced in Section 2 are not the same as the ones that we talked about in Section 3.4. The first ones weight the rows of the matrix, given more or less weight to the observations (that would be a choice in some study), while the other ones weight the columns, making sure that all the features have roughly the same variance. Our proposal is derived from the total inertia of the clouds, so I would suggest to modify this part much. 
+\sout{I am actually not sure to understand this comment. The weights introduced in Section 2 are not the same as the ones that we talked about in Section 3.4. The first ones weight the rows of the matrix, given more or less weight to the observations (that would be a choice in some study), while the other ones weight the columns, making sure that all the features have roughly the same variance. Our proposal is derived from the total inertia of the clouds, so I would suggest to modify this part much.
+What do you think about it?}
 
-What do you think about it?
+\textcolor{blue}{
+\sout{Yes, observation weights are denoted by $\pi_n$ and these weight observations, similar to using weights in e.g., weigthed averages or weighted least squares. However, I think what the reviewer is asking is in the formula}
+$$\langle\langle f,g \rangle\rangle := \sum_{p=1}^P \langle f^{(p)},g^{(p)}\rangle = \sum_{p=1}^P \int_{\mathcal{T}_p}  f^{(p)}(t_p)g^{(p)}(t_p)dt_p, f,g \in \mathcal{H}$$
+\sout{could be generalised to show how the variable weights introduced in later sections factor into the scalar product. I think they just require something like the way Happ and Greven introduce their Equation (4) (s a generalisation of Equation (3), i.e.,}
+$$\langle\langle f,g \rangle\rangle_w := \sum_{p=1}^P w_p \langle f^{(p)},g^{(p)}\rangle = \sum_{p=1}^P w_p \int_{\mathcal{T}_p}  f^{(p)}(t_p)g^{(p)}(t_p)dt_p, f,g \in \mathcal{H}$$
+\sout{Therefore, when we use the phrase "Happ and Greven (2018) propose to weight each component $p$...", it's clear how these weights are incoporated, that’s my understanding... Now, the comment regarding weights vs. rescaling is valid:}
+\begin{enumerate}
+  \item \sout{Happ and Greven propose weights that enter their scalar product as above (hence they are exponentiated to $-1$ rather than $-1/2$).}
+  \item \sout{My understanding is that in practice the weights in Chiou et al. (and Jacques and Preda, which maybe we should reference), are applied to normalise the data, pointwise before running mFPCA (hence they are exponentiated to $-1/2$ rather than $-1$).}
+  \item \sout{This reviewer is assuming since our proposed weights are exponentiated to $-1/2$ rather than $-1$, that we propose to reweight observations by that constant rather than use those weights in the scalar product (i.e., similar to 1. rather than 2.).}
+\end{enumerate}
+\sout{I'll need pen and paper to double check all this, but it really shouldnt be hard to verify and provide definite clarification in the paper, I'm happy to deal with this part of revision if you wish?}}
+
+
 
 \bigskip
 
