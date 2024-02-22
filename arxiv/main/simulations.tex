@@ -2,15 +2,16 @@
 \section{Empirical analysis} % (fold)
 \label{sec:empirical_analysis}
 
+\textcolor{red}{I propose to change most of this section. We based our simulations on \cite{happMultivariateFunctionalPrincipal2018a}, Settings 3 (bivariate functional data on different dimensional domains, images and functions). 1. Densely observed - with and without noise. 2. Sparsely observed - Medium and High.}
 Using simulated data, we compare the estimation of the eigencomponents using the diagonalization of the covariance operator and the Gram matrix. The diagonalization of the covariance operator is performed using the methodology of \cite{happMultivariateFunctionalPrincipal2018a}. As this methodology is based on the expansion of each univariate feature into univariate principal components, we used univariate FPCA, if the curves are unidimensional, and the Functional Canonical Polyadic-Tensor Power Algorithm (FCP-TPA) for regularized tensor decomposition \citep{allenMultiwayFunctionalPrincipal2013a}, if the curves are two-dimensional. We choose the FCP-TPA as it is used by \cite{happMultivariateFunctionalPrincipal2018a} in their algorithm and implemented in their software \citep{happ-kurzObjectOrientedSoftwareFunctional2020}. Note that we could also use a two-dimensional basis expansion such as penalized tensor splines or discrete cosine transform, but we do not investigate these expansions here, as we do not want to prespecify a basis of functions.
 
-The results of the simulation are compared using computation times (CT), the integrated squared error (ISE) risk function for the multivariate eigenfunctions, the log-absolute error ($\log-$AE) risk function for the eigenvalues and the mean integreated squared error (MISE) risk function for the reconstructed data. Let $\phi_k$ be the true eigenfunction and $\widehat{\phi}_k$ the estimated eigenfunction defined on $\TT{}$. We then define the ISE as 
+The results of the simulation are compared using computation times (CT), the integrated squared error (ISE) risk function for the multivariate eigenfunctions, the \textcolor{red}{relative squared error (RSE)} risk function for the eigenvalues and the mean integreated squared error (MISE) risk function for the reconstructed data. Let $\phi_k$ be the true eigenfunction and $\widehat{\phi}_k$ the estimated eigenfunction defined on $\TT{}$. We then define the ISE as 
 \begin{equation}\label{eq:ise_eigenfunctions}
     \text{ISE}(\phi_k, \widehat{\phi}_k) = \normH{\phi_k - \widehat{\phi}_k}^2 = \sum_{p = 1}^P \int_{\TT{p}} \{\phi^{(p)}_k(t_p) - \widehat{\phi}^{(p)}_k(t_p)\}^2 \dd t_p, \quad k = 1, \dots, K.
 \end{equation}
-Let $\lambda = \{\lambda_1, \dots, \lambda_K\}$ be the set of true eigenvalues and $\widehat{\lambda} = \{\widehat{\lambda}_1, \dots, \widehat{\lambda}_K\}$ be the set of estimated eigenvalues. We then define the $\log-$AE as 
+Let $\lambda = \{\lambda_1, \dots, \lambda_K\}$ be the set of true eigenvalues and $\widehat{\lambda} = \{\widehat{\lambda}_1, \dots, \widehat{\lambda}_K\}$ be the set of estimated eigenvalues. We then define the RSE as 
 \begin{equation}\label{eq:mse_eigenvalues}
-    \log-\text{AE}(\lambda_k, \widehat{\lambda}_k) = \log(\lvert \lambda_k - \widehat{\lambda}_k\rvert), \quad k = 1, \dots, K.
+    \textcolor{red}{\text{RSE}(\lambda_k, \widehat{\lambda}_k) = \left(\lambda_k - \widehat{\lambda}_k\right)^2 / \lambda_k^2, \quad k = 1, \dots, K.}
 \end{equation}
 Let $\mathcal{X}$ be the set of true data and $\widehat{\mathcal{X}}$ be the set of reconstructed data. We define the MISE of the reconstructed data as
 \begin{equation}\label{eq:mise_reconstructed_data}
@@ -18,7 +19,7 @@ Let $\mathcal{X}$ be the set of true data and $\widehat{\mathcal{X}}$ be the set
 \end{equation}
 Each integral is approximated by the trapezoidal rule with an equidistant grid. We let $\widehat{\phi}$, $\widehat{\lambda}$ and $\widehat{\mathcal{X}}$ be the estimators obtained using the Gram matrix and $\widetilde{\phi}$, $\widetilde{\lambda}$ and $\widetilde{\mathcal{X}}$ the estimators obtained using the covariance operator. For each simulation, we compute the ratios
 \begin{equation}
-    \frac{\text{ISE}(\phi_k, \widehat{\phi}_k)}{\text{ISE}(\phi_k, \widetilde{\phi}_k)}, \quad \frac{\log -\text{AE}(\lambda_k, \widehat{\lambda}_k)}{\log-\text{AE}(\lambda_k, \widetilde{\lambda}_k)},\quad k = 1, \dots, K, \quad\text{and}\quad \frac{\text{MISE}(\mathcal{X}, \widehat{\mathcal{X}})}{\text{MISE}(\mathcal{X}, \widetilde{\mathcal{X}})},
+    \frac{\text{ISE}(\phi_k, \widehat{\phi}_k)}{\text{ISE}(\phi_k, \widetilde{\phi}_k)}, \quad \textcolor{red}{\frac{\text{RSE}(\lambda_k, \widehat{\lambda}_k)}{\text{RSE}(\lambda_k, \widetilde{\lambda}_k)},\quad k = 1, \dots, K,} \quad\text{and}\quad \frac{\text{MISE}(\mathcal{X}, \widehat{\mathcal{X}})}{\text{MISE}(\mathcal{X}, \widetilde{\mathcal{X}})},
 \end{equation}
 and compare them to $1$.
 
