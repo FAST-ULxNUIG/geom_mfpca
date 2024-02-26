@@ -58,7 +58,7 @@ The paper is lacking any application besides the simulation study. I would find 
 
 \textbf{Comment \#2 :}
 
-Your assumption of no error hardly seems realistic in practice. What are your recommendations in practice? Pre-smoothing can be an option, but also induces error that is later not taken into account, and can have problems in not so dense case. It seems that in a setting with error, covariance smoothing based options may have an advantage and it would be good to discuss this more thoroughly and include a corresponding setting in the simulations.
+\sout{Your assumption of no error hardly seems realistic in practice. What are your recommendations in practice? Pre-smoothing can be an option, but also induces error that is later not taken into account, and can have problems in not so dense case. It seems that in a setting with error, covariance smoothing based options may have an advantage and it would be good to discuss this more thoroughly and include a corresponding setting in the simulations.}
 
 \medskip
 
@@ -66,11 +66,11 @@ Your assumption of no error hardly seems realistic in practice. What are your re
 
 \textbf{Reply:}
 
-We can propose the 'smoothing-first-then-estimation' settings to handle the  case of densely sampled curves with errors. The sparse or irreguarlarly sampled case could be handled using the methodology of \cite{benkoCommonFunctionalPrincipal2009} for univariate curve. They fit a step function to each curve and consider some adjustments for the noise. This can be adapted for higher dimensional data.
+\sout{We can propose the 'smoothing-first-then-estimation' settings to handle the  case of densely sampled curves with errors. The sparse or irreguarlarly sampled case could be handled using the methodology of \cite{benkoCommonFunctionalPrincipal2009} for univariate curve. They fit a step function to each curve and consider some adjustments for the noise. This can be adapted for higher dimensional data.}
 
-\textcolor{blue}{In my opinion, showing that the method is applicable to different situations is sufficient. We cannot expect the method to be faster or more accurate in all situations, and we have been clear in where we think it is. Does a brief simulation for noisy/ sparse data go in supplementary material somewhere maybe, or just note that the implementation is available?}
+\textcolor{blue}{\sout{In my opinion, showing that the method is applicable to different situations is sufficient. We cannot expect the method to be faster or more accurate in all situations, and we have been clear in where we think it is. Does a brief simulation for noisy/ sparse data go in supplementary material somewhere maybe, or just note that the implementation is available?}}
 
-\textcolor{red}{I think this should suffice, and adding an example such as RISC where smoothing isn't required would be good to show the reviewer this is possible.}
+\textcolor{red}{\sout{I think this should suffice, and adding an example such as RISC where smoothing isn't required would be good to show the reviewer this is possible.}}
 
 \bigskip
 
@@ -117,7 +117,7 @@ In the simulation study, I have several questions regarding the choices made.
 \begin{itemize}
   \item You do not seem to give sufficient detail to judge whether your comparison to Happ \& Greven (2018) is fair. Not sure whether it is sufficient to use the FCP-TPA (Allen, 2013) option, as this seems to assume some separability (?) that may or may not be warranted, it would be better to also include another sensible basis choice such as tensor product B-splines. Right now it is hard to judge whether worse results in the second scenario are due to the image setting or this particular choice, given similarly good results in the first scenario. Also, how did you chose the smoothing parameter and how many univariate basis functions did you retain, as truncating too early will lead to a loss of information?
   \item The log-AE in (12) can become negative if the absolute difference is below 1. This does not seem like a sensible error measure and the relative versions below non-sensical. Please check.
-  \item Which are the orthonormal basis functions chosen in Simulation scenario 1?
+  \item \sout{Which are the orthonormal basis functions chosen in Simulation scenario 1?}
   \item Why do you only consider a univariate functional (image-valued) setting in Scenario 2 if your method targets multivariate functional data, not say a second one-dimensional function as in Happ \& Greven?
   \item Figures have small axis labels etc. and are hard to read. Figures 7 and 9 are particularly bad. Figure 9 seems to be empty besides results for $p=2$ – is this due to incomplete results or choice of a bad depiction? You state that in the other setting besides $p=2$ the results of the two methods are ‘identical’ (which would indeed yield a boxplot not distinguishable from the 1-line), which is hardly exactly possible, please check. Sometimes the text does not seem to match the (later) figures, please check. There are likely too many figures and some parts may need to be delegated to an appendix.
 \end{itemize}
@@ -133,7 +133,7 @@ In the simulation study, I have several questions regarding the choices made.
   \item The FCP-TPA is used because I did not want to use a pre-specify basis, and it is the only method Happ and Greven propose in that case. The other ones expands the surfaces in a basis first (probably tensor product B-splines). Of course, it will result to better results if we expand the data first in this basis, as it is how the data have been generated. The idea was to do as-if we did not know the data generating process.
   The smoothing parameters for the FCP-TPA are the default ones. Otherwise, no smoothing parameters is involved. See the other paper for the comment on the early truncating resulting in a loss of information. \textcolor{blue}{Data are generated by Foruier but not measured with error. . . should it make that much of a difference to expand on a B-spline tensor product? I think I had made a note of the separability assumption being made in the initial comments, can revisit and look closer if needs be.}
   \item I propose to just remove the log part. I do not remember why I used the log here.
-  \item The Fourier basis. To be add in the text.
+  \item \sout{The Fourier basis. To be add in the text.}
   \item To show the benefit of using the Gram matrix in the case of multidimensional data, even if the data are univariate. We can add another settings with multivariate data with surfaces and curves.
   \item I'll check but the results are really identical. We may choose some settings to be in the main text, and let the complete figure for the appendix. 
 \end{itemize}

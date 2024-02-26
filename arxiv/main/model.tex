@@ -68,35 +68,32 @@ The observation weights $\pi_n$ and the feature weights $w_p$ are not the same a
 \end{equation}
 \textcolor{red}{with the $\varepsilon_{n, \mathsf{m}}$ being independent copies of a centered error random vector $\varepsilon \in \RR^{P}$ with finite variance.}
 
-\textcolor{red}{Let $\widehat{X}_n$ be a suitable nonparametric estimator of $X_n$ applied to the pairs $(Y_{n, \mathsf{m}}, \mathrm{T}_{n, \mathsf{m}})$, such as smoothing splines or local polynomials.}
+\textcolor{red}{Let $\widehat{X}_n$ be a suitable estimator of $X_n$ applied to the pairs $(Y_{n, \mathsf{m}}, \mathrm{T}_{n, \mathsf{m}})$, such as P-splines (e.g. \cite{eilersTwentyYearsPsplines2015}) or local polynomials (e.g. \cite{fanLocalPolynomialModelling1996}). We define the estimator of the mean function as}
 \begin{equation}
-    \textcolor{red}{\widehat{\mu}(\pointt) = \sum_{n = 1}^N \pi_n \widehat{X}_n(\pointt), \quad \pointt \in \TT{}}
+    \textcolor{red}{\widehat{\mu}(\pointt) = \sum_{n = 1}^N \pi_n \widehat{X}_n(\pointt), \quad \pointt \in \TT{}.}
 \end{equation}
-\textcolor{red}{Concerning the estimation of the covariance, we distingush the diagonal from the non-diagonal points.}
-\begin{equation}
-    \textcolor{red}{\widehat{C}(\points, \pointt) =  \sum_{n = 1}^N \pi_n \{\widehat{X}_n(\points) - \widehat{\mu}(\points)\}\{\widehat{X}_n(\pointt) - \widehat{\mu}(\pointt)\}^\top}
-\end{equation}
-\textcolor{red}{The estimation of the covariance function is given by}
+\textcolor{red}{Concerning the estimation of the covariance of the $p$th feature, we distinguish the diagonal from the non-diagonal points. The estimation of the covariance function of the non-diagonal points is defined as}
 \begin{equation}
     \textcolor{red}{\widehat{C}_{p, p}(s_p, t_p) = \sum_{n = 1}^N \pi_n\left(\{\hatXnp{p}(s_p) - \hatmup{p}(s_p)\}\{\hatXnp{p}(t_p) - \hatmup{p}(t_p)\}\right), \quad s_p \neq t_p, \quad s_p, t_p \in \TT{p}.}
 \end{equation}
-\textcolor{red}{The variance function $C_{p, p}(s_p, t_p)$ induces a singularity when estimating the covariance function $C_{p, p}(\cdot, \cdot)$ (\cite{yaoFunctionalDataAnalysis2005,zhangSparseDenseFunctional2016}).}
+\textcolor{red}{The variance function $C_{p, p}(s_p, t_p)$ induces a singularity when estimating the covariance function $C_{p, p}(\cdot, \cdot)$ (see \cite{yaoFunctionalDataAnalysis2005,zhangSparseDenseFunctional2016}). We define the estimator of the diagonal of the covariance as}
 \begin{equation}
     \textcolor{red}{\widehat{C}_{p, p}(s_p, s_p) = \sum_{n = 1}^N \pi_n\{\hatXnp{p}(s_p) - \hatmup{p}(s_p)\}^2 - \sigma_p^2, \quad s_p \in \TT{p}.}
 \end{equation}
-
-\textcolor{red}{Following \cite{benkoCommonFunctionalPrincipal2009,grithFunctionalPrincipalComponent2018},}
+\textcolor{red}{This singularity does not appear in the estimation of the cross-covariance function. We define the estimator of the cross-covariance function between the $p$th and $q$th features by}
+\begin{equation}
+    \textcolor{red}{\widehat{C}_{p, q}(s_p, t_q) = \sum_{n = 1}^N \pi_n\left(\{\hatXnp{p}(s_p) - \hatmup{p}(s_p)\}\{\hatXnp{q}(t_q) - \hatmup{q}(t_q)\}\right), \quad s_p \in \TT{p}, t_q \in \TT{q}.}
+\end{equation}
+\textcolor{red}{The estimator of the inner-product matrix can be defined by replacing the curves by their estimators. Following \cite{benkoCommonFunctionalPrincipal2009,grithFunctionalPrincipalComponent2018}, we define the estimator of the inner-product matrix as}
 \begin{equation}
     \textcolor{red}{\widehat{\mathbf{M}}_{nn^\prime} = \sqrt{\pi_n \pi_{n^{\prime}}}\sum_{p = 1}^P \int_{\TT{p}}\{\hatXnp{p}(t_p) - \widehat{\mu}^{(p)}(t_p)\}\{\widehat{X}^{(p)}_{n^\prime}(t_p) - \widehat{\mu}^{(p)}(t_p)\} \dd t_p, \quad n, n^\prime = 1, \dots, N.}
 \end{equation}
-\textcolor{red}{Similarly, a correction for the diagonal of the Gram matrix is given by}
+\textcolor{red}{As for the covariance estimation, the model implies a bias on the diagonal term of the inner-product matrix. A correction for the diagonal of the Gram matrix is given by}
 \begin{equation}
-    \textcolor{red}{\widehat{\mathbf{M}}_{nn} = \pi_n\sum_{p = 1}^P \int_{\TT{p}}\{\hatXnp{p}(t_p) - \widehat{\mu}^{(p)}(t_p)\}^2 \dd t_p - \sigma_p^2, \quad n = 1, \dots, N.}
+    \textcolor{red}{\widehat{\mathbf{M}}_{nn} = \pi_n\sum_{p = 1}^P \left\{\int_{\TT{p}}\{\hatXnp{p}(t_p) - \widehat{\mu}^{(p)}(t_p)\}^2 \dd t_p - \sigma_p^2 \right\}, \quad n = 1, \dots, N.}
 \end{equation}
+\textcolor{red}{For the estimation of the variances $\sigma_p^2$, we let the reader refers to \cite{hallVarianceEstimationNonparametric1990,hallAsymptoticallyOptimalDifferenceBased1990}.}
 
-\textcolor{red}{For the estimation of the variance, \cite{hallVarianceEstimationNonparametric1990,hallAsymptoticallyOptimalDifferenceBased1990}}
 % subsection inference (end)
-
-
 
 % section model (end)
