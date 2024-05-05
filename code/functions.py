@@ -116,6 +116,10 @@ def flip(
     data_reference: DenseFunctionalData
 ):
     """Flip data if they have opposite sign."""
+    if isinstance(data, BasisFunctionalData):
+        data = data.to_grid()
+    if isinstance(data_reference, BasisFunctionalData):
+        data_reference = data_reference.to_grid()
     norm_pos = np.linalg.norm(data.values + data_reference.values)
     norm_neg = np.linalg.norm(data.values - data_reference.values)
     
@@ -128,9 +132,11 @@ def flip_multi(
     data_reference: MultivariateFunctionalData
 ):
     """Flip data if they have opposite sign."""
+    n_obs = data.n_obs
+    
     data_list = data.n_functional * [None]
-    for idx in np.arange(data.n_functional):
-        data_list[idx] = flip(data[idx], data_reference[idx])
+    for idx, (d, d_ref) in enumerate(zip(data.data, data_reference[:n_obs].data)):
+        data_list[idx] = flip(d, d_ref)
     return MultivariateFunctionalData(data_list)
 
 
