@@ -111,6 +111,7 @@ def simulate_data(n_obs, noise_variance, seed):
         'eigenvalues': clusters_std[:, 0]
     }
 
+
 def flip(
     data: DenseFunctionalData,
     data_reference: DenseFunctionalData
@@ -120,21 +121,88 @@ def flip(
         data = data.to_grid()
     if isinstance(data_reference, BasisFunctionalData):
         data_reference = data_reference.to_grid()
-    norm_pos = np.linalg.norm(data.values + data_reference.values)
-    norm_neg = np.linalg.norm(data.values - data_reference.values)
     
-    sign = -1 if norm_pos < norm_neg else 1
-    return DenseFunctionalData(data.argvals, sign * data.values)
+    new_values = np.zeros_like(data.values)
+    for idx, (dd, dd_ref) in enumerate(zip(data, data_reference)):
+        norm_pos = np.linalg.norm(dd.values + dd_ref.values)
+        norm_neg = np.linalg.norm(dd.values - dd_ref.values)
+    
+        sign = -1 if norm_pos < norm_neg else 1
+        new_values[idx, :] = sign * dd.values.squeeze()
+    return DenseFunctionalData(data.argvals, new_values)
 
 
-def flip_multi(
+def flip_multivariate(
     data: MultivariateFunctionalData,
     data_reference: MultivariateFunctionalData
 ):
-    """Flip data if they have opposite sign."""
-    n_obs = data.n_obs
-    
-    data_list = data.n_functional * [None]
-    for idx, (d, d_ref) in enumerate(zip(data.data, data_reference[:n_obs].data)):
-        data_list[idx] = flip(d, d_ref)
-    return MultivariateFunctionalData(data_list)
+    """Flip data if they have opposite sign."""    
+    new_data = data.n_functional * [None]
+    for idx, (dd, dd_ref) in enumerate(zip(data.data, data_reference.data)):
+        new_data[idx] = flip(dd, dd_ref)
+    return MultivariateFunctionalData(new_data)
+
+
+def ISE(
+    data: MultivariateFunctionalData,
+    data_reference: MultivariateFunctionalData
+):
+    """Compute ISE between two univariate functional datasets.
+
+    The two datasets must have the same number of observations and the same
+    argvals.
+
+    Parameters
+    ----------
+    data: MultivariateFunctionalData
+        Estimated curves.
+    data_reference: MultivariateFunctionalData
+        True curves.
+
+    Returns
+    -------
+    np.NDArray[np.float_], shape=(n_obs,)
+        An array containing the ISE between curve
+
+    """
+    # Flip the data
+    new_data = flip_multivariate(data, data_reference)
+
+    results = np.zeros(new_data.n_obs)
+    for idx, (dd, dd_ref) in enumerate(zip(new_data, data_reference)):
+        temp = sum((ddd - ddd_ref).norm(squared=True) for ddd, ddd_ref in zip(dd.data, dd_ref.data))
+        results[idx] = temp
+    return results
+
+
+def MRSE(
+    data: MultivariateFunctionalData,
+    data_reference: MultivariateFunctionalData
+):
+    """Compute MRSE between two univariate functional datasets.
+
+    The two datasets must have the same number of observations and the same
+    argvals.
+
+    Parameters
+    ----------
+    data: MultivariateFunctionalData
+        Estimated curves.
+    data_reference: MultivariateFunctionalData
+        True curves.
+
+    Returns
+    -------
+    np.NDArray[np.float_], shape=(n_obs,)
+        An array containing the ISE between curve
+
+    """
+
+    results = np.zeros(data.n_obs)
+    for idx, (dd, dd_ref) in enumerate(zip(data, data_reference)):
+        norm_diff = [
+            (ddd - ddd_ref).norm(squared=True) / ddd_ref.norm(squared=True)
+            for ddd, ddd_ref in zip(dd.data, dd_ref.data)
+        ]
+        results[idx] = np.sum(norm_diff)
+    return np.mean(results)
