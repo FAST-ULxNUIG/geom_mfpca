@@ -20,13 +20,14 @@ from FDApy.simulation.karhunen import (
     _make_coef
 )
 from FDApy.simulation.simulation import (
-    _add_noise_univariate_data
+    _add_noise_univariate_data,
+    _sparsify_univariate_data
 )
 
 # Variables
 
 # Functions
-def simulate_data(n_obs, noise_variance, seed):
+def simulate_data(n_obs, noise_variance, percentages, seed):
     """Simulation function.
 
     Parameters
@@ -97,16 +98,29 @@ def simulate_data(n_obs, noise_variance, seed):
         for basis_univariate in basis.data
     ])
 
-    # Generate noise day
+    # Generate noise data
     data_noisy = MultivariateFunctionalData([
         _add_noise_univariate_data(
             data_univariate, noise_variance=noise_variance, rnorm=rng.normal
         ) for data_univariate in data.data
     ])
 
+    # Generate sparse data
+    epsilon = 0.1
+    data_sparse = MultivariateFunctionalData([
+        _sparsify_univariate_data(
+            data_univariate,
+            percentage=percentage,
+            epsilon=epsilon,
+            runif=rng.uniform,
+            rchoice=rng.choice
+        ) for (data_univariate, percentage) in zip(data.data, percentages)
+    ])
+
     return {
         'data': data,
         'data_noisy': data_noisy,
+        'data_sparse': data_sparse,
         'basis': basis,
         'eigenvalues': clusters_std[:, 0]
     }

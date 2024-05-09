@@ -36,6 +36,10 @@ parser.add_argument(
     help="Variance of the noise"
 )
 parser.add_argument(
+    "-percentages", "--percentages", nargs='+', type=float,
+    help="Percentages"
+)
+parser.add_argument(
     "-k", "--number_components_estimate", default=1,
     help="Number of components to estimate for the KL decomposition"
 )
@@ -46,21 +50,24 @@ NUM_CORES = multiprocessing.cpu_count()
 N_SIMU = int(args.number_simulation)
 N = int(args.number_observation)
 noise_variance = float(args.noise_variance)
+percentages = args.percentages
 n_components = int(args.number_components_estimate)
 
 # Functions
-def run_simulation(idx, n_obs, noise_variance, n_components, PATH):
+def run_simulation(idx, n_obs, noise_variance, percentages, n_components, PATH):
     """Run a simulation"""
     print(f'Simulation {idx}')
 
     simulation = simulate_data(
         n_obs=n_obs,
         noise_variance=noise_variance,
+        percentages=percentages,
         seed=idx
     )
 
     data = simulation['data']
     data_noisy = simulation['data_noisy']
+    data_sparse = simulation['data_sparse']
     eigenfunctions = simulation['basis']
     eigenvalues = simulation['eigenvalues']
 
@@ -213,7 +220,8 @@ if __name__ == "__main__":
 
     start = time.process_time()
     Parallel(n_jobs=NUM_CORES)(
-        delayed(run_simulation)(idx, N, noise_variance, n_components, PATH)
-        for idx in range(N_SIMU)
+        delayed(run_simulation)(
+            idx, N, noise_variance, percentages, n_components, PATH
+        ) for idx in range(N_SIMU)
     )
     print(f'{time.process_time() - start}')
