@@ -27,7 +27,7 @@ from FDApy.simulation.simulation import (
 # Variables
 
 # Functions
-def simulate_data(n_obs, noise_variance, percentages, seed):
+def simulate_data(n_obs, n_points, noise_variance, percentages, seed):
     """Simulation function.
 
     Parameters
@@ -50,8 +50,8 @@ def simulate_data(n_obs, noise_variance, percentages, seed):
 
     # Basis definition
     argvals = DenseArgvals({
-        'input_dim_0': np.linspace(0, 1, 101),
-        'input_dim_1': np.linspace(0, 0.5, 51),
+        'input_dim_0': np.linspace(0, 1, n_points[0]),
+        'input_dim_1': np.linspace(0, 0.5, n_points[1]),
     })
     basis_1 = Basis(
         name=['fourier', 'fourier'],
@@ -60,7 +60,7 @@ def simulate_data(n_obs, noise_variance, percentages, seed):
     )
     
     argvals = DenseArgvals({
-        'input_dim_0': np.linspace(-1, 1, 201)
+        'input_dim_0': np.linspace(-1, 1, n_points[2])
     })
     basis_2 = Basis(
         name='legendre',
@@ -157,6 +157,25 @@ def flip_multivariate(
     return MultivariateFunctionalData(new_data)
 
 
+def AE(data, data_reference):
+    """Compute AE between two eigenvalues sets.
+
+    Parameters
+    ----------
+    data: array
+        Estimated eigenvalues.
+    data_reference: array
+        True eigenvalues.
+
+    Returns
+    -------
+    np.NDArray[np.float_], shape=(n_obs,)
+        An array containing the ISE between curve
+
+    """
+    return (data_reference - data)**2 / data_reference**2
+
+
 def ISE(
     data: MultivariateFunctionalData,
     data_reference: MultivariateFunctionalData
@@ -184,7 +203,10 @@ def ISE(
 
     results = np.zeros(new_data.n_obs)
     for idx, (dd, dd_ref) in enumerate(zip(new_data, data_reference)):
-        temp = sum((ddd - ddd_ref).norm(squared=True) for ddd, ddd_ref in zip(dd.data, dd_ref.data))
+        temp = sum(
+            (ddd - ddd_ref).norm(squared=True)
+            for ddd, ddd_ref in zip(dd.data, dd_ref.data)
+        )
         results[idx] = temp
     return results
 
@@ -220,3 +242,4 @@ def MRSE(
         ]
         results[idx] = np.sum(norm_diff)
     return np.mean(results)
+

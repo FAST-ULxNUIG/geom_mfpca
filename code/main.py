@@ -28,8 +28,11 @@ parser.add_argument(
     help="Number of simulation"
 )
 parser.add_argument(
-    "-nobs", "--number_observation", default=10,
-    help="Number of observations"
+    "-nobs", "--number_observation", default=10, help="Number of points"
+)
+parser.add_argument(
+    "-npoints", "--number_points", nargs='+', type=int,
+    default=[101, 51, 201], help="Number of observations"
 )
 parser.add_argument(
     "-noise", "--noise_variance", default=0.25,
@@ -37,7 +40,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "-percentages", "--percentages", nargs='+', type=float,
-    help="Percentages"
+    default=[0.1, 0.8], help="Percentages"
 )
 parser.add_argument(
     "-k", "--number_components_estimate", default=1,
@@ -49,24 +52,27 @@ args = parser.parse_args()
 NUM_CORES = multiprocessing.cpu_count()
 N_SIMU = int(args.number_simulation)
 N = int(args.number_observation)
+n_points = args.number_points
 noise_variance = float(args.noise_variance)
 percentages = args.percentages
 n_components = int(args.number_components_estimate)
 
 # Functions
-def run_simulation(idx, n_obs, noise_variance, percentages, n_components, PATH):
+def run_simulation_no_noise(
+    idx, n_obs, n_points, noise_variance, percentages, n_components, PATH
+):
     """Run a simulation"""
     print(f'Simulation {idx}')
 
     simulation = simulate_data(
         n_obs=n_obs,
+        n_points=n_points,
         noise_variance=noise_variance,
         percentages=percentages,
         seed=idx
     )
 
     data = simulation['data']
-    data_noisy = simulation['data_noisy']
     data_sparse = simulation['data_sparse']
     eigenfunctions = simulation['basis']
     eigenvalues = simulation['eigenvalues']
@@ -124,7 +130,59 @@ def run_simulation(idx, n_obs, noise_variance, percentages, n_components, PATH):
     data_recons_psplines = mfpca_psplines.inverse_transform(scores_psplines)
     data_recons_gram = mfpca_gram.inverse_transform(scores_gram)
 
+    # Results
+    true_eigenvalues = eigenvalues[:n_components]
+    true_eigenfunctions = eigenfunctions[:n_components]
+    errors = {
+        # Eigenvalues
+        'AE_cov': AE(mfpca_covariance.eigenvalues, true_eigenvalues),
+        'AE_psplines': AE(mfpca_psplines.eigenvalues, true_eigenvalues),
+        'AE_gram': AE(mfpca_gram.eigenvalues, true_eigenvalues),
+        # Eigenfunctions
+        'ISE_cov': ISE(mfpca_covariance.eigenfunctions, true_eigenfunctions),
+        'ISE_psplines': ISE(mfpca_psplines.eigenfunctions, true_eigenfunctions),
+        'ISE_gram': ISE(mfpca_psplines.eigenfunctions, true_eigenfunctions),
+        # Curves reconstruction
+        'MRSE_cov': MRSE(data_recons_covariance, data),
+        'MRSE_psplines': MRSE(data_recons_psplines, data),
+        'MRSE_gram': MRSE(data_recons_gram, data)
+    }
+
     ##########################################################################
+    results = {
+        # Time
+        'time_covariance': time_covariance,
+        'time_psplines': time_psplines,
+        'time_gram': time_gram,
+        # Results
+        'errors': errors
+    }
+
+    NAME = f'{PATH}/simulation_{idx}.pkl'
+    with open(NAME, "wb") as f:
+        pickle.dump(results, f)
+
+    ##########################################################################
+
+def run_simulation_noise(
+    idx, n_obs, n_points, noise_variance, percentages, n_components, PATH
+):
+    """Run a simulation"""
+    print(f'Simulation {idx}')
+
+    simulation = simulate_data(
+        n_obs=n_obs,
+        n_points=n_points,
+        noise_variance=noise_variance,
+        percentages=percentages,
+        seed=idx
+    )
+
+    data = simulation['data']
+    data_noisy = simulation['data_noisy']
+    data_sparse = simulation['data_sparse']
+    eigenfunctions = simulation['basis']
+    eigenvalues = simulation['eigenvalues']
 
     ##########################################################################
     print(f"Run MFPCA for data with noise (simulation {idx})")
@@ -134,12 +192,14 @@ def run_simulation(idx, n_obs, noise_variance, percentages, n_components, PATH):
         {'method': 'FCPTPA', 'n_components': 20},
         {'method': 'UFPCA', 'n_components': 15}
     ]
-    mfpca_covariance_noise = MFPCA(
+    mfpca_covariance = MFPCA(
         n_components=n_components,
         method='covariance',
         univariate_expansions=univariate_expansions
     )
-    mfpca_covariance_noise.fit(data_noisy)
+    start = time.process_time()
+    mfpca_covariance.fit(data_noisy)
+    time_covariance = time.process_time() - start
 
 
     # Run MFPCA with PSplines
@@ -147,35 +207,57 @@ def run_simulation(idx, n_obs, noise_variance, percentages, n_components, PATH):
         {'method': 'PSplines', 'penalty': [1, 1]},
         {'method': 'PSplines', 'penalty': [1]}
     ]
-    mfpca_psplines_noise = MFPCA(
+    mfpca_psplines = MFPCA(
         n_components=n_components,
         method='covariance',
         univariate_expansions=univariate_expansions
     )
-    mfpca_psplines_noise.fit(data_noisy)
+    start = time.process_time()
+    mfpca_psplines.fit(data_noisy)
+    time_psplines = time.process_time() - start
 
 
     # Run MFPCA with Gram matrix
     mfpca_gram_noise = MFPCA(n_components=n_components, method='inner-product')
-    mfpca_gram_noise.fit(data_noisy)
+    start = time.process_time()
+    mfpca_gram.fit(data_noisy)
+    time_gram = time.process_time() - start
 
 
     # Estimate scores
-    scores_covariance_noise = mfpca_covariance_noise.transform(data_noisy)
-    scores_psplines_noise = mfpca_psplines_noise.transform(data_noisy)
-    scores_gram_noise = mfpca_gram_noise.transform(method='InnPro')
+    scores_covariance = mfpca_covariance.transform(data_noisy)
+    scores_psplines = mfpca_psplines.transform(data_noisy)
+    scores_gram = mfpca_gram.transform(method='InnPro')
 
 
     # Reconstructing the data
-    data_recons_covariance_noise = mfpca_covariance_noise.inverse_transform(
-        scores_covariance_noise
+    data_recons_covariance = mfpca_covariance.inverse_transform(
+        scores_covariance
     )
-    data_recons_psplines_noise = mfpca_psplines_noise.inverse_transform(
-        scores_psplines_noise
+    data_recons_psplines = mfpca_psplines.inverse_transform(
+        scores_psplines
     )
-    data_recons_gram_noise = mfpca_gram_noise.inverse_transform(
-        scores_gram_noise
+    data_recons_gram = mfpca_gram.inverse_transform(
+        scores_gram
     )
+
+    # Results
+    true_eigenvalues = eigenvalues[:n_components]
+    true_eigenfunctions = eigenfunctions[:n_components]
+    errors = {
+        # Eigenvalues
+        'AE_cov': AE(mfpca_covariance.eigenvalues, true_eigenvalues),
+        'AE_psplines': AE(mfpca_psplines.eigenvalues, true_eigenvalues),
+        'AE_gram': AE(mfpca_gram.eigenvalues, true_eigenvalues),
+        # Eigenfunctions
+        'ISE_cov': ISE(mfpca_covariance.eigenfunctions, true_eigenfunctions),
+        'ISE_psplines': ISE(mfpca_psplines.eigenfunctions, true_eigenfunctions),
+        'ISE_gram': ISE(mfpca_gram.eigenfunctions, true_eigenfunctions),
+        # Curves reconstruction
+        'MRSE_cov': MRSE(data_recons_covariance, data),
+        'MRSE_psplines': MRSE(data_recons_psplines, data),
+        'MRSE_gram': MRSE(data_recons_gram, data)
+    }
 
     ##########################################################################
 
@@ -184,24 +266,8 @@ def run_simulation(idx, n_obs, noise_variance, percentages, n_components, PATH):
         'time_covariance': time_covariance,
         'time_psplines': time_psplines,
         'time_gram': time_gram,
-        # Data
-        'data_true': data,
-        'eigenfunctions_true': eigenfunctions,
-        'eigenvalues_true': eigenvalues,
-        # Estimation data no noise
-        'mfpca_covariance': mfpca_covariance,
-        'mfpca_psplines': mfpca_psplines,
-        'mfpca_gram': mfpca_gram,
-        'data_recons_covariance': data_recons_covariance,
-        'data_recons_psplines': data_recons_psplines,
-        'data_recons_gram': data_recons_gram,
-        # Estimation data noise
-        'mfpca_covariance_noise': mfpca_covariance_noise,
-        'mfpca_psplines_noise': mfpca_psplines_noise,
-        'mfpca_gram_noise': mfpca_gram_noise,
-        'data_recons_covariance_noise': data_recons_covariance_noise,
-        'data_recons_psplines_noise': data_recons_psplines_noise,
-        'data_recons_gram_noise': data_recons_gram_noise
+        # Results
+        'errors': errors
     }
 
     NAME = f'{PATH}/simulation_{idx}.pkl'
@@ -218,10 +284,15 @@ if __name__ == "__main__":
 
     PATH = args.out_folder
 
+    POINTS = '-'.join(str(x) for x in n_points)
+    if not os.path.exists(f"{PATH}/N{N}_M{POINTS}"):
+        os.makedirs(f"{PATH}/N{N}_M{POINTS}")
+
     start = time.process_time()
     Parallel(n_jobs=NUM_CORES)(
-        delayed(run_simulation)(
-            idx, N, noise_variance, percentages, n_components, PATH
+        delayed(run_simulation_no_noise)(
+            idx, N, n_points, noise_variance, percentages, n_components,
+            PATH + "/" + f"N{N}_M{POINTS}"
         ) for idx in range(N_SIMU)
     )
     print(f'{time.process_time() - start}')
