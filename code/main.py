@@ -6,6 +6,7 @@
 
 # Load packages
 import argparse
+import itertools
 import pickle
 import multiprocessing
 import os
@@ -97,8 +98,8 @@ def run_simulation_no_noise(
 
     # Run MFPCA with PSplines
     univariate_expansions = [
-        {'method': 'PSplines', 'penalty': [0, 0]},
-        {'method': 'PSplines', 'penalty': [0]}
+        {'method': 'PSplines', 'penalty': (0, 0)},
+        {'method': 'PSplines', 'penalty': (0)}
     ]
     mfpca_psplines = MFPCA(
         n_components=n_components,
@@ -118,8 +119,8 @@ def run_simulation_no_noise(
 
 
     # Estimate scores
-    scores_covariance = mfpca_covariance.transform(data)
-    scores_psplines = mfpca_psplines.transform(data)
+    scores_covariance = mfpca_covariance.transform()
+    scores_psplines = mfpca_psplines.transform()
     scores_gram = mfpca_gram.transform(method='InnPro')
 
 
@@ -187,10 +188,61 @@ def run_simulation_noise(
     ##########################################################################
     print(f"Run MFPCA for data with noise (simulation {idx})")
 
+    # CV
+    n_samples = 10
+    random_samples = data_noisy[np.random.choice(data.n_obs, n_samples)]
+    penalties_1d = np.float_power(10, np.arange(-3, 3, .1))
+    penalties_2d = list(
+        itertools.product(np.float_power(10, np.arange(-2, 2, .25)), repeat=2)
+    )
+
+    # 1D P-Splines smoothing using CV
+    CVS = []
+    for curve in random_samples.data[1]:
+        x = curve.argvals['input_dim_0']
+        y = curve.values.squeeze()
+        CV = cross_validation(x, y, penalties_1d)
+        CVS.append(CV)
+    penalty_CV_1d = np.median(CVS, axis=0)
+
+
+    # 2D P-Splines smoothing using CV
+    CVS = []
+    for curve in random_samples.data[0]:
+        x = [curve.argvals['input_dim_0'], curve.argvals['input_dim_1']]
+        y = curve.values.squeeze()
+        CV = cross_validation(x, y, penalties_2d)
+        CVS.append(CV)
+    penalty_CV_2d = np.median(CVS, axis=0)
+
+    # 1D P-Splines smoothing using CV for mean
+    data_mean = data_noisy.data[1].mean(method_smoothing=None)
+
+    x = data_mean.argvals['input_dim_0']
+    y = data_mean.values.squeeze()
+    penalty_mean = cross_validation(x, y, penalties_1d)
+
+    # 2D P-Splines smoothing using CV for covariance
+    data_cov = data_noisy.data[1].covariance(method_smoothing=None)
+
+    x = [data_cov.argvals['input_dim_0'], data_cov.argvals['input_dim_1']]
+    y = data_cov.values.squeeze()
+    penalty_cov = cross_validation(x, y, penalties_2d)
+
+
     # Run MFPCA with FCPTPA and UFPCA
     univariate_expansions = [
-        {'method': 'FCPTPA', 'n_components': 20},
-        {'method': 'UFPCA', 'n_components': 15}
+        {
+            'method': 'FCPTPA',
+            'n_components': 20
+        },
+        {
+            'method': 'UFPCA',
+            'n_components': 15,
+            'method_smoothing': 'PS',
+            'kwargs_mean': {'penalty': penalty_mean},
+            'kwargs_covariance': {'penalty': penalty_cov}
+        }
     ]
     mfpca_covariance = MFPCA(
         n_components=n_components,
@@ -204,8 +256,8 @@ def run_simulation_noise(
 
     # Run MFPCA with PSplines
     univariate_expansions = [
-        {'method': 'PSplines', 'penalty': [1, 1]},
-        {'method': 'PSplines', 'penalty': [1]}
+        {'method': 'PSplines', 'penalty': penalty_CV_2d},
+        {'method': 'PSplines', 'penalty': penalty_CV_1d}
     ]
     mfpca_psplines = MFPCA(
         n_components=n_components,
@@ -218,15 +270,28 @@ def run_simulation_noise(
 
 
     # Run MFPCA with Gram matrix
-    mfpca_gram_noise = MFPCA(n_components=n_components, method='inner-product')
+    univariate_expansions = [
+        {'method': 'PS', 'penalty': penalty_CV_2d},
+        {'method': 'PS', 'penalty': penalty_CV_1d}
+    ]
+    data_smooth = MultivariateFunctionalData([
+        fdata.smooth(
+            method=univ_expansion['method'],
+            penalty=univ_expansion['penalty']
+        ) for (fdata, univ_expansion) in zip(
+            data_noisy.data, univariate_expansions
+        )
+    ])
+
+    mfpca_gram = MFPCA(n_components=n_components, method='inner-product')
     start = time.process_time()
-    mfpca_gram.fit(data_noisy)
+    mfpca_gram.fit(data_smooth)
     time_gram = time.process_time() - start
 
 
     # Estimate scores
-    scores_covariance = mfpca_covariance.transform(data_noisy)
-    scores_psplines = mfpca_psplines.transform(data_noisy)
+    scores_covariance = mfpca_covariance.transform()
+    scores_psplines = mfpca_psplines.transform()
     scores_gram = mfpca_gram.transform(method='InnPro')
 
 
@@ -283,16 +348,25 @@ if __name__ == "__main__":
         os.makedirs(f"{args.out_folder}")
 
     PATH = args.out_folder
-
     POINTS = '-'.join(str(x) for x in n_points)
-    if not os.path.exists(f"{PATH}/N{N}_M{POINTS}"):
-        os.makedirs(f"{PATH}/N{N}_M{POINTS}")
+    
+    if noise_variance == 0:    
+        if not os.path.exists(f"{PATH}/N{N}_M{POINTS}"):
+            os.makedirs(f"{PATH}/N{N}_M{POINTS}")
 
-    start = time.process_time()
-    Parallel(n_jobs=NUM_CORES)(
-        delayed(run_simulation_no_noise)(
-            idx, N, n_points, noise_variance, percentages, n_components,
-            PATH + "/" + f"N{N}_M{POINTS}"
-        ) for idx in range(N_SIMU)
-    )
-    print(f'{time.process_time() - start}')
+        Parallel(n_jobs=NUM_CORES)(
+            delayed(run_simulation_no_noise)(
+                idx, N, n_points, noise_variance, percentages, n_components,
+                PATH + "/" + f"N{N}_M{POINTS}"
+            ) for idx in range(N_SIMU)
+        )
+    else:
+        if not os.path.exists(f"{PATH}/N{N}_M{POINTS}_S{noise_variance}"):
+            os.makedirs(f"{PATH}/N{N}_M{POINTS}_S{noise_variance}")
+
+        Parallel(n_jobs=NUM_CORES)(
+            delayed(run_simulation_noise)(
+                idx, N, n_points, noise_variance, percentages, n_components,
+                PATH + "/" + f"N{N}_M{POINTS}_S{noise_variance}"
+            ) for idx in range(N_SIMU)
+        )

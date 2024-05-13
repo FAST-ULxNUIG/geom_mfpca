@@ -14,6 +14,7 @@ from FDApy.representation.functional_data import (
     BasisFunctionalData,
     MultivariateFunctionalData
 )
+from FDApy.preprocessing.smoothing.psplines import PSplines
 from FDApy.simulation.karhunen import (
     _initialize_centers,
     _initialize_clusters_std,
@@ -243,3 +244,30 @@ def MRSE(
         results[idx] = np.sum(norm_diff)
     return np.mean(results)
 
+
+def cross_validation(x, y, penalties):
+    """Do CV for the estimation of penalty in PSplines model.
+
+    Parameters
+    ----------
+    x: array
+        Sample points.
+    y: array
+        Observation points.
+    penalties: array
+        Array of penalties.
+
+    Returns
+    -------
+    Tuple[float]
+        The penalty that minimizes CV.
+
+    """
+    CV = np.zeros(len(penalties))
+    for idx, penalty in enumerate(penalties):
+        ps = PSplines()
+        ps.fit(x=x, y=y, penalty=penalty)
+        H = ps.diagnostics['hat_matrix']
+        R = (y - ps.y_hat) / (1 - H)
+        CV[idx] = np.sqrt(np.mean(np.power(R, 2)))
+    return penalties[np.argmin(CV)]
