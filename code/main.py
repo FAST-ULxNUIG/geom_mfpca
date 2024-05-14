@@ -74,7 +74,6 @@ def run_simulation_no_noise(
     )
 
     data = simulation['data']
-    data_sparse = simulation['data_sparse']
     eigenfunctions = simulation['basis']
     eigenvalues = simulation['eigenvalues']
 
@@ -142,7 +141,7 @@ def run_simulation_no_noise(
         # Eigenfunctions
         'ISE_cov': ISE(mfpca_covariance.eigenfunctions, true_eigenfunctions),
         'ISE_psplines': ISE(mfpca_psplines.eigenfunctions, true_eigenfunctions),
-        'ISE_gram': ISE(mfpca_psplines.eigenfunctions, true_eigenfunctions),
+        'ISE_gram': ISE(mfpca_gram.eigenfunctions, true_eigenfunctions),
         # Curves reconstruction
         'MRSE_cov': MRSE(data_recons_covariance, data),
         'MRSE_psplines': MRSE(data_recons_psplines, data),
