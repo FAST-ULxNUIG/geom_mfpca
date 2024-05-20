@@ -28,7 +28,9 @@ from FDApy.simulation.simulation import (
 # Variables
 
 # Functions
-def simulate_data(n_obs, n_points, noise_variance, percentages, seed):
+def simulate_data(
+    n_obs, n_points, noise_variance=0, percentages=[1, 1], epsilon=0.1, seed=42,
+):
     """Simulation function.
 
     Parameters
@@ -107,7 +109,6 @@ def simulate_data(n_obs, n_points, noise_variance, percentages, seed):
     ])
 
     # Generate sparse data
-    epsilon = 0.1
     data_sparse = MultivariateFunctionalData([
         _sparsify_univariate_data(
             data_univariate,
