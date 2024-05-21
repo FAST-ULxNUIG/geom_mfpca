@@ -63,10 +63,10 @@ The observation weights $\pi_n$ and the feature weights $w_p$ are not the same a
     \textcolor{red}{\widetilde{\mathbf{M}}_{nn^\prime} = \sqrt{\pi_n \pi_{n^{\prime}}}\sum_{p = 1}^P \int_{\TT{p}}\{\Xnp(t_p) - \tildemup{p}(t_p)\}\{X_{n^\prime}^{(p)}(t_p) - \tildemup{p}(t_p)\} \dd t_p, \quad n, n^\prime = 1, \dots, N.}
 \end{equation}
 \textcolor{red}{In many applications, the elements of the set $\mathcal{X}$ are observed with error and on a finite grid of points in $\TT{}$. For each $1 \leq n \leq N$, and given a vector of positive integers $\mathsf{M}_n = (\mathsf{M}_n^{(1)}, \dots, \mathsf{M}_n^{(P)})$, let $\mathrm{T}_{n, \mathsf{m}} = (\mathrm{T}_{n, m_1}^{(1)}, \dots, \mathrm{T}_{n, m_P}^{(P)}), 1 \leq m_p \leq \mathsf{M}_n^{(p)}, 1 \leq p \leq P$, be the random observation times for the curve $X_n$. These times are obtained as independent realizations of a random variable $\mathbf{T}$ taking values in $\TT{}$. The vectors $\mathsf{M}_1, \dots, \mathsf{M}_N$ represent an independent sample of an interger-valued random vector $\mathsf{M}$ with known expectation. We assume that the realizations of $X$, $\mathsf{M}$ and $\mathbf{T}$ are mutually independent. The observations associated with an observation $X_n$ consist of the pairs $(Y_{n, \mathsf{m}}, \mathrm{T}_{n, \mathsf{m}}) \in \mathbb{R} \times \TT{}$, where $\mathsf{m} = (m_1, \dots, m_P), 1 \leq m_p \leq \mathsf{M}_n^{(p)}, 1 \leq p \leq P$ and $Y_{n, \mathsf{m}}$ is defined as}
-\begin{equation}
+\begin{equation}\label{eq:model_error}
     \textcolor{red}{Y_{n, \mathsf{m}} = X_n(\mathrm{T}_{n, \mathsf{m}}) + \varepsilon_{n, \mathsf{m}}, \quad 1 \leq n \leq N,}
 \end{equation}
-\textcolor{red}{with the $\varepsilon_{n, \mathsf{m}}$ being independent copies of a centered error random vector $\varepsilon \in \RR^{P}$ with finite variance.}
+\textcolor{red}{with the $\varepsilon_{n, \mathsf{m}}$ being independent copies of a centered error random vector $\varepsilon \in \RR^{P}$ with finite variance $\sigma^2$.}
 
 \textcolor{red}{Let $\widehat{X}_n$ be a suitable estimator of $X_n$ applied to the pairs $(Y_{n, \mathsf{m}}, \mathrm{T}_{n, \mathsf{m}})$, such as P-splines (e.g. \cite{eilersTwentyYearsPsplines2015}) or local polynomials (e.g. \cite{fanLocalPolynomialModelling1996}). We define the estimator of the mean function as}
 \begin{equation}

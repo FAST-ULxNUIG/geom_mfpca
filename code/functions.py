@@ -264,10 +264,16 @@ def cross_validation(x, y, penalties):
         The penalty that minimizes CV.
 
     """
+    y_new = np.copy(y)
+    mask = np.isnan(y_new)
+    weights = np.ones_like(y_new)
+    weights[mask] = 0
+    y_new[mask] = 0
+    
     CV = np.zeros(len(penalties))
     for idx, penalty in enumerate(penalties):
         ps = PSplines()
-        ps.fit(x=x, y=y, penalty=penalty)
+        ps.fit(x=x, y=y_new, penalty=penalty, sample_weights=weights)
         H = ps.diagnostics['hat_matrix']
         R = (y - ps.y_hat) / (1 - H)
         CV[idx] = np.sqrt(np.mean(np.power(R, 2)))

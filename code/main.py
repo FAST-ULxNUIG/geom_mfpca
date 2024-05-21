@@ -368,6 +368,50 @@ def run_simulation_sparse(
     ##########################################################################
     print(f"Run MFPCA for sparse data (simulation {idx})")
 
+    # CV
+    n_samples = 10
+    random_samples = data_sparse[np.random.choice(data.n_obs, n_samples)]
+    penalties_1d = np.float_power(10, np.arange(-3, 3, .1))
+    penalties_2d = list(
+        itertools.product(np.float_power(10, np.arange(-2, 4, 1)), repeat=2)
+    )
+
+    # 1D P-Splines smoothing using CV
+    CVS = []
+    for i, curve in zip(
+        random_samples.data[1].argvals.keys(), random_samples.data[1]
+    ):
+        x = curve.argvals[i]['input_dim_0']
+        y = curve.values[i].squeeze()
+        CV = cross_validation(x, y, penalties_1d)
+        CVS.append(CV)
+    penalty_CV_1d = np.median(CVS, axis=0)
+
+    CVS = []
+    for i, curve in zip(
+        random_samples.data[0].argvals.keys(), random_samples.data[0]
+    ):
+        x = [
+            curve.argvals[i]['input_dim_0'], curve.argvals[i]['input_dim_1']
+        ]
+        y = curve.values[i].squeeze()
+        CV = cross_validation(x, y, penalties_2d)
+        CVS.append(CV)
+    penalty_CV_2d = np.median(CVS, axis=0)
+
+    # 1D P-Splines smoothing using CV for mean
+    data_mean = data_sparse.data[1].mean(method_smoothing='interpolation')
+
+    x = data_mean.argvals['input_dim_0']
+    y = data_mean.values.squeeze()
+    penalty_mean = cross_validation(x, y, penalties_1d)
+
+    # 2D P-Splines smoothing using CV for covariance
+    data_cov = data_sparse.data[1].covariance(smooth=False)
+
+    x = [data_cov.argvals['input_dim_0'], data_cov.argvals['input_dim_1']]
+    y = data_cov.values.squeeze()
+    penalty_cov = cross_validation(x, y, penalties_2d)
 
     # Run MFPCA with FCPTPA and UFPCA
     univariate_expansions = [
@@ -379,8 +423,8 @@ def run_simulation_sparse(
             'method': 'UFPCA',
             'n_components': 15,
             'method_smoothing': 'PS',
-            'kwargs_mean': {'penalty': 0},
-            'kwargs_covariance': {'penalty': (0, 0)}
+            'kwargs_mean': {'penalty': penalty_mean},
+            'kwargs_covariance': {'penalty': penalty_cov}
         }
     ]
     mfpca_covariance = MFPCA(
@@ -395,8 +439,8 @@ def run_simulation_sparse(
 
     # Run MFPCA with PSplines
     univariate_expansions = [
-        {'method': 'PSplines', 'penalty': (0, 0)},
-        {'method': 'PSplines', 'penalty': 0}
+        {'method': 'PSplines', 'penalty': penalty_CV_2d},
+        {'method': 'PSplines', 'penalty': penalty_CV_1d}
     ]
     mfpca_psplines = MFPCA(
         n_components=n_components,
