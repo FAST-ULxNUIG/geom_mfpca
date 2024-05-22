@@ -3,7 +3,7 @@
 \label{sec:empirical_analysis}
 
 
-Using simulated data, we compare the estimation of the eigencomponents \textcolor{red}{and the reconstruction of the curves} using the diagonalization of the covariance operator, \textcolor{red}{based on univariate FPCA as well as P-splines basis expansion, and the diagonalization of the Gram matrix. For the diagonalization of the covariance operator, we consider the methodology of \cite{happMultivariateFunctionalPrincipal2018a}. In the case of MFPCA based on the expansion of each univariate feature into univariate principal components, the eigencomposition of the 1-dimensional curves is performed using univariate FPCA and the eigendecomposition of the 2-dimensional curves is calculated using the Functional Canonical Polyadic-Tensor Power Algorithm (FCP-TPA) for regularized tensor decomposition \citep{allenMultiwayFunctionalPrincipal2013a}. In the case of MFPCA based on P-splines basis expansion, data are expanded in B-splines basis with suitable smoothness penalty \citep{eilersFlexibleSmoothingBsplines1996}.}
+Using simulated data, we compare the estimation of the eigencomponents \textcolor{red}{and the reconstruction of the curves} using the diagonalization of the covariance operator, \textcolor{red}{based on univariate FPCA as well as P-splines basis expansion, and the diagonalization of the Gram matrix. These methods will be refered as \texttt{(Tensor) PCA}, \texttt{2D/1D B-Splines} and \texttt{Gram} respectively. For the diagonalization of the covariance operator, we consider the methodology of \cite{happMultivariateFunctionalPrincipal2018a}. In the case of MFPCA based on the expansion of each univariate feature into univariate principal components (\texttt{(Tensor) PCA}), the eigencomposition of the 1-dimensional curves is performed using univariate FPCA and the eigendecomposition of the 2-dimensional curves is calculated using the Functional Canonical Polyadic-Tensor Power Algorithm (FCP-TPA) for regularized tensor decomposition \citep{allenMultiwayFunctionalPrincipal2013a}. In the case of MFPCA based on P-splines basis expansion (\texttt{2D/1D B-Splines}), data are expanded in B-splines basis with suitable smoothness penalty \citep{eilersFlexibleSmoothingBsplines1996}.}
 
 The results of the simulation are compared using computation times (CT), the integrated squared error (ISE) for the multivariate eigenfunctions, the \textcolor{red}{relative squared error (RSE)} for the eigenvalues and the mean relative squared error (MRSE) for the reconstructed data. Let $\phi_k$ be the true eigenfunction and $\widehat{\phi}_k$ the estimated eigenfunction defined on $\TT{}$. We then define the ISE as 
 \begin{equation}\label{eq:ise_eigenfunctions}
@@ -35,11 +35,11 @@ Each curve is then simulated using the truncated multivariate Karhunen-Loève ex
 where $\phi_k = (\phi^{(1)}_k, \phi^{(2)}_k)^\top$ and the scores $\mathfrak{c}_k$ are sampled as random normal variables with mean $0$ and variance $\lambda_k$. The eigenvalues $\lambda_k$ are defined with an exponential decrease, $\lambda_k = \exp(-(k + 1)/2)$ We simulate, for each replication of the simulation, $N = 50, 100$ and $250$ observations. The first component is sampled on a regular grid of $M^{(1)} = 11 \times 11, 26 \times 26$ and $101 \times 51$ sampling points. The second component is sampled on a regular grid of $M^{(2)} = 21, 51$ and $201$ sampling points. We set $K = 25$.}
 \textcolor{red}{We also consider data with measurement errors. In that case, we observe data from \eqref{eq:model_error}, where $\sigma^2 = 0.25$. Finally, we study sparse data as in \cite{happMultivariateFunctionalPrincipal2018a}, with medium ($50\%-70\%$ missings) and high ($90\%-95\%$ missings) sparsity.}
 
-\textcolor{red}{MFPCA using the diagonalization of the covariance operator is based on the univariate estimation of $K^{(1)} = 20$ eigenimages and $K^{(2)} = 15$ eigenfunctions. The estimation of the eigenimages is performed with the FCP-TPA where the smoothing parameters are chosen via cross-validation in $[10^{-5}, 10^5]$ for dense, sparse and noisy data. In the case of sparse data, we also linearly interpolate the observation to get data that are regularly sampled. The estimation of the eigenfunctions is done using the PACE algorithm \citep{yaoFunctionalDataAnalysis2005} with P-splines to smooth the mean and covariance functions. Penalties are estimated using cross-validation \citep{eilersFlexibleSmoothingBsplines1996}.}
+\textcolor{red}{The \texttt{(Tensor) PCA} method is based on the univariate estimation of $K^{(1)} = 20$ eigenimages and $K^{(2)} = 15$ eigenfunctions. The estimation of the eigenimages is performed with the FCP-TPA where the smoothing parameters are chosen via cross-validation in $[10^{-5}, 10^5]$ for dense, sparse and noisy data. In the case of sparse data, we also linearly interpolate the observation to get data that are regularly sampled. The estimation of the eigenfunctions is done using the PACE algorithm \citep{yaoFunctionalDataAnalysis2005} with P-splines to smooth the mean and covariance functions. Penalties are estimated using cross-validation \citep{eilersFlexibleSmoothingBsplines1996}.}
 
-\textcolor{red}{Concerning MFPCA using P-splines basis expansion, $X^{(1)}$ is expanded in tensor products of $K^{(1)} = 13 \times 13$ B-splines and $X^{(2)}$ is expanded in $K^{(2)} = 13$ B-splines. For dense data, no penalty is involved, while for sparse and noisy data, penalties are estimated using cross-validation.}
+\textcolor{red}{For the \texttt{2D/1D B-splines} method, $X^{(1)}$ is expanded in tensor products of $K^{(1)} = 13 \times 13$ B-splines and $X^{(2)}$ is expanded in $K^{(2)} = 13$ B-splines. For dense data, no penalty is involved, while for sparse and noisy data, penalties are estimated using cross-validation.}
 
-\textcolor{red}{Finally, MFPCA using the Gram matrix is based on the observed data points in the dense case, on the linear interpolation of the data in the sparse case \citep{benkoCommonFunctionalPrincipal2009} and on the P-splines smoothing of the data in the noisy case.}
+\textcolor{red}{Finally, the \texttt{Gram} method is based on the observed data points in the dense case, on the linear interpolation of the data in the sparse case \citep{benkoCommonFunctionalPrincipal2009} and on the P-splines smoothing of the data in the noisy case.}
 
 
 % subsection simulation_experiments (end)
@@ -51,23 +51,23 @@ We compared MFPCA results of the different methods in terms of their CT, estimat
 
 % Computation time ----------
 \begin{results}[Computational time.]
-\textcolor{red}{To compare the computational time of the different methods, we measured the time it took for each method to complete the MFPCA for each simulated dataset in the dense and noiseless case. Figure~\ref{fig:computation_time_mfd_1d} shows the kernel density estimates of the ratio of CT for each method across all sample sizes and number of sampling points. Except when we have many observations with few sampling points, the diagonalization of the Gram matrix is faster than the other two methods. This result is coherent with the computational complexity derived in Section~\ref{sub:computational_complexity}.}
+\textcolor{red}{To compare the computational time of the different methods, we measured the time it took for each method to complete the MFPCA for each simulated dataset in the dense and noiseless case. Figure~\ref{fig:computation_time_mfd_1d} shows the kernel density estimates of the ratio of CT for each method across all sample sizes and number of sampling points. Except when we have many observations with few sampling points, the \texttt{Gram} method is faster than the other two methods. This result is coherent with the computational complexity derived in Section~\ref{sub:computational_complexity}.}
 %Note that the number of features $P$ does not change the ratio of CT between the methods.
 
 \begin{figure}
      \centering
     \includegraphics[width=0.95\textwidth]{figures/computation_time.eps}
-    \caption{\textcolor{red}{Ratio of computation time in the dense case between the (Tensor) PCA and 2D/1D B-Splines methods and the Gram matrix method. $N$ is the number of observations, $M$ is the number of sampling points per curve (the first two numbers are for the images and the last one is for the curves).}}
+    \caption{\textcolor{red}{Ratio of computation time in the dense case between the \texttt{(Tensor) PCA} and \texttt{2D/1D B-Splines} methods and the \texttt{Gram} method. $N$ is the number of observations, $M$ is the number of sampling points per curve (the first two numbers are for the images and the last one is for the curves).}}
     \label{fig:computation_time_mfd_1d}
 \end{figure}
 
-\textcolor{red}{The shorter computational time of the diagonalization of the Gram matrix makes it a more efficient option for analyzing two and higher-dimensional functional datasets as the number of sampling points tend to grow faster in these case. It is however worth noting that the computational time can still vary depending on the specific implementation of each method, the computational resources available, the complexity of the dataset (number of observations, number of sampling points, etc.) and whether a smoothing need to be included.}
+\textcolor{red}{The shorter computational time of the diagonalization of the Gram matrix makes it a more efficient option for analyzing two and higher-dimensional functional datasets as the number of sampling points tend to grow faster in these case. It is however worth noting that the computational time can still vary depending on the specific implementation of each method, the computational resources available, the complexity of the dataset (number of observations, number of sampling points, etc.) and whether a smoothing step need to be included.}
 \end{results}
 
 % Eigenvalues estimation ----------
 \begin{results}[Eigenvalues estimation.]
-To compare the estimation of the eigenvalues between the diagonalization of the covariance operator and the diagonalization of the Gram matrix, we calculated the ratio of the $\log-\text{AE}$ \eqref{eq:mse_eigenvalues} between the estimated eigenvalues and the true eigenvalues for each simulated dataset and for the first five eigenvalues.
-Figure~\ref{fig:logAE_mfd_1d} shows the boxplots of the $\log-\text{AE}$ for each method across all sample sizes, number of sampling points and number of features for Scenario 1. We found that the two methods behave similarly for all considered settings.
+\textcolor{red}{To compare the estimation of the eigenvalues between the different methods, we calculated the RSE \eqref{eq:mse_eigenvalues} between the estimated eigenvalues and the true eigenvalues for each simulated dataset and for the twelve estimated eigenvalues.
+Figure~\ref{fig:logAE_mfd_1d} shows the boxplots of the RSE for each method across all sample sizes, number of sampling points. We found that the three methods behave similarly for the settings with a moderately large to a large number of sampling points. When we observe only a few sampling points, $M^{(1)} = 11 \times 11$ and $M^{(2)} = 21$, the quality of the estimation is approximately the same for the first three eigenvalues for all methods, but from the fourth eigenvalues, the \texttt{2D/1D B-splines} and the \texttt{Gram} methods give slightly better results than the (Tensor) PCA method. The results for the sparse and noisy cases are similar and are postponed to the Appendix \ref{sub:simulation}.}
 
 \begin{figure}
     \centering
@@ -79,8 +79,7 @@ Figure~\ref{fig:logAE_mfd_1d} shows the boxplots of the $\log-\text{AE}$ for eac
 
 % Eigenfunctions estimation ----------
 \begin{results}[Eigenfunctions estimation.]
-To compare the estimation of the eigenfunctions between the diagonalization of the covariance operator and the diagonalization of the Gram matrix, we calculated the ratio of the ISE \eqref{eq:ise_eigenfunctions} between the estimated eigenfunctions and the true eigenfunctions for each simulated dataset and for the first five eigenfunctions.
-Figure~\ref{fig:ise_mfd_1d} shows the boxplots of the ISE for each method across all sample sizes, number of sampling points and number of features for Scenario 1. We found that the two methods behave similarly for all considered settings. For $P = 10, 20$ and $50$, the results are identical.
+\textcolor{red}{To compare the estimation of the eigenfunctions between the different methods, we calculated the ISE \eqref{eq:ise_eigenfunctions} between the estimated eigenfunctions and the true eigenfunctions for each simulated dataset and for the twelve estimated eigenfunctions. Figure~\ref{fig:ise_mfd_1d} shows the boxplots of the ISE for each method across all sample sizes and number of sampling points. The results are similar than for the estimation of the eigenvalues. When we observe only a few sampling points, the quality of the estimation of the eigenfunctions starts to decrease after the third component for the \texttt{(Tensor) PCA} method, while this is not the case for the other methods. The results for the sparse and noisy cases are similar and are postponed to the Appendix \ref{sub:simulation}.}
 \begin{figure}
      \centering
     \includegraphics[width=0.95\textwidth]{figures/ISE.eps}
@@ -91,12 +90,11 @@ Figure~\ref{fig:ise_mfd_1d} shows the boxplots of the ISE for each method across
 
 % Curves reconstruction ----------
 \begin{results}[Curves reconstruction.]
-To compare the quality of the reconstruction of the curves between the diagonalization of the covariance operator and the diagaonlisation of the Gram matrix, we calculated the ratio of the MISE \eqref{eq:mise_reconstructed_data} between the reconstruction of the curves and the true curves for each simulated dataset.
-Figure~\ref{fig:mise_mfd_1d} shows the boxplots of the ISE for each method across all sample sizes, number of sampling points and number of features for Scenario 1. We found that the diagonalization of the Gram matrix gives slightly better results for all considered settings.
+\textcolor{red}{To compare the quality of the reconstruction of the curves between the different methods, we calculated the MRSE \eqref{eq:mise_reconstructed_data} between the reconstruction of the curves and the true curves for each simulated dataset. Figure~\ref{fig:mise_mfd_1d} shows the boxplots of the MRSE for each method across all sample sizes and number of sampling points. Except the case of few sampling points where the \texttt{(Tensor) PCA} method does not perform well (because of the poor estimation of the eigenvalues and eigenfunctions), all methods give nearly the same results for each settings. The results for the sparse and noisy cases are similar and are postponed to the Appendix \ref{sub:simulation}.}
 \begin{figure}
      \centering
      \includegraphics[width=0.95\textwidth]{figures/MRSE.eps}
-    \caption{\textcolor{red}{MISE for the reconstructed curves for each method in the dense case. $N$ is the number of observations, $M$ is the number of sampling points per curve (the first two numbers are for the images and the last one is for the curves).}}
+    \caption{\textcolor{red}{MRSE for the reconstructed curves for each method in the dense case. $N$ is the number of observations, $M$ is the number of sampling points per curve (the first two numbers are for the images and the last one is for the curves).}}
     \label{fig:mise_mfd_1d}
 \end{figure}
 \end{results}

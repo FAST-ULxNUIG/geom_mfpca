@@ -2,24 +2,12 @@
 \section{Application} % (fold)
 \label{sec:application}
 
-\textcolor{red}{We implement our methodology utilizing data from the National Basketball Association (NBA). To access comprehensive game data, we utilize the Python package \texttt{nba\_api}\footnote{\url{https://github.com/swar/nba_api/}}, which provides access to the APIs of \url{nba.com}. The dataset encompasses shot location data from all NBA games spanning the seasons between $2018-2019$ and $2022-2023$. Filtering the dataset, we focus solely on players who have made more than $1000$ shots during this five-season period, resulting in a cohort of $131$ players. These players accounted for a total of $493723$ shots attempted, of which $234941$ were successful. Subsequently, we exclude shots deemed impossible (e.g., out-of-bounds), leaving us with a dataset comprising $492621$ shots (see Figure \ref{fig:shoots_make_miss} for the shots chart of Stephen Curry and Kevin Durant). To analyze shooting behavior, we employ 2-dimensional kernel density estimation, utilizing Silverman's rule \citep{silvermanDensityEstimationStatistics1986} for bandwidth estimation. The density estimation is conducted on a regularly spaced grid consisting of $51 \times 51$ points.}
+\textcolor{red}{We apply our methodology utilizing data from the National Basketball Association (NBA). To access comprehensive game data, we utilize the Python package \texttt{nba\_api}\footnote{\url{https://github.com/swar/nba_api/}}, which provides access to the APIs of \url{nba.com}. The dataset encompasses shot location data from all NBA games spanning the seasons between $2018-2019$ and $2022-2023$. Filtering the dataset, we focus solely on players who have made more than $1000$ shots during this five-season period, resulting in a cohort of $131$ players. These players accounted for a total of $493723$ shots attempted, of which $234941$ ($47\%$) were successful. Subsequently, we exclude shots deemed impossible (e.g., out-of-bounds), leaving us with a dataset comprising $492621$ shots (see Figure \ref{fig:shoots_make_miss} for the shots chart of Stephen Curry). To analyze shooting behavior, we employ 2-dimensional kernel density estimation for both the attempted and made shots, utilizing Silverman's rule \citep{silvermanDensityEstimationStatistics1986} for bandwidth estimation. The density estimation is conducted on a regularly spaced grid consisting of $51 \times 51$ points (see Figure \ref{fig:shoots_make_miss} for the estimated densities for Stephen Curry).}
 
 \begin{figure}
     \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/curry_make_miss.pdf}
-        \caption{Stephen Curry}
-        \label{fig:curry_make_miss}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/robinson_make_miss.pdf}
-        \caption{Duncan Robinson}
-        \label{fig:robinson_make_miss}
-    \end{subfigure}
-    \caption{Make/Miss chart for Stephen Curry and Duncan Robinson.}
+    \includegraphics[width=\textwidth]{figures/curry.pdf}
+    \caption{\textcolor{red}{Make/Miss shots chart (left) and the estimated densities (right) for Stephen Curry.}}
     \label{fig:shoots_make_miss}
 \end{figure}
 
@@ -35,13 +23,6 @@ Remark that the functional principal components, as a representation of the devi
         \caption{Curry density}
         \label{fig:curry_density}
     \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/robinson_density.pdf}
-        \caption{Robinson density}
-        \label{fig:robinson_density}
-    \end{subfigure}
     \\
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
@@ -49,26 +30,12 @@ Remark that the functional principal components, as a representation of the devi
         \caption{Curry Gram}
         \label{fig:curry_gram}
     \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/robinson_gram.pdf}
-        \caption{Robinson Gram}
-        \label{fig:robinson_gram}
-    \end{subfigure}
     \\
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/curry_covariance.pdf}
         \caption{Curry covariance}
         \label{fig:curry_covariance}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/robinson_covariance.pdf}
-        \caption{Robinson covariance}
-        \label{fig:robinson_covariance}
     \end{subfigure}
     \caption{Reconstruction.}
     \label{fig:reconstruction}
