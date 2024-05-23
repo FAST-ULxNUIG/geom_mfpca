@@ -61,24 +61,21 @@
 \subsection{Application} % (fold)
 \label{sub:application}
 
-% \begin{figure}
-%     \centering
-%     \begin{subfigure}[b]{0.45\textwidth}
-%         \centering
-%         \includegraphics[width=\textwidth]{figures/durant_decomposition.pdf}
-%         \caption{Gram matrix}
-%         \label{fig:durant_decomposition}
-%     \end{subfigure}
-%     \hfill
-%     \begin{subfigure}[b]{0.45\textwidth}
-%         \centering
-%         \includegraphics[width=\textwidth]{figures/durant_decomposition_fcptpa.pdf}
-%         \caption{FCPTPA}
-%         \label{fig:durant_decomposition_fcptpa}
-%     \end{subfigure}
-%     \caption{Decomposition for Kevin Durant.}
-%     \label{fig:durant_shoots_decomposition}
-% \end{figure}
+\textcolor{red}{We present the estimation of the eigencomponents of the shooting data using the \texttt{(Tensor) PCA} (see Figure~\ref{fig:eigenfunctions_fcptpa}) and \texttt{2D/1D B-Splines} (see Figure~\ref{fig:eigenfunctions_psplines}) methods. The results are similar to the ones found using the \texttt{Gram} method, for the eigenfunctions and the percentage of variance explained for each eigenfunctions.}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/eigenfunctions_fcptpa.eps}
+    \caption{The estimated mean surfaces (first column) and the estimated eigenfunctions (second to fifth columns) for the shots dataset using the \texttt{(Tensor) PCA} method.}
+    \label{fig:eigenfunctions_fcptpa}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/eigenfunctions_psplines.eps}
+    \caption{The estimated mean surfaces (first column) and the estimated eigenfunctions (second to fifth columns) for the shots dataset using the \texttt{2D/1D B-splines} method.}
+    \label{fig:eigenfunctions_psplines}
+\end{figure}
 
 % subsection application (end)
 

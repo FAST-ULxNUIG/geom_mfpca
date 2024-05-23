@@ -2,43 +2,24 @@
 \section{Application} % (fold)
 \label{sec:application}
 
-\textcolor{red}{We apply our methodology utilizing data from the National Basketball Association (NBA). To access comprehensive game data, we utilize the Python package \texttt{nba\_api}\footnote{\url{https://github.com/swar/nba_api/}}, which provides access to the APIs of \url{nba.com}. The dataset encompasses shot location data from all NBA games spanning the seasons between $2018-2019$ and $2022-2023$. Filtering the dataset, we focus solely on players who have made more than $1000$ shots during this five-season period, resulting in a cohort of $131$ players. These players accounted for a total of $493723$ shots attempted, of which $234941$ ($47\%$) were successful. Subsequently, we exclude shots deemed impossible (e.g., out-of-bounds), leaving us with a dataset comprising $492621$ shots (see Figure \ref{fig:shoots_make_miss} for the shots chart of Stephen Curry). To analyze shooting behavior, we employ 2-dimensional kernel density estimation for both the attempted and made shots, utilizing Silverman's rule \citep{silvermanDensityEstimationStatistics1986} for bandwidth estimation. The density estimation is conducted on a regularly spaced grid consisting of $51 \times 51$ points (see Figure \ref{fig:shoots_make_miss} for the estimated densities for Stephen Curry).}
+\textcolor{red}{We apply our methodology utilizing data from the National Basketball Association (NBA). To access comprehensive game data, we utilize the Python package \texttt{nba\_api}\footnote{\url{https://github.com/swar/nba_api/}}, which provides access to the APIs of \url{nba.com}. The dataset encompasses shot location data from all NBA games spanning the seasons between $2018-2019$ and $2022-2023$. Filtering the dataset, we focus solely on players who have made more than $1000$ shots during this five-season period, resulting in a cohort of $131$ players. These players accounted for a total of $493723$ shots attempted, of which $234941$ ($47\%$) were successful. Subsequently, we exclude shots deemed impossible (e.g., out-of-bounds), leaving us with a dataset comprising $492621$ shots (see Figure \ref{fig:shoots_make_miss} for the shots chart of Stephen Curry). We remove all the shots that are close to the hoop, as these shots will be the most common and their pattern in not interesting from a shooting behavior perspective, and players that have made less than $100$ shots during the five-season period. It results in a cohort of $119$ players, with $186621$ attempted shots and $71893$ ($38.5\%$) made shots.}
 
+\textcolor{red}{To analyze shooting behavior, we employ a 2-dimensional kernel density estimation for both the attempted and made shots, utilizing Silverman's rule \citep{silvermanDensityEstimationStatistics1986} for bandwidth estimation. The density estimation is conducted on a regularly spaced grid consisting of $201 \times 201$ points (see Figure \ref{fig:shoots_make_miss} for the estimated densities for Stephen Curry).}
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{figures/curry.pdf}
+    \includegraphics[width=\textwidth]{figures/curry.eps}
     \caption{\textcolor{red}{Make/Miss shots chart (left) and the estimated densities (right) for Stephen Curry.}}
     \label{fig:shoots_make_miss}
 \end{figure}
 
 
-\textcolor{red}{We estimate the principal components using the decomposition of the Gram matrix and the eigenanalysis of the covariance operator using the FCP-TPA for the univariate components.
-%Figure \ref{fig:curry_shoots_decomposition} shows examples of the shooting densities of Stephen Curry and their first five functional principal components using both methods (Figure \ref{fig:curry_decomposition} for the Gram matrix decomposition and Figure \ref{fig:curry_decomposition_fcptpa} for the MFPCA with FCP-TPA.
-Remark that the functional principal components, as a representation of the deviation from the mean surface function, may take negative values, while density can only take positive values. For presentation purpose, the functional principal components have been normalized between $-1$ and $1$. Blue corresponds to negative values of the functional components, and thus contribute negatively to the density, while Red corresponds to positive values of the functional components, and thus contribute positively to the density. The bluer the area in the image of the functional components, the smaller/negative the scores, whereas the redder areas correspond to positive values of the scores. The white areas correspond to scores that are closed to $0$, and basically have not impact on the shooting density. The obtained functional components can be explained as different shooting styles.}
+\textcolor{red}{We estimate the principal components using the \texttt{Gram}, \texttt{(Tensor) PCA} and \texttt{2D/1D B-Splines} methods. For the \texttt{Gram} method, we directly use the estimated densities to estimate the eigencompnents. For the \texttt{(Tensor) PCA} method, the estimation of the multivariate eigenimages is based on the univariate estimation of $30$ univariate eigenimages. The estimation of the (univariate) eigenimages is performed with the FCP-TPA where the smoothing parameters are chosen via cross-validation in $[10^{-5}, 10^5]$. For the \texttt{2D/1D B-splines} method, the two components are expanded in tensor products of $13 \times 13$ B-splines. We do not add a smoothing penalty in that case, as the smoothing step is performed in the kernel density estimation.}
+
+\textcolor{red}{Figure~\ref{fig:eigenfunctions_gram} shows the estimated mean surfaces and eigenfunctions for the \texttt{Gram} method. The functional principal components, as a representation of the deviation from the mean surface function, may take negative values, while density can only take positive values. For presentation purpose, the functional principal components have been normalized between $-1$ and $1$. Blue area corresponds to negative values of the functional components, and thus contribute negatively to the density, while red area corresponds to positive values of the functional components, and thus contribute positively to the density. The decomposition of the density of made shots is similar to the ones of attempted shots. The obtained functional components can be explained as different shooting behavior. The first component, that accounts for $56.9\%$ of the variance explained, contrasts two-point and three-point shoting. A player with a positive score for $\phi_1$ will tend to shots more behind the three-point line, while if he has a negative score, he will prefer shooting within the two-points zone. For the second component ($11.5\%$ of the variance explained), the contrast is between the left and right sides of the court. Similarly, if a player has a positive (resp. negative) score for $\phi_2$, he will prefer to shoot on the right (resp. left) side of the court while looking at the hoop. The third component ($9.4\%$ of the variance explained) contrasts shooting from the wing with shooting in the axis of the hoop. Positive (resp. negative) score players will shot in the axis of the hoop (resp. from the wing). The fourth component ($4.7\%$ of the variance explained) is more difficult to explain from a shooting behavior perspective. It may be linked to players having a preferred shooting location so that most of their shoots are taken from the same position. The estimation of the eigencomponents with the \texttt{(Tensor) PCA} and \texttt{2D/1D B-Splines} methods are similar to the results with the \texttt{Gram} method are thus postponed to the Appendix \ref{sec:more_results}.}
 \begin{figure}
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/curry_density.pdf}
-        \caption{Curry density}
-        \label{fig:curry_density}
-    \end{subfigure}
-    \\
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/curry_gram.pdf}
-        \caption{Curry Gram}
-        \label{fig:curry_gram}
-    \end{subfigure}
-    \\
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/curry_covariance.pdf}
-        \caption{Curry covariance}
-        \label{fig:curry_covariance}
-    \end{subfigure}
-    \caption{Reconstruction.}
-    \label{fig:reconstruction}
+    \includegraphics[width=\textwidth]{figures/eigenfunctions_gram.eps}
+    \caption{The estimated mean surfaces (first column) and the estimated eigenfunctions (second to fifth columns) for the shots dataset using the \texttt{Gram} method.}
+    \label{fig:eigenfunctions_gram}
 \end{figure}
-\textcolor{red}{For the Gram matrix, the first two principal components and the fourth are related to the shoots under the basket, excluding the other areas. This account for around $95\%$ of the variance. The third and fifth components are related to the three-pointers. These results exhibits the shooting patterns of Stephen Curry. He mostly scores under the basket or behind the three-points line, but almost never in-between. The decomposition of the density of made shots is similar to the ones of attempted shots. We may advance an explanation for that: Stephen Curry does not have a ``weak'' spot, that is somewhere on the court where he shots a lot but does not score.}
 % section application (end)

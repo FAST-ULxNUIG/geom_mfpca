@@ -1,8 +1,6 @@
 %!TEX root=../main_supp.tex
-\section{Basis decomposition} % (fold)
-\label{sec:basis_decomposition}
 
-\subsection{Basis decomposition} % (fold)
+\section{Basis decomposition} % (fold)
 \label{sub:basis_decomposition}
 
 
@@ -61,14 +59,11 @@ where $\mathrm{I}_{\!N}$ is the identity matrix of size $N$ and $\mathbf{1}_{\!N
 
 % subsection basis_decomposition (end)
 
-These results can be extended in a natural way if all the curves are expanded in a general basis of functions, defined in Equation~\eqref{eq:curve_basis_expansion}.
-The derivation of these equalities, as well as the derivation of the eigencomponents using the expansion of the curves in a general basis of function and the Gram matrix, are given in Appendix~\ref{sec:derivation_of_the_eigencomponents} in a slighty more general framework where the observation weights are not equal.
 
-
-\subsection{With a basis expansion} % (fold)
+\section{MFPCA with a basis expansion} % (fold)
 \label{sub:with_a_basis_expansion}
 
-In this section, we assume that the observations are expanded into a basis of functions, as explained in Section~\ref{sub:basis_decomposition}. Using the expansion of the data into the basis of function $\Psi$ and $\mathbf{W}$, the matrix of inner products of the functions in the basis $\Psi$, we write the Equation~\eqref{eq:gram_mat} as
+In this section, we assume that the observations are expanded into a basis of functions, as explained in Section~\ref{sub:basis_decomposition}. Using the expansion of the data into the basis of function $\Psi$ and $\mathbf{W}$, the matrix of inner products of the functions in the basis $\Psi$, we write \eqref{eq:gram_matrix_basis} as
 \begin{equation}
     \mathbf{M} = \left(\text{diag}\{
         \sqrt{\pi_1}, \dots, \sqrt{\pi_N}\}\left(\mathrm{I}_{\!N} - \mathbf{1}_{\!N}\Pi^\top\right) \mathbf{C}\mathbf{W}^{1/2}\right)\left(\text{diag}\{
@@ -113,7 +108,7 @@ Since this equation must be true for all $t_p \in \TT{p}$, this imply the equati
 \begin{equation}\label{eq:eigen_decom}
     \mathbf{C}^{\top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right) \mathbf{C} \mathbf{W} b_{k} = \lambda_k b_k.
 \end{equation}
-As the eigenfunctions are assumed to be normalized, $\normH{\phi_k}^2 = 1$. And so, $b_k^\top \mathbf{W} b_k = 1$. Let $u_k = \mathbf{W}^{1/2}b_k$. Then, from Equation \eqref{eq:eigen_decom}, we obtain
+As the eigenfunctions are assumed to be normalized, $\normH{\phi_k}^2 = 1$. And so, $b_k^\top \mathbf{W} b_k = 1$. Let $u_k = \mathbf{W}^{1/2}b_k$. Then, from \eqref{eq:eigen_decom}, we obtain
 \begin{equation}\label{eq:eigen_cov_op}
     \mathbf{W}^{1/2} \mathbf{C}^{\top} \left(\text{diag}\{\pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right) \mathbf{C} \mathbf{W}^{1/2} u_k = \lambda_k u_k \Longleftrightarrow \mathbf{A}^\top\mathbf{A} u_k = \lambda_k u_k.
 \end{equation}
