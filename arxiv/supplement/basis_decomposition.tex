@@ -11,11 +11,11 @@ In many practical situations, functional data are noisy and only observed at spe
 where $\{c^{(p)}_{nk}\}_{1 \leq k \leq K_p}$ is a set of coefficients for feature $p$ of observation $n$. We denote by $\overline{c}_k^{(p)} = \sum_{n = 1}^N \pi_n c^{(p)}_{nk}$ the mean coefficient of feature $p$ corresponding to the $k$th basis function.
 The $p$th feature of the mean function can be then expanded in the same basis as:
 \begin{equation}
-    \textcolor{red}{\hatmup{p}(t_p)} = \sum_{k = 1}^{K_p} \overline{c}_k^{(p)}\psi_k^{(p)}(t_p), \quad t_p \in \TT{p}.
+    \hatmup{p}(t_p) = \sum_{k = 1}^{K_p} \overline{c}_k^{(p)}\psi_k^{(p)}(t_p), \quad t_p \in \TT{p}.
 \end{equation}
 Similarly, the covariance function of the $p$th and $q$th features is given by:
 \begin{equation}
-    \textcolor{red}{\widehat{C}_{p,q}(s_p, t_q)} = \sum_{k = 1}^{K_p} \sum_{l = 1}^{K_q} \left(\sum_{n = 1}^N \pi_n c^{(p)}_{nk}c^{(q)}_{nl} - \overline{c}_k^{(p)}\overline{c}_l^{(q)}\right)\psi_k^{(p)}(s_p)\psi_l^{(q)}(t_q), \quad s_p \in \TT{p},\quad t_q \in \TT{q}.
+    \widehat{C}_{p,q}(s_p, t_q) = \sum_{k = 1}^{K_p} \sum_{l = 1}^{K_q} \left(\sum_{n = 1}^N \pi_n c^{(p)}_{nk}c^{(q)}_{nl} - \overline{c}_k^{(p)}\overline{c}_l^{(q)}\right)\psi_k^{(p)}(s_p)\psi_l^{(q)}(t_q), \quad s_p \in \TT{p},\quad t_q \in \TT{q}.
 \end{equation}
 These formulas can be written in matrix form as follows. For $\pointt \in \TT{}$, we have that $X(\pointt) = \mathbf{C}\Psi(\pointt)$ where $X(\pointt)$ is a $N \times P$ matrix with entries $\Xnp(t_p),~t_p \in \TT{p},~1 \leq p \leq P,~1 \leq n \leq N$,
 \begin{equation}
@@ -40,10 +40,10 @@ where
 \end{equation}
 Using the basis expansion and denoting $\Pi^\top = (\pi_1, \dots, \pi_N)$, the mean and covariance functions are given by
 \begin{equation}
-    \textcolor{red}{\widehat{\mu}(\pointt)} = \Psi(\pointt)^\top \mathbf{C}^\top\Pi \quad\text{and}\quad \textcolor{red}{\widehat{C}(\points, \pointt)} = \Psi(\points)^\top \mathbf{C}^\top \left(\text{diag}\{
+    \widehat{\mu}(\pointt) = \Psi(\pointt)^\top \mathbf{C}^\top\Pi \quad\text{and}\quad \widehat{C}(\points, \pointt) = \Psi(\points)^\top \mathbf{C}^\top \left(\text{diag}\{
         \pi_1, \dots, \pi_N\} - \Pi\Pi^\top\right)\mathbf{C} \Psi(\pointt).
 \end{equation}
-Finally, we denote by $\mathbf{W}$ the matrix of inner products of the functions in the basis $\Psi$. The matrix $\mathbf{W}$ is a block-diagonal matrix such that $\mathbf{W} = \textcolor{red}{\text{blockdiag}}\{\mathbf{W}^{(1)}, \dots, \mathbf{W}^{(P)}\}$ where each entry is given by
+Finally, we denote by $\mathbf{W}$ the matrix of inner products of the functions in the basis $\Psi$. The matrix $\mathbf{W}$ is a block-diagonal matrix such that $\mathbf{W} = \text{blockdiag}\{\mathbf{W}^{(1)}, \dots, \mathbf{W}^{(P)}\}$ where each entry is given by
 \begin{equation}
     \mathbf{W}_{k, l}^{(p)} = \inLp{\psi_k^{(p)}}{\psi_l^{(p)}}, \quad 1 \leq k, l \leq K_p, \quad 1 \leq p \leq P.
 \end{equation}
