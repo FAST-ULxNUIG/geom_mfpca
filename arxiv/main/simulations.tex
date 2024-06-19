@@ -65,9 +65,9 @@ The shorter computational time of the diagonalization of the Gram matrix makes i
 \end{results}
 
 % Eigenvalues estimation ----------
-\begin{results}[Eigenvalues estimation.]
+\begin{results}[Eigenvalue estimation.]
 To compare the estimation of the eigenvalues between the different methods, we calculated the RSE \eqref{eq:mse_eigenvalues} between the estimated eigenvalues and the true eigenvalues for each simulated dataset and for the twelve estimated eigenvalues.
-Figure~\ref{fig:logAE_mfd_1d} shows the boxplots of the RSE for each method across all sample sizes, number of sampling points. We found that the three methods behave similarly for the settings with a moderately large to a large number of sampling points. When we observe only a few sampling points, $M^{(1)} = 11 \times 11$ and $M^{(2)} = 21$, the quality of the estimation is approximately the same for the first three eigenvalues for all methods, but from the fourth eigenvalues, the \texttt{2D/1D B-splines} and the \texttt{Gram} methods give slightly better results than the \texttt{(Tensor) PCA} method. The results for the sparse and noisy cases are similar to the dense and noiseless case and are provided in the Appendix \ref{sub:simulation}.
+Figure~\ref{fig:logAE_mfd_1d} shows the boxplots of the RSE for each method across all sample sizes and number of sampling points. We found that the three methods behave similarly for the settings with a moderately large to a large number of sampling points. When we observe only a few sampling points, $M^{(1)} = 11 \times 11$ and $M^{(2)} = 21$, the quality of the estimation is approximately the same for the first three eigenvalues for all methods, but from the fourth eigenvalues, the \texttt{2D/1D B-splines} and the \texttt{Gram} methods give slightly better results than the \texttt{(Tensor) PCA} method. The results for the sparse and noisy cases are similar to the dense and noiseless case and are provided in the Appendix \ref{sub:simulation}.
 
 \begin{figure}
     \centering
@@ -78,7 +78,7 @@ Figure~\ref{fig:logAE_mfd_1d} shows the boxplots of the RSE for each method acro
 \end{results}
 
 % Eigenfunctions estimation ----------
-\begin{results}[Eigenfunctions estimation.]
+\begin{results}[Eigenfunction estimation.]
 To compare the estimation of the eigenfunctions between the different methods, we calculated the ISE \eqref{eq:ise_eigenfunctions} between the estimated eigenfunctions and the true eigenfunctions for each simulated dataset and for the twelve estimated eigenfunctions. Figure~\ref{fig:ise_mfd_1d} shows the boxplots of the ISE for each method across all sample sizes and number of sampling points. The results are similar to those found when estimating the eigenvalues. When we observe only a few sampling points, the quality of the estimation of the eigenfunctions starts to decrease after the third component for the \texttt{(Tensor) PCA} method, while this is not the case for the other methods. The results for the sparse and noisy cases are similar to the dense and noiseless case and are provided in the Appendix \ref{sub:simulation}.
 \begin{figure}
      \centering
@@ -89,7 +89,7 @@ To compare the estimation of the eigenfunctions between the different methods, w
 \end{results}
 
 % Curves reconstruction ----------
-\begin{results}[Curves reconstruction.]
+\begin{results}[Curve reconstruction.]
 To compare the quality of the reconstruction of the curves between the different methods, we calculated the MRSE \eqref{eq:mise_reconstructed_data} between the reconstruction of the curves and the true curves for each simulated dataset. Figure~\ref{fig:mise_mfd_1d} shows the boxplots of the MRSE for each method across all sample sizes and number of sampling points. Except in the case of few sampling points where the \texttt{(Tensor) PCA} method does not perform well (because of the poor estimation of the eigenvalues and eigenfunctions), all methods give nearly the same results for each setting. The results for the sparse and noisy cases are similar and are provided in the Appendix \ref{sub:simulation}.
 \begin{figure}
      \centering
