@@ -1,0 +1,108 @@
+\documentclass{article}
+
+\usepackage[english]{babel}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}\mathtoolsset{showonlyrefs=true}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\usepackage{dsfont}
+
+\usepackage{xr}
+\externaldocument[]{main.tex}
+
+% -------------
+% Some commands
+% -------------
+
+% Environment
+\newcounter{rem}
+\newtheorem{remark}[rem]{Remark}
+
+\newcounter{th}
+\newtheorem{theorem}[th]{Theorem}
+
+% Stats
+\newcommand{\EE}{\mathbb{E}} % Expectation
+\newcommand{\RR}{\mathbb{R}} % R
+\newcommand{\dd}{{\rm d}}
+
+% Spaces
+\newcommand{\TT}[1]{\mathcal{T}_{#1}} % Domain definition space
+\newcommand{\sLp}[1]{\mathcal{L}^{2}\left(#1\right)} % L^p space
+\newcommand{\HH}{\mathcal{H}} % Product of L^p space
+\newcommand{\GG}{\mathcal{G}} % (L^p)^N space
+
+% Inner product and norm
+\newcommand{\pointt}{\mathbf{t}} % Indexed of multivariate curves
+\newcommand{\points}{\mathbf{s}} % Indexed of multivariate curves
+\newcommand{\inLp}[2]{\langle#1, #2\rangle} % Inner product in Lp
+\newcommand{\normLp}[1]{\left|\!\left|#1\right|\!\right|} % Norm in Lp
+\newcommand{\inH}[2]{\langle\!\langle#1, #2\rangle\!\rangle}
+\newcommand{\inHw}[2]{\langle\!\langle#1, #2\rangle\!\rangle_w}
+\newcommand{\normH}[1]{\left|\!\left|\!\left|#1\right|\!\right|\!\right|}
+
+% Data/Process related
+\newcommand{\Xnp}{X_n^{(p)}} % Observation n, feature p
+\newcommand{\Xp}[1]{X^{(#1)}} % Feature p
+\newcommand{\mup}[1]{\mu^{(#1)}} % Feature p
+\newcommand{\fp}{f^{(p)}} 
+\newcommand{\gp}{g^{(p)}}
+
+% Geometric related
+\newcommand{\pobs}[1]{\mathrm{#1}} % Point related to observations
+\newcommand{\CN}{\mathcal{C}_{\!N}} % Cloud of observations
+\newcommand{\GN}{\pobs{G}_{\!N}} % Centre of gravity of C_N
+\newcommand{\OH}{\pobs{O}_{\!\mathcal{H}}} % Centre of H
+
+\newcommand{\pfea}[1]{\mathsf{#1}} % Point related to features
+\newcommand{\CP}{\mathcal{C}_{\!P}} % Cloud of features
+\newcommand{\GP}{G_{\!P}} % Centre of gravity of C_P
+\newcommand{\OG}{\mathcal{O}_{\!\mathcal{G}}} % Centre of H
+
+% Declaration of math operator
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator{\bigO}{\mathcal{O}}
+% -------------
+
+
+\title{Supplementary material to ``A geometric interpretation of the multivariate functional principal components analysis''}
+\author{%
+Steven Golovkine\thanks{MACSI, Department of Mathematics and Statistics, University of Limerick, Ireland \href{mailto:steven.golovkine@ul.ie}{steven.golovkine@ul.ie}}
+\and
+Edward Gunning\thanks{MACSI, Department of Mathematics and Statistics, University of Limerick, Ireland \href{mailto:edward.gunning@ul.ie}{edward.gunning@ul.ie}}
+}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Your abstract.
+\end{abstract}
+
+% MAIN --------
+\input{supp/univariate_case}
+% -------------
+
+
+% APPENDIX ------
+
+% ACKNOWLEDGMENT -------
+\section*{Acknowledgment}
+
+S. Golovkine was partially supported by Science Foundation Ireland under Grant No. 19/FFP/7002 and co-funded under the European Regional Development Fund.
+
+
+% REFERENCES ---------
+\bibliographystyle{abbrv}
+\bibliography{./biblio.bib}
+
+\end{document}
+
