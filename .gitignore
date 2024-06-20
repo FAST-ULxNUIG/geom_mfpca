@@ -24,6 +24,8 @@ notebooks/*
 # Private folder
 ./comments/*
 ./sts/*
+./jma/*
+./reviews/*
 
 # Data
 *.pkl
