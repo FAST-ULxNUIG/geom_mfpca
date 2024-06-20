@@ -18,7 +18,7 @@
 ._*
 
 # Jupyter
-./ipynb_checkpoints/*
+.ipynb_checkpoints/*
 notebooks/*
 
 # Private folder
