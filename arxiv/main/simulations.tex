@@ -1,4 +1,3 @@
-%!TEX root=../main.tex
 \section{Empirical analysis} % (fold)
 \label{sec:empirical_analysis}
 
@@ -56,7 +55,7 @@ To compare the computational time of the different methods, we measured the time
 
 \begin{figure}
      \centering
-    \includegraphics[width=0.95\textwidth]{figures/computation_time.eps}
+    \includegraphics[width=0.95\textwidth]{figures/computation_time}
     \caption{Ratio of computation time in the dense case between the \texttt{(Tensor) PCA} and \texttt{2D/1D B-Splines} methods and the \texttt{Gram} method. $N$ is the number of observations, $M$ is the number of sampling points per curve (the first two numbers are for the images and the last one is for the curves).}
     \label{fig:computation_time_mfd_1d}
 \end{figure}
@@ -71,7 +70,7 @@ Figure~\ref{fig:logAE_mfd_1d} shows the boxplots of the RSE for each method acro
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.95\textwidth]{figures/AE.eps}
+    \includegraphics[width=0.95\textwidth]{figures/AE}
     \caption{RSE for the estimated eigenvalues for each method in the dense case. $N$ is the number of observations, $M$ is the number of sampling points per curve (the first two numbers are for the images and the last one is for the curves).}
     \label{fig:logAE_mfd_1d}
 \end{figure}
@@ -82,7 +81,7 @@ Figure~\ref{fig:logAE_mfd_1d} shows the boxplots of the RSE for each method acro
 To compare the estimation of the eigenfunctions between the different methods, we calculated the ISE \eqref{eq:ise_eigenfunctions} between the estimated eigenfunctions and the true eigenfunctions for each simulated dataset and for the twelve estimated eigenfunctions. Figure~\ref{fig:ise_mfd_1d} shows the boxplots of the ISE for each method across all sample sizes and number of sampling points. The results are similar to those found when estimating the eigenvalues. When we observe only a few sampling points, the quality of the estimation of the eigenfunctions starts to decrease after the third component for the \texttt{(Tensor) PCA} method, while this is not the case for the other methods. The results for the sparse and noisy cases are similar to the dense and noiseless case and are provided in the Appendix \ref{sub:simulation}.
 \begin{figure}
      \centering
-    \includegraphics[width=0.95\textwidth]{figures/ISE.eps}
+    \includegraphics[width=0.95\textwidth]{figures/ISE}
     \caption{ISE for the estimated eigenfunctions for each method in the dense case. $N$ is the number of observations, $M$ is the number of sampling points per curve (the first two numbers are for the images and the last one is for the curves).}
     \label{fig:ise_mfd_1d}
 \end{figure}
@@ -93,7 +92,7 @@ To compare the estimation of the eigenfunctions between the different methods, w
 To compare the quality of the reconstruction of the curves between the different methods, we calculated the MRSE \eqref{eq:mise_reconstructed_data} between the reconstruction of the curves and the true curves for each simulated dataset. Figure~\ref{fig:mise_mfd_1d} shows the boxplots of the MRSE for each method across all sample sizes and number of sampling points. Except in the case of few sampling points where the \texttt{(Tensor) PCA} method does not perform well (because of the poor estimation of the eigenvalues and eigenfunctions), all methods give nearly the same results for each setting. The results for the sparse and noisy cases are similar and are provided in the Appendix \ref{sub:simulation}.
 \begin{figure}
      \centering
-     \includegraphics[width=0.95\textwidth]{figures/MRSE.eps}
+     \includegraphics[width=0.95\textwidth]{figures/MRSE}
     \caption{MRSE for the reconstructed curves for each method in the dense case. $N$ is the number of observations, $M$ is the number of sampling points per curve (the first two numbers are for the images and the last one is for the curves).}
     \label{fig:mise_mfd_1d}
 \end{figure}
