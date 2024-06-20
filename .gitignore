@@ -24,10 +24,10 @@ notebooks/*
 __pycache__/
 
 # Private folder
-./comments/*
-./sts/*
-./jma/*
-./reviews/*
+comments/*
+sts/*
+jma/*
+reviews/*
 
 # Data
 *.pkl
