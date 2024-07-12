@@ -28,6 +28,7 @@ comments/*
 sts/*
 jma/*
 reviews/*
+coverletter/*
 
 # Data
 *.pkl
