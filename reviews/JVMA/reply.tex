@@ -1,0 +1,220 @@
+\documentclass[11pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts,color}
+\usepackage{mathtools}
+\mathtoolsset{showonlyrefs}
+
+\usepackage[normalem]{ulem}
+
+\setlength{\textwidth}{16cm}
+\setlength{\textheight}{24cm}
+\topmargin=-2cm
+\setlength{\hoffset}{-1.4cm}
+\begin{document}
+
+
+\qquad
+
+\qquad
+
+\qquad
+
+
+\qquad
+
+\qquad
+
+\qquad
+
+\newcommand{\thedate}{\today}
+
+\thedate
+
+\qquad
+
+\qquad
+
+\qquad
+
+
+
+Dear Editor,
+
+\qquad
+
+
+We would be very grateful if you would consider this revision, entitled \emph{`On the use of the Gram matrix for multivariate functional principal components analysis'} for publication in \emph{JMVA} journal. This is a revised version of the manuscript JMVA-D-24-00251. We were able to address the comments made by the reviewers and to strengthen our results. A point-to-point reply is provided below. 
+
+\quad
+
+We quite naturally hope that this version matches reviewers' expectations, and we thank you in advance for your consideration.
+
+
+
+\quad
+
+
+Sincerely, 
+
+\medskip
+
+
+
+ Steven Golovkine 
+ \\(on behalf of the co-authors  Edward Gunning, Andrew J. Simpkin and Norma Bargary)
+
+
+
+
+
+\newpage
+
+
+\begin{center}
+{\large Comments received for \emph{On the use of the Gram matrix for multivariate functional principal components analysis}}\\
+\end{center} 
+
+
+\vspace*{1cm}
+
+
+{\large \textbf{Reviewer 1} }
+
+
+\bigskip
+
+\itshape
+
+
+\textbf{Comment \#1 :}
+
+It seems to me that the sentence "FPCA was introduced by Karhunen (1947) and Loève (1945) and developped by Dauxois et al. (1982)" is not entirely true. In fact, Karhunen and Loève independently proved the so-called Karhunen-Loève decomposition (written on p. 9, eq. (8)) but they were not aware of the possible applications of FPCA at the time. FPCA was later developed by Kleﬀe (1973); Deville (1974). Note also that at the same time as Kari Karhunen and Michel Loève, an orthogonal series decomposition was also proved by Kosambi (1943).
+
+\medskip
+
+\normalfont
+
+\textbf{Reply:} 
+
+\bigskip
+
+\itshape
+
+\textbf{Comment \#2 :}
+
+The sentence "the principal components obtained from a PCA run on
+the rows data matrix are the same as the ones obtained from a PCA run on the
+columns of the matrix" is not precise: the eigenvalues are the same but the eigenvectors are diﬀerent (even if there is a relationship between them).
+
+\medskip
+
+\normalfont
+
+\textbf{Reply:}
+
+
+
+\bigskip
+
+\itshape
+
+
+\textbf{Comment \#3 :}
+
+The estimation of $\widehat{C}_{p,p}(s_p,s_p)$ depends on the noise variance $\sigma^2_p$ which is unknown in practice. How do you estimate it?
+
+\medskip
+
+\normalfont
+
+\textbf{Reply:}
+
+
+
+\bigskip
+
+
+\itshape
+
+
+\textbf{Comment \#4 :}
+
+ "the time complexity [...] of the univariate score is $\mathcal{O}(NM_pK_p)$". It is not written very clearly but I assume that it is the time complexity of computing the scores of all individuals?
+
+
+\medskip
+
+\normalfont
+
+\textbf{Reply:}
+
+\bigskip
+
+
+\itshape
+
+
+
+\textbf{Comment \#5 :}
+
+It seems that the two sentences "we focus solely on players who have made more than 1000 shots" and "We remove [...] players that have made fewer than 100 shots" contradict each other. Or maybe I do not understand the overall meaning. Which players exactly are you removing?
+
+
+\medskip
+
+\normalfont
+
+\textbf{Reply:}
+
+\bigskip
+
+
+\itshape
+
+\textbf{Comment \#6 :}
+
+I see no diﬀerence between the eigenfunctions of shots attempted and shots made, the eigenvalues are exactly the same. This seems very surprising to me. Do you have an explanation? Also, plotting the scores can be informative
+for the interpretation.
+
+
+\medskip
+
+\normalfont
+
+\textbf{Reply:}
+
+\bigskip
+
+
+\itshape
+
+
+
+{\large \textbf{Reviewer 2} }
+
+
+\bigskip
+
+\itshape
+
+
+\textbf{Comment \#1 :}
+
+The novelty of the research can be improved and highlighted by providing another data example to show the differences from previous works and the supplementary python codes need more documentation.
+
+\medskip
+
+\normalfont
+
+\textbf{Reply:} 
+
+
+\bigskip
+
+\itshape
+
+\bibliographystyle{apalike}
+\bibliography{ref_short} 
+\end{document} 

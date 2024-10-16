@@ -27,7 +27,7 @@ __pycache__/
 comments/*
 sts/*
 jma/*
-reviews/*
+#reviews/*
 coverletter/*
 
 # Data
