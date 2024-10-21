@@ -77,6 +77,7 @@ Sincerely,
 \end{center} 
 
 
+The changes are in \textcolor{blue}{blue} in the main text.
 \vspace*{1cm}
 
 
@@ -98,6 +99,8 @@ It seems to me that the sentence "FPCA was introduced by Karhunen (1947) and Lo√
 
 \textbf{Reply:} 
 
+We thank the Reviewer for these details on the history of the FPCA. We modify the text accordingly.
+
 \bigskip
 
 \itshape
@@ -114,7 +117,7 @@ columns of the matrix" is not precise: the eigenvalues are the same but the eige
 
 \textbf{Reply:}
 
-
+We thank the Reviewer for this comment. We replace ``principal components'' by ``eigenvalues''.
 
 \bigskip
 
@@ -131,7 +134,7 @@ The estimation of $\widehat{C}_{p,p}(s_p,s_p)$ depends on the noise variance $\s
 
 \textbf{Reply:}
 
-
+The last sentence of Section 2 refers to the estimation of the noise variances. We acknowledge that it was not clear that this sentence also refer to the noise variances in $\widehat{C}_{p, p}$. We modify the sentence to make it clearer.
 
 \bigskip
 
@@ -150,8 +153,9 @@ The estimation of $\widehat{C}_{p,p}(s_p,s_p)$ depends on the noise variance $\s
 
 \textbf{Reply:}
 
-\bigskip
+We thank the Reviewer for this comment. We now use ``univariate scores''.
 
+\bigskip
 
 \itshape
 
@@ -161,13 +165,13 @@ The estimation of $\widehat{C}_{p,p}(s_p,s_p)$ depends on the noise variance $\s
 
 It seems that the two sentences "we focus solely on players who have made more than 1000 shots" and "We remove [...] players that have made fewer than 100 shots" contradict each other. Or maybe I do not understand the overall meaning. Which players exactly are you removing?
 
-
 \medskip
 
 \normalfont
 
 \textbf{Reply:}
 
+First, we exclude players who have made less than $1000$ shots during the five-season period. We then exclude shots from a restricted area (close to the hoop). Finally, we exclude players who have made less than $100$ shots outside the restricted area. We modify the main text to clarify the process.
 \bigskip
 
 
@@ -184,6 +188,8 @@ for the interpretation.
 \normalfont
 
 \textbf{Reply:}
+
+We agree that the eigenfunctions of shots attempted and shots made are similar. A possible explanation is that the shots made are included in the shots attempted. We are not sure what the Reviewer means by ``the eigenvalues are exactly the same''. If the Reviewer refers to the percentage of variance explained in the Figure 10, we recall that the eigenfunctions are vector-valued $\phi_k = (\phi_k^{(1)}, \phi_k^{(2)})^\top$ and thus the eigenvalues are related to $\phi_k$ and not $\phi_k^{(1)}$ or $\phi_k^{(2)}$ individually. While we acknowledge that a plot of the scores may be informative for the interpretation, we choose to not include it as the main interest of the paper is not the analysis of this specific dataset, but the methodology to estimate the multivariate principal components.
 
 \bigskip
 
@@ -210,11 +216,13 @@ The novelty of the research can be improved and highlighted by providing another
 
 \textbf{Reply:} 
 
+We thank the Reviewer for the comment. We add some comments to the Python code and another example on Canadian weather in the Supplementary material.
 
 \bigskip
 
 \itshape
 
-\bibliographystyle{apalike}
-\bibliography{ref_short} 
+%\bibliographystyle{apalike}
+%\bibliography{ref_short} 
+
 \end{document} 

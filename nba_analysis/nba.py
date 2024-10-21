@@ -16,14 +16,13 @@ from FDApy.representation.functional_data import DenseFunctionalData, BasisFunct
 from FDApy.preprocessing import MFPCA
 
 class MidpointNormalize(mpl.colors.Normalize):
+    """Class to normalize colormap.
+    """
     def __init__(self, vmin=None, vmax=None, vcenter=None, clip=False):
         self.vcenter = vcenter
         super().__init__(vmin, vmax, clip)
 
     def __call__(self, value, clip=None):
-        # I'm ignoring masked values and all kinds of edge cases to make a
-        # simple example...
-        # Note also that we must extrapolate beyond vmin/vmax
         x, y = [self.vmin, self.vcenter, self.vmax], [0, 0.5, 1.]
         return np.ma.masked_array(
             np.interp(value, x, y, left=-np.inf, right=np.inf)
@@ -95,7 +94,6 @@ class NbaScraper:
     def get_player_headshot(id: int) -> str:
             """ Get the headshot of a player from his id
             """
-            from nba_api.stats.static import players
             import requests
             import shutil
             
@@ -164,6 +162,8 @@ class ShotCharts:
         return ax
 
     def add_headshot(ax: mpl.axes, id: int) -> mpl.axes:
+        """Add headshot to the plot
+        """
         from PIL import Image 
         from urllib import request
         BASE = "https://cdn.nba.com/headshots/nba/latest/260x190"
@@ -181,6 +181,8 @@ class ShotCharts:
         name: str,
         add_headshot: bool = True
     ) -> mpl.axes:
+        """Create the shot chart plot
+        """
         cond = df.PLAYER_NAME == name
         X = df[cond]['LOC_X'].to_numpy()
         Y = df[cond]['LOC_Y'].to_numpy()
@@ -190,9 +192,7 @@ class ShotCharts:
         ax = ShotCharts.create_court(ax, 'black')
         scatter = ax.scatter(X, Y, c=MADE, alpha=1, s=0.2, cmap='viridis')
         
-        ax.text(0.03, 0.925, f"Shots chart", fontsize='large', transform=ax.transAxes)
-        #ax.text(0.03, 0.875, f"{name}", fontsize='medium', transform=ax.transAxes)
-
+        ax.text(0.03, 0.925, "Shots chart", fontsize='large', transform=ax.transAxes)
         new_legend = (scatter.legend_elements()[0], ['Missed', 'Made'])
         leg = ax.legend(*new_legend, loc="upper right", title="")
         ax.add_artist(leg)
@@ -208,6 +208,8 @@ class ShotCharts:
         title: str,
         add_headshot: bool = True
     ) -> mpl.axes:
+        """Create the density plot.
+        """
         cond = df.PLAYER_NAME == name
         density = df[cond]['DENSITY'].iloc[0]
         idx = df[cond]['PLAYER_ID'].iloc[0]
@@ -224,7 +226,6 @@ class ShotCharts:
             cmap='seismic', norm=midnorm
         )
         ax.text(0.03, 0.925, f"{title}", fontsize='large', transform=ax.transAxes)
-        #ax.text(0.03, 0.875, f"{name}", fontsize='medium', transform=ax.transAxes)
         if add_headshot:
             ax = ShotCharts.add_headshot(ax, idx)
         return ax
@@ -237,6 +238,8 @@ class ShotCharts:
         title: str,
         add_headshot: bool = True
     ) -> mpl.axes:
+        """Create the plot for the reconstruction of the density
+        """
         cond = df.PLAYER_NAME == name
         idx = df[cond]['PLAYER_ID'].iloc[0]
         indice = df.index[cond]
@@ -254,7 +257,6 @@ class ShotCharts:
             cmap='seismic', norm=midnorm
         )
         ax.text(0.03, 0.925, f"{title}", fontsize='large', transform=ax.transAxes)
-        ax.text(0.03, 0.875, f"{name}", fontsize='medium', transform=ax.transAxes)
         if add_headshot:
             ax = ShotCharts.add_headshot(ax, idx)
         return ax
@@ -265,6 +267,8 @@ class ShotCharts:
         idx_c: int,
         title: str
     ) -> mpl.axes:
+        """Create the plot of the mean density
+        """
         mean = mfpca.mean.data[idx_c][0].values.squeeze()
 
         X_MIN, X_MAX = (-250, 250) 
@@ -295,6 +299,8 @@ class ShotCharts:
         idx_c: int,
         title: str
     ) -> mpl.axes:
+        """Create the plot of the eigenfunctions.
+        """
         if isinstance(mfpca.eigenfunctions.data[idx_c], BasisFunctionalData):
             eigenfunctions = mfpca.eigenfunctions.data[idx_c].to_grid()
         else:
@@ -333,6 +339,9 @@ class ShotCharts:
         title: str,
         maximum: float
     ) -> plt.figure:
+        """Create the plot of the decomposition of the density into the
+        eigenfunction basis
+        """
         if isinstance(mfpca.eigenfunctions.data[idx_c], BasisFunctionalData):
             eigenfunctions = mfpca.eigenfunctions.data[idx_c].to_grid()
         else:

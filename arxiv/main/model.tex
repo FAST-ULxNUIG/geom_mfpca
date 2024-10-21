@@ -76,7 +76,7 @@ Concerning the estimation of the covariance of the $p$th feature, we distinguish
     \widehat{C}_{p, p}(s_p, t_p) = \sum_{n = 1}^N \pi_n\left(\{\hatXnp{p}(s_p) - \hatmup{p}(s_p)\}\{\hatXnp{p}(t_p) - \hatmup{p}(t_p)\}\right), \quad s_p \neq t_p, \quad s_p, t_p \in \TT{p}.
 \end{equation}
 The variance function $C_{p, p}(s_p, t_p)$ induces a singularity when estimating the covariance function $C_{p, p}(\cdot, \cdot)$ \cite[see][]{yaoFunctionalDataAnalysis2005,zhangSparseDenseFunctional2016}. We define the estimator of the diagonal of the covariance as
-\begin{equation}
+\begin{equation}\label{eq:Cpp}
     \widehat{C}_{p, p}(s_p, s_p) = \sum_{n = 1}^N \pi_n\{\hatXnp{p}(s_p) - \hatmup{p}(s_p)\}^2 - \sigma_p^2, \quad s_p \in \TT{p}.
 \end{equation}
 This singularity does not appear in the estimation of the cross-covariance function. We define the estimator of the cross-covariance function between the $p$th and $q$th features by
@@ -88,10 +88,10 @@ The estimator of the inner-product matrix can be defined by replacing the curves
     \widehat{\mathbf{M}}_{nn^\prime} = \sqrt{\pi_n \pi_{n^{\prime}}}\sum_{p = 1}^P \int_{\TT{p}}\{\hatXnp{p}(t_p) - \widehat{\mu}^{(p)}(t_p)\}\{\widehat{X}^{(p)}_{n^\prime}(t_p) - \widehat{\mu}^{(p)}(t_p)\} \dd t_p, \quad n, n^\prime = 1, \dots, N.
 \end{equation}
 As for the covariance estimation, the model implies a bias on the diagonal term of the inner-product matrix. A correction for the diagonal of the Gram matrix is given by
-\begin{equation}
+\begin{equation}\label{eq:Mnn}
     \widehat{\mathbf{M}}_{nn} = \pi_n\sum_{p = 1}^P \left\{\int_{\TT{p}}\{\hatXnp{p}(t_p) - \widehat{\mu}^{(p)}(t_p)\}^2 \dd t_p - \sigma_p^2 \right\}, \quad n = 1, \dots, N.
 \end{equation}
-For the estimation of the variances $\sigma_p^2$, we let the reader refers to \cite{hallVarianceEstimationNonparametric1990} and \cite{hallAsymptoticallyOptimalDifferenceBased1990}.
+\textcolor{blue}{In practice, the variances $\sigma_p^2$ in equations~\eqref{eq:Cpp} and~\eqref{eq:Mnn} are unknown and have to be estimated. For the estimation, we let the reader refers to \cite{hallVarianceEstimationNonparametric1990} and \cite{hallAsymptoticallyOptimalDifferenceBased1990}.}
 
 % subsection inference (end)
 
