@@ -1,0 +1,57 @@
+\section{Derivation of the eigencomponents} % (fold)
+\label{sec:derivation_of_the_eigencomponents}
+
+\subsection{General framework} % (fold)
+\label{sub:general_framework}
+In this section, we calculate the relationships between the eigenelements of the covariance operator $\Gamma$ and the ones of the Gram matrix $\mathbf{M}$ of a functional dataset. We then prove the equalities~\eqref{eq:eigenvalues_relation_p},~\eqref{eq:eigenfunction_relation_p} and~\eqref{eq:scores_relation_p}.
+
+Using the Hilbert-Schmidt theorem, there exists a complete orthonormal basis of eigenvectors $\{\boldsymbol{u}_k\}_{1 \leq k \leq N}$ of the inner-product matrix $\mathbf{M}$ such that
+\begin{equation}\label{eq:eigen_inner_prod_p}
+    \mathbf{M}\boldsymbol{u}_k = l_k\boldsymbol{u}_k.
+\end{equation}
+Let $X = \left(X_1 - \mu, \dots, X_N - \mu\right)^\top$ and denote $\widetilde{X} = \text{diag}\{\sqrt{\pi_1}, \dots, \sqrt{\pi_N}\}X$, the matrix of weighted observations. Recall that, in the case of $P$-dimensional process, the realisations of the process $X_n,~n = 1, \cdots, N$ and $\mu$ are vectors of functions of length $P$, and thus $X$ (and $\widetilde{X}$) is a matrix of functions of size $N \times P$. By left multiplying Equation~\eqref{eq:eigen_inner_prod_p} by $\widetilde{X}^\top$, we obtain
+\begin{equation}\label{eq:eigen_inner_prod_left}
+    \widetilde{X}^\top \mathbf{M} \boldsymbol{u}_k = l_k \widetilde{X}^\top \boldsymbol{u}_k.
+\end{equation} 
+Expanding Equation~\eqref{eq:eigen_inner_prod_left}, for each component $p = 1, \dots, P$, we have,
+\begin{equation}\label{eq:inner_prod_p}
+    \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j\mkern-4mu\left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\}\inH{X_i - \mu}{X_j - \mu} = l_k \mkern-5mu\sum_{n = 1}^N \mkern-4mu\sqrt{\pi_n}[\boldsymbol{u}_{k}]_n\mkern-4mu\left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}.
+\end{equation}
+Here and in the following, we note $[a]_p$ the $p$th entry of the vector $a$. Starting from the left side of Equation~\eqref{eq:inner_prod_p}, we get
+\begin{align}\label{eq:inner_prod_p_left}
+[\widetilde{X}^\top \mathbf{M} \boldsymbol{u}_k]_p &= \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \sqrt{\pi_j} [\boldsymbol{u}_{k}]_j \left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\}\inH{X_i - \mu}{X_j - \mu}\\
+&= \sum_{q = 1}^P \int_{\TT{q}} \sum_{i = 1}^N \pi_i\left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\} \left\{X_i^{(q)}(s_q) - \mu^{(q)}(s_q)\right\}  \\
+&\qquad\qquad \times \sum_{j = 1}^N \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
+&= \sum_{q = 1}^P \int_{\TT{q}} C_{p,q}(\cdot, s_q)\sum_{j = 1}^N \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
+&= \sum_{j = 1}^N \inH{C_{p \cdot}(\cdot, \cdot)}{\sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \left\{X_j - \mu\right\}} \\
+&= \Gamma\left(\sum_{j = 1}^N \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \left\{X_j - \mu\right\} \right)^{\mkern-9mu(p)}\mkern-18mu(\cdot),
+\end{align}
+and, starting from the right side of Equation~\eqref{eq:inner_prod_p},
+\begin{equation}\label{eq:inner_prod_p_right}
+    [l_k \widetilde{X}^\top \boldsymbol{u}_k]_p = l_k \sum_{n = 1}^N \sqrt{\pi_n}[\boldsymbol{u}_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}.
+\end{equation}
+From Equation~\eqref{eq:inner_prod_p_left} and Equation~\eqref{eq:inner_prod_p_right}, we obtain
+\begin{equation}
+    \Gamma\left(\sum_{j = 1}^N \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \left\{X_j - \mu\right\}\right)^{\mkern-9mu(p)}\mkern-18mu(\cdot) = l_k \sum_{n = 1}^N \sqrt{\pi_n}[\boldsymbol{u}_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}, \quad\text{for all}~ p = 1, \dots, P.
+\end{equation}
+By identification in Equation~\eqref{eq:eigendecomposition}, we find that, for each components $p$,
+\begin{equation}\label{eq:eigen_estimation}
+\lambda_k = l_k \quad\text{and}\quad \phi_k^{(p)}(\cdot) = \sum_{n = 1}^N \sqrt{\pi_n}[\boldsymbol{u}_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}, \quad k \geq 1.
+\end{equation}
+For $k \geq 1$, the norm of the eigenfunction is computed as the following:
+\begin{align*}
+\normH{\phi_k}^2 &= \sum_{i = 1}^N \sum_{j = 1}^N \sqrt{\pi_i\pi_j}[\boldsymbol{u}_{k}]_i [\boldsymbol{u}_{k}]_j\inH{X_i - \mu}{X_j - \mu} = \sum_{i = 1}^N [\boldsymbol{u}_{k}]_i \sum_{j = 1}^N \mathbf{M}_{ij} [\boldsymbol{u}_{k}]_j \\
+    &= \sum_{i = 1}^N [\boldsymbol{u}_{k}]_i l_k [\boldsymbol{u}_{k}]_i = l_k \normR{\boldsymbol{u}_k}^2 = l_k. \\
+\end{align*}
+Therefore, in order to have an orthonormal basis of eigenfunctions, we normalise the eigenfunctions $\phi_k$ from Equation~\eqref{eq:eigen_estimation} by $1 / \sqrt{l_k}$.
+Concerning the estimation of the scores, for $n = 1, \dots, N$, for $k \geq 1$, we have
+\begin{align}
+    \mathfrak{c}_{nk} &= \inH{X_n - \mu}{\phi_k} = \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \inH{X_n - \mu}{X_j - \mu}\\
+    &= \frac{1}{\sqrt{l_k\pi_n}}\sum_{j = 1}^N [\boldsymbol{u}_{k}]_j \mathbf{M}_{nj} = \sqrt{\frac{l_k}{\pi_n}}[\boldsymbol{u}_{k}]_n.\\
+\end{align}
+
+If we assume that the observations are equally weighted, i.e., $\pi_n = 1 / N, n = 1, \dots, N$, we get the equalities~\eqref{eq:eigenvalues_relation_p},~\eqref{eq:eigenfunction_relation_p} and~\eqref{eq:scores_relation_p}.
+
+% subsection general_framework (end)
+
+% section derivation_of_the_eigencomponents (end)
