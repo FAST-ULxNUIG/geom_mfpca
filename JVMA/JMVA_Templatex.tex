@@ -31,7 +31,7 @@
 \newenvironment{results}[1][]{\noindent \textbf{#1} \rmfamily}{\medskip}
 
 % Stats
-\newcommand{\EE}{\mathbb{E}} % Expectation
+\newcommand{\EE}{\mathrm{E}} % Expectation
 \newcommand{\RR}{\mathbb{R}} % R
 \newcommand{\NN}{\mathbb{N}} % N
 \newcommand{\XX}{\mathcal{X}} % set X
@@ -39,7 +39,7 @@
 
 % Spaces
 \newcommand{\TT}[1]{\mathcal{T}_{#1}} % Domain definition space
-\newcommand{\sLp}[1]{\mathcal{L}^{2}\left(#1\right)} % L^p space
+\newcommand{\sLp}[1]{\mathcal{L}^{2}(#1)} % L^p space
 \newcommand{\HH}{\mathcal{H}} % Product of L^p space
 \newcommand{\GG}{\mathcal{G}} % (L^p)^N space
 
@@ -49,14 +49,14 @@
 \newcommand{\inLp}[2]{\left\langle#1, #2\right\rangle} % Inner product in Lp
 \newcommand{\inR}[2]{\left(#1, #2\right)}
 \newcommand{\inRM}[2]{\left(#1, #2\right)_{\mathbf{M}}}
-\newcommand{\normLp}[1]{\left|\!\left|#1\right|\!\right|} % Norm in Lp
+\newcommand{\normLp}[1]{\left|\left|#1\right|\right|} % Norm in Lp
 \newcommand{\normR}[1]{\left(\!\left(#1\right)\!\right)} %
 \newcommand{\normRM}[1]{\left(\!\left(#1\right)\!\right)_{\mathbf{M}}} %
 \newcommand{\inH}[2]{\langle\!\langle#1, #2\rangle\!\rangle}
 \newcommand{\inHw}[2]{\langle\!\langle#1, #2\rangle\!\rangle_w}
 \newcommand{\inHG}[2]{\langle\!\langle#1, #2\rangle\!\rangle_\Gamma}
-\newcommand{\normH}[1]{\left|\!\left|\!\left|#1\right|\!\right|\!\right|}
-\newcommand{\normHG}[1]{\left|\!\left|\!\left|#1\right|\!\right|\!\right|_\Gamma}
+\newcommand{\normH}[1]{\left|\left|\left|#1\right|\right|\right|}
+\newcommand{\normHG}[1]{\left|\left|\left|#1\right|\right|\right|_\Gamma}
 
 % Data/Process related
 \newcommand{\Xnp}{X_n^{(p)}} % Observation n, feature p
@@ -132,17 +132,17 @@ Dimension reduction \sep Functional data analysis \sep Functional principal comp
 % ----------------------------------------------------------------------------
 Functional data analysis (FDA) is a statistical methodology for analyzing data that can be characterized as functions. These functions could represent measurements taken over time or space, such as temperature readings over a yearly period or spatial patterns of disease occurrence. The goal of FDA is to extract meaningful information from these functions and to model their behavior. See, e.g., \cite{ramsayFunctionalDataAnalysis2005,horvathInferenceFunctionalData2012,wangFunctionalDataAnalysis2016,kokoszkaSpecialIssueFunctional2017} for some references on FDA.
 
-Functional principal component analysis (FPCA) is an extension of principal component analysis (PCA, a commonly used tool for dimension reduction in multivariate data) to functional data. FPCA was introduced by \cite{kleffePrincipalComponentsRandom1973} and \cite{devilleMethodesStatistiquesNumeriques1974}, based on the Karhunen-Loève decomposition, independently developed by \cite{kosambiStatisticsFunctionSpace1943,loeveFonctionsAleatoiresStationnaires1945} and \cite{karhunenUeberLineareMethoden1947}. Since then, FPCA has become a prevalent tool in FDA due to its ability to convert infinite-dimensional functional data into finite-dimensional vectors of random scores. These scores are a countable sequence of uncorrelated random variables that can be truncated to a finite vector in practical applications. By applying multivariate data analysis tools to these random scores, FPCA can achieve the goal of dimension reduction while assuming mild assumptions about the underlying stochastic process. FPCA is usually used as a preprocessing step to feed, e.g., regression and classification models. Recently, FPCA has been extended to multivariate functional data, which are data that consist of multiple functions that are observed simultaneously. This extension is referred to as multivariate functional principal component analysis (MFPCA). As for FPCA, a key benefit of MFPCA is that it allows one to identify and visualize the main sources of variation in the multivariate functional data. This can be useful in different applications, such as identifying patterns of movements in sport biomechanics \cite{warmenhovenBivariateFunctionalPrincipal2019}, analyzing changes in brain activity in neuroscience \cite{songSparseMultivariateFunctional2022}, or comparing  countries' competitiveness in economics \cite{krzyskoMultidimensionalEconomicIndicators2022}.
+Functional principal component analysis (FPCA) is an extension of principal component analysis (PCA, a commonly used tool for dimension reduction in multivariate data) to functional data. FPCA was introduced in \cite{devilleMethodesStatistiquesNumeriques1974,kleffePrincipalComponentsRandom1973}, based on the Karhunen-Loève decomposition, independently developed in \cite{karhunenUeberLineareMethoden1947,kosambiStatisticsFunctionSpace1943,loeveFonctionsAleatoiresStationnaires1945}. Since then, FPCA has become a prevalent tool in FDA due to its ability to convert infinite-dimensional functional data into finite-dimensional vectors of random scores. These scores are a countable sequence of uncorrelated random variables that can be truncated to a finite vector in practical applications. By applying multivariate data analysis tools to these random scores, FPCA can achieve the goal of dimension reduction while assuming mild assumptions about the underlying stochastic process. FPCA is usually used as a preprocessing step to feed, e.g., regression and classification models. Recently, FPCA has been extended to multivariate functional data, which are data that consist of multiple functions that are observed simultaneously. This extension is referred to as multivariate functional principal component analysis (MFPCA). As for FPCA, a key benefit of MFPCA is that it allows one to identify and visualize the main sources of variation in the multivariate functional data. This can be useful in different applications, such as identifying patterns of movements in sport biomechanics \cite{warmenhovenBivariateFunctionalPrincipal2019}, analyzing changes in brain activity in neuroscience \cite{songSparseMultivariateFunctional2022}, or comparing  countries' competitiveness in economics \cite{krzyskoMultidimensionalEconomicIndicators2022}.
 
 % ----------------------------------------------------------------------------
 % General approaches for FPCA and MFPCA
 % ----------------------------------------------------------------------------
-In MFPCA, we seek to decompose the covariance structure of the multivariate functional data into a set of orthogonal basis functions, named the principal components, which capture the main sources of variation in the data. There are multiple approaches to estimate the principal components of a multivariate functional dataset. \cite{ramsayFunctionalDataAnalysis2005} combine the multivariate curves into one big curve and then perform a usual FPCA via an eigendecomposition of the covariance structure. This methodology can only be run for data that are defined on the same unidimensional domain, that exhibit similar amounts of variability and are measured in the same units. \cite{jacquesModelbasedClusteringMultivariate2014a} propose to represent each feature of the multivariate function separately using a basis function expansion. This results in a different set of coefficients for each univariate curve. The eigendecomposition is then run on the matrix of stacked coefficients. To consider the normalization issue of \cite{ramsayFunctionalDataAnalysis2005}, \cite{jacquesModelbasedClusteringMultivariate2014a} and \cite{chiouMultivariateFunctionalPrincipal2014} propose to normalize the data by the standard deviation of the curves at each of the sampling points. \cite{happMultivariateFunctionalPrincipal2018a} extend the estimation of multivariate principal components to functional data defined on different dimensional domains. Their estimation procedure is based on carrying out FPCA on each univariate feature, and then using a weighted combination of the resulting principal components to obtain the multivariate eigencomponents. Finally, \cite{berrenderoPrincipalComponentsMultivariate2011} develop a different method to estimate the eigencomponents as they perform a principal components analysis for each sampling time point.
+In MFPCA, we seek to decompose the covariance structure of the multivariate functional data into a set of orthogonal basis functions, named the principal components, which capture the main sources of variation in the data. There are multiple approaches to estimate the principal components of a multivariate functional dataset. \citet{ramsayFunctionalDataAnalysis2005} combine the multivariate curves into one big curve and then perform a usual FPCA via an eigendecomposition of the covariance structure. This methodology can only be run for data that are defined on the same unidimensional domain, that exhibit similar amounts of variability and are measured in the same units. \citet{jacquesModelbasedClusteringMultivariate2014a} propose to represent each feature of the multivariate function separately using a basis function expansion. This results in a different set of coefficients for each univariate curve. The eigendecomposition is then run on the matrix of stacked coefficients. To consider the normalization issue in \cite{ramsayFunctionalDataAnalysis2005}, \citet{chiouMultivariateFunctionalPrincipal2014} and \citet{jacquesModelbasedClusteringMultivariate2014a} propose to normalize the data by the standard deviation of the curves at each of the sampling points. \citet{happMultivariateFunctionalPrincipal2018a} extend the estimation of multivariate principal components to functional data defined on different dimensional domains. Their estimation procedure is based on carrying out FPCA on each univariate feature, and then using a weighted combination of the resulting principal components to obtain the multivariate eigencomponents. Finally, \citet{berrenderoPrincipalComponentsMultivariate2011} develop a different method to estimate the eigencomponents as they perform a principal components analysis for each sampling time point.
 
 % ----------------------------------------------------------------------------
 % Key motivations of the paper -> Duality between rows and colums of a matrix
 % ----------------------------------------------------------------------------
-The key motivation of this paper is to investigate the duality between rows and columns of a data matrix to estimate the eigencomponents of a multivariate functional dataset. The duality between rows and columns of a data matrix is a fundamental concept in classical multivariate statistics \cite{escofierTraitementSimultaneVariables1979,saportaSimultaneousAnalysisQualitative1990}. A data matrix typically represents a set of observations of multiple features, each row corresponds to an individual observation and each column corresponds to an individual feature. The duality between rows and columns refers to the fact that many statistical methodologies can be conducted either on the rows or the columns of the data matrix, and the results will be related to each other. For example, the eigenvalues obtained from a PCA run on the rows of the data matrix are the same as the ones obtained from a PCA run on the columns of the matrix. The choice of method to use, based on criteria such as computational time or data storage needs, is thus left to the user. This concept has been widely studied in multivariate statistics (see, e.g., \cite{pagesMultipleFactorAnalysis2014,hardleAppliedMultivariateStatistical2019}). In the context of functional data, this principle has received limited attention despite being mentioned in the seminal paper of FDA \cite{ramsayWhenDataAre1982a}. \cite{ramsayFunctionalDataAnalysis2005} briefly commented on it in a concluding remark of Chapter~8, while \cite{kneipInferenceDensityFamilies2001} and \cite{benkoCommonFunctionalPrincipal2009} utilized it to compute principal components for dense univariate functional data. \cite{chenQuantifyingInfiniteDimensionalData2017} also employ it to gain computational advantage when univariate functional data are sampled on a very dense grid. To the best of our knowledge, however, there is no available literature on its application to multivariate functional data that are observed on different dimensional domains. Our aim is therefore to investigate this duality for multivariate functional data observed on different dimensional domains and provide guidelines on which method to use in different cases.
+The key motivation of this paper is to investigate the duality between rows and columns of a data matrix to estimate the eigencomponents of a multivariate functional dataset. The duality between rows and columns of a data matrix is a fundamental concept in classical multivariate statistics \cite{escofierTraitementSimultaneVariables1979,saportaSimultaneousAnalysisQualitative1990}. A data matrix typically represents a set of observations of multiple features, each row corresponds to an individual observation and each column corresponds to an individual feature. The duality between rows and columns refers to the fact that many statistical methodologies can be conducted either on the rows or the columns of the data matrix, and the results will be related to each other. For example, the eigenvalues obtained from a PCA run on the rows of the data matrix are the same as the ones obtained from a PCA run on the columns of the matrix. The choice of method to use, based on criteria such as computational time or data storage needs, is thus left to the user. This concept has been widely studied in multivariate statistics (see, e.g., \cite{pagesMultipleFactorAnalysis2014,hardleAppliedMultivariateStatistical2019}). In the context of functional data, this principle has received limited attention despite being mentioned in the seminal paper of FDA \cite{ramsayWhenDataAre1982a}. \citet{ramsayFunctionalDataAnalysis2005} briefly commented on it in a concluding remark of Chapter~8, while \citet{kneipInferenceDensityFamilies2001} and \citet{benkoCommonFunctionalPrincipal2009} utilized it to compute principal components for dense univariate functional data. \citet{chenQuantifyingInfiniteDimensionalData2017} also employ it to gain computational advantage when univariate functional data are sampled on a very dense grid. To the best of our knowledge, however, there is no available literature on its application to multivariate functional data that are observed on different dimensional domains. Our aim is therefore to investigate this duality for multivariate functional data observed on different dimensional domains and provide guidelines on which method to use in different cases.
 
 % ----------------------------------------------------------------------------
 % Rest of the paper
@@ -154,28 +154,28 @@ The remainder of the paper is organized as follows. In Section~\ref{sec:model}, 
 \section{Model} % (fold)
 \label{sec:model}
 
-The structure of the data we consider, referred to as \emph{multivariate functional data}, is similar to that presented in \cite{happMultivariateFunctionalPrincipal2018a}. The data consist of independent trajectories of a vector-valued stochastic process $X = (\Xp{1}, \dots, \Xp{P})^\top$, $P\geq 1$. (Here and in the following, for any matrix $A$, $A^\top$ denotes its transpose.) For each $1 \leq p \leq P$, let $\TT{p}$ be a rectangle in some Euclidean space $\RR^{d_p}$ with $d_p \geq 1$, e.g., $\TT{p} = [0,1]^{d_p}$. Each coordinate, or feature, $X^{(p)} : \TT{p} \rightarrow \RR$ is assumed to belong to  $\sLp{\TT{p}}$, the Hilbert space of square-integrable real-valued functions defined on $\TT{p}$, having the usual inner product that we denote by $\inLp{\cdot}{\cdot}$, and $\normLp{\cdot}$ the associated norm. Thus $X$ is a stochastic process indexed by $\pointt = (t_1, \ldots, t_P)$ belonging to the $P-$fold Cartesian product $\TT{} : =\TT{1} \times \cdots \times \TT{P}$ and taking values in the $P-$fold Cartesian product space $\HH \coloneqq \sLp{\TT{1}} \times \dots \times \sLp{\TT{P}}$. 
+The structure of the data we consider, referred to as \emph{multivariate functional data}, is similar to that presented in \cite{happMultivariateFunctionalPrincipal2018a}. The data consist of independent trajectories of a vector-valued stochastic process $X = (\Xp{1}, \dots, \Xp{P})^\top$, $P\geq 1$. (Here and in the following, for any matrix $A$, $A^\top$ denotes its transpose.) For each $p \in \{1, \dots, P\}$, let $\TT{p}$ be a rectangle in some Euclidean space $\RR^{d_p}$ with $d_p \in \NN^\star$, e.g., $\TT{p} = [0,1]^{d_p}$. Each coordinate, or feature, $X^{(p)} : \TT{p} \rightarrow \RR$ is assumed to belong to  $\sLp{\TT{p}}$, the Hilbert space of square-integrable real-valued functions defined on $\TT{p}$, having the usual inner product that we denote by $\inLp{\cdot}{\cdot}$, and $\normLp{\cdot}$ the associated norm. Thus $X$ is a stochastic process indexed by $\pointt = (t_1, \ldots, t_P)$ belonging to the $P-$fold Cartesian product $\TT{} : =\TT{1} \times \cdots \times \TT{P}$ and taking values in the $P-$fold Cartesian product space $\HH \coloneqq \sLp{\TT{1}} \times \dots \times \sLp{\TT{P}}$. 
 
 We consider the function $\inH{\cdot}{\cdot} : \HH \times \HH \rightarrow \RR$,
 \begin{equation}\label{eq:innerprodH}
     \inH{f}{g} \coloneqq \sum_{p=1}^{P} \inLp{\fp}{\gp} = \sum_{p=1}^{P}\int_{\TT{p}} \fp(t_p)\gp(t_p) \dd t_p, \quad f, g \in \HH.
 \end{equation}
-$\HH$ is a Hilbert space with respect to the inner product $\inH{\cdot}{\cdot}$\citep{happMultivariateFunctionalPrincipal2018a}. We denote by $\normH{\cdot}$, the norm induced by $\inH{\cdot}{\cdot}$. Let $\mu : \TT{} \rightarrow \HH$ denote the mean function of the process $X$, $\mu(\pointt) \coloneqq \EE(X(\pointt)),\,\pointt \in \TT{}$. Let $C$ denote the $P \times P$ matrix-valued covariance function which, for $\points, \pointt \in \TT{}$, is defined as
+$\HH$ is a Hilbert space with respect to the inner product $\inH{\cdot}{\cdot}$ \cite{happMultivariateFunctionalPrincipal2018a}. We denote by $\normH{\cdot}$, the norm induced by $\inH{\cdot}{\cdot}$. Let $\mu : \TT{} \rightarrow \HH$ denote the mean function of the process $X$, $\mu(\pointt) \coloneqq \EE[X(\pointt)],\,\pointt \in \TT{}$. Let $C$ denote the $P \times P$ matrix-valued covariance function which, for $\points, \pointt \in \TT{}$, is defined as
 \begin{equation}\label{eq:covariance_function}
-    C(\points, \pointt) \coloneqq \EE\left(\{X(\points) - \mu(\points)\}\{X(\pointt) - \mu(\pointt)\}^{\top}\right), \quad \points, \pointt \in \TT{}.
+    C(\points, \pointt) \coloneqq \EE\left[\{X(\points) - \mu(\points)\}\{X(\pointt) - \mu(\pointt)\}^{\top}\right], \quad \points, \pointt \in \TT{}.
 \end{equation}
-More precisely, for $1 \leq p, q \leq P$, the $(p, q)$th entry of the matrix $C(\points, \pointt)$ is the covariance function between the $p$th and the $q$th features of the process $X$:
+More precisely, for $p, q \in \{1, \dots, P\}$, the $(p, q)$th entry of the matrix $C(\points, \pointt)$ is the covariance function between the $p$th and the $q$th features of the process $X$:
 \begin{equation}\label{eq:covariance_function_components}
-    C_{p, q}(s_p, t_q) \coloneqq \EE\left(\{\Xp{p}(s_p) - \mup{p}(s_p)\}\{\Xp{q}(t_q) - \mup{q}(t_q)\}\right), \quad s_p \in \TT{p}, t_q \in \TT{q}.
+    C_{p, q}(s_p, t_q) \coloneqq \EE\left[\{\Xp{p}(s_p) - \mup{p}(s_p)\}\{\Xp{q}(t_q) - \mup{q}(t_q)\}\right], \quad s_p \in \TT{p}, t_q \in \TT{q}.
 \end{equation}
 Let $\Gamma : \HH \rightarrow \HH$ denote the covariance operator of $X$, defined as an integral operator with kernel $C$. That is, for $f \in \HH$ and $\pointt \in \TT{}$, the $p$th feature of $\Gamma f(\pointt)$ is given by
 \begin{equation}\label{eq:covariance_operator_components}
     (\Gamma f)^{(p)}(t_p) \coloneqq \inH{C_{p, \cdot}(t_p, \cdot)}{f(\cdot)} = \inH{C_{\cdot, p}(\cdot, t_p)}{f(\cdot)}, \quad t_p \in \TT{p}.
 \end{equation}
 
-Let us consider a set of $N$ independent multivariate curves $\XX = \{X_n\}_{1 \leq n \leq N}$ generated as a random sample of the $P$-dimensional stochastic process $X$ with continuous trajectories. The data can be viewed as a table with $N$ rows and $P$ columns where each entry is a curve, potentially on a multidimensional domain (see Figure~\ref{fig:data_matrix}). Each row of this matrix represents an observation; while each column represents a functional feature. At the intersection of row $n$ and column $p$, we thus have $\Xnp$ which is the curve that concerns the (functional) feature $p$ for the individual $n$. For $n \in \{1, \dots, N\}$, each observation $n$ is attributed the weight $\pi_n$ such that $\sum_n \pi_n = 1$, e.g., $\pi_n = 1/N$. For the set $\mathcal{X}$, the inner-product matrix, also called the Gram matrix, $\mathbf{M}$ is defined as a matrix of size $N \times N$ with entries
+Let us consider a set of $N$ independent multivariate curves $\XX = \{X_n\}_{n \in \{1, \dots, N\}}$ generated as a random sample of the $P$-dimensional stochastic process $X$ with continuous trajectories. The data can be viewed as a table with $N$ rows and $P$ columns where each entry is a curve, potentially on a multidimensional domain (see Fig.~\ref{fig:data_matrix}). Each row of this matrix represents an observation; while each column represents a functional feature. At the intersection of row $n$ and column~$p$, we thus have $\Xnp$ which is the curve that concerns the (functional) feature $p$ for the individual $n$. For $n \in \{1, \dots, N\}$, each observation $n$ is attributed the weight $\pi_n$ such that $\sum_n \pi_n = 1$, e.g., $\pi_n = 1/N$. For the set $\mathcal{X}$, the inner-product matrix, also called the Gram matrix, $\mathbf{M}$ is defined as a matrix of size $N \times N$ with entries
 \begin{equation}\label{eq:gram_mat}
-    \mathbf{M}_{nn^\prime} = \sqrt{\pi_n \pi_{n^{\prime}}}\inH{X_n - \mu}{X_{n^\prime} - \mu}, \quad n, n^\prime = 1, \dots, N.
+    \mathbf{M}_{nn^\prime} = \sqrt{\pi_n \pi_{n^{\prime}}}\inH{X_n - \mu}{X_{n^\prime} - \mu}, \quad n, n^\prime \in \{1, \dots, N\}.
 \end{equation}
 This matrix is symmetric, positive definite, and interpretable as a proximity matrix, each entry being the similarity between the weighted observations.
 
@@ -186,7 +186,7 @@ This matrix is symmetric, positive definite, and interpretable as a proximity ma
     \label{fig:data_matrix}
 \end{figure}
 
-This setting can be generalized to incorporate a general weighting scheme, as \cite{chiouMultivariateFunctionalPrincipal2014} or \cite{happMultivariateFunctionalPrincipal2018a}. We consider the function $\inH{\cdot}{\cdot}_w~:~\HH \times \HH \rightarrow \RR$,
+This setting can be generalized to incorporate a general weighting scheme, as in \cite{chiouMultivariateFunctionalPrincipal2014,happMultivariateFunctionalPrincipal2018a}. We consider the function $\inH{\cdot}{\cdot}_w~:~\HH \times \HH \rightarrow \RR$,
 \begin{equation}\label{eq:innerprodH_weight}
     \inH{f}{g}_w \coloneqq \sum_{p=1}^{P} w_p\inLp{\fp}{\gp} = \sum_{p=1}^{P}w_p\int_{\TT{p}} \fp(t_p)\gp(t_p) \dd t_p, \quad f, g \in \HH.
 \end{equation}
@@ -196,7 +196,7 @@ Let $\Gamma_w : \HH \rightarrow \HH$ denote the weighted covariance operator of 
 \end{equation}
 Similarly, we define the weigthed inner-product matrix $\mathbf{M}_w$, the matrix of size $N \times N$ with entries
 \begin{equation}\label{eq:gram_mat_weights}
-    \mathbf{M}_{w, nn^\prime} = \sqrt{\pi_n \pi_{n^{\prime}}}\inH{X_n - \mu}{X_{n^\prime} - \mu}_w, \quad n, n^\prime = 1, \dots, N.
+    \mathbf{M}_{w, nn^\prime} = \sqrt{\pi_n \pi_{n^{\prime}}}\inH{X_n - \mu}{X_{n^\prime} - \mu}_w, \quad n, n^\prime \in \{1, \dots, N\}.
 \end{equation}
 \begin{remark}
 The observation weights $\pi_n$ and the feature weights $w_p$ are not the same and should not be confused. The observation weights are used to give more (or less) importance to specific observations, while the feature weights control for different levels of variation for the features. A discussion on the feature weights is provided in Section~\ref{sub:on_centering_and_reducing}.    
@@ -212,39 +212,39 @@ If we observe the set $\mathcal{X}$, the ideal estimators of the mean and covari
 \end{equation}
 Similarly, one could estimate the inner-product $\mathbf{M}$ by replacing the mean by their estimators. The resulting matrix $\widetilde{\mathbf{M}}$ has entries
 \begin{equation}\label{eq:perfect_gram_estimator}
-    \widetilde{\mathbf{M}}_{nn^\prime} = \sqrt{\pi_n \pi_{n^{\prime}}}\sum_{p = 1}^P \int_{\TT{p}}\{\Xnp(t_p) - \tildemup{p}(t_p)\}\{X_{n^\prime}^{(p)}(t_p) - \tildemup{p}(t_p)\} \dd t_p, \quad n, n^\prime = 1, \dots, N.
+    \widetilde{\mathbf{M}}_{nn^\prime} = \sqrt{\pi_n \pi_{n^{\prime}}}\sum_{p = 1}^P \int_{\TT{p}}\{\Xnp(t_p) - \tildemup{p}(t_p)\}\{X_{n^\prime}^{(p)}(t_p) - \tildemup{p}(t_p)\} \dd t_p, \quad n, n^\prime \in \{1, \dots, N\}.
 \end{equation}
-In many applications, the elements of the set $\mathcal{X}$ are observed with error and on a finite grid of points in $\TT{}$. For each $1 \leq n \leq N$, and given a vector of positive integers $\mathsf{M}_n = (\mathsf{M}_n^{(1)}, \dots, \mathsf{M}_n^{(P)})$, let $\mathrm{T}_{n, \mathsf{m}} = (\mathrm{T}_{n, m_1}^{(1)}, \dots, \mathrm{T}_{n, m_P}^{(P)}), 1 \leq m_p \leq \mathsf{M}_n^{(p)}, 1 \leq p \leq P$, be the random observation times for the curve $X_n$. These times are obtained as independent realizations of a random variable $\mathbf{T}$ taking values in $\TT{}$. The vectors $\mathsf{M}_1, \dots, \mathsf{M}_N$ represent an independent sample of an integer-valued random vector $\mathsf{M}$ with known expectation. We assume that the realizations of $X$, $\mathsf{M}$ and $\mathbf{T}$ are mutually independent. The observations associated with an observation $X_n$ consist of the pairs $(Y_{n, \mathsf{m}}, \mathrm{T}_{n, \mathsf{m}}) \in \mathbb{R}^P \times \TT{}$, where $\mathsf{m} = (m_1, \dots, m_P), 1 \leq m_p \leq \mathsf{M}_n^{(p)}, 1 \leq p \leq P$ and $Y_{n, \mathsf{m}}$ is defined as
+In many applications, the elements of the set $\mathcal{X}$ are observed with error and on a finite grid of points in $\TT{}$. For each $n \in \{1, \dots, N\}$, and given a vector of positive integers $\mathsf{M}_n = (\mathsf{M}_n^{(1)}, \dots, \mathsf{M}_n^{(P)})$, let $\mathrm{T}_{n, \mathsf{m}} = (\mathrm{T}_{n, m_1}^{(1)}, \dots, \mathrm{T}_{n, m_P}^{(P)}), m_p \in \{1, \dots, \mathsf{M}_n^{(p)}\}, p \in \{1, \dots, P\}$, be the random observation times for the curve $X_n$. These times are obtained as independent realizations of a random variable $\mathbf{T}$ taking values in $\TT{}$. The vectors $\mathsf{M}_1, \dots, \mathsf{M}_N$ represent an independent sample of an integer-valued random vector $\mathsf{M}$ with known expectation. We assume that the realizations of $X$, $\mathsf{M}$ and $\mathbf{T}$ are mutually independent. The observations associated with an observation $X_n$ consist of the pairs $(Y_{n, \mathsf{m}}, \mathrm{T}_{n, \mathsf{m}}) \in \mathbb{R}^P \times \TT{}$, where $\mathsf{m} = (m_1, \dots, m_P), m_p \in \{1, \dots, \mathsf{M}_n^{(p)}\}, p \in \{1, \dots, P\}$ and $Y_{n, \mathsf{m}}$ is defined as
 \begin{equation}\label{eq:model_error}
-    Y_{n, \mathsf{m}} = X_n(\mathrm{T}_{n, \mathsf{m}}) + \varepsilon_{n, \mathsf{m}}, \quad 1 \leq n \leq N,
+    Y_{n, \mathsf{m}} = X_n(\mathrm{T}_{n, \mathsf{m}}) + \varepsilon_{n, \mathsf{m}}, \quad n \in \{1, \dots, N\},
 \end{equation}
 with the $\varepsilon_{n, \mathsf{m}}$ being independent realizations of a centered error random vector $\varepsilon \in \RR^{P}$ with finite variance $\sigma^2\mathbf{1}_P \in \RR^{P \times P}$ where $\sigma^2 = (\sigma^2_1, \dots, \sigma^2_P) \in \RR^{P}$.
 
-Let $\widehat{X}_n$ be a suitable estimator of $X_n$ applied to the pairs $(Y_{n, \mathsf{m}}, \mathrm{T}_{n, \mathsf{m}})$, such as P-splines \cite[e.g.][]{eilersTwentyYearsPsplines2015} or local polynomials \cite[e.g.][]{fanLocalPolynomialModelling1996}. We define the estimator of the mean function as
+Let $\widehat{X}_n$ be a suitable estimator of $X_n$ applied to the pairs $(Y_{n, \mathsf{m}}, \mathrm{T}_{n, \mathsf{m}})$, such as P-splines \cite{eilersTwentyYearsPsplines2015} or local polynomials \cite{fanLocalPolynomialModelling1996}. We define the estimator of the mean function as
 \begin{equation}
     \widehat{\mu}(\pointt) = \sum_{n = 1}^N \pi_n \widehat{X}_n(\pointt), \quad \pointt \in \TT{}.
 \end{equation}
 Concerning the estimation of the covariance of the $p$th feature, we distinguish the diagonal from the non-diagonal points. The estimation of the covariance function of the non-diagonal points is defined as
 \begin{equation}\label{eq:cov_estimation}
-    \widehat{C}_{p, p}(s_p, t_p) = \sum_{n = 1}^N \pi_n\left(\{\hatXnp{p}(s_p) - \hatmup{p}(s_p)\}\{\hatXnp{p}(t_p) - \hatmup{p}(t_p)\}\right), \quad s_p \neq t_p, \quad s_p, t_p \in \TT{p}.
+    \widehat{C}_{p, p}(s_p, t_p) = \sum_{n = 1}^N \pi_n\left[\{\hatXnp{p}(s_p) - \hatmup{p}(s_p)\}\{\hatXnp{p}(t_p) - \hatmup{p}(t_p)\}\right], \quad s_p \neq t_p, \quad s_p, t_p \in \TT{p}.
 \end{equation}
-The variance function $C_{p, p}(s_p, t_p)$ induces a singularity when estimating the covariance function $C_{p, p}(\cdot, \cdot)$ \cite[see][]{yaoFunctionalDataAnalysis2005,zhangSparseDenseFunctional2016}. We define the estimator of the diagonal of the covariance as
+The variance function $C_{p, p}(s_p, t_p)$ induces a singularity when estimating the covariance function $C_{p, p}(\cdot, \cdot)$, see, e.g., \cite{yaoFunctionalDataAnalysis2005,zhangSparseDenseFunctional2016}. We define the estimator of the diagonal of the covariance as
 \begin{equation}\label{eq:Cpp}
     \widehat{C}_{p, p}(s_p, s_p) = \sum_{n = 1}^N \pi_n\{\hatXnp{p}(s_p) - \hatmup{p}(s_p)\}^2 - \sigma_p^2, \quad s_p \in \TT{p}.
 \end{equation}
 This singularity does not appear in the estimation of the cross-covariance function. We define the estimator of the cross-covariance function between the $p$th and $q$th features by
 \begin{equation}
-    \widehat{C}_{p, q}(s_p, t_q) = \sum_{n = 1}^N \pi_n\left(\{\hatXnp{p}(s_p) - \hatmup{p}(s_p)\}\{\hatXnp{q}(t_q) - \hatmup{q}(t_q)\}\right), \quad s_p \in \TT{p}, t_q \in \TT{q}.
+    \widehat{C}_{p, q}(s_p, t_q) = \sum_{n = 1}^N \pi_n\left[\{\hatXnp{p}(s_p) - \hatmup{p}(s_p)\}\{\hatXnp{q}(t_q) - \hatmup{q}(t_q)\}\right], \quad s_p \in \TT{p}, t_q \in \TT{q}.
 \end{equation}
 The estimator of the inner-product matrix can be defined by replacing the curves by their estimators. Following \cite{benkoCommonFunctionalPrincipal2009} and \cite{grithFunctionalPrincipalComponent2018}, we define the estimator of the inner-product matrix as
 \begin{equation}
-    \widehat{\mathbf{M}}_{nn^\prime} = \sqrt{\pi_n \pi_{n^{\prime}}}\sum_{p = 1}^P \int_{\TT{p}}\{\hatXnp{p}(t_p) - \widehat{\mu}^{(p)}(t_p)\}\{\widehat{X}^{(p)}_{n^\prime}(t_p) - \widehat{\mu}^{(p)}(t_p)\} \dd t_p, \quad n, n^\prime = 1, \dots, N.
+    \widehat{\mathbf{M}}_{nn^\prime} = \sqrt{\pi_n \pi_{n^{\prime}}}\sum_{p = 1}^P \int_{\TT{p}}\{\hatXnp{p}(t_p) - \widehat{\mu}^{(p)}(t_p)\}\{\widehat{X}^{(p)}_{n^\prime}(t_p) - \widehat{\mu}^{(p)}(t_p)\} \dd t_p, \quad n, n^\prime \in \{1, \dots, N\}.
 \end{equation}
 As for the covariance estimation, the model implies a bias on the diagonal term of the inner-product matrix. A correction for the diagonal of the Gram matrix is given by
 \begin{equation}\label{eq:Mnn}
-    \widehat{\mathbf{M}}_{nn} = \pi_n\sum_{p = 1}^P \left\{\int_{\TT{p}}\{\hatXnp{p}(t_p) - \widehat{\mu}^{(p)}(t_p)\}^2 \dd t_p - \sigma_p^2 \right\}, \quad n = 1, \dots, N.
+    \widehat{\mathbf{M}}_{nn} = \pi_n\sum_{p = 1}^P \left[\int_{\TT{p}}\{\hatXnp{p}(t_p) - \widehat{\mu}^{(p)}(t_p)\}^2 \dd t_p - \sigma_p^2 \right], \quad n \in \{1, \dots, N\}.
 \end{equation}
-In practice, the variances $\sigma_p^2$ in equations~\eqref{eq:Cpp} and~\eqref{eq:Mnn} are unknown and have to be estimated. For the estimation, we refer the reader to \cite{hallVarianceEstimationNonparametric1990} and \cite{hallAsymptoticallyOptimalDifferenceBased1990}.
+In practice, the variances $\sigma_p^2$ in equations~\eqref{eq:Cpp} and~\eqref{eq:Mnn} are unknown and have to be estimated. For the estimation, we refer the reader to \cite{hallAsymptoticallyOptimalDifferenceBased1990} and \cite{hallVarianceEstimationNonparametric1990}.
 
 % subsection inference (end)
 
@@ -256,7 +256,7 @@ In practice, the variances $\sigma_p^2$ in equations~\eqref{eq:Cpp} and~\eqref{e
 \subsection{Duality diagram} % (fold)
 \label{sub:duality_diagram}
 
-The distinction between the space of rows of a matrix as a sample from a population and the space of columns as the fixed variables on which the observations were measured has been explained in \cite{holmesMultivariateDataAnalysis2008} and \cite{delacruzDualityDiagramData2011} for multivariate data. We propose to define a duality diagram in the context of multivariate functional data. Consider the data matrix defined by the set $\mathcal{X}$. We define an operator $L_X : \HH \rightarrow \RR^N$ by
+The distinction between the space of rows of a matrix as a sample from a population and the space of columns as the fixed variables on which the observations were measured has been explained in \cite{delacruzDualityDiagramData2011,holmesMultivariateDataAnalysis2008} for multivariate data. We propose to define a duality diagram in the context of multivariate functional data. Consider the data matrix defined by the set $\mathcal{X}$. We define an operator $L_X : \HH \rightarrow \RR^N$ by
 \begin{equation}
     L_X: f \mapsto \begin{pmatrix}
         \sqrt{\pi_1}\inH{X_1 - \mu}{f} \\
@@ -276,7 +276,7 @@ Using the linearity of the inner-product $\inH{\cdot}{\cdot}$ and vectors, the o
 \begin{lemma}\label{lm:adjoint}
     $L^\star_X$ is the adjoint operator of the linear operator $L_X$.
 \end{lemma}
-The proof of Lemma \ref{lm:adjoint} is given in Appendix~\ref{sec:derivation_of_the_inertia_of_the_clouds}. As an adjoint operator, $L^\star_X$ is a linear operator. The operator $\Gamma$ and the matrix $\mathbf{M}$ define geometries in $\HH$ and $\RR^N$, respectively, through
+The proof of Lemma \ref{lm:adjoint} is given in Section~\ref{sub:proof_of_lemma_lm:adjoint}. As an adjoint operator, $L^\star_X$ is a linear operator. The operator $\Gamma$ and the matrix $\mathbf{M}$ define geometries in $\HH$ and $\RR^N$, respectively, through
 \begin{equation}
 \inHG{f}{g} = \inH{f}{\Gamma g},\quad f, g \in \HH, \quad\text{and}\quad \inRM{u}{v} = u^\top \mathbf{M} v,\quad u, v \in \RR^N.
 \end{equation}
@@ -285,10 +285,10 @@ Using the definition of adjoint operators $L_X$ and $L^\star_X$, we have that
 \begin{equation}
     \inRM{L_X(f)}{u} = \inHG{f}{L^\star_X(u)}, \quad\text{for all}\quad f \in \HH, u \in \RR^N.
 \end{equation}
-These relationships can be expressed as a duality diagram, see Figure~\ref{fig:duality_diagram}. The triplet $(X, \Gamma, \mathbf{M})$ defines a (multivariate) functional data analysis framework. One consequence of this transition between spaces is that the eigencomponents of $\mathcal{X}$ can be estimated equivalently using either the covariance operator $\Gamma$ or the Gram matrix $\mathbf{M}$. The relationship between the eigencomponents of $\Gamma$ and the eigencomponents of $\mathbf{M}$ are derived in Section~\ref{sec:functional_principal_components_analysis}.
+These relationships can be expressed as a duality diagram, see Fig.~\ref{fig:duality_diagram}. The triplet $(X, \Gamma, \mathbf{M})$ defines a (multivariate) functional data analysis framework. One consequence of this transition between spaces is that the eigencomponents of $\mathcal{X}$ can be estimated equivalently using either the covariance operator $\Gamma$ or the Gram matrix $\mathbf{M}$. The relationship between the eigencomponents of $\Gamma$ and the eigencomponents of $\mathbf{M}$ are derived in Section~\ref{sec:functional_principal_components_analysis}.
 \begin{figure}
     \centering
-    \includegraphics[scale=1.2]{duality_diagram.pdf}
+    \includegraphics[scale=0.8]{duality_diagram.pdf}
     \caption{Duality diagram between the spaces $\mathcal{H}$ and $\mathbb{R}^N$. The operator $L_X$ and its adjoint $L^\star_X$ are linear operators. The covariance operator $\Gamma$ and the matrix $\mathbf{M}$ define geometries in $\mathcal{H}$ and $\mathbb{R}^N$ respectively. The space $\HH^\star$ (resp. $\RR^{N \star}$) is the dual space of $\HH$ (resp. $\RR^N$).}
     \label{fig:duality_diagram}
 \end{figure}
@@ -298,14 +298,14 @@ These relationships can be expressed as a duality diagram, see Figure~\ref{fig:d
 \end{remark}
 
 \begin{remark}\label{rem:rhks}
-We present here the duality diagram for the linear integral operator $\Gamma$ with kernel $C$. It is however possible to define duality diagrams for more general linear integral operators defined with a continuous symmetric positive definite function as kernel (see \cite{gonzalezRepresentingFunctionalData2010} and \cite{wongNonparametricOperatorregularizedCovariance2019a} for discussions on possible integral operators to represent univariate functional data).
+We present here the duality diagram for the linear integral operator $\Gamma$ with kernel $C$. It is however possible to define duality diagrams for more general linear integral operators defined with a continuous symmetric positive definite function as kernel (see \cite{gonzalezRepresentingFunctionalData2010,wongNonparametricOperatorregularizedCovariance2019a} for discussions on possible integral operators to represent univariate functional data).
 \end{remark}
 % subsection duality_diagram (end)
 
 \subsection{Cloud of individuals} % (fold)
 \label{sub:cloud_of_individuals}
 
-Given an element $f \in \HH$, let $\{f^{(p)}(t_p),\,t_p \in \TT{p},\,p = 1, \dots, P\}$ be the features set of the element. We identify this set as the point $\pobs{M}_f$ in the space $\HH$. The space $\HH$ is referred to as the observation space. The cloud of points that represents the set of observations $\mathcal{X}$ in $\HH$ is denoted by $\CP$. Let $\Gmu$ be the centre of gravity of the cloud $\CP$. In the space $\HH$, its coordinates are given by $\{\mup{p}(t_p),\,t_p \in \TT{p},\,p = 1, \dots, P\}$. If the features are centered, the origin $\OH$ of the axes in $\HH$ coincides with $\Gmu$.
+Given an element $f \in \HH$, let $\{f^{(p)}(t_p),\,t_p \in \TT{p},\,p \in \{1, \dots, P\}\}$ be the features set of the element. We identify this set as the point $\pobs{M}_f$ in the space $\HH$. The space $\HH$ is referred to as the observation space. The cloud of points that represents the set of observations $\mathcal{X}$ in $\HH$ is denoted by $\CP$. Let $\Gmu$ be the centre of gravity of the cloud $\CP$. In the space $\HH$, its coordinates are given by $\{\mup{p}(t_p),\,t_p \in \TT{p},\,p \in \{1, \dots, P\}\}$. If the features are centered, the origin $\OH$ of the axes in $\HH$ coincides with $\Gmu$.
 
 \begin{figure}
     \centering
@@ -315,7 +315,7 @@ Given an element $f \in \HH$, let $\{f^{(p)}(t_p),\,t_p \in \TT{p},\,p = 1, \dot
     \label{fig:cloud_obs}
 \end{figure}
 
-Let $f$ and $g$ be two elements in $\HH$ and denote by $\pobs{M}_f$ and $\pobs{M}_g$ their associated points in $\CP$ (see Figure~\ref{fig:cloud_obs}). The most natural distance between these observations is based on the usual inner product in $\HH$, $\inH{\cdot}{\cdot}$, and is defined as
+Let $f$ and $g$ be two elements in $\HH$ and denote by $\pobs{M}_f$ and $\pobs{M}_g$ their associated points in $\CP$ (see Fig.~\ref{fig:cloud_obs}). The most natural distance between these observations is based on the usual inner product in $\HH$, $\inH{\cdot}{\cdot}$, and is defined as
 \begin{equation}\label{eq:distance_obs}
     d^2(\pobs{M}_f, \pobs{M}_g) = \normH{f - g}^2 = \sum_{p = 1}^P \int_{\TT{p}}\left\{\fp(t_p) - \gp(t_p)\right\}^2 \dd t_p.
 \end{equation}
@@ -331,12 +331,12 @@ The duality diagram, however, allows us to define another suitable distance to c
 \begin{equation}
     d^2_\Gamma(\pobs{M}_f, \pobs{M}_g) = \normHG{f - g}^2.
 \end{equation}
-The utilization of the distance measure $d_\Gamma$, which accounts for the variability among all the features within the functional data, corresponds to a Mahalanobis-type distance framework for multivariate functional data \cite[see][]{berrenderoMahalanobisDistanceFunctional2020,martinoKmeansProcedureBased2019}.
+The utilization of the distance measure $d_\Gamma$, which accounts for the variability among all the features within the functional data, corresponds to a Mahalanobis-type distance framework for multivariate functional data \cite{berrenderoMahalanobisDistanceFunctional2020,martinoKmeansProcedureBased2019}.
 Given the set $\XX$, the total inertia of $\CP$, with respect to $\Gmu$ and the distance $d_\Gamma$, is given by
 \begin{equation}\label{eq:inertia_CP}
     \sum_{n = 1}^N \pi_n d_\Gamma^2(\pobs{M}_n, \Gmu) = \frac{1}{2}\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j d_\Gamma^2(\pobs{M}_i, \pobs{M}_j) = \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p.
 \end{equation}
-The derivation of these equalities are given in Appendix \ref{sec:derivation_of_the_inertia_of_the_clouds}.
+The derivation of these equalities are given in Section \ref{sub:derivation_of_the_inertia_of_the_clouds}.
 
 \begin{remark}
     These results have the same interpretation as for multivariate scalar data. This is also the multivariate analogue of the relation between variance and sum of squared differences known for univariate functional data. If the features are reduced beforehand, such that $\int_{\TT{p}} \Var\Xp{p} (t_p) \dd t_p = 1$ for the distance $d$ or $\int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p = 1$ for the distance $d_\Gamma$, the total inertia of the cloud $\CP$ is equal to the number of components $P$. We are, in general, not interested by the total inertia but how this variance is spread among the features.
@@ -347,7 +347,7 @@ The derivation of these equalities are given in Appendix \ref{sec:derivation_of_
 \subsection{Cloud of features} % (fold)
 \label{sub:cloud_of_features}
 
-Given an element $f \in \HH$, let $L_X(f) = \{\sqrt{\pi_n}\inH{X_n - \mu}{f},\,n = 1, \dots, N\}$ be the set of projections of $f$ onto the centered observations. We identify this set as the point $\pfea{M}_f$ in the space $\RR^N$. The space $\RR^N$ is referred to as the features' space. The cloud of points that represents the set of observations in $\RR^N$ is denoted by $\CN$. Let $\Gfea$ be the centre of gravity of the cloud $\CN$. In the space $\RR^N$, its coordinates are given by $L_X(\mu) = \{\sqrt{\pi_n}\inH{X_n - \mu}{\mu},\,n = 1, \dots, N\}$. If the data are centered, the origin $\OG$ of the axes in $\RR^N$ coincides with $\Gfea$.
+Given an element $f \in \HH$, let $L_X(f) = \{\sqrt{\pi_n}\inH{X_n - \mu}{f},\,n \in \{1, \dots, N\}\}$ be the set of projections of $f$ onto the centered observations. We identify this set as the point $\pfea{M}_f$ in the space $\RR^N$. The space $\RR^N$ is referred to as the features' space. The cloud of points that represents the set of observations in $\RR^N$ is denoted by $\CN$. Let $\Gfea$ be the centre of gravity of the cloud $\CN$. In the space $\RR^N$, its coordinates are given by $L_X(\mu) = \{\sqrt{\pi_n}\inH{X_n - \mu}{\mu},\,n \in \{1, \dots, N\}\}$. If the data are centered, the origin $\OG$ of the axes in $\RR^N$ coincides with $\Gfea$.
 
 \begin{figure}
     \centering
@@ -357,7 +357,7 @@ Given an element $f \in \HH$, let $L_X(f) = \{\sqrt{\pi_n}\inH{X_n - \mu}{f},\,n
     \label{fig:cloud_features}
 \end{figure}
 
-We consider the usual inner-product in $\RR^N$, such that for all $u, v \in \RR^N, \inR{u}{v} = u^\top v$, associated with the norm $\normR{\cdot}$. Let $f$ and $g$ be two elements in $\HH$ and denote by $\pfea{M}_f$ and $\pfea{M}_g$ their associated points in $\CN$ (see Figure~\ref{fig:cloud_features}). The distance between $\pfea{M}_f$ and $\pfea{M}_g$ is thus defined as
+We consider the usual inner-product in $\RR^N$, such that for all $u, v \in \RR^N, \inR{u}{v} = u^\top v$, associated with the norm $\normR{\cdot}$. Let $f$ and $g$ be two elements in $\HH$ and denote by $\pfea{M}_f$ and $\pfea{M}_g$ their associated points in $\CN$ (see Fig.~\ref{fig:cloud_features}). The distance between $\pfea{M}_f$ and $\pfea{M}_g$ is thus defined as
 \begin{equation*}
 \mathsf{d}^2(\pfea{M}_f, \pfea{M}_g) = \normR{L_X(f) - L_X(g)}^2 = \sum_{n = 1}^N \pi_n \inH{X_n - \mu}{f - g}^2.
 \end{equation*}
@@ -374,7 +374,7 @@ Using the distances induced by the duality diagram, the total inertia of the clo
     \cos(\theta_{fg}) = \frac{\inR{L_X(f)}{L_X(g)}}{\normR{L_X(f)}\normR{L_X(g)}}
     = \frac{\inHG{f}{g}}{\normHG{f}\normHG{g}}.
 \end{equation}
-The derivation of these equalities are given in Appendix \ref{sec:derivation_of_the_inertia_of_the_clouds}.
+The derivation of these equalities are given in Section \ref{sub:derivation_of_the_inertia_of_the_clouds}.
 
 \begin{remark}
    Although each axis of the space does not directly represent the features, but rather the projection of an element of $\HH$ onto the elements of the set $\XX$, we refer to this space as the features' space. We use this terminology to highlight the similarity between multivariate functional data analysis and traditional multivariate data analysis, as well as to emphasize the dimensionality of this space.
@@ -384,14 +384,14 @@ The derivation of these equalities are given in Appendix \ref{sec:derivation_of_
 \subsection{On centering and reducing} % (fold)
 \label{sub:on_centering_and_reducing}
 
-For conducting an MFPCA, the features are usually assumed centred \citep{happMultivariateFunctionalPrincipal2018a}. \cite{protheroNewPerspectivesCentering2023} give a complete overview of centering in the context of FDA. Here, we comment on the geometric interpretation of centering in this context and compare with the multivariate scalar case. We focus on the usual centering in FDA, namely $\Xnp(t_p) - \mu^{(p)}(t_p),~t_p \in \TT{p}$ (referred to \emph{object centering} in \cite{protheroNewPerspectivesCentering2023}).
+For conducting an MFPCA, the features are usually assumed centred \citep{happMultivariateFunctionalPrincipal2018a}. \citet{protheroNewPerspectivesCentering2023} give a complete overview of centering in the context of FDA. Here, we comment on the geometric interpretation of centering in this context and compare with the multivariate scalar case. We focus on the usual centering in FDA, namely $\Xnp(t_p) - \mu^{(p)}(t_p),~t_p \in \TT{p}$ (referred to \emph{object centering} in \cite{protheroNewPerspectivesCentering2023}).
 The geometric interpretation of object centering is the same if we refer to the observation space $\HH$ or the feature space $\RR^N$. Within the space $\HH$ (resp. $\RR^N$), centering is interpreted as translating the centre of gravity of the clouds, $\Gmu$ (resp. $\Gfea$), to the origin point $\OH$ (resp. $\OG$) of the space $\HH$ (resp. $\RR^N$). This transformation, being a translation, does not change the shape of the cloud $\CP$ (resp. $\CN$). The interpretation is the same as for the centering in the multivariate scalar data context within their observation space.
 
-Concerning the standardization of the data, there are two main proposals in the literature. \cite{happMultivariateFunctionalPrincipal2018a} propose to consider the weights
+Concerning the standardization of the data, there are two main proposals in the literature. \citet{happMultivariateFunctionalPrincipal2018a} propose to consider the weights
 \begin{equation}
 w_p = \left(\int_{\TT{p}} \Var X^{(p)}(t_p) \dd t_p\right)^{-1}.
 \end{equation}
-This standardization is coherent with the derivation of the total inertia of the observation space using the usual distance in $\HH$. \cite{chiouMultivariateFunctionalPrincipal2014} and \cite{jacquesModelbasedClusteringMultivariate2014a} propose the weighting function
+This standardization is coherent with the derivation of the total inertia of the observation space using the usual distance in $\HH$. \citet{chiouMultivariateFunctionalPrincipal2014} and \citet{jacquesModelbasedClusteringMultivariate2014a} propose the weighting function
 \begin{equation}
 w_p(t_p) = \left(\Var X^{(p)}(t_p)\right)^{-1}, \quad t_p \in \TT{p}.
 \end{equation}
@@ -425,9 +425,9 @@ where $\mathfrak{c}_{k} = \inH{X - \mu}{\phi_k}$ are the projections of the cent
 \end{equation}
 be the truncated Karhunen-Loève expansion of the process $X$ and
 \begin{equation}\label{eq:kl_multi_trunc_comp}
-    X_{\lceil K_p \rceil}^{(p)}(t_p) = \mup{p}(t_p) + \sum_{k = 1}^{K_p} \mathfrak{c}^{(p)}_k \varphi_k^{(p)}(t_p), \quad t_p \in \TT{p}, \quad K_p \geq 1, \quad 1 \leq p \leq P,
+    X_{\lceil K_p \rceil}^{(p)}(t_p) = \mup{p}(t_p) + \sum_{k = 1}^{K_p} \mathfrak{c}^{(p)}_k \varphi_k^{(p)}(t_p), \quad t_p \in \TT{p}, \quad K_p \geq 1, \quad p \in \{1, \dots, P\},
 \end{equation}
-be the truncated Karhunen-Loève expansion of the $p$th feature of the process $X$. For each $p$, the function $\mup{p}$ is the $p$th feature of the multivariate mean function $\mu$ and the set $\{\varphi^{(p)}_k\}_{1 \leq k \leq K_p}$ is a basis of univariate functions in $\sLp{\TT{p}}$, whose elements are not the components of the multivariate functions $\phi_k$. In~\eqref{eq:kl_multi_trunc_comp}, the coefficients $\mathfrak{c}^{(p)}_k$ are the projection of the centered curve $\Xp{p}$ onto the eigenfunctions $\varphi_k^{(p)}$ and are not (directly) related to the coefficients $\mathfrak{c}_k$ in~\eqref{eq:kl_multi_trunc}.
+be the truncated Karhunen-Loève expansion of the $p$th feature of the process $X$. For each $p$, the function $\mup{p}$ is the $p$th feature of the multivariate mean function $\mu$ and the set $\{\varphi^{(p)}_k\}_{k \in \{1, \dots, K_p\}}$ is a basis of univariate functions in $\sLp{\TT{p}}$, whose elements are not the components of the multivariate functions $\phi_k$. In~\eqref{eq:kl_multi_trunc_comp}, the coefficients $\mathfrak{c}^{(p)}_k$ are the projection of the centered curve $\Xp{p}$ onto the eigenfunctions $\varphi_k^{(p)}$ and are not (directly) related to the coefficients $\mathfrak{c}_k$ in~\eqref{eq:kl_multi_trunc}.
 
 
 \subsection{Diagonalization of the covariance operator} % (fold)
@@ -435,13 +435,13 @@ be the truncated Karhunen-Loève expansion of the $p$th feature of the process $
 
 The estimation of the eigencomponents of the covariance $\Gamma$ by its diagonalization is derived in \cite{happMultivariateFunctionalPrincipal2018a} for a general class of multivariate functional data defined on different dimensional domains. They give a direct relationship between the truncated representation \eqref{eq:kl_multi_trunc_comp} of the single elements $X^{(p)}$ and the truncated representation \eqref{eq:kl_multi_trunc} of the multivariate functional data $X$.
 
-We recall here how to estimate the eigencomponents. Following \citet[Prop.~5]{happMultivariateFunctionalPrincipal2018a}, the multivariate components for $X$ are estimated by a weighted combination of the univariate components computed from each $X^{(p)}$. First, we perform a univariate FPCA on each of the features of $X$ separately. For a feature $X^{(p)}$, the eigenfunctions and eigenvectors are computed using a matrix decomposition of the estimated covariance $C_{p, p}$ from \eqref{eq:cov_estimation}. This results in a set of eigenfunctions $\{\varphi_k^{(p)}\}_{1 \leq k \leq K_p}$ associated with a set of eigenvalues $\{\lambda_k^{(p)}\}_{1 \leq k \leq K_p}$ for a given truncation integer $K_p$. Then, the univariate scores for a realization $\Xnp$ of $X^{(p)}$ are given by $\mathbf{c}_{nk}^{(p)} = \inLp{X_n^{(p)}}{\varphi_k^{(p)}}, ~1 \leq k \leq K_p$. These scores might be estimated by numerical integration for example. Considering $K_+ \coloneqq \sum_{p = 1}^P K_p$, we then define the matrix $\mathcal{Z} \in \mathbb{R}^{N \times K_+}$, where on each row we concatenate the scores obtained for the $P$ features of the $n$th observation: 
+We recall here how to estimate the eigencomponents. Following \citet[Prop.~5]{happMultivariateFunctionalPrincipal2018a}, the multivariate components for $X$ are estimated by a weighted combination of the univariate components computed from each $X^{(p)}$. First, we perform a univariate FPCA on each of the features of $X$ separately. For a feature $X^{(p)}$, the eigenfunctions and eigenvectors are computed using a matrix decomposition of the estimated covariance $C_{p, p}$ from \eqref{eq:cov_estimation}. This results in a set of eigenfunctions $\{\varphi_k^{(p)}\}_{k \in \{1, \dots, K_p\}}$ associated with a set of eigenvalues $\{\lambda_k^{(p)}\}_{k \in \{1, \dots, K_p\}}$ for a given truncation integer $K_p$. Then, the univariate scores for a realization $\Xnp$ of $X^{(p)}$ are given by $\mathbf{c}_{nk}^{(p)} = \inLp{X_n^{(p)}}{\varphi_k^{(p)}}, ~k \in \{1, \dots, K_p\}$. These scores might be estimated by numerical integration for example. Considering $K_+ \coloneqq \sum_{p = 1}^P K_p$, we then define the matrix $\mathcal{Z} \in \mathbb{R}^{N \times K_+}$, where on each row we concatenate the scores obtained for the $P$ features of the $n$th observation: 
 $(\mathbf{c}_{n1}^{(1)}, \ldots, \mathbf{c}_{nK_1}^{(1)}, \ldots, \mathbf{c}_{n1}^{(P)}, \ldots, \mathbf{c}_{nK_P}^{(P)})$. An estimation of the covariance of the matrix $\mathcal{Z}$ is given by $\mathbf{Z} = (N - 1)^{-1}\mathcal{Z}^\top\mathcal{Z}$. An eigenanalysis of the matrix $\mathbf{Z}$ is carried out to estimate the eigenvectors $\boldsymbol{v}_k$ and eigenvalues $\lambda_k$. Finally, the multivariate eigenfunctions are estimated as a linear combination of the univariate eigenfunctions using
 \begin{equation*}
-\phi_k^{(p)}(t_p) = \sum_{l = 1}^{K_p}[\boldsymbol{v}_k]_{l}^{(p)}\varphi_{l}^{(p)}(t_p),\quad t_p \in \TT{p},\quad 1 \leq k \leq K_+,\quad 1 \leq p \leq P,
+\phi_k^{(p)}(t_p) = \sum_{l = 1}^{K_p}[\boldsymbol{v}_k]_{l}^{(p)}\varphi_{l}^{(p)}(t_p),\quad t_p \in \TT{p},\quad k \in \{1, \dots, K_+\},\quad p \in \{1, \dots, P\},
 \end{equation*}
 where $[\boldsymbol{v}_k]^{(p)}_{l}$ denotes the $l$th entry of the $p$th block of the vector $\boldsymbol{v}_k$. The multivariate scores are estimated as
-$$\mathfrak{c}_{nk} = \mathcal{Z}_{{n,\cdot}}\boldsymbol{v}_k, \quad 1 \leq n \leq N, \quad 1 \leq k \leq K_+,$$
+$$\mathfrak{c}_{nk} = \mathcal{Z}_{{n,\cdot}}\boldsymbol{v}_k, \quad n \in \{1, \dots, N\}, \quad k \in \{1, \dots, K_+\},$$
 where $\mathcal{Z}_{{n,\cdot}}$ is the $n$th row of the matrix $\mathcal{Z}$.
 We refer the reader to \cite{happMultivariateFunctionalPrincipal2018a} for the derivation of the eigencomponents of the covariance operator if the curves are expanded in a general basis of functions.
 
@@ -450,20 +450,20 @@ We refer the reader to \cite{happMultivariateFunctionalPrincipal2018a} for the d
 \subsection{Diagonalization of the inner product matrix} % (fold)
 \label{sub:by_diagonalization_of_the_inner_product_matrix}
 
-We use the duality relation between row and column spaces of a data matrix to estimate the eigencomponents of the covariance operator. Consider the inner-product matrix $\mathbf{M}$, with entries defined in~\eqref{eq:gram_mat} and assuming that all observations are equally weighted, i.e., for all $n = 1, \dots, N$, $\pi_n = 1/N$.
-Let $\{l_k\}_{1 \leq k \leq N}$ such that $l_1 \geq \dots \geq l_N \geq 0$ be the set of eigenvalues and $\{\boldsymbol{u}_k\}_{1 \leq k \leq N}$ be the set of eigenvectors of the matrix $\mathbf{M}$. The relationship between all nonzero eigenvalues of the covariance operator $\Gamma$ and the eigenvalues of $\mathbf{M}$ is given by
+We use the duality relation between row and column spaces of a data matrix to estimate the eigencomponents of the covariance operator. Consider the inner-product matrix $\mathbf{M}$, with entries defined in~\eqref{eq:gram_mat} and assuming that all observations are equally weighted, i.e., for all $n \in \{1, \dots, N\}$, $\pi_n = 1/N$.
+Let $\{\ell_k\}_{k \in \{1, \dots, N\}}$ such that $\ell_1 \geq \dots \geq \ell_N \geq 0$ be the set of eigenvalues and $\{\boldsymbol{u}_k\}_{k \in \{1, \dots, N\}}$ be the set of eigenvectors of the matrix $\mathbf{M}$. The relationship between all nonzero eigenvalues of the covariance operator $\Gamma$ and the eigenvalues of $\mathbf{M}$ is given by
 \begin{equation}\label{eq:eigenvalues_relation_p}
-    \lambda_k = l_k, \quad k = 1, 2, \dots, N,
+    \lambda_k = \ell_k, \quad k \in \{1, \dots, N\},
 \end{equation}
 while the relationship between the multivariate eigenfunctions of the covariance operator $\Gamma$ and the orthonormal eigenvectors of $\mathbf{M}$ is given by
 \begin{equation}\label{eq:eigenfunction_relation_p}
-    \phi_k(\pointt) = \frac{1}{\sqrt{N l_k}}\sum_{n = 1}^N [\boldsymbol{u}_{k}]_n\left\{X_n(\pointt) - \mu(\pointt)\right\}, \quad \pointt \in \TT{}, \quad k = 1, 2, \dots, N, 
+    \phi_k(\pointt) = \frac{1}{\sqrt{N \ell_k}}\sum_{n = 1}^N [\boldsymbol{u}_{k}]_n\left\{X_n(\pointt) - \mu(\pointt)\right\}, \quad \pointt \in \TT{}, \quad k \in \{1, \dots, N\}, 
 \end{equation}
 where $[\boldsymbol{u}_{k}]_n$ is the $n$th entry of the vector $\boldsymbol{u}_k$. The scores are then computed as the inner-product between the multivariate curves and the multivariate eigenfunctions and are given by
 \begin{equation}\label{eq:scores_relation_p}
-    \mathfrak{c}_{nk} = \sqrt{N l_k}[\boldsymbol{u}_{k}]_n, \quad n = 1, 2, \dots, N, \quad k = 1, 2, \dots, N. 
+    \mathfrak{c}_{nk} = \sqrt{N \ell_k}[\boldsymbol{u}_{k}]_n, \quad n \in \{1, \dots, N\}, \quad k \in \{1, \dots, N\}. 
 \end{equation}
-The derivations of these equalities are given in Appendix~\ref{sec:derivation_of_the_eigencomponents} in a slighty more general framework where the observation weights $\pi_n$ are not equal. These results can be extended in a natural way if all the curves are expanded in a general basis of functions, see Section \ref{sub:with_a_basis_expansion} in the Supplementary Material.
+The derivations of these equalities are given in Section~\ref{sec:derivation_of_the_eigencomponents} in a slighty more general framework where the observation weights $\pi_n$ are not equal. These results can be extended in a natural way if all the curves are expanded in a general basis of functions, see the Supplementary Material.
 
 % subsection by_diagonalization_of_the_inner_product_matrix (end)
 
@@ -496,15 +496,15 @@ We can use singular values decomposition (SVD) in both cases to make the algorit
 \label{sec:empirical_analysis}
 
 
-Using simulated data, we compare the estimation of the eigencomponents and the reconstruction of the curves using the diagonalization of the covariance operator, (a) based on univariate FPCA as well as (b) P-splines basis expansion, and (c) the diagonalization of the Gram matrix. These methods will be refered as (a) \texttt{(Tensor) PCA}, (b) \texttt{2D/1D B-Splines} and (c) \texttt{Gram} respectively. For the diagonalization of the covariance operator, we consider the methodology of \cite{happMultivariateFunctionalPrincipal2018a}. In the case of MFPCA based on the expansion of each univariate feature into univariate principal components (\texttt{(Tensor) PCA}), the eigencomposition of the 1-dimensional curves is performed using univariate FPCA and the eigendecomposition of the 2-dimensional curves is calculated using the Functional Canonical Polyadic-Tensor Power Algorithm (FCP-TPA) for regularized tensor decomposition \citep{allenMultiwayFunctionalPrincipal2013a}. In the case of MFPCA based on P-splines basis expansion (\texttt{2D/1D B-Splines}), data are expanded in B-splines basis with suitable smoothness penalty \citep{eilersFlexibleSmoothingBsplines1996}.
+Using simulated data, we compare the estimation of the eigencomponents and the reconstruction of the curves using the diagonalization of the covariance operator, (a) based on univariate FPCA as well as (b) P-splines basis expansion, and (c) the diagonalization of the Gram matrix. These methods will be refered as (a) \texttt{(Tensor) PCA}, (b) \texttt{2D/1D B-Splines} and (c) \texttt{Gram} respectively. For the diagonalization of the covariance operator, we consider the methodology in \cite{happMultivariateFunctionalPrincipal2018a}. In the case of MFPCA based on the expansion of each univariate feature into univariate principal components (\texttt{(Tensor) PCA}), the eigencomposition of the 1-dimensional curves is performed using univariate FPCA and the eigendecomposition of the 2-dimensional curves is calculated using the Functional Canonical Polyadic-Tensor Power Algorithm (FCP-TPA) for regularized tensor decomposition \citep{allenMultiwayFunctionalPrincipal2013a}. In the case of MFPCA based on P-splines basis expansion (\texttt{2D/1D B-Splines}), data are expanded in B-splines basis with suitable smoothness penalty \citep{eilersFlexibleSmoothingBsplines1996}.
 
 The results of the simulation are compared using computation times (CT), the integrated squared error (ISE) for the multivariate eigenfunctions, the relative squared error (RSE) for the eigenvalues and the mean relative squared error (MRSE) for the reconstructed data. Let $\phi_k$ be the true eigenfunction and $\widehat{\phi}_k$ the estimated eigenfunction defined on $\TT{}$. We then define the ISE as 
 \begin{equation}\label{eq:ise_eigenfunctions}
-    \text{ISE}(\phi_k, \widehat{\phi}_k) = \normH{\phi_k - \widehat{\phi}_k}^2 = \sum_{p = 1}^P \int_{\TT{p}} \{\phi^{(p)}_k(t_p) - \widehat{\phi}^{(p)}_k(t_p)\}^2 \dd t_p, \quad k = 1, \dots, K.
+    \text{ISE}(\phi_k, \widehat{\phi}_k) = \normH{\phi_k - \widehat{\phi}_k}^2 = \sum_{p = 1}^P \int_{\TT{p}} \{\phi^{(p)}_k(t_p) - \widehat{\phi}^{(p)}_k(t_p)\}^2 \dd t_p, \quad k \in \{1, \dots, K\}.
 \end{equation}
 Let $\lambda = \{\lambda_1, \dots, \lambda_K\}$ be the set of true eigenvalues and $\widehat{\lambda} = \{\widehat{\lambda}_1, \dots, \widehat{\lambda}_K\}$ be the set of estimated eigenvalues. We then define the RSE as 
 \begin{equation}\label{eq:mse_eigenvalues}
-    \text{RSE}(\lambda_k, \widehat{\lambda}_k) = \left(\lambda_k - \widehat{\lambda}_k\right)^2 / \lambda_k^2, \quad k = 1, \dots, K.
+    \text{RSE}(\lambda_k, \widehat{\lambda}_k) = \left(\lambda_k - \widehat{\lambda}_k\right)^2 / \lambda_k^2, \quad k \in \{1, \dots, K\}.
 \end{equation}
 Let $\mathcal{X}$ be the set of true data and $\widehat{\mathcal{X}}$ be the set of reconstructed data. We define the MISE of the reconstructed data as
 \begin{equation}\label{eq:mise_reconstructed_data}
@@ -516,9 +516,9 @@ Each integral is approximated by the trapezoidal rule with an equidistant grid.
 \label{sub:simulation_experiments}
 
 The simulation setting is based on the \emph{Setting 3} of the simulation in \cite{happMultivariateFunctionalPrincipal2018a}.
-The data generating process is based on a truncated version of the Karhunen-Loève decomposition. We simulate multivariate functional data with $P = 2$ components. For the first component, we generate an orthonormal basis $\{\phi^{(1)}_k\}_{1 \leq k \leq K}$ of $\sLp{\TT{1}}$ on an interval $\TT{1} = [0, 1] \times [0, 0.5]$ as the tensor product of the first Fourier basis functions:
+The data generating process is based on a truncated version of the Karhunen-Loève decomposition. We simulate multivariate functional data with $P = 2$ components. For the first component, we generate an orthonormal basis $\{\phi^{(1)}_k\}_{k \in \{1, \dots, K\}}$ of $\sLp{\TT{1}}$ on an interval $\TT{1} = [0, 1] \times [0, 0.5]$ as the tensor product of the first Fourier basis functions:
 \begin{equation}
-    \phi^{(1)}_k(s, t) = \psi_l(s) \otimes \psi_m(t), \quad s \in [0, 1] \text{ and } t \in [0, 0.5],\quad k = 1, \dots, K,
+    \phi^{(1)}_k(s, t) = \psi_l(s) \otimes \psi_m(t), \quad s \in [0, 1] \text{ and } t \in [0, 0.5],\quad k \in \{1, \dots, K\},
 \end{equation}
 where $\psi_l$ and $\psi_m$ are elements of the Fourier basis. For the second component, we generate an orthonormal Legendre basis $\{\phi^{(2)}_k\}_{1 \leq k \leq K}$ of $\sLp{\TT{2}}$ on an interval $\TT{2} = [-1, 1]$. To ensure orthonormality, the basis $\phi^{(1)}_k$ and $\phi^{(2)}_k$ are weighted by random factors $\alpha^{1/2}$ and $(1 - \alpha)^{1/2}$, respectively, where $\alpha \sim \mathcal{U}(0.2, 0.8)$.
 Each curve is then simulated using the truncated multivariate Karhunen-Loève expansion \eqref{eq:kl_multi_trunc}:
@@ -544,7 +544,7 @@ We compared MFPCA results of the different methods in terms of their CT, estimat
 
 % Computation time ----------
 \begin{results}[Computational time.]
-To compare the computational time of the different methods, we measured the time taken for each method to complete the MFPCA for each simulated dataset in the dense and noiseless case. Figure~\ref{fig:computation_time_mfd_1d} shows the kernel density estimates of the ratio of CT for each method across all sample sizes and number of sampling points. Except when we have many observations with few sampling points, the \texttt{Gram} method is faster than the other two methods. This result is coherent with the computational complexity derived in Section~\ref{sub:computational_complexity}.
+To compare the computational time of the different methods, we measured the time taken for each method to complete the MFPCA for each simulated dataset in the dense and noiseless case. Fig.~\ref{fig:computation_time_mfd_1d} shows the kernel density estimates of the ratio of CT for each method across all sample sizes and number of sampling points. Except when we have many observations with few sampling points, the \texttt{Gram} method is faster than the other two methods. This result is coherent with the computational complexity derived in Section~\ref{sub:computational_complexity}.
 
 \begin{figure}
      \centering
@@ -559,7 +559,7 @@ The shorter computational time of the diagonalization of the Gram matrix makes i
 % Eigenvalues estimation ----------
 \begin{results}[Eigenvalue estimation.]
 To compare the estimation of the eigenvalues between the different methods, we calculated the RSE \eqref{eq:mse_eigenvalues} between the estimated eigenvalues and the true eigenvalues for each simulated dataset and for the twelve estimated eigenvalues.
-Figure~\ref{fig:logAE_mfd_1d} shows the boxplots of the RSE for each method across all sample sizes and number of sampling points. We found that the three methods behave similarly for the settings with a moderately large to a large number of sampling points. When we observe only a few sampling points, $M^{(1)} = 11 \times 11$ and $M^{(2)} = 21$, the quality of the estimation is approximately the same for the first three eigenvalues for all methods, but from the fourth eigenvalues, the \texttt{2D/1D B-splines} and the \texttt{Gram} methods give slightly better results than the \texttt{(Tensor) PCA} method. The results for the sparse and noisy cases are similar to the dense and noiseless case and are provided in the Appendix \ref{sub:simulation}.
+Fig.~\ref{fig:logAE_mfd_1d} shows the boxplots of the RSE for each method across all sample sizes and number of sampling points. We found that the three methods behave similarly for the settings with a moderately large to a large number of sampling points. When we observe only a few sampling points, $M^{(1)} = 11 \times 11$ and $M^{(2)} = 21$, the quality of the estimation is approximately the same for the first three eigenvalues for all methods, but from the fourth eigenvalues, the \texttt{2D/1D B-splines} and the \texttt{Gram} methods give slightly better results than the \texttt{(Tensor) PCA} method. The results for the sparse and noisy cases are similar to the dense and noiseless case and are provided in the Appendix.
 
 \begin{figure}
     \centering
@@ -571,7 +571,7 @@ Figure~\ref{fig:logAE_mfd_1d} shows the boxplots of the RSE for each method acro
 
 % Eigenfunctions estimation ----------
 \begin{results}[Eigenfunction estimation.]
-To compare the estimation of the eigenfunctions between the different methods, we calculated the ISE \eqref{eq:ise_eigenfunctions} between the estimated eigenfunctions and the true eigenfunctions for each simulated dataset and for the twelve estimated eigenfunctions. Figure~\ref{fig:ise_mfd_1d} shows the boxplots of the ISE for each method across all sample sizes and number of sampling points. The results are similar to those found when estimating the eigenvalues. When we observe only a few sampling points, the quality of the estimation of the eigenfunctions starts to decrease after the third component for the \texttt{(Tensor) PCA} method, while this is not the case for the other methods. The results for the sparse and noisy cases are similar to the dense and noiseless case and are provided in the Appendix \ref{sub:simulation}.
+To compare the estimation of the eigenfunctions between the different methods, we calculated the ISE \eqref{eq:ise_eigenfunctions} between the estimated eigenfunctions and the true eigenfunctions for each simulated dataset and for the twelve estimated eigenfunctions. Fig.~\ref{fig:ise_mfd_1d} shows the boxplots of the ISE for each method across all sample sizes and number of sampling points. The results are similar to those found when estimating the eigenvalues. When we observe only a few sampling points, the quality of the estimation of the eigenfunctions starts to decrease after the third component for the \texttt{(Tensor) PCA} method, while this is not the case for the other methods. The results for the sparse and noisy cases are similar to the dense and noiseless case and are provided in the Appendix.
 \begin{figure}
      \centering
     \includegraphics[width=0.95\textwidth]{ISE}
@@ -582,7 +582,7 @@ To compare the estimation of the eigenfunctions between the different methods, w
 
 % Curves reconstruction ----------
 \begin{results}[Curve reconstruction.]
-To compare the quality of the reconstruction of the curves between the different methods, we calculated the MRSE \eqref{eq:mise_reconstructed_data} between the reconstruction of the curves and the true curves for each simulated dataset. Figure~\ref{fig:mise_mfd_1d} shows the boxplots of the MRSE for each method across all sample sizes and number of sampling points. Except in the case of few sampling points where the \texttt{(Tensor) PCA} method does not perform well (because of the poor estimation of the eigenvalues and eigenfunctions), all methods give nearly the same results for each setting. The results for the sparse and noisy cases are similar and are provided in the Appendix \ref{sub:simulation}.
+To compare the quality of the reconstruction of the curves between the different methods, we calculated the MRSE \eqref{eq:mise_reconstructed_data} between the reconstruction of the curves and the true curves for each simulated dataset. Fig.~\ref{fig:mise_mfd_1d} shows the boxplots of the MRSE for each method across all sample sizes and number of sampling points. Except in the case of few sampling points where the \texttt{(Tensor) PCA} method does not perform well (because of the poor estimation of the eigenvalues and eigenfunctions), all methods give nearly the same results for each setting. The results for the sparse and noisy cases are similar and are provided in the Appendix.
 \begin{figure}
      \centering
      \includegraphics[width=0.95\textwidth]{MRSE}
@@ -599,9 +599,9 @@ To compare the quality of the reconstruction of the curves between the different
 \section{Application} % (fold)
 \label{sec:application}
 
-We apply our methodology utilizing data to the National Basketball Association (NBA). To access comprehensive game data, we utilize the Python package \texttt{nba\_api}\footnote{\url{https://github.com/swar/nba_api/}}, which provides access to the APIs of \url{nba.com}. The dataset encompasses shot location data from all NBA games spanning the seasons between $2018-2019$ and $2022-2023$. Filtering the dataset, we focus solely on players who have made more than $1000$ shots during this five-season period, resulting in a cohort of $131$ players. These players accounted for a total of $493723$ shots attempted, of which $234941$ ($47\%$) were successful. Subsequently, we exclude shots deemed impossible (e.g., out-of-bounds), leaving us with a dataset comprising $492621$ shots (see Figure \ref{fig:shoots_make_miss} for the shots chart of Stephen Curry). We remove all the shots that are close to the hoop (a square of $2.7 \times 2.8$ meters around the hoop), as these shots will be the most common and their pattern is not interesting from a shooting behavior perspective, and players that have made fewer than $100$ shots outside this restricted area during the five-season period. This results in a cohort of $119$ players, with $186621$ attempted shots and $71893$ ($38.5\%$) made shots.
+We apply our methodology utilizing data to the National Basketball Association (NBA). To access comprehensive game data, we utilize the Python package \texttt{nba\_api}\footnote{\url{https://github.com/swar/nba_api/}}, which provides access to the APIs of \url{nba.com}. The dataset encompasses shot location data from all NBA games spanning the seasons between $2018-2019$ and $2022-2023$. Filtering the dataset, we focus solely on players who have made more than $1000$ shots during this five-season period, resulting in a cohort of $131$ players. These players accounted for a total of $493723$ shots attempted, of which $234941$ ($47\%$) were successful. Subsequently, we exclude shots deemed impossible (e.g., out-of-bounds), leaving us with a dataset comprising $492621$ shots (see Fig.~\ref{fig:shoots_make_miss} for the shots chart of Stephen Curry). We remove all the shots that are close to the hoop (a square of $2.7 \times 2.8$ meters around the hoop), as these shots will be the most common and their pattern is not interesting from a shooting behavior perspective, and players that have made fewer than $100$ shots outside this restricted area during the five-season period. This results in a cohort of $119$ players, with $186621$ attempted shots and $71893$ ($38.5\%$) made shots.
 
-To analyze shooting behavior, we employ a 2-dimensional kernel density estimation for both the attempted and made shots, utilizing Silverman's rule \citep{silvermanDensityEstimationStatistics1986} for bandwidth estimation. The density estimation is conducted on a regularly spaced grid consisting of $201 \times 201$ points (see Figure \ref{fig:shoots_make_miss} for the estimated densities for Stephen Curry). We obtain observations of bivariate functional data (i.e., $P = 2$ functional features), where both features are defined on a two-dimensional rectangular domain, and observed on an equidistant grid of size $201 \times 201$.
+To analyze shooting behavior, we employ a 2-dimensional kernel density estimation for both the attempted and made shots, utilizing Silverman's rule \citep{silvermanDensityEstimationStatistics1986} for bandwidth estimation. The density estimation is conducted on a regularly spaced grid consisting of $201 \times 201$ points (see Fig.~\ref{fig:shoots_make_miss} for the estimated densities for Stephen Curry). We obtain observations of bivariate functional data (i.e., $P = 2$ functional features), where both features are defined on a two-dimensional rectangular domain, and observed on an equidistant grid of size $201 \times 201$.
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{curry}
@@ -612,7 +612,7 @@ To analyze shooting behavior, we employ a 2-dimensional kernel density estimatio
 
 We estimate the functional principal components using the \texttt{Gram}, \texttt{(Tensor) PCA} and \texttt{2D/1D B-Splines} methods. For the \texttt{Gram} method, we directly use the estimated densities to estimate the eigencomponents. For the \texttt{(Tensor) PCA} method, the estimation of the multivariate eigenimages is based on the univariate estimation of $30$ univariate eigenimages. The estimation of the (univariate) eigenimages is performed with the FCP-TPA where the smoothing parameters are chosen via cross-validation in $[10^{-5}, 10^5]$. For the \texttt{2D/1D B-splines} method, the two components are expanded in tensor products of $13 \times 13$ B-splines. We do not add a smoothing penalty in that case, as the smoothing step is performed in the kernel density estimation.
 
-Figure~\ref{fig:eigenfunctions_gram} shows the estimated mean surfaces and eigenfunctions for the \texttt{Gram} method. The functional principal components, as a representation of the deviation from the mean surface function, may take negative values, while densities can only take positive values. For presentation purposes, the functional principal components have been normalized between $-1$ and $1$. Blue areas correspond to negative values of the functional components, and thus contribute negatively to the density, while red area corresponds to positive values of the functional components, and thus contribute positively to the density. The decomposition of the density of made shots is similar that of attempted shots. The obtained functional components can be explained as different shooting behavior. The first component, accounting for $56.9\%$ of the variance explained, contrasts two-point and three-point shooting. A player with a positive score for $\phi_1$ will tend to take/attempt shots more behind the three-point line, while if he has a negative score, he will prefer shooting within the two-points zone. For the second component ($11.5\%$ of the variance explained), the contrast is between the left and right sides of the court. Similarly, if a player has a positive (resp. negative) score for $\phi_2$, he will prefer to shoot on the right (resp. left) side of the court while looking at the hoop. The third component ($9.4\%$ of the variance explained) contrasts shooting from the wing with shooting in the axis of the hoop. Positive (resp. negative) score players will shot in the axis of the hoop (resp. from the wing). The fourth component ($4.7\%$ of the variance explained) is more difficult to explain from a shooting behavior perspective. It may be linked to players having a preferred shooting location so that most of their shots are taken from the same position. The estimation of the eigencomponents with the \texttt{(Tensor) PCA} and \texttt{2D/1D B-Splines} methods are similar to the results with the \texttt{Gram} method and are thus provided in the Appendix \ref{sec:more_results}. 
+Fig.~\ref{fig:eigenfunctions_gram} shows the estimated mean surfaces and eigenfunctions for the \texttt{Gram} method. The functional principal components, as a representation of the deviation from the mean surface function, may take negative values, while densities can only take positive values. For presentation purposes, the functional principal components have been normalized between $-1$ and $1$. Blue areas correspond to negative values of the functional components, and thus contribute negatively to the density, while red area corresponds to positive values of the functional components, and thus contribute positively to the density. The decomposition of the density of made shots is similar that of attempted shots. The obtained functional components can be explained as different shooting behavior. The first component, accounting for $56.9\%$ of the variance explained, contrasts two-point and three-point shooting. A player with a positive score for $\phi_1$ will tend to take/attempt shots more behind the three-point line, while if he has a negative score, he will prefer shooting within the two-points zone. For the second component ($11.5\%$ of the variance explained), the contrast is between the left and right sides of the court. Similarly, if a player has a positive (resp. negative) score for $\phi_2$, he will prefer to shoot on the right (resp. left) side of the court while looking at the hoop. The third component ($9.4\%$ of the variance explained) contrasts shooting from the wing with shooting in the axis of the hoop. Positive (resp. negative) score players will shot in the axis of the hoop (resp. from the wing). The fourth component ($4.7\%$ of the variance explained) is more difficult to explain from a shooting behavior perspective. It may be linked to players having a preferred shooting location so that most of their shots are taken from the same position. The estimation of the eigencomponents with the \texttt{(Tensor) PCA} and \texttt{2D/1D B-Splines} methods are similar to the results with the \texttt{Gram} method and are thus provided in the Appendix. 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{eigenfunctions_gram}
@@ -628,9 +628,7 @@ Figure~\ref{fig:eigenfunctions_gram} shows the estimated mean surfaces and eigen
 MFPCA is a fundamental statistical tool for the analysis of multivariate functional data, which enables us to capture the variability in observations defined by multiple curves. In this paper, we have described the duality between rows and columns of a data matrix within the context of multivariate functional data. We have proposed to use this duality to estimate the eigencomponents of the covariance operator in multivariate functional datasets. By comparing the results of the three methods, we provide the researcher with guidelines for determining the most appropriate method within a range of functional data frameworks. 
 
 Overall, our simulations showed that the \texttt{(Tensor) PCA}, \texttt{2D/1D B-Splines} and \texttt{Gram} methods give similar results in terms of the estimation of the eigenvalues, the eigenfunctions and reconstruction of the curves. Regarding the computation time, the use of the Gram matrix is faster in most cases. The only situation where the diagonalization of the covariance operator is quicker is when the number of observations is larger than the number of sampling points.
-In conclusion, regarding the reconstruction error and computational complexity, if the data are defined on multi-dimensional domains (images) or the number of sampling points is much higher than the number of observations, we advise using the Gram matrix. Another advantage of the \texttt{Gram} method is that it does not require basis expansion, such as the \texttt{2D/1D B-splines} method, or estimate smoothing parameters, such as the \texttt{(Tensor) PCA} method when the data are observed without noise.
-
-In practice, observations of (multivariate) functional data are often subject to noise. In this case, the diagonalization of the covariance operator seems preferable as the curves as to be smoothed beforehand to estimate the Gram matrix and yield similar results, except when the number of sampling is small where the \texttt{Gram} method is preferable. In the case of sparsely sampled functional data, we would advise to use the \texttt{Gram} method, using linear interpolation to estimate the inner-product matrix, as it does not require hyper-parameters estimation and gives slightly better results than the other methods.
+In conclusion, regarding the reconstruction error and computational complexity, if the data are defined on multi-dimensional domains (images) or the number of sampling points is much higher than the number of observations, we advise using the Gram matrix. Another advantage of the \texttt{Gram} method is that it does not require basis expansion, such as the \texttt{2D/1D B-splines} method, or estimate smoothing parameters, such as the \texttt{(Tensor) PCA} method when the data are observed without noise. In practice, observations of (multivariate) functional data are often subject to noise. In this case, the diagonalization of the covariance operator seems preferable as the curves as to be smoothed beforehand to estimate the Gram matrix and yield similar results, except when the number of sampling is small where the \texttt{Gram} method is preferable. In the case of sparsely sampled functional data, we would advise to use the \texttt{Gram} method, using linear interpolation to estimate the inner-product matrix, as it does not require hyper-parameters estimation and gives slightly better results than the other methods.
 
 Utilizing the Gram matrix enables the estimation of the number of components retained via the percentage of variance explained by the multivariate functional data, whereas the decomposition of the covariance operator necessitates the specification of the percentage of variance accounted for by each individual univariate feature. Specifying the percentage of variance explained for each feature does not guarantee recovery of the nominal percentage of variance explained for the multivariate functional data \citep{golovkineEstimationNumberComponents2023}. Although we have not investigated the extent to which this might be important, the duality relation derived in this work provides a direct solution to the problem. In settings where the univariate variance-explained cutoffs fail to retain the correct percentage of variance explained in multivariate functional data, the Gram matrix approach may be preferred.
 
@@ -638,71 +636,7 @@ The open-source implementation can be accessed at \url{https://github.com/Steven
 
 % section discussion (end)
 
-\section*{Technical details - Derivation of the eigencomponents}
-
-\subsection{General framework} % (fold)
-\label{sub:general_framework}
-In this section, we calculate the relationships between the eigenelements of the covariance operator $\Gamma$ and the ones of the Gram matrix $\mathbf{M}$ of a functional dataset. We then prove the equalities~\eqref{eq:eigenvalues_relation_p},~\eqref{eq:eigenfunction_relation_p} and~\eqref{eq:scores_relation_p}.
-
-Using the Hilbert-Schmidt theorem, there exists a complete orthonormal basis of eigenvectors $\{\boldsymbol{u}_k\}_{1 \leq k \leq N}$ of the inner-product matrix $\mathbf{M}$ such that
-\begin{equation}\label{eq:eigen_inner_prod_p}
-    \mathbf{M}\boldsymbol{u}_k = l_k\boldsymbol{u}_k.
-\end{equation}
-Let $X = \left(X_1 - \mu, \dots, X_N - \mu\right)^\top$ and denote $\widetilde{X} = \text{diag}\{\sqrt{\pi_1}, \dots, \sqrt{\pi_N}\}X$, the matrix of weighted observations. Recall that, in the case of $P$-dimensional process, the realisations of the process $X_n,~n = 1, \cdots, N$ and $\mu$ are vectors of functions of length $P$, and thus $X$ (and $\widetilde{X}$) is a matrix of functions of size $N \times P$. By left multiplying Equation~\eqref{eq:eigen_inner_prod_p} by $\widetilde{X}^\top$, we obtain
-\begin{equation}\label{eq:eigen_inner_prod_left}
-    \widetilde{X}^\top \mathbf{M} \boldsymbol{u}_k = l_k \widetilde{X}^\top \boldsymbol{u}_k.
-\end{equation} 
-Expanding Equation~\eqref{eq:eigen_inner_prod_left}, for each component $p = 1, \dots, P$, we have,
-\begin{equation}\label{eq:inner_prod_p}
-    \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j\mkern-4mu\left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\}\inH{X_i - \mu}{X_j - \mu} = l_k \mkern-5mu\sum_{n = 1}^N \mkern-4mu\sqrt{\pi_n}[\boldsymbol{u}_{k}]_n\mkern-4mu\left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}.
-\end{equation}
-Here and in the following, we note $[a]_p$ the $p$th entry of the vector $a$. Starting from the left side of Equation~\eqref{eq:inner_prod_p}, we get
-\begin{align}\label{eq:inner_prod_p_left}
-[\widetilde{X}^\top \mathbf{M} \boldsymbol{u}_k]_p &= \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \sqrt{\pi_j} [\boldsymbol{u}_{k}]_j \left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\}\inH{X_i - \mu}{X_j - \mu}\\
-&= \sum_{q = 1}^P \int_{\TT{q}} \sum_{i = 1}^N \pi_i\left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\} \left\{X_i^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \sum_{j = 1}^N \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
-&= \sum_{q = 1}^P \int_{\TT{q}} C_{p,q}(\cdot, s_q)\sum_{j = 1}^N \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
-&= \sum_{j = 1}^N \inH{C_{p \cdot}(\cdot, \cdot)}{\sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \left\{X_j - \mu\right\}} \\
-&= \Gamma\left(\sum_{j = 1}^N \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \left\{X_j - \mu\right\} \right)^{\mkern-9mu(p)}(\cdot),
-\end{align}
-and, starting from the right side of Equation~\eqref{eq:inner_prod_p},
-\begin{equation}\label{eq:inner_prod_p_right}
-    [l_k \widetilde{X}^\top \boldsymbol{u}_k]_p = l_k \sum_{n = 1}^N \sqrt{\pi_n}[\boldsymbol{u}_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}.
-\end{equation}
-From Equation~\eqref{eq:inner_prod_p_left} and Equation~\eqref{eq:inner_prod_p_right}, we obtain
-\begin{equation}
-    \Gamma\left(\sum_{j = 1}^N \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \left\{X_j - \mu\right\}\right)^{\mkern-9mu(p)}\mkern-18mu(\cdot) = l_k \sum_{n = 1}^N \sqrt{\pi_n}[\boldsymbol{u}_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}, \quad\text{for all}~ p = 1, \dots, P.
-\end{equation}
-By identification in Equation~\eqref{eq:eigendecomposition}, we find that, for each components $p$,
-\begin{equation}\label{eq:eigen_estimation}
-\lambda_k = l_k \quad\text{and}\quad \phi_k^{(p)}(\cdot) = \sum_{n = 1}^N \sqrt{\pi_n}[\boldsymbol{u}_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}, \quad k \geq 1.
-\end{equation}
-For $k \geq 1$, the norm of the eigenfunction is computed as the following:
-\begin{align*}
-\normH{\phi_k}^2 &= \sum_{i = 1}^N \sum_{j = 1}^N \sqrt{\pi_i\pi_j}[\boldsymbol{u}_{k}]_i [\boldsymbol{u}_{k}]_j\inH{X_i - \mu}{X_j - \mu} = \sum_{i = 1}^N [\boldsymbol{u}_{k}]_i \sum_{j = 1}^N \mathbf{M}_{ij} [\boldsymbol{u}_{k}]_j \\
-    &= \sum_{i = 1}^N [\boldsymbol{u}_{k}]_i l_k [\boldsymbol{u}_{k}]_i = l_k \normR{\boldsymbol{u}_k}^2 = l_k. \\
-\end{align*}
-Therefore, in order to have an orthonormal basis of eigenfunctions, we normalise the eigenfunctions $\phi_k$ from Equation~\eqref{eq:eigen_estimation} by $1 / \sqrt{l_k}$.
-Concerning the estimation of the scores, for $n = 1, \dots, N$, for $k \geq 1$, we have
-\begin{align}
-    \mathfrak{c}_{nk} &= \inH{X_n - \mu}{\phi_k} = \frac{1}{\sqrt{l_k}}\sum_{j = 1}^N \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \inH{X_n - \mu}{X_j - \mu}\\
-    &= \frac{1}{\sqrt{l_k\pi_n}}\sum_{j = 1}^N [\boldsymbol{u}_{k}]_j \mathbf{M}_{nj} = \sqrt{\frac{l_k}{\pi_n}}[\boldsymbol{u}_{k}]_n.\\
-\end{align}
-
-If we assume that the observations are equally weighted, i.e., $\pi_n = 1 / N, n = 1, \dots, N$, we get the equalities~\eqref{eq:eigenvalues_relation_p},~\eqref{eq:eigenfunction_relation_p} and~\eqref{eq:scores_relation_p}.
-
-% subsection general_framework (end)
-
-% section technical details (end)
-
-
-\section*{Acknowledgments}
-
-S. Golovkine, A. J. Simpkin and N. Bargary are partially supported by Science Foundation Ireland under Grant No. 19/FFP/7002 and co-funded under the European Regional Development Fund. E. Gunning is supported in part Science Foundation Ireland (Grant No. 18/CRT/6049) and co-funded under the European Regional Development Fund.
-
-\section*{Appendix}
-
-\section{Derivation of the equalities} % (fold)
-\label{sec:derivation_of_the_inertia_of_the_clouds}
+\section{Technical details}
 
 \subsection{Proof of Lemma \ref{lm:adjoint}} % (fold)
 \label{sub:proof_of_lemma_lm:adjoint}
@@ -741,76 +675,132 @@ $$\sum_{n = 1}^N \pi_n d^2(\pobs{M}_n, \Gmu) = \frac{1}{2}\sum_{i = 1}^N \sum_{j
 \begin{proof}
     \begin{align*}
     \sum_{n = 1}^N \pi_n d^2(\pobs{M}_n, \Gmu) 
-    &= \sum_{n = 1}^N \pi_n \sum_{p = 1}^P\normLp{\Xnp - \mu^{(p)}}^2\\
-    &= \sum_{p = 1}^P\left(\sum_{n = 1}^N \pi_n \normLp{\Xnp}^2 - \normLp{\mup{p}}^2\right) \\
-    &= \sum_{p = 1}^P \int_{\TT{p}}\Var{\Xp{p}(t_p)} \dd t_p, \\
-\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j d^2(\pobs{M}_i, \pobs{M}_j) &= \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \sum_{p = 1}^P \normLp{\Xp{p}_i - \Xp{p}_j}^2\\
-    &= \sum_{p = 1}^P \left(2\sum_{i = 1}^N \pi_i\normLp{\Xp{p}_i}^2 - 2\sum_{i = 1}^N \sum_{j = 1}^N \pi_i\pi_j\inLp{\Xp{p}_i}{\Xp{p}_j}\right) \\
+    &= \sum_{n = 1}^N \pi_n \sum_{p = 1}^P\normLp{\Xnp - \mu^{(p)}}^2
+    = \sum_{p = 1}^P\left(\sum_{n = 1}^N \pi_n \normLp{\Xnp}^2 - \normLp{\mup{p}}^2\right) 
+    = \sum_{p = 1}^P \int_{\TT{p}}\Var{\Xp{p}(t_p)} \dd t_p, \\
+\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j d^2(\pobs{M}_i, \pobs{M}_j) 
+    &= \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \sum_{p = 1}^P \normLp{\Xp{p}_i - \Xp{p}_j}^2
+    = \sum_{p = 1}^P \left(2\sum_{i = 1}^N \pi_i\normLp{\Xp{p}_i}^2 - 2\sum_{i = 1}^N \sum_{j = 1}^N \pi_i\pi_j\inLp{\Xp{p}_i}{\Xp{p}_j}\right) \\
     &= 2\sum_{p = 1}^P \int_{\TT{p}}\Var{\Xp{p}(t_p)} \dd t_p.
 \end{align*}
-The equalities in Equation~\eqref{eq:inertia} are shown.
+The equalities in Eq.~\eqref{eq:inertia} are shown.
 \end{proof}
 Next, we derive the total inertia of the cloud of individuals $\CP$ using the distance $d_\Gamma$, given by equalities in~\eqref{eq:inertia_CP}:
 $$\sum_{n = 1}^N \pi_n d_\Gamma^2(\pobs{M}_n, \Gmu) = \frac{1}{2}\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j d_\Gamma^2(\pobs{M}_i, \pobs{M}_j) = \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p. $$
 
 \begin{proof}
 \begin{align}
-   \sum_{n = 1}^N \pi_n d_\Gamma^2(\pobs{M}_n, \Gmu) &= \sum_{n = 1}^N \pi_n \inHG{X_n - \mu}{X_n - \mu} \\
-   &= \sum_{n = 1}^N \pi_n \normHG{X_n}^2 - \normHG{\mu}^2 \\
-   &= \sum_{p = 1}^P \left(\sum_{n = 1}^N \pi_n \normLp{\Xnp}_{\Gamma}^2 - \normLp{\mup{p}}_{\Gamma}^2\right) \\
-   &= \sum_{p = 1}^P \sum_{q = 1}^P \int_{\TT{p}} \int_{\TT{q}} C_{p,q}(t_p, s_q)C_{p,q}(t_p, s_q) \dd s_q \dd t_p \\
-   &= \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p, \\
-   \frac{1}{2}\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j d_\Gamma^2(\pobs{M}_i, \pobs{M}_j)&= \sum_{i = 1}^N \pi_i \normHG{X_i}^2 - \sum_{i = 1}^N \sum_{j = 1}^N \pi_i\pi_j \inHG{X_i}{X_j} \\
-    &= \sum_{i = 1}^N \pi_i \normHG{X_i}^2 - \normHG{\mu}^2 \\
-    &= \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p. 
+   \sum_{n = 1}^N \pi_n d_\Gamma^2(\pobs{M}_n, \Gmu)
+   &= \sum_{n = 1}^N \pi_n \inHG{X_n - \mu}{X_n - \mu}
+   = \sum_{n = 1}^N \pi_n \normHG{X_n}^2 - \normHG{\mu}^2
+   = \sum_{p = 1}^P \left(\sum_{n = 1}^N \pi_n \normLp{\Xnp}_{\Gamma}^2 - \normLp{\mup{p}}_{\Gamma}^2\right) \\
+   &= \sum_{p = 1}^P \sum_{q = 1}^P \int_{\TT{p}} \int_{\TT{q}} C_{p,q}(t_p, s_q)C_{p,q}(t_p, s_q) \dd s_q \dd t_p 
+   = \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p, \\
+   \frac{1}{2}\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j d_\Gamma^2(\pobs{M}_i, \pobs{M}_j)
+   &= \sum_{i = 1}^N \pi_i \normHG{X_i}^2 - \sum_{i = 1}^N \sum_{j = 1}^N \pi_i\pi_j \inHG{X_i}{X_j}
+    = \sum_{i = 1}^N \pi_i \normHG{X_i}^2 - \normHG{\mu}^2
+    = \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p. 
 \end{align}
-The equalities in Equation~\eqref{eq:inertia_CP} are shown.
+The equalities in Eq.~\eqref{eq:inertia_CP} are shown.
 \end{proof}
 Finally, we derive the inertia of the cloud of features $\CN$ using the distance $\mathsf{d}$, given by equalities in~\eqref{eq:inertia_CN}:
 $$\sum_{n = 1}^N \pi_n \mathsf{d}^2(\pfea{M}_n, \Gfea) = \frac{1}{2}\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \mathsf{d}^2(\pfea{M}_i, \pfea{M}_j) = \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p.$$
 
 \begin{proof}
 \begin{align}
-\sum_{n = 1}^N \pi_n \mathsf{d}^2(\pfea{M}_n, \Gfea) &= \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \inH{X_i - \mu}{X_j - \mu}\inH{X_i - \mu}{X_j - \mu} \\
-&= \sum_{p = 1}^P \sum_{q = 1}^P \int_{\TT{p}} \int_{\TT{q}} C_{p,q}(t_p, s_q)C_{p,q}(t_p, s_q) \dd s_q \dd t_p \\
-&= \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p,\\
-\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \mathsf{d}^2(\pfea{M}_i, \pfea{M}_j) &= \sum_{i = 1}^N \sum_{j = 1}^N \sum_{n = 1}^N \pi_i \pi_j \pi_n \inH{X_n - \mu}{X_i - X_j}\inH{X_n - \mu}{X_i - X_j} \\
-&= 2\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \inH{X_i - \mu}{X_j - \mu}\inH{X_i - \mu}{X_j - \mu} \\
-&= 2\sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p.
+\sum_{n = 1}^N \pi_n \mathsf{d}^2(\pfea{M}_n, \Gfea)
+  &= \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \inH{X_i - \mu}{X_j - \mu}\inH{X_i - \mu}{X_j - \mu}
+   = \sum_{p = 1}^P \sum_{q = 1}^P \int_{\TT{p}} \int_{\TT{q}} C_{p,q}(t_p, s_q)C_{p,q}(t_p, s_q) \dd s_q \dd t_p \\
+  &= \sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p,\\
+\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \mathsf{d}^2(\pfea{M}_i, \pfea{M}_j)
+  &= \sum_{i = 1}^N \sum_{j = 1}^N \sum_{n = 1}^N \pi_i \pi_j \pi_n \inH{X_n - \mu}{X_i - X_j}\inH{X_n - \mu}{X_i - X_j} \\
+  &= 2\sum_{i = 1}^N \sum_{j = 1}^N \pi_i \pi_j \inH{X_i - \mu}{X_j - \mu}\inH{X_i - \mu}{X_j - \mu}
+   = 2\sum_{p = 1}^P \int_{\TT{p}} \normH{C_{p \cdot}(t_p, \cdot)}^2 \dd t_p.
 \end{align}
-The equalities in Equation~\eqref{eq:inertia_CN} are shown.    
+The equalities in Eq.~\eqref{eq:inertia_CN} are shown.    
 \end{proof}
 
 % subsection derivation_of_the_inertia_of_the_clouds (end)
 
 % section derivation_of_the_inertia_of_the_clouds (end)
 
-\section{More results} % (fold)
-\label{sec:more_results}
+\subsection{Derivation of the eigencomponents}  % (fold)
+\label{sec:derivation_of_the_eigencomponents}
+
+In this section, we calculate the relationships between the eigenelements of the covariance operator $\Gamma$ and the ones of the Gram matrix $\mathbf{M}$ of a functional dataset. We then prove~\eqref{eq:eigenvalues_relation_p},~\eqref{eq:eigenfunction_relation_p} and~\eqref{eq:scores_relation_p}.
+
+Using the Hilbert-Schmidt theorem, there exists a complete orthonormal basis of eigenvectors $\{\boldsymbol{u}_k\}_{k \in \{1, \dots, N\}}$ of the inner-product matrix $\mathbf{M}$ such that
+\begin{equation}\label{eq:eigen_inner_prod_p}
+    \mathbf{M}\boldsymbol{u}_k = \ell_k\boldsymbol{u}_k.
+\end{equation}
+Let $X = \left(X_1 - \mu, \dots, X_N - \mu\right)^\top$ and denote $\widetilde{X} = \text{diag}\{\sqrt{\pi_1}, \dots, \sqrt{\pi_N}\}X$, the matrix of weighted observations. Recall that, in the case of $P$-dimensional process, the realisations of the process $X_n,~n \in \{1, \dots, N\}$ and $\mu$ are vectors of functions of length $P$, and thus $X$ (and $\widetilde{X}$) is a matrix of functions of size $N \times P$. By left multiplying Eq.~\eqref{eq:eigen_inner_prod_p} by $\widetilde{X}^\top$, we obtain
+\begin{equation}\label{eq:eigen_inner_prod_left}
+    \widetilde{X}^\top \mathbf{M} \boldsymbol{u}_k = \ell_k \widetilde{X}^\top \boldsymbol{u}_k.
+\end{equation} 
+Expanding Eq.~\eqref{eq:eigen_inner_prod_left}, for each component $p \in \{1, \dots, P\}$, we have,
+\begin{equation}\label{eq:inner_prod_p}
+    \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j\left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\}\inH{X_i - \mu}{X_j - \mu} = \ell_k \sum_{n = 1}^N \sqrt{\pi_n}[\boldsymbol{u}_{k}]_n\left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}.
+\end{equation}
+Here and in the following, we note $[a]_p$ the $p$th entry of the vector $a$. Starting from the left side of Eq.~\eqref{eq:inner_prod_p}, we get
+\begin{align}\label{eq:inner_prod_p_left}
+[\widetilde{X}^\top \mathbf{M} \boldsymbol{u}_k]_p
+  &= \sum_{i = 1}^N \sum_{j = 1}^N \pi_i \sqrt{\pi_j} [\boldsymbol{u}_{k}]_j \left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\}\inH{X_i - \mu}{X_j - \mu}\\
+  &= \sum_{q = 1}^P \int_{\TT{q}} \sum_{i = 1}^N \pi_i\left\{X_i^{(p)}(\cdot) - \mu^{(p)}(\cdot)\right\} \left\{X_i^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \sum_{j = 1}^N \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
+  &= \sum_{q = 1}^P \int_{\TT{q}} C_{p,q}(\cdot, s_q)\sum_{j = 1}^N \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \left\{X_j^{(q)}(s_q) - \mu^{(q)}(s_q)\right\} \dd s_q \\
+  &= \sum_{j = 1}^N \inH{C_{p \cdot}(\cdot, \cdot)}{\sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \{X_j - \mu\}}
+  = \Gamma\left(\sum_{j = 1}^N \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \{X_j - \mu\} \right)^{(p)}\mkern-18mu(\cdot),
+\end{align}
+and, starting from the right side of Eq.~\eqref{eq:inner_prod_p},
+\begin{equation}\label{eq:inner_prod_p_right}
+    [\ell_k \widetilde{X}^\top \boldsymbol{u}_k]_p = \ell_k \sum_{n = 1}^N \sqrt{\pi_n}[\boldsymbol{u}_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}.
+\end{equation}
+From Eq.~\eqref{eq:inner_prod_p_left} and Eq.~\eqref{eq:inner_prod_p_right}, we obtain
+\begin{equation}
+    \Gamma\left(\sum_{j = 1}^N \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \left\{X_j - \mu\right\}\right)^{(p)}\mkern-18mu(\cdot) = \ell_k \sum_{n = 1}^N \sqrt{\pi_n}[\boldsymbol{u}_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}, \quad\text{for all}~ p \in \{1, \dots, P\}.
+\end{equation}
+By identification in Eq.~\eqref{eq:eigendecomposition}, we find that, for each components $p$,
+\begin{equation}\label{eq:eigen_estimation}
+\lambda_k = \ell_k \quad\text{and}\quad \phi_k^{(p)}(\cdot) = \sum_{n = 1}^N \sqrt{\pi_n}[\boldsymbol{u}_{k}]_n \left\{\Xnp(\cdot) - \mu^{(p)}(\cdot)\right\}, \quad k \geq 1.
+\end{equation}
+For $k \geq 1$, the norm of the eigenfunction is computed as the following:
+\begin{equation*}
+\normH{\phi_k}^2 = \sum_{i = 1}^N \sum_{j = 1}^N \sqrt{\pi_i\pi_j}[\boldsymbol{u}_{k}]_i [\boldsymbol{u}_{k}]_j\inH{X_i - \mu}{X_j - \mu} = \sum_{i = 1}^N [\boldsymbol{u}_{k}]_i \sum_{j = 1}^N \mathbf{M}_{ij} [\boldsymbol{u}_{k}]_j 
+    = \sum_{i = 1}^N [\boldsymbol{u}_{k}]_i \ell_k [\boldsymbol{u}_{k}]_i = \ell_k \normR{\boldsymbol{u}_k}^2 = \ell_k. 
+\end{equation*}
+Therefore, in order to have an orthonormal basis of eigenfunctions, we normalise the eigenfunctions $\phi_k$ from Eq.~\eqref{eq:eigen_estimation} by $1 / \sqrt{\ell_k}$.
+Concerning the estimation of the scores, for $n \in \{1, \dots, N\}$, for $k \geq 1$, we have
+\begin{align}
+    \mathfrak{c}_{nk} = \inH{X_n - \mu}{\phi_k} = \frac{1}{\sqrt{\ell_k}}\sum_{j = 1}^N \sqrt{\pi_j}[\boldsymbol{u}_{k}]_j \inH{X_n - \mu}{X_j - \mu}
+    = \frac{1}{\sqrt{\ell_k\pi_n}}\sum_{j = 1}^N [\boldsymbol{u}_{k}]_j \mathbf{M}_{nj} = \sqrt{\frac{\ell_k}{\pi_n}}[\boldsymbol{u}_{k}]_n.
+\end{align}
+If we assume that the observations are equally weighted, i.e., $\pi_n = 1 / N, n \in \{1, \dots, N\}$, we get the equalities~\eqref{eq:eigenvalues_relation_p},~\eqref{eq:eigenfunction_relation_p} and~\eqref{eq:scores_relation_p}.
+
+% subsection derivation_of_the_eigencomponents (end)
+
+% section technical details (end)
 
 
-\subsection{Simulation} % (fold)
-\label{sub:simulation}
+\section*{Acknowledgments}
 
-We present the results of the simulations in the sparse and noisy cases. Figures \ref{fig:logAE_mfd_1d_noise}, \ref{fig:ise_mfd_1d_noise} and \ref{fig:mise_mfd_1d_noise} present the boxplots of the RSE, ISE and MRSE, respectively, for the noisy case. To generate noisy data, we consider the model \eqref{eq:model_error} where $\sigma^2 = 0.25$. For the \texttt{(Tensor) PCA} method, we first smooth the 2-dimensional data using P-Splines smoothing and estimate a smooth version of the mean and covariance functions for the one-dimensional data using P-Splines smoothing. For the \texttt{2D/1D B-Splines} and \texttt{Gram} methods, all the observations have been smoothed using P-Splines smoothing beforehand. In every case, the penalty involved in P-Splines smoothing has been estimated using cross-validation.
+S. Golovkine, A. J. Simpkin and N. Bargary are partially supported by Science Foundation Ireland under Grant No. 19/FFP/7002 and co-funded under the European Regional Development Fund. E. Gunning is supported in part Science Foundation Ireland (Grant No. 18/CRT/6049) and co-funded under the European Regional Development Fund.
 
+\section*{Appendix}
+
+
+\begin{results}[Simulation.] We present the results of the simulations in the sparse and noisy cases. Fig.~\ref{fig:logAE_mfd_1d_noise}, \ref{fig:ise_mfd_1d_noise} and \ref{fig:mise_mfd_1d_noise} present the boxplots of the RSE, ISE and MRSE, respectively, for the noisy case. To generate noisy data, we consider the model \eqref{eq:model_error} where $\sigma^2 = 0.25$. For the \texttt{(Tensor) PCA} method, we first smooth the 2-dimensional data using P-Splines smoothing and estimate a smooth version of the mean and covariance functions for the one-dimensional data using P-Splines smoothing. For the \texttt{2D/1D B-Splines} and \texttt{Gram} methods, all the observations have been smoothed using P-Splines smoothing beforehand. In every case, the penalty involved in P-Splines smoothing has been estimated using cross-validation.
 \begin{figure}
     \centering
     \includegraphics[width=0.95\textwidth]{AE_noise}
     \caption{RSE for the estimated eigenvalues for each method in the noisy case. $N$ is the number of observations, $M$ is the number of sampling points per curve (the first two numbers are for the images and the last one is for the curves).}
     \label{fig:logAE_mfd_1d_noise}
 \end{figure}
-
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{AE_sparse}
     \caption{RSE for the estimated eigenvalues for each method in the sparse case. We set $N = 250$, $M^{(1)} = 101 \times 51$ and $M^{(2)} = 201$. For the case of medium sparsity, we remove $50\%-70\%$ of the sampling points and for the case of high sparsity, we remove $90\%-95\%$ of the sampling points.}
     \label{fig:logAE_mfd_1d_sparse}
 \end{figure}
-
-
-Figures \ref{fig:logAE_mfd_1d_sparse}, \ref{fig:ise_mfd_1d_sparse} and \ref{fig:mise_mfd_1d_sparse} present the boxplots of the RSE, ISE and MRSE, respectively, for the sparse case. In this case, we only consider $N = 250$, $M^{(1)} = 101 \times 51$, $M^{(2)} = 201$ and no noise. We consider medium sparsity, where $50\%-70\%$ of the sampling points have been removed and high sparsity, where $90\%-95\%$ of the sampling points have been removed. For the \texttt{(Tensor) PCA} method, we first interpolate the 2-dimensional data to have the observations reguarlarly sampled on a grid and estimate a smooth version of the mean and covariance functions for the one-dimensional data using P-Splines smoothing. For the \texttt{2D/1D B-Splines} method, all the observations have been smoothed using P-splines smoothing with a penalty estimated by cross-validation. For the \texttt{Gram} method, the observations have been linearly interpolated to estimate the inner-product matrix.
-
+Fig.~\ref{fig:logAE_mfd_1d_sparse}, \ref{fig:ise_mfd_1d_sparse} and \ref{fig:mise_mfd_1d_sparse} present the boxplots of the RSE, ISE and MRSE, respectively, for the sparse case. In this case, we only consider $N = 250$, $M^{(1)} = 101 \times 51$, $M^{(2)} = 201$ and no noise. We consider medium sparsity, where $50\%-70\%$ of the sampling points have been removed and high sparsity, where $90\%-95\%$ of the sampling points have been removed. For the \texttt{(Tensor) PCA} method, we first interpolate the 2-dimensional data to have the observations reguarlarly sampled on a grid and estimate a smooth version of the mean and covariance functions for the one-dimensional data using P-Splines smoothing. For the \texttt{2D/1D B-Splines} method, all the observations have been smoothed using P-splines smoothing with a penalty estimated by cross-validation. For the \texttt{Gram} method, the observations have been linearly interpolated to estimate the inner-product matrix.
 
 
 \begin{figure}
@@ -841,13 +831,11 @@ Figures \ref{fig:logAE_mfd_1d_sparse}, \ref{fig:ise_mfd_1d_sparse} and \ref{fig:
     \caption{MRSE for the reconstructed curves for each method in the sparse case. We set $N = 250$, $M^{(1)} = 101 \times 51$ and $M^{(2)} = 201$. For the case of medium sparsity, we remove $50\%-70\%$ of the sampling points and for the case of high sparsity, we remove $90\%-95\%$ of the sampling points.}
     \label{fig:mise_mfd_1d_sparse}
 \end{figure}
+\end{results}
 
 % subsection simulation (end)
 
-\subsection{Application} % (fold)
-\label{sub:application}
-
-Here, we present the estimation of the eigencomponents of the shooting data using the \texttt{(Tensor) PCA} (see Figure~\ref{fig:eigenfunctions_fcptpa}) and \texttt{2D/1D B-Splines} (see Figure~\ref{fig:eigenfunctions_psplines}) methods. The results are similar to those found using the \texttt{Gram} method for the eigenfunctions and the percentage of variance explained for each eigenfunctions.
+\begin{results}[Application.] Here, we present the estimation of the eigencomponents of the shooting data using the \texttt{(Tensor) PCA} (see Fig.~\ref{fig:eigenfunctions_fcptpa}) and \texttt{2D/1D B-Splines} (see Fig.~\ref{fig:eigenfunctions_psplines}) methods. The results are similar to those found using the \texttt{Gram} method for the eigenfunctions and the percentage of variance explained for each eigenfunctions.
 
 \begin{figure}
     \centering
@@ -862,6 +850,7 @@ Here, we present the estimation of the eigencomponents of the shooting data usin
     \caption{The estimated mean surfaces (first column) and the estimated eigenfunctions (second to fifth columns) for the shots dataset using the \texttt{2D/1D B-splines} method.}
     \label{fig:eigenfunctions_psplines}
 \end{figure}
+\end{results}
 
 % subsection application (end)
 
@@ -880,31 +869,6 @@ Here, we present the estimation of the eigencomponents of the shooting data usin
 \medskip
 
 {\bf Supplementary material:} We provide insights for when the data are already decomposed in a basis, e.g. Fourier or polynomials. In particular, we explain how to perform MFPCA as described in Section~\ref{sec:functional_principal_components_analysis} in the main text.
-
-\newpage
-\centerline{\Large{\textbf{Stylistic guidelines}}}
-
-\noindent
-\begin{description}
-\item[$\bullet$] The length of an JMVA article is 15-25 pages. There exists a special track for young researchers where somewhat shorter contributions can be accepted (see below).
-\item[$\bullet$]  Number only those equations that are referred to in the text.
-\item[$\bullet$] Enumerations should list the first and last element only, i.e., write $\{1, \ldots, n\}$ (NOT $\{1, 2, \ldots , n\}$). Also do not use $\cdots$ in enumerations. Write $i\in\{1,\ldots, n\}$ instead of $i=1,\ldots, n$.
-\item[$\bullet$] Respect the following priority rules for fences $[\{()\}]$ unless the fences have a special meaning, i.e., write $E{X(t)}$ (some authors use $E[X(t)]$ which is acceptable). If you refer to the set ${1,\ldots, n}$, don't write $(1,\ldots, n)$, because in the latter two contexts, $\{\}$ and $()$ have conventional meanings.
-\item[$\bullet$] Use $^\top$ for transposition (NOT $'$, $^T$, $^\tau$ or $^\dagger$) and $\ln$ for $log$, unless you mean $log_{10}$ .
-\item[$\bullet$] Symbols like $\sup$, $\inf$, $\max$, $\min$, E, Var, Cov, Corr, diag, trace (or tr), etc.~should be in Roman characters (NOT in italics).
-\item[$\bullet$] Use $\Pr$ for probability, so that it prints "Pr" in Roman characters.
-\item[$\bullet$] Avoid the symbol "l", always use $\ell$ if you need an "ell".
-\item[$\bullet$] "i.e." and "e.g." should be preceded and followed by a comma:  see, e.g.,
-\item[$\bullet$] Vectors should usually be interpreted as columns vectors (if it is not a coordinate free presentation).
-\item[$\bullet$] Bold upper and lower cases can be used for matrices and vectors, respectively.
-\item[$\bullet$] "cf." means "compare to", NOT "refer to". If you mean "refer to", write "see".
-\item[$\bullet$] Avoid in-line fractions; if you need one, write them in the form $a/b$ rather than $\frac{a}{b}$.
-\item[$\bullet$] Concerning the references and the bibliography:
-Papers should be referred to by [] or by AUTHOR [number] where appropriate;
-in lists of references, order papers in increasing order, i.e., write [2, 5, 8], not [2, 8, 5], even if 2 did not appear first chronologically (use "cite", e.g., \cite{Agresti13} or \cite{Agresti13,aitchison1958maximum}); "et al." should be in Roman characters, NOT in italic; the bibliography should list the papers in alphabetical order and should be numbered.
-\item[$\bullet$] When referring to the software R, always use \textsf{R}, even in references. Packages should be typeset as \texttt{...}
-\end{description}
-
 
 
 \end{document}
